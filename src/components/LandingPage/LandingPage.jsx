@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import zist from "./../../Assets/zist.svg";
-import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Segment,Form} from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Form} from "semantic-ui-react";
 import cartImage from "./../../Assets/cart.png";
 import { LoginButton } from "./LoginButton";
 import styled from 'styled-components';
@@ -10,7 +10,7 @@ import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
 import zistApp from "./../../Assets/zistApp.png";
 import "./styles.css";     
-import { SignUpButton } from "../SignUpButton";
+import { SignUpButton } from "./SignUpButton";
 import { ModalLoginButton } from "./ModalLoginButtonn";
 import { ModalSignUpButton } from "./ModalSignUpButton";
 import axios from 'axios';
@@ -102,35 +102,24 @@ const LandingPage = () => {
   const [password, setPassword] = useState('');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-  // console.log(firstName,lastName,email,password)
-  // const [activeTab, setActiveTab] = useState('SHOPPING');
-  // const [open, setOpen] = useState(false);
-  // const handleItemClick = (e, { name }) => setActiveTab({ activeTab: name })
-  // const handleOpen = () => setOpen({ open: true })
-  // const handleClose = () => setOpen({ open: false })
 
-  const handleFirstName = (e, { name, value }) => setFirstName({ [name]:   value })
-  const handleLastName = (e, { name, value  }) => setLastName({ [name]:   value })
-  const handleEmail = (e, { name, value  }) => setEmail({ [name]:   value })
-  const handlePassword = (e, { name, value  }) => setPassword({ [name]:   value })
+
+  const [signupDetails, setSignupDetails] = useState({})
+  console.log(signupDetails)
+
+  const handleSignup = (event) => {
+      const { name, value } = event.target 
+      setSignupDetails((prevState) => ({...prevState, [name] : value }))
+  }
 
 
 const handleSubmit = (event) => {
-  event.preventDefault();
-  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', {
-    // data to be sent
-      first_name: firstName,
-      last_name: lastName,
-      email: email ,
-      password: password
-    })
+  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { signupDetails })
     .then(response => {
-      if (response.data.status) {
-       console.log(response);
-     } 
      console.log(response);
     }).catch(error => {console.log(error)});
 }
+
 
 const handleLogin = (event) => {
   // event.preventDefault();
@@ -202,7 +191,7 @@ const handleLogin = (event) => {
                 type='text'
                 textAlign='center'
                 size='tiny'
-                onChange = {e => setFirstName(e.target.value)}
+                onChange = {handleSignup}
                 placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
 
                 <Form.Input   transparent
@@ -211,7 +200,7 @@ const handleLogin = (event) => {
                 type='text'
                 textAlign='center'
                 size='tiny'
-                onChange = {e => setLastName(e.target.value)}
+                onChange = {handleSignup}
                 placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
 
                 <Form.Input   transparent
@@ -220,7 +209,7 @@ const handleLogin = (event) => {
                 type='email'
                 textAlign='center'
                 size='tiny'
-                onChange = {e => setEmail(e.target.value)}
+                onChange = {handleSignup}
                 placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
 
                 <Form.Input   transparent
@@ -229,7 +218,7 @@ const handleLogin = (event) => {
                 type='password'
                 textAlign='center'
                 size='tiny'
-                onChange = {e => setPassword(e.target.value)}
+                onChange = {handleSignup}
                 placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
                  <ModalSignUpButton />
                 </Form>

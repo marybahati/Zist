@@ -1,12 +1,17 @@
 import React from 'react';
-// import './App.css'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage';
+import {Shopping} from './components/ShoppingPage/Shopping'
 
 function App() {
   return (
-    <div >
-        <LandingPage/>
-    </div>
+    // <div >
+    //     <LandingPage/>
+    // </div>
+    <Router>
+      <Route exact path='/' component={LandingPage} />
+      <Route exact path='/shopping' component={Shopping} />
+    </Router>
   );
 }
 
