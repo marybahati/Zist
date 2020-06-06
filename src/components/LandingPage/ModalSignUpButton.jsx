@@ -9,8 +9,8 @@ export const ModalSignUpButton = (props) => (
         opacity: 1,
         borderRadius: '30px',
         color: '#0A0806',
-        marginTop:'45px',
-        marginBottom: '29px',
+        marginTop:'29px',
+        fontWeight: 'bold',
     }}>Sign up</Button>
 )
     

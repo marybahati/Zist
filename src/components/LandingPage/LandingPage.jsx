@@ -13,6 +13,7 @@ import "./styles.css";
 import { SignUpButton } from "../SignUpButton";
 import { ModalLoginButton } from "./ModalLoginButtonn";
 import { ModalSignUpButton } from "./ModalSignUpButton";
+import axios from 'axios';
 
 const MainDiv = styled.div`
     position: absolute;
@@ -95,11 +96,56 @@ const SocialMediaLinks = styled(List.Item)`
 
 const LandingPage = () => { 
   const [location, setLocation] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  // console.log(firstName,lastName,email,password)
   // const [activeTab, setActiveTab] = useState('SHOPPING');
   // const [open, setOpen] = useState(false);
   // const handleItemClick = (e, { name }) => setActiveTab({ activeTab: name })
   // const handleOpen = () => setOpen({ open: true })
   // const handleClose = () => setOpen({ open: false })
+
+  const handleFirstName = (e, { name, value }) => setFirstName({ [name]:   value })
+  const handleLastName = (e, { name, value  }) => setLastName({ [name]:   value })
+  const handleEmail = (e, { name, value  }) => setEmail({ [name]:   value })
+  const handlePassword = (e, { name, value  }) => setPassword({ [name]:   value })
+
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', {
+    // data to be sent
+      first_name: firstName,
+      last_name: lastName,
+      email: email ,
+      password: password
+    })
+    .then(response => {
+      if (response.data.status) {
+       console.log(response);
+     } 
+     console.log(response);
+    }).catch(error => {console.log(error)});
+}
+
+const handleLogin = (event) => {
+  // event.preventDefault();
+  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/token/', {
+    // data to be sent
+      email: loginEmail ,
+      password: loginPassword
+    })
+    .then(response => {
+      if (response.data.status) {
+       console.log(response);
+     } 
+     console.log(response.data);
+    }).catch(error => {console.log(error)});
+}
 
   return (
     <MainDiv >
@@ -108,28 +154,30 @@ const LandingPage = () => {
       <Grid.Row>
         <Grid.Column
           width={4}
-          style={{ backgroundColor: "", fontWeight: "bold", fontSize: "60px",paddingTop:15 }}
           textAlign="left"
         >
-          <h1 style={{ fontWeight: "bold" }}>ZIST SHOPPING</h1>
+          <h1 style={{ fontSize: "30px",fontWeight: "bold"  }}>ZIST SHOPPING</h1>
+          <Dropdown text="EXPLORE" style={{ fontSize: '18px',color: '#050504'}}>
+            <Dropdown.Menu >
+              <Dropdown.Item text="Shopping" />
+              <Dropdown.Item text="Zist Articles" />
+              <Dropdown.Item text="Zist Recipes" />
+              <Dropdown.Item text="Zist Mission & Vision" /> 
+                          <Image position='right' src='data:image/jpeg;base64,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'/>
+       
+            </Dropdown.Menu>
+          </Dropdown>
         </Grid.Column>
 
         <Grid.Column width={12} style={{ backgroundColor: "" }}>
-          <Dropdown text="EXPLORE" style={{ marginRight: "1.5rem" }}>
-            <Dropdown.Menu>
-              <Dropdown.Item text="Shopping" />
-              <Dropdown.Item text="Delivery options" />
-            </Dropdown.Menu>
-          </Dropdown>
 
-          <Dropdown text="HELP" style={{ marginRight: "1.5rem" }}>
-            <Dropdown.Menu>
-              <Dropdown.Item text="Shopping" />
-              <Dropdown.Item text="Delivery options" />
-            </Dropdown.Menu>
-          </Dropdown>
+         <List style={{display:'inline-block'}}>
+            <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline'}}>
+              HELP
+            </List.Item>
+          </List>
           
-          <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}}
+          <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
            trigger={<Button
             style={{
               width: '201px',
@@ -141,19 +189,49 @@ const LandingPage = () => {
               marginRight: '20px'
           }}
            >SIGN UP</Button>} >
-           <Grid width={16} style={{padding:'61px 0 80px 105px',backgroundColor:'',textAlign:'center'}}>
+           <Grid width={16} style={{padding:'61px 0 60px 105px',backgroundColor:'',textAlign:'center'}}>
             <Modal.Content>
-            <h2 >SIGN UP</h2>
+            <h3 >SIGN UP </h3>
               <Modal.Description style={{marginBottom: '40px'}}>
-                <Header style={{marginBottom:'50px',marginTop: '50px',fontSize:'28px'}}>Enter your phone number</Header>
-                <Form>
+                <Header style={{marginBottom:'30px',marginTop: '30px',fontSize:'18px'}}>Create a new account</Header>
+                <Form onSubmit={handleSubmit}>
+
                 <Form.Input   transparent
+                name='first_name'
                 required={true}
-                type='number'
+                type='text'
                 textAlign='center'
                 size='tiny'
-                placeholder='0728287616' style={{borderBottom:'2px solid #FFE5B4'}} />
-                 <ModalSignUpButton/>
+                onChange = {e => setFirstName(e.target.value)}
+                placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
+
+                <Form.Input   transparent
+                name='last_name'
+                required={true}
+                type='text'
+                textAlign='center'
+                size='tiny'
+                onChange = {e => setLastName(e.target.value)}
+                placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
+
+                <Form.Input   transparent
+                name='email'
+                required={true}
+                type='email'
+                textAlign='center'
+                size='tiny'
+                onChange = {e => setEmail(e.target.value)}
+                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
+
+                <Form.Input   transparent
+                name='password'
+                required={true}
+                type='password'
+                textAlign='center'
+                size='tiny'
+                onChange = {e => setPassword(e.target.value)}
+                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
+                 <ModalSignUpButton />
                 </Form>
               </Modal.Description>
               <p style={{color:'#BCB4A7'}}>Already have an account ?</p> 
@@ -162,7 +240,7 @@ const LandingPage = () => {
            </Grid>
           </Modal>
 
-          <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}}
+          <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
           trigger={
             <Button
             style={{
@@ -180,14 +258,24 @@ const LandingPage = () => {
             <Modal.Content>
             <h2 >LOG IN</h2>
               <Modal.Description style={{marginBottom: '40px'}}>
-                <Header style={{marginBottom:'50px',marginTop: '50px',fontSize:'28px'}}>Enter your phone number</Header>
-                <Form>
+                {/* <Header style={{marginBottom:'50px',marginTop: '50px',fontSize:'28px'}}>Get into your account</Header> */}
+                <Form onSubmit={handleLogin}>
                 <Form.Input   transparent
+                onChange={ e => setLoginEmail(e.target.value) }
                 required={true}
-                type='number'
+                type='email'
                 textAlign='center'
                 size='tiny'
-                placeholder='0728287616' style={{borderBottom:'2px solid #FFE5B4'}} />
+                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
+
+                <Form.Input   transparent
+                onChange={ e => setLoginPassword(e.target.value) }
+                required={true}
+                type='password'
+                textAlign='center'
+                size='tiny'
+                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
+
                  <ModalLoginButton/>
                 </Form>
                 <a href='' style={{color:'#BCB4A7',textDecoration: 'underline'}}>Can't Sign in?</a>
