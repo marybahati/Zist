@@ -14,7 +14,7 @@ export const Shopping = () => {
             placeholder='SEARCH FOR A PLACE OR AN ITEM'
             size='huge'
             fluid={true}
-            style={{display:'inline-block',background:'#FEE2D4',marginRight: '50px'}}
+            style={{display:'inline-block',background:'#FEE2D4 !important',marginRight: '50px'}}
           />
          </Grid.Column>
             <List style={{display:'inline-block'}}>
