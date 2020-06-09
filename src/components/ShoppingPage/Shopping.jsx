@@ -3,6 +3,8 @@ import bgImage from './../../Assets/bgShopping.png'
 import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Form, Search} from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
+import {LoginButton} from './../LandingPage/LoginButton';
+import {SignUpButton} from './../LandingPage/SignUpButton';
 
 export const Shopping = () => {
     return (
@@ -12,16 +14,23 @@ export const Shopping = () => {
          <Search
             input={{ icon: 'search', iconPosition: 'left'}}
             placeholder='SEARCH FOR A PLACE OR AN ITEM'
-            size='huge'
+            width={2}
+            // size='huge'
             fluid={true}
-            style={{display:'inline-block',background:'#FEE2D4 !important',marginRight: '50px'}}
+            style={{display:'inline-block',backgroundColor:
+            '#FEE2D4 !important',marginRight: '50px' ,
+            minWidth: '500px !important'
+          }}
           />
+          
          </Grid.Column>
             <List style={{display:'inline-block'}}>
             <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline',paddingTop:'80px'}}>
                 HELP
             </List.Item>
             </List>
+            <LoginButton/>
+         <SignUpButton/>
  
  {/* <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
   trigger={<Button
