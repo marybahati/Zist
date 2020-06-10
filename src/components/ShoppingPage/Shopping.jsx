@@ -177,14 +177,14 @@ export const Shopping = () => {
       <Card fluid={true} style={{border: '1px solid #707070',borderRadius: '8px '}}>
     <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
     <Card.Content>
-      <Card.Header>Brandy's Deli</Card.Header>
+      <Card.Header>The freshest grocery shop</Card.Header>
       <h4>
-        All your utilities in one place
+        High quality groceries from local producers
       </h4>
 
       <List bulleted horizontal >
         <List.Item ></List.Item>
-        <List.Item >utilities</List.Item>
+        <List.Item >groceries</List.Item>
       </List>
     </Card.Content>
   </Card>
