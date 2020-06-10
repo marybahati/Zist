@@ -1,29 +1,35 @@
 import React from 'react'
 import bgImage from './../../Assets/bgShopping.png'
-import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Form, Search} from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Form, Search,Card} from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
 import {LoginButton} from './../LandingPage/LoginButton';
 import {SignUpButton} from './../LandingPage/SignUpButton';
 
+
+const CardColumn = styled(Grid.Column)`
+    // border: 1px solid #707070;
+    margin-bottom: 100px;
+    padding: 0 !important;
+`
 export const Shopping = () => {
     return (
-        <Grid style={{ backgroundImage:`url(${bgImage})`,height:'1290px' }} >
-         <Grid.Column width={16} style={{ backgroundColor: "",textAlign:'right'}}>
-         <Grid.Column width={8} style={{display:'inline-block',backgroun:'#FEE2D4',marginRight: '50px'}}>
-         <Search
+        <Grid >
+         <Grid.Column width={16} style={{ backgroundColor: "",textAlign:'right',backgroundImage:`url(${bgImage})`,height:'1290px' }}>
+         <Grid width={16} style={{display:'inline-block',background:'#FEE2D4',marginRight: '50px'}}>
+         {/* <Search
             input={{ icon: 'search', iconPosition: 'left'}}
             placeholder='SEARCH FOR A PLACE OR AN ITEM'
             width={2}
-            // size='huge'
-            fluid={true}
+            size='huge'
+            fluid
             style={{display:'inline-block',backgroundColor:
             '#FEE2D4 !important',marginRight: '50px' ,
             minWidth: '500px !important'
           }}
-          />
+          /> */}
           
-         </Grid.Column>
+         </Grid>
             <List style={{display:'inline-block'}}>
             <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline',paddingTop:'80px'}}>
                 HELP
@@ -145,6 +151,47 @@ export const Shopping = () => {
    style={{ display: "inline-block", marginLeft: "1rem" }}
  />
 </Grid.Column>
-       </Grid>
+<Grid width={16}>
+  <Grid.Row style={{background:''}}>icons  will be here</Grid.Row>
+  <Grid.Row width={16} style={{background:'',margin: '120px 0'}} > 
+      <CardColumn width={7} style={{margin: '0 100px 0 30px'}}>
+      <Card fluid={true} style={{borderRadius: '8px ',border: '1px solid #707070'}}>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>Brandy's Deli</Card.Header>
+      <h4>
+        All your utilities in one place
+      </h4>
+
+      <List bulleted horizontal >
+      <List.Item ></List.Item>
+        <List.Item >groceries</List.Item>
+        <List.Item >utilities</List.Item>
+      </List>
+    </Card.Content>
+    
+  </Card>
+      </CardColumn>
+
+      <CardColumn width={7} style={{margin: '0 30px 0 0'}}>
+      <Card fluid={true} style={{border: '1px solid #707070',borderRadius: '8px '}}>
+    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>Brandy's Deli</Card.Header>
+      <h4>
+        All your utilities in one place
+      </h4>
+
+      <List bulleted horizontal >
+        <List.Item ></List.Item>
+        <List.Item >utilities</List.Item>
+      </List>
+    </Card.Content>
+  </Card>
+      </CardColumn>
+
+  </Grid.Row>
+</Grid>
+</Grid>
     )
 }
