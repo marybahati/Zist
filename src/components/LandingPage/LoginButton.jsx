@@ -8,7 +8,8 @@ export const LoginButton = (props) => (
         background: ' 0% 0% no-repeat padding-box',
         border:' 2px solid #080808',
         opacity:1,  
-        borderRadius:'20px'
+        borderRadius:'20px',
+        marginRight:'20px'
     }} onClick={props.handleClick} >LOGIN</Button>
 )
     

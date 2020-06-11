@@ -14,9 +14,11 @@ const CardColumn = styled(Grid.Column)`
 `
 export const Shopping = () => {
     return (
-        <Grid >
-         <Grid.Column width={16} style={{ backgroundColor: "",textAlign:'right',backgroundImage:`url(${bgImage})`,height:'1290px' }}>
-         <Grid width={16} style={{display:'inline-block',background:'#FEE2D4',marginRight: '50px'}}>
+        <div >
+          <Grid>
+         <Grid.Row width={16} style={{ backgroundColor: "",textAlign:'right',backgroundImage:`url(${bgImage})`,height:'1290px' }}>
+         <Grid.Column width={6}></Grid.Column>
+         <Grid.Column width={4} style={{display:'inline-block',background:'',paddingTop:'80px',textAlign:'right'}}>
          {/* <Search
             input={{ icon: 'search', iconPosition: 'left'}}
             placeholder='SEARCH FOR A PLACE OR AN ITEM'
@@ -28,8 +30,11 @@ export const Shopping = () => {
             minWidth: '500px !important'
           }}
           /> */}
+          <Input icon='search' fluid={true}  style={{fontSize:'27px'}} transparent type='search'   
+           iconPosition='left' placeholder='SEARCH FOR A PLACE OR ITEM ' />
           
-         </Grid>
+         </Grid.Column >
+            <Grid.Column width={6} style={{display:'inline-block',background:'',marginRight: ''}}>
             <List style={{display:'inline-block'}}>
             <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline',paddingTop:'80px'}}>
                 HELP
@@ -37,7 +42,14 @@ export const Shopping = () => {
             </List>
             <LoginButton/>
          <SignUpButton/>
- 
+           
+        <Image
+          src={cartImage}
+          style={{ display: "inline-block", margin: " 0 18px" }}
+        />
+            </Grid.Column>
+    </Grid.Row>
+    </Grid>
  {/* <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
   trigger={<Button
    style={{
@@ -145,12 +157,8 @@ export const Shopping = () => {
    </Modal.Content>
   </Grid>
  </Modal> */} 
-  
- <Image
-   src={cartImage}
-   style={{ display: "inline-block", marginLeft: "1rem" }}
- />
-</Grid.Column>
+
+
 <Grid width={16}>
   <Grid.Row style={{background:''}}>icons  will be here</Grid.Row>
   <Grid.Row width={16} style={{background:'',margin: '120px 0'}} > 
@@ -192,6 +200,6 @@ export const Shopping = () => {
 
   </Grid.Row>
 </Grid>
-</Grid>
+</div>
     )
 }
