@@ -327,6 +327,7 @@ const handleLogin = (event) => {
           margin: "80px auto 0px auto",
           width: "45%",
           border: "1px solid #707070",
+          fontSize:'40px'
         }}
         size="massive"
         type="text"
@@ -366,7 +367,7 @@ const handleLogin = (event) => {
       </TabDiv> 
 
       </Menu> */}
-      <Icon name='location arrow' link style={{width:'100%', fontSize:'17px',paddingTop:'30px'}} > Use my current location </Icon>
+      <Icon name='location arrow' link style={{width:'100%', fontSize:'30px',paddingTop:'30px'}} > Use my current location </Icon>
       </div> 
     </MenuGrid>
          </Grid.Row>

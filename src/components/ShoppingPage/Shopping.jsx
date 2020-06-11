@@ -5,10 +5,15 @@ import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
 import {LoginButton} from './../LandingPage/LoginButton';
 import {SignUpButton} from './../LandingPage/SignUpButton';
-
+import card1 from './../../Assets/1.jpg';
+import card2 from './../../Assets/2.jpg';
+import card3 from './../../Assets/3.jpg';
+import card4 from './../../Assets/4.jpg';
+import card8 from './../../Assets/8.jpg';
+import card9 from './../../Assets/9.jpg';
+import card10 from './../../Assets/10.jpg';
 
 const CardColumn = styled(Grid.Column)`
-    // border: 1px solid #707070;
     margin-bottom: 100px;
     padding: 0 !important;
 `
@@ -164,9 +169,9 @@ export const Shopping = () => {
   <Grid.Row width={16} style={{background:'',margin: '120px 0'}} > 
       <CardColumn width={7} style={{margin: '0 100px 0 30px'}}>
       <Card fluid={true} style={{borderRadius: '8px ',border: '1px solid #707070'}}>
-    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Image src={card1} wrapped ui={false} />
     <Card.Content>
-      <Card.Header>Brandy's Deli</Card.Header>
+      <Card.Header>Brandy's Deli <Icon name='check circle' color='yellow'/></Card.Header>
       <h4>
         All your utilities in one place
       </h4>
@@ -183,9 +188,9 @@ export const Shopping = () => {
 
       <CardColumn width={7} style={{margin: '0 30px 0 0'}}>
       <Card fluid={true} style={{border: '1px solid #707070',borderRadius: '8px '}}>
-    <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
+    <Image src={card3} wrapped ui={false} />
     <Card.Content>
-      <Card.Header>The freshest grocery shop</Card.Header>
+      <Card.Header>The freshest grocery shop <Icon name='check circle' color='yellow'/> </Card.Header>
       <h4>
         High quality groceries from local producers
       </h4>
@@ -199,6 +204,125 @@ export const Shopping = () => {
       </CardColumn>
 
   </Grid.Row>
+
+  <Grid.Row width={16} style={{background:'',margin: '120px 0'}} > 
+      <CardColumn width={7} style={{margin: '0 100px 0 30px'}}>
+      <Card fluid={true} style={{borderRadius: '8px ',border: '1px solid #707070'}}>
+    <Image src={card2} wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>The freshest grocery shop <Icon name='check circle' color='yellow'/></Card.Header>
+      <h4>
+      High quality groceries from local producers
+      </h4>
+
+      <List bulleted horizontal >
+      <List.Item ></List.Item>
+        <List.Item >groceries</List.Item>
+      </List>
+    </Card.Content>
+    
+  </Card>
+      </CardColumn>
+
+      <CardColumn width={7} style={{margin: '0 30px 0 0'}}>
+      <Card fluid={true} style={{border: '1px solid #707070',borderRadius: '8px '}}>
+    <Image src={card4} wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>Mall A <Icon name='check circle' color='yellow'/> </Card.Header>
+      <h4>
+        With unique shops only on zist 
+      </h4>
+
+      <List bulleted horizontal >
+        <List.Item ></List.Item>
+        <List.Item >groceries</List.Item>
+        <List.Item >utilities</List.Item>
+        <List.Item >health</List.Item>
+      </List>
+    </Card.Content>
+  </Card>
+      </CardColumn>
+
+  </Grid.Row>
+
+
+  <Grid.Row width={16} style={{background:'',margin: '120px 0'}} > 
+      <CardColumn width={7} style={{margin: '0 100px 0 30px'}}>
+      <Card fluid={true} style={{borderRadius: '8px ',border: '1px solid #707070'}}>
+    <Image src={card8} wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>Valery Fresh Produce <Icon name='check circle' color='yellow'/></Card.Header>
+      <h4>
+        Fresh produce from real farms
+      </h4>
+
+      <List bulleted horizontal >
+      <List.Item ></List.Item>
+        <List.Item >groceries</List.Item>
+      </List>
+    </Card.Content>
+    
+  </Card>
+      </CardColumn>
+
+      <CardColumn width={7} style={{margin: '0 30px 0 0'}}>
+      <Card fluid={true} style={{border: '1px solid #707070',borderRadius: '8px '}}>
+    <Image src={card8} wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>Muthoni's Groceries <Icon name='check circle' color='yellow'/> </Card.Header>
+      <h4>
+        freshly sourced produce
+      </h4>
+
+      <List bulleted horizontal >
+        <List.Item ></List.Item>
+        <List.Item >groceries</List.Item>
+      </List>
+    </Card.Content>
+  </Card>
+      </CardColumn>
+
+  </Grid.Row>
+
+  <Grid.Row width={16} style={{background:'',margin: '120px 0'}} > 
+      <CardColumn width={7} style={{margin: '0 100px 0 30px'}}>
+      <Card fluid={true} style={{borderRadius: '8px ',border: '1px solid #707070'}}>
+    <Image src={card9} wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>Maguna's kiosk <Icon name='check circle' color='yellow'/></Card.Header>
+      <h4>
+        Wide variety of goods
+      </h4>
+
+      <List bulleted horizontal >
+      <List.Item ></List.Item>
+        <List.Item >groceries</List.Item>
+      </List>
+    </Card.Content>
+    
+  </Card>
+      </CardColumn>
+
+      <CardColumn width={7} style={{margin: '0 30px 0 0'}}>
+      <Card fluid={true} style={{border: '1px solid #707070',borderRadius: '8px '}}>
+    <Image src={card10} wrapped ui={false} />
+    <Card.Content>
+      <Card.Header>Jack's butchery(meat market) <Icon name='check circle' color='yellow'/> </Card.Header>
+      <h4>
+        Fresh meat from organic farmers
+      </h4>
+
+      <List bulleted horizontal >
+        <List.Item ></List.Item>
+        <List.Item >meat</List.Item>
+      </List>
+    </Card.Content>
+  </Card>
+      </CardColumn>
+
+  </Grid.Row>
+
+
 </Grid>
 </div>
     )
