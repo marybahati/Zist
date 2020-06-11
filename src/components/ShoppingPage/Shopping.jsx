@@ -165,7 +165,7 @@ export const Shopping = () => {
 
 
       <Grid width={16}>
-        <Grid.Row style={{ background: '' }}>icons  will be here</Grid.Row>
+        {/* <Grid.Row style={{ background: '' }}>icons  will be here</Grid.Row> */}
         <Grid.Row width={16} style={{ background: '', margin: '120px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 30px' }}>
             <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
