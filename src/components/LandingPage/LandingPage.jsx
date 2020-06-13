@@ -103,20 +103,22 @@ const LandingPage = () => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
+  console.log(firstName,lastName,email,password)
+  console.log(loginEmail,loginPassword)
 
-  const [signupDetails, setSignupDetails] = useState({})
-  console.log(signupDetails)
-
-  const handleSignup = (event) => {
-      const { name, value } = event.target 
-      setSignupDetails((prevState) => ({...prevState, [name] : value }))
-  }
-
-
-const handleSubmit = (event) => {
-  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { signupDetails })
-    .then(response => {
-     console.log(response);
+const handleSignup = (event) => {
+  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { 
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    password: password
+   })
+    .then(res => {
+     if(res.data.status === 201 ){
+        console.log( 'you have successfully created your account' )
+     } else {
+       console.log(res.data.status)
+     }
     }).catch(error => {console.log(error)});
 }
 
@@ -183,7 +185,7 @@ const handleLogin = (event) => {
             <h3 >SIGN UP </h3>
               <Modal.Description style={{marginBottom: '40px'}}>
                 <Header style={{marginBottom:'30px',marginTop: '30px',fontSize:'18px'}}>Create a new account</Header>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSignup}>
 
                 <Form.Input   transparent
                 name='first_name'
@@ -191,7 +193,7 @@ const handleLogin = (event) => {
                 type='text'
                 textAlign='center'
                 size='tiny'
-                onChange = {handleSignup}
+                onChange = { e => setFirstName(e.target.value) }
                 placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
 
                 <Form.Input   transparent
@@ -200,7 +202,7 @@ const handleLogin = (event) => {
                 type='text'
                 textAlign='center'
                 size='tiny'
-                onChange = {handleSignup}
+                onChange = { e => setLastName(e.target.value)}
                 placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
 
                 <Form.Input   transparent
@@ -209,7 +211,7 @@ const handleLogin = (event) => {
                 type='email'
                 textAlign='center'
                 size='tiny'
-                onChange = {handleSignup}
+                onChange = { e => setEmail(e.target.value)}
                 placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
 
                 <Form.Input   transparent
@@ -218,7 +220,7 @@ const handleLogin = (event) => {
                 type='password'
                 textAlign='center'
                 size='tiny'
-                onChange = {handleSignup}
+                onChange = { e => setPassword(e.target.value)}
                 placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
                  <ModalSignUpButton />
                 </Form>
