@@ -64,7 +64,7 @@ const AppSectionGrid = styled(Grid)`
 const AppLinkButton = styled.button`
     background: #FFBD59 0% 0% no-repeat padding-box;
     opacity: 1;
-    width:634px;
+    width:500px;
     height: 111px;
     border-radius: 55px;
     margin-left: 100px;
@@ -461,25 +461,27 @@ const handleLogin = (event) => {
     <AppSectionGrid>
       <IntroColumn width={8}> <Image src={zistApp} style={{paddingTop: 150}}/> </IntroColumn>
       <IntroColumn width={8} textAlign='left'>
-        <h6 style={{fontSize: '30px', paddingLeft:100,paddingTop:150}}>GET THE ZIST SHOPPING APP ON MOBILE TO</h6>
-        <h6 style={{fontSize: '30px', paddingLeft:100}}>STAY NOTIFIED ON THE LATEST DEALS +</h6>
-        <h6 style={{fontSize: '30px', paddingLeft:100}}>BE ABLE TO ACCESS IT FROM ANYWHERE/</h6>
-        <h6 style={{fontSize: '30px', paddingLeft:100}}>ANYTIME</h6>
+        <h6 style={{fontSize: '25px', paddingLeft:100,paddingTop:150}}>GET THE ZIST SHOPPING APP ON MOBILE TO</h6>
+        <h6 style={{fontSize: '25px', paddingLeft:100}}>STAY NOTIFIED ON THE LATEST DEALS +</h6>
+        <h6 style={{fontSize: '25px', paddingLeft:100}}>BE ABLE TO ACCESS IT FROM ANYWHERE/</h6>
+        <h6 style={{fontSize: '25px', paddingLeft:100}}>ANYTIME</h6>
         <AppLinkButton>TEXT ME THE LINK TO THE APP</AppLinkButton>
       </IntroColumn>
     </AppSectionGrid>
 
     <IntroGrid>
+
+      <Grid.Row width={16}>
       <FooterGrid width={7}>
       <FooterTitle>Zist Shopping</FooterTitle>
       <List link >
-    <FooterLinks as='a'>Zist articles</FooterLinks><br/>
-    <FooterLinks as='a' >Careers</FooterLinks><br/>
-    <FooterLinks as='a'>Zist recipes</FooterLinks><br/>
-    <FooterLinks as='a'>Shopping</FooterLinks><br/>
-    <FooterLinks as='a'>Delivery</FooterLinks><br/>
-    <FooterLinks as='a'>API docs</FooterLinks>
-  </List>
+        <FooterLinks as='a'>Zist articles</FooterLinks><br/>
+        <FooterLinks as='a' >Careers</FooterLinks><br/>
+        <FooterLinks as='a'>Zist recipes</FooterLinks><br/>
+        <FooterLinks as='a'>Shopping</FooterLinks><br/>
+        <FooterLinks as='a'>Delivery</FooterLinks><br/>
+        <FooterLinks as='a'>API docs</FooterLinks>
+      </List>
       </FooterGrid>
 
       <FooterGrid width={7}>
@@ -498,6 +500,8 @@ const handleLogin = (event) => {
         <FooterLinks as='a'>Zist help</FooterLinks>
       </List>
       </FooterGrid>
+      </Grid.Row>
+
       <Grid.Row style={{marginLeft:90,marginTop:100}}>
       <List>
       <FooterTitle> Follow us </FooterTitle>
