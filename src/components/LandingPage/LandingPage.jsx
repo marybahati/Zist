@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import zist from "./../../Assets/zist.svg";
-import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Form} from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Form,Message} from "semantic-ui-react";
 import cartImage from "./../../Assets/cart.png";
 import { LoginButton } from "./LoginButton";
 import styled from 'styled-components';
@@ -13,6 +13,8 @@ import "./styles.css";
 import { SignUpButton } from "./SignUpButton";
 import { ModalLoginButton } from "./ModalLoginButtonn";
 import { ModalSignUpButton } from "./ModalSignUpButton";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 const MainDiv = styled.div`
@@ -102,11 +104,13 @@ const LandingPage = () => {
   const [password, setPassword] = useState('');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   console.log(firstName,lastName,email,password)
-  console.log(loginEmail,loginPassword)
+  console.log(snackbarOpen)
 
 const handleSignup = (event) => {
+  event.preventDefault();
   axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { 
     first_name: firstName,
     last_name: lastName,
@@ -114,28 +118,61 @@ const handleSignup = (event) => {
     password: password
    })
     .then(res => {
-     if(res.data.status === 201 ){
-        console.log( 'you have successfully created your account' )
-     } else {
-       console.log(res.data.status)
-     }
-    }).catch(error => {console.log(error)});
+
+     if(res.status === 201 ){
+      setSnackbarOpen(true)
+      toast.success("You have successfully signed up",{
+        className:'toast',
+        draggable: true,
+        position: toast.POSITION.TOP_CENTER,
+        type: toast.TYPE.SUCCES,
+        hideProgressBar: true
+      })   
+     } 
+
+    }).catch(error => {
+      setSnackbarOpen(true)
+      toast.error("An error occurred, please check your email and password",{
+        className:'toast',
+        draggable: true,
+        position: toast.POSITION.TOP_CENTER,
+        type: toast.TYPE.ERROR,
+        hideProgressBar: true
+      })   
+    });
 }
 
 
 const handleLogin = (event) => {
-  // event.preventDefault();
+  event.preventDefault();
   axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/token/', {
     // data to be sent
       email: loginEmail ,
       password: loginPassword
     })
-    .then(response => {
-      if (response.data.status) {
-       console.log(response);
-     } 
-     console.log(response.data);
-    }).catch(error => {console.log(error)});
+    .then(res => {
+
+      if(res.status === 200 ){
+       setSnackbarOpen(true)
+       toast.success("You have successfully logged in",{
+         className:'toast',
+         draggable: true,
+         position: toast.POSITION.TOP_CENTER,
+         type: toast.TYPE.SUCCES,
+         hideProgressBar: true
+       })   
+      } 
+ 
+     }).catch(error => {
+       setSnackbarOpen(true)
+       toast.error("An error occurred, please check your email and password",{
+         className:'toast',
+         draggable: true,
+         position: toast.POSITION.TOP_CENTER,
+         type: toast.TYPE.ERROR,
+         hideProgressBar: true
+       })   
+     });
 }
 
   return (
@@ -161,7 +198,7 @@ const handleLogin = (event) => {
         </Grid.Column>
 
         <Grid.Column width={12} style={{ backgroundColor: "" }}>
-
+        <ToastContainer autoClose={5000} onOpen={snackbarOpen} />
          <List style={{display:'inline-block'}}>
             <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline'}}>
               HELP
@@ -291,7 +328,7 @@ const handleLogin = (event) => {
         style={{ marginLeft: "auto", marginRight: "auto", marginTop: "40px" }}
       />
     </Grid>
-    <Grid width={5} style={{ backgroundColor: "" }}>
+    <Grid width={5} >
       <h2
         style={{
           marginLeft: "auto",
@@ -304,7 +341,7 @@ const handleLogin = (event) => {
         SHOPPING REINVENTED.
       </h2>
     </Grid>
-    <Grid width={8} style={{ backgroundColor: "" }}>
+    <Grid width={8} style={{ backgroundColor: "inherit" }}>
       <h2
         style={{
           marginLeft: "auto",
@@ -329,7 +366,7 @@ const handleLogin = (event) => {
           margin: "80px auto 0px auto",
           width: "45%",
           border: "1px solid #707070",
-          fontSize:'40px'
+          fontSize:'30px'
         }}
         size="massive"
         type="text"
