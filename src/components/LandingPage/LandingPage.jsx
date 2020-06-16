@@ -15,7 +15,9 @@ import { ModalLoginButton } from "./ModalLoginButtonn";
 import { ModalSignUpButton } from "./ModalSignUpButton";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { GoogleComponent } from 'react-google-location';
 import axios from 'axios';
+const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'  
 
 const MainDiv = styled.div`
     position: absolute;
@@ -105,15 +107,19 @@ const LandingPage = () => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   console.log(firstName,lastName,email,password)
-  console.log(snackbarOpen)
+  console.log(location)
+  const handleOpen = () => setOpenModal({ openModal: true })
+  const handleClose = () => setOpenModal({ openModal: false })
+  console.log(openModal)
 
 const handleSignup = (event) => {
   event.preventDefault();
   axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { 
     first_name: firstName,
-    last_name: lastName,
+    // last_name: lastName,
     email: email,
     password: password
    })
@@ -205,8 +211,9 @@ const handleLogin = (event) => {
             </List.Item>
           </List>
           
-          <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
+          <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
            trigger={<Button
+            
             style={{
               width: '201px',
               height: '48px',
@@ -215,8 +222,8 @@ const handleLogin = (event) => {
               opacity:1,  
               borderRadius:'20px',
               marginRight: '20px'
-          }}
-           >SIGN UP</Button>} >
+          }}  >SIGN UP</Button>}   >
+           
            <Grid width={16} style={{padding:'61px 0 60px 105px',backgroundColor:'',textAlign:'center'}}>
             <Modal.Content>
             <h3 >SIGN UP </h3>
@@ -233,14 +240,14 @@ const handleLogin = (event) => {
                 onChange = { e => setFirstName(e.target.value) }
                 placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
 
-                <Form.Input   transparent
+                {/* <Form.Input   transparent
                 name='last_name'
                 required={true}
                 type='text'
                 textAlign='center'
                 size='tiny'
                 onChange = { e => setLastName(e.target.value)}
-                placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
+                placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} /> */}
 
                 <Form.Input   transparent
                 name='email'
@@ -268,7 +275,7 @@ const handleLogin = (event) => {
            </Grid>
           </Modal>
 
-          <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
+          <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
           trigger={
             <Button
             style={{
@@ -383,6 +390,7 @@ const handleLogin = (event) => {
       />
       
          </Grid.Row>
+         
          <Grid.Row style={{padding: '0'}}>
          <MenuGrid >
       <div style={{border: "1px solid #707070", height:'67px', backgroundColor:'#fff'}}>
