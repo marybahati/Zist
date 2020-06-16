@@ -1,6 +1,6 @@
 import React from 'react'
 import bgImage from './../../Assets/bgShopping.png'
-import { Grid, Dropdown, Image, Icon, Input, Button, Menu, List, Header, Modal, Form, Search, Card } from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card } from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
 import { LoginButton } from './../LandingPage/LoginButton';
@@ -17,30 +17,23 @@ import StarRatings from 'react-star-ratings';
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
     padding: 0 !important;
-`
+`;
+const CardHeading = styled.h2`
+    font-size: 20px !important ;
+    text-decoration: underline;
+    margin: 0 0 8px 0;
+`;
+const CardSubHeading = styled.h4`
+    color: grey;
+    margin: 0;
+`;
+
 export const Shopping = () => {
   return (
     <div >
-      <Grid>
-        <Grid.Row width={16} style={{ backgroundColor: "", textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
-          <Grid.Column width={6}></Grid.Column>
-          <Grid.Column width={4} style={{ display: 'inline-block', background: '', paddingTop: '80px', textAlign: 'right' }}>
-            {/* <Search
-            input={{ icon: 'search', iconPosition: 'left'}}
-            placeholder='SEARCH FOR A PLACE OR AN ITEM'
-            width={2}
-            size='huge'
-            fluid
-            style={{display:'inline-block',backgroundColor:
-            '#FEE2D4 !important',marginRight: '50px' ,
-            minWidth: '500px !important'
-          }}
-          /> */}
-            <Input icon='search' fluid={true} style={{ fontSize: '27px' }} transparent type='search'
-              iconPosition='left' placeholder='SEARCH FOR A PLACE OR ITEM ' />
-
-          </Grid.Column >
-          <Grid.Column width={6} style={{ display: 'inline-block', background: '', marginRight: '' }}>
+      <Grid  style={{ backgroundColor: "", textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
+        <Grid.Row width={16} >
+          <Grid.Column width={16} style={{ display: 'inline-block', paddingRight: '40px' }}>
             <List style={{ display: 'inline-block' }}>
               <List.Item as='a' href='' style={{ paddingRight: '30px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '80px' }}>
                 HELP
@@ -51,122 +44,67 @@ export const Shopping = () => {
 
             <Image
               src={cartImage}
-              style={{ display: "inline-block", margin: " 0 18px" }}
+              style={{ display: "inline-block", margin: " 0 30px 0 18px" }}
             />
           </Grid.Column>
         </Grid.Row>
+
+         <Grid.Row width={16} style={{padding: '0 ',backgroundColor: ""}}>
+         {/* <Input
+        transparent
+        style={{
+          backgroundColor: "white",
+          margin: "80px auto 0px auto",
+          width: "45%",
+          border: "1px solid #707070",
+          fontSize:'30px',
+          height:'90px '
+        }}
+        size="massive"
+        type="search"
+        // value={location}
+        // onChange={event => setLocation(event.target.value)}
+        action={
+          <Button type="submit" basic>
+            <Icon size="huge" color="orange" name="angle right" link />
+          </Button>
+        }
+        icon="search"
+        iconPosition="left"
+        placeholder="Enter your address …"
+      />
+       */}
+        <Input labelPosition='right' type='search'
+        style={{
+          backgroundColor: "white",
+          margin: "0 auto 0px auto",
+          width: "50%",
+          border: "1px solid #707070",
+          fontSize:'30px',
+          height:'90px '
+        }}
+        size="medium"
+         placeholder='Amount'>
+          <Button type="submit" basic style={{paddingLeft:'50px',margin:'0'}}>
+            <Icon size="huge" color='black' name="search" link />
+          </Button>
+          <input type='search'/>
+          <Image
+              src={cartImage}
+              style={{ display: "inline-block", margin: " 0 30px 0 18px" }}
+            />
+          
+        </Input>
+         </Grid.Row>
+
       </Grid>
-      {/* <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
-  trigger={<Button
-   style={{
-     width: '201px',
-     height: '48px',
-     background: '#0B0B0B 0% 0% no-repeat padding-box',
-     color: '#fff',
-     opacity:1,  
-     borderRadius:'20px',
-     marginRight: '20px'
- }}
-  >SIGN UP</Button>} >
-  <Grid width={16} style={{padding:'61px 0 60px 105px',backgroundColor:'',textAlign:'center'}}>
-   <Modal.Content>
-   <h3 >SIGN UP </h3>
-     <Modal.Description style={{marginBottom: '40px'}}>
-       <Header style={{marginBottom:'30px',marginTop: '30px',fontSize:'18px'}}>Create a new account</Header>
-       <Form onSubmit={handleSubmit}>
 
-       <Form.Input   transparent
-       name='first_name'
-       required={true}
-       type='text'
-       textAlign='center'
-       size='tiny'
-       onChange = {handleSignup}
-       placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
-
-       <Form.Input   transparent
-       name='last_name'
-       required={true}
-       type='text'
-       textAlign='center'
-       size='tiny'
-       onChange = {handleSignup}
-       placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
-
-       <Form.Input   transparent
-       name='email'
-       required={true}
-       type='email'
-       textAlign='center'
-       size='tiny'
-       onChange = {handleSignup}
-       placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
-
-       <Form.Input   transparent
-       name='password'
-       required={true}
-       type='password'
-       textAlign='center'
-       size='tiny'
-       onChange = {handleSignup}
-       placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
-        <ModalSignUpButton />
-       </Form>
-     </Modal.Description>
-     <p style={{color:'#BCB4A7'}}>Already have an account ?</p> 
-      <a href='' style={{color:'#050504'}}><strong>Login</strong></a>
-   </Modal.Content>
-  </Grid>
- </Modal>
-
- <Modal  size='tiny' closeIcon  style={{border:'1px solid #707070'}} centered={false}
- trigger={
-   <Button
-   style={{
-     width: '201px',
-     height: '48px',
-     background: ' 0% 0% no-repeat padding-box',
-     border:' 2px solid #080808',
-     opacity:1,  
-     borderRadius:'20px'
- }}
-   >LOGIN</Button>
- }
-   >
-  <Grid width={16} style={{padding:'61px 0 80px 105px',backgroundColor:'',textAlign:'center'}}>
-   <Modal.Content>
-   <h2 >LOG IN</h2>
-     <Modal.Description style={{marginBottom: '40px'}}>
-       {/* <Header style={{marginBottom:'50px',marginTop: '50px',fontSize:'28px'}}>Get into your account</Header> */}
-      {/* <Form onSubmit={handleLogin}>
-       <Form.Input   transparent
-       onChange={ e => setLoginEmail(e.target.value) }
-       required={true}
-       type='email'
-       textAlign='center'
-       size='tiny'
-       placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
-
-       <Form.Input   transparent
-       onChange={ e => setLoginPassword(e.target.value) }
-       required={true}
-       type='password'
-       textAlign='center'
-       size='tiny'
-       placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
-
-        <ModalLoginButton/>
-       </Form>
-       <a href='' style={{color:'#BCB4A7',textDecoration: 'underline'}}>Can't Sign in?</a>
-     </Modal.Description>
-     <a href='' style={{color:'#BCB4A7'}}>New to Zist Shopping ? <br/> Sign up</a>
-   </Modal.Content>
-  </Grid>
- </Modal> */}
-
-
-      <Grid width={16} style={{  margin: '0 0 0 80px' }}>
+      <Grid width={16} style={{  margin: '40px 0 0 80px' }}>
         {/* <Grid.Row style={{ background: '' }}>icons  will be here</Grid.Row> */}
+        <div>
+        <CardHeading>Zist karibu</CardHeading>
+        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        </div>
         <Grid.Row width={16} style={{  margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
             <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
@@ -242,6 +180,10 @@ export const Shopping = () => {
 
         </Grid.Row>
 
+        <div>
+        <CardHeading>Zist karibu</CardHeading>
+        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        </div>
         <Grid.Row width={16} style={{ background: '', margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
             <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
@@ -318,7 +260,10 @@ export const Shopping = () => {
 
         </Grid.Row>
 
-
+        <div>
+        <CardHeading>Zist karibu</CardHeading>
+        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        </div>
         <Grid.Row width={16} style={{ background: '', margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
             <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
@@ -393,6 +338,10 @@ export const Shopping = () => {
 
         </Grid.Row>
 
+        <div>
+        <CardHeading>Zist karibu</CardHeading>
+        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        </div>
         <Grid.Row width={16} style={{ background: '', margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
             <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>

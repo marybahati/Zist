@@ -322,7 +322,7 @@ const handleLogin = (event) => {
            
           <Image
             src={cartImage}
-            style={{ display: "inline-block", marginLeft: "1rem" }}
+            style={{ display: "inline-block", marginLeft: "20px" }}
           />
         </Grid.Column>
       </Grid.Row>
