@@ -12,6 +12,7 @@ import card4 from './../../Assets/4.jpg';
 import card8 from './../../Assets/8.jpg';
 import card9 from './../../Assets/9.jpg';
 import card10 from './../../Assets/10.jpg';
+import cart from "./../../Assets/searchCart.png";
 import StarRatings from 'react-star-ratings';
 
 const CardColumn = styled(Grid.Column)`
@@ -80,19 +81,20 @@ export const Shopping = () => {
           margin: "0 auto 0px auto",
           width: "50%",
           border: "1px solid #707070",
-          fontSize:'30px',
+          fontSize:'20px',
           height:'90px '
         }}
-        size="medium"
-         placeholder='Amount'>
-          <Button type="submit" basic style={{paddingLeft:'50px',margin:'0'}}>
-            <Icon size="huge" color='black' name="search" link />
+        size="small"
+         placeholder='SEARCH FOR A PLACE OR ITEM'>
+          <Button type="submit" basic style={{paddingLeft:'30px',margin:'0'}}>
+            <Icon size="big" color='black' name="search" link />
           </Button>
-          <input type='search'/>
           <Image
-              src={cartImage}
-              style={{ display: "inline-block", margin: " 0 30px 0 18px" }}
+              src={cart}
+              style={{ display: "inline-block", 
+              border:'0',width:'120px',height:'130px',margin:'0',paddingBottom:'35px' }}
             />
+          <input type='search' style={{border:'0',paddingRight:'8px'}}/>
           
         </Input>
          </Grid.Row>

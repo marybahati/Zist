@@ -5,9 +5,6 @@ import {Shopping} from './components/ShoppingPage/Shopping'
 
 function App() {
   return (
-    // <div >
-    //     <LandingPage/>
-    // </div>
     <Router>
       <Route exact path='/' component={LandingPage} />
       <Route exact path='/shopping' component={Shopping} />

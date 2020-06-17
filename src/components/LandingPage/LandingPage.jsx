@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import zist from "./../../Assets/zist.svg";
-import { Grid, Dropdown, Image, Icon, Input, Button , Menu, List, Header, Modal,Form,Message} from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button , Label, List, Header, Modal,Form,Message} from "semantic-ui-react";
 import cartImage from "./../../Assets/cart.png";
 import { LoginButton } from "./LoginButton";
 import styled from 'styled-components';
@@ -17,6 +17,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleComponent } from 'react-google-location';
 import axios from 'axios';
+
 const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'  
 
 const MainDiv = styled.div`
@@ -133,7 +134,8 @@ const handleSignup = (event) => {
         position: toast.POSITION.TOP_CENTER,
         type: toast.TYPE.SUCCES,
         hideProgressBar: true
-      })   
+      })
+      setOpenModal(false)   
      } 
 
     }).catch(error => {
@@ -166,7 +168,8 @@ const handleLogin = (event) => {
          position: toast.POSITION.TOP_CENTER,
          type: toast.TYPE.SUCCES,
          hideProgressBar: true
-       })   
+       }) 
+       setOpenModal(false)  
       } 
  
      }).catch(error => {
@@ -212,8 +215,10 @@ const handleLogin = (event) => {
           </List>
           
           <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
+           open={openModal}
+           onOpen={handleOpen}
+          //  onClose={handleClose}
            trigger={<Button
-            
             style={{
               width: '201px',
               height: '48px',
@@ -276,6 +281,9 @@ const handleLogin = (event) => {
           </Modal>
 
           <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
+          open={openModal}
+          onOpen={handleOpen}
+         //  onClose={handleClose}
           trigger={
             <Button
             style={{
@@ -365,8 +373,8 @@ const handleLogin = (event) => {
     
     
        <Grid style={{ backgroundColor: "inherit"}}>
-         <Grid.Row  style={{padding: '0'}}>
-         <Input
+         <Grid.Row  style={{padding: '0',height:'170px'}}>
+         {/* <Input
         transparent
         style={{
           backgroundColor: "white",
@@ -387,13 +395,33 @@ const handleLogin = (event) => {
         icon="map marker alternate"
         iconPosition="left"
         placeholder="Enter your address …"
-      />
-      
+      /> */}
+      <Input labelPosition='right' type='search'
+        style={{
+          backgroundColor: "white",
+          margin: "80px auto 0px auto",
+          width: "45%",
+          border: "1px solid #707070",
+          fontSize:'30px'
+        }}
+        size="small"
+        type="text"
+        value={location}
+        onChange={event => setLocation(event.target.value)}
+        placeholder='Enter your address …'>
+          <Label basic style={{paddingLeft:'20px',margin:'0',border:'0',paddingRight:'0'}}>
+            <Icon size="large" color='black' name="map marker alternate" link/>
+          </Label>
+          <input style={{border:'0',padding:' 0 8px'}}/>
+          <Button type="submit" basic style={{margin:'0',paddingLeft:'0'}}>
+            <Icon size="huge" color="orange" name="angle right" link />
+          </Button>
+        </Input>
          </Grid.Row>
          
          <Grid.Row style={{padding: '0'}}>
          <MenuGrid >
-      <div style={{border: "1px solid #707070", height:'67px', backgroundColor:'#fff'}}>
+      <div style={{border: "1px solid #707070", height:'77px', backgroundColor:'#fff'}}>
       {/* <Menu  secondary >
       <TabDiv pointing >
       <Menu.Item
@@ -414,7 +442,11 @@ const handleLogin = (event) => {
       </TabDiv> 
 
       </Menu> */}
-      <Icon name='location arrow' link style={{width:'100%', fontSize:'30px',paddingTop:'30px'}} > Use my current location </Icon>
+      <Button basic fluid style={{border:'0' ,display:'inline-block',textAlign:'left'}}>
+      <Icon name='location arrow' link style={{width:'100%', fontSize:'30px',paddingTop:'20px'}} >
+      </Icon>
+      Use my current location
+      </Button>
       </div> 
     </MenuGrid>
          </Grid.Row>
