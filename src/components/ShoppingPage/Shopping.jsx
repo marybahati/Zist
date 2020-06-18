@@ -188,6 +188,25 @@ const handleLogin = (event) => {
         <CardSubHeading>Not sure of where to shop from? Here are some suggestions...</CardSubHeading>
         </Grid.Row>
 
+        <Grid.Row style={{padding:'0'}}>
+          <Grid.Column style={{padding:'0'}} >
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+          </Grid.Column>
+          <Grid.Column>
+            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+          </Grid.Column>
+        </Grid.Row>
+  
+
         <div style={{padding:'0'}}>
         <CardHeading>Zist karibu</CardHeading>
         <CardSubHeading>Get fast from these outlets near you</CardSubHeading>

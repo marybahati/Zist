@@ -374,49 +374,27 @@ const handleLogin = (event) => {
     
        <Grid style={{ backgroundColor: "inherit"}}>
          <Grid.Row  style={{padding: '0',height:'170px'}}>
-         {/* <Input
-        transparent
-        style={{
-          backgroundColor: "white",
-          margin: "80px auto 0px auto",
-          width: "45%",
-          border: "1px solid #707070",
-          fontSize:'30px'
-        }}
-        size="massive"
-        type="text"
-        value={location}
-        onChange={event => setLocation(event.target.value)}
-        action={
-          <Button type="submit" basic>
-            <Icon size="huge" color="orange" name="angle right" link />
-          </Button>
-        }
-        icon="map marker alternate"
-        iconPosition="left"
-        placeholder="Enter your address …"
-      /> */}
-      <Input labelPosition='right' type='search'
-        style={{
-          backgroundColor: "white",
-          margin: "80px auto 0px auto",
-          width: "45%",
-          border: "1px solid #707070",
-          fontSize:'30px'
-        }}
-        size="small"
-        type="text"
-        value={location}
-        onChange={event => setLocation(event.target.value)}
-        placeholder='Enter your address …'>
-          <Label basic style={{paddingLeft:'20px',margin:'0',border:'0',paddingRight:'0'}}>
-            <Icon size="large" color='black' name="map marker alternate" link/>
-          </Label>
-          <input style={{border:'0',padding:' 0 8px'}}/>
-          <Button type="submit" basic style={{margin:'0',paddingLeft:'0'}}>
-            <Icon size="huge" color="orange" name="angle right" link />
-          </Button>
-        </Input>
+          <Input labelPosition='right' type='search'
+            style={{
+              backgroundColor: "white",
+              margin: "80px auto 0px auto",
+              width: "45%",
+              border: "1px solid #707070",
+              fontSize:'30px'
+            }}
+            size="small"
+            type="text"
+            value={location}
+            onChange={event => setLocation(event.target.value)}
+            placeholder='Enter your address …'>
+              <Label basic style={{paddingLeft:'20px',margin:'0',border:'0',paddingRight:'0'}}>
+                <Icon size="large" color='black' name="map marker alternate" link/>
+              </Label>
+              <input style={{border:'0',padding:' 0 8px'}}/>
+              <Button type="submit" basic style={{margin:'0',paddingLeft:'0'}}>
+                <Icon size="huge" color="orange" name="angle right" link />
+              </Button>
+            </Input> 
          </Grid.Row>
          
          <Grid.Row style={{padding: '0'}}>
