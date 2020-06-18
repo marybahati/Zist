@@ -16,6 +16,7 @@ import { ModalSignUpButton } from "./ModalSignUpButton";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleComponent } from 'react-google-location';
+import history from './../../History';
 import axios from 'axios';
 
 const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'  
@@ -100,7 +101,7 @@ const SocialMediaLinks = styled(List.Item)`
 `;
 
 const LandingPage = () => { 
-  const [location, setLocation] = useState('');
+  const [location, setLocation] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -183,6 +184,14 @@ const handleLogin = (event) => {
        })   
      });
 }
+
+const handleRedirect = () =>{
+  if( location == null ){
+    alert('please fill in your location to continue')
+  } else {
+    history.push('/shopping')
+  }
+} 
 
   return (
     <MainDiv >
@@ -391,7 +400,7 @@ const handleLogin = (event) => {
                 <Icon size="large" color='black' name="map marker alternate" link/>
               </Label>
               <input style={{border:'0',padding:' 0 8px'}}/>
-              <Button type="submit" basic style={{margin:'0',paddingLeft:'0'}}>
+              <Button onClick={handleRedirect} type="submit" basic style={{margin:'0',paddingLeft:'0'}}>
                 <Icon size="huge" color="orange" name="angle right" link />
               </Button>
             </Input> 
