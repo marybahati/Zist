@@ -442,11 +442,19 @@ const handleLogin = (event) => {
       </TabDiv> 
 
       </Menu> */}
-      <Button basic fluid style={{border:'0' ,display:'inline-block',textAlign:'left'}}>
+      {/* <Button basic fluid style={{border:'0' ,display:'inline-block',textAlign:'left'}}>
       <Icon name='location arrow' link style={{width:'100%', fontSize:'30px',paddingTop:'20px'}} >
       </Icon>
       Use my current location
+      </Button> */}
+
+      <Button  basic fluid style={{border:'0' ,textAlign:'left',paddingBottom:'27px',fontSize:'25px',paddingLeft:'20px'}}>
+        <Button.Content >
+        <Icon name='location arrow' link style={{fontSize:'28px',marginRight:'40px'}} />
+          Use my current location
+        </Button.Content>
       </Button>
+
       </div> 
     </MenuGrid>
          </Grid.Row>
@@ -524,7 +532,7 @@ const handleLogin = (event) => {
       </List>
       </FooterGrid>
 
-      <FooterGrid width={7}>
+      <FooterGrid width={6}>
       <FooterTitle>Vendors</FooterTitle>
       <List>
         <FooterLinks as='a'>Sell on Zist Shoppping</FooterLinks>
