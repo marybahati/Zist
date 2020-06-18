@@ -177,7 +177,7 @@ const handleLogin = (event) => {
         value={location}
         onChange={event => setLocation(event.target.value)}
         placeholder='Enter your address …'>
-          <Label basic style={{paddingLeft:'10px',margin:'0',border:'0',paddingRight:'0'}}>
+          <Label basic style={{margin:'0',border:'0',padding:'0'}}>
             <Icon size="large" color='black' name="map marker alternate" link/>
           </Label>
           <input style={{border:'0',padding:' 0 8px'}}/>
