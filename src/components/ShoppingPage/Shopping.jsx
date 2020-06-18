@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState} from 'react'
 import bgImage from './../../Assets/bgShopping.png'
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card } from "semantic-ui-react";
 import styled from 'styled-components';
@@ -14,6 +14,9 @@ import card9 from './../../Assets/9.jpg';
 import card10 from './../../Assets/10.jpg';
 import cart from "./../../Assets/searchCart.png";
 import StarRatings from 'react-star-ratings';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
@@ -29,7 +32,91 @@ const CardSubHeading = styled.h4`
     margin: 0;
 `;
 
+
 export const Shopping = () => {
+  const [location, setLocation] = useState('Forest Lane, Nairobi');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
+  console.log(firstName,lastName,email,password)
+  console.log(location)
+  const handleOpen = () => setOpenModal({ openModal: true })
+  const handleClose = () => setOpenModal({ openModal: false })
+  console.log(openModal)
+
+const handleSignup = (event) => {
+  event.preventDefault();
+  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { 
+    first_name: firstName,
+    // last_name: lastName,
+    email: email,
+    password: password
+   })
+    .then(res => {
+
+     if(res.status === 201 ){
+      setSnackbarOpen(true)
+      toast.success("You have successfully signed up",{
+        className:'toast',
+        draggable: true,
+        position: toast.POSITION.TOP_CENTER,
+        type: toast.TYPE.SUCCES,
+        hideProgressBar: true
+      })
+      setOpenModal(false)   
+     } 
+
+    }).catch(error => {
+      setSnackbarOpen(true)
+      toast.error("An error occurred, please check your email and password",{
+        className:'toast',
+        draggable: true,
+        position: toast.POSITION.TOP_CENTER,
+        type: toast.TYPE.ERROR,
+        hideProgressBar: true
+      })   
+    });
+}
+
+
+const handleLogin = (event) => {
+  event.preventDefault();
+  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/token/', {
+    // data to be sent
+      email: loginEmail ,
+      password: loginPassword
+    })
+    .then(res => {
+
+      if(res.status === 200 ){
+       setSnackbarOpen(true)
+       toast.success("You have successfully logged in",{
+         className:'toast',
+         draggable: true,
+         position: toast.POSITION.TOP_CENTER,
+         type: toast.TYPE.SUCCES,
+         hideProgressBar: true
+       }) 
+       setOpenModal(false)  
+      } 
+ 
+     }).catch(error => {
+       setSnackbarOpen(true)
+       toast.error("An error occurred, please check your email and password",{
+         className:'toast',
+         draggable: true,
+         position: toast.POSITION.TOP_CENTER,
+         type: toast.TYPE.ERROR,
+         hideProgressBar: true
+       })   
+     });
+}
   return (
     <div >
       <Grid  style={{ backgroundColor: "", textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
@@ -50,31 +137,7 @@ export const Shopping = () => {
           </Grid.Column>
         </Grid.Row>
 
-         <Grid.Row width={16} style={{padding: '0 ',backgroundColor: ""}}>
-         {/* <Input
-        transparent
-        style={{
-          backgroundColor: "white",
-          margin: "80px auto 0px auto",
-          width: "45%",
-          border: "1px solid #707070",
-          fontSize:'30px',
-          height:'90px '
-        }}
-        size="massive"
-        type="search"
-        // value={location}
-        // onChange={event => setLocation(event.target.value)}
-        action={
-          <Button type="submit" basic>
-            <Icon size="huge" color="orange" name="angle right" link />
-          </Button>
-        }
-        icon="search"
-        iconPosition="left"
-        placeholder="Enter your address …"
-      />
-       */}
+         <Grid.Row width={16} style={{padding: '0 '}}>
         <Input labelPosition='right' type='search'
         style={{
           backgroundColor: "white",
@@ -95,17 +158,39 @@ export const Shopping = () => {
               border:'0',width:'120px',height:'130px',margin:'0',paddingBottom:'35px' }}
             />
           <input type='search' style={{border:'0',paddingRight:'8px'}}/>
-          
         </Input>
          </Grid.Row>
 
       </Grid>
 
       <Grid width={16} style={{  margin: '40px 0 0 80px' }}>
-        {/* <Grid.Row style={{ background: '' }}>icons  will be here</Grid.Row> */}
-        <div>
+
+        <Grid.Row >
+        <Input labelPosition='right' type='text'
+        style={{
+          backgroundColor: "white",
+          width: "50%",
+          fontSize:'20px'
+        }}
+        size="small"
+        type="text"
+        value={location}
+        onChange={event => setLocation(event.target.value)}
+        placeholder='Enter your address …'>
+          <Label basic style={{paddingLeft:'10px',margin:'0',border:'0',paddingRight:'0'}}>
+            <Icon size="large" color='black' name="map marker alternate" link/>
+          </Label>
+          <input style={{border:'0',padding:' 0 8px'}}/>
+        </Input>
+        </Grid.Row>
+
+        <Grid.Row >
+        <CardSubHeading>Not sure of where to shop from? Here are some suggestions...</CardSubHeading>
+        </Grid.Row>
+
+        <div style={{padding:'0'}}>
         <CardHeading>Zist karibu</CardHeading>
-        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
         </div>
         <Grid.Row width={16} style={{  margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
@@ -182,9 +267,9 @@ export const Shopping = () => {
 
         </Grid.Row>
 
-        <div>
-        <CardHeading>Zist karibu</CardHeading>
-        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        <div style={{padding:'0'}} >
+        <CardHeading>All under one roof</CardHeading>
+        <CardSubHeading> Shop from your favourite outlets within these malls. You need it, they got it! </CardSubHeading>
         </div>
         <Grid.Row width={16} style={{ background: '', margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
@@ -262,9 +347,9 @@ export const Shopping = () => {
 
         </Grid.Row>
 
-        <div>
-        <CardHeading>Zist karibu</CardHeading>
-        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        <div style={{padding:'0'}} >
+        <CardHeading>organic please!</CardHeading>
+        <CardSubHeading> Get organic produce from these open markets </CardSubHeading>
         </div>
         <Grid.Row width={16} style={{ background: '', margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
@@ -340,9 +425,9 @@ export const Shopping = () => {
 
         </Grid.Row>
 
-        <div>
-        <CardHeading>Zist karibu</CardHeading>
-        <CardSubHeading> welcome to zist karibu shopping </CardSubHeading>
+        <div style={{padding:'0'}} >
+        <CardHeading>Local Shujaas </CardHeading>
+        <CardSubHeading> Buy from Local shujaas shops  </CardSubHeading>
         </div>
         <Grid.Row width={16} style={{ background: '', margin: '0 0 50px 0' }} >
           <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
