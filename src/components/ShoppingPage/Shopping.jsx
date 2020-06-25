@@ -189,21 +189,62 @@ const handleLogin = (event) => {
         </Grid.Row>
 
         <Grid.Row style={{padding:'0'}}>
+
           <Grid.Column style={{padding:'0'}} >
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+          <Dropdown text="Pickup" style={{ fontSize: '18px',color: '#050504'}}>
+            <Dropdown.Menu >
+              <Dropdown.Item text="Shopping" />
+              <Dropdown.Item text="Zist Articles" />
+              <Dropdown.Item text="Zist Recipes" />
+              <Dropdown.Item text="Zist Mission & Vision" />  
+            </Dropdown.Menu>
+          </Dropdown>
           </Grid.Column>
-          <Grid.Column>
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+          <Grid.Column style={{padding:0}}>
+          <Dropdown text="Pricing rating" style={{ fontSize: '18px',color: '#050504'}}>
+            <Dropdown.Menu >
+              <Dropdown.Item text="Shopping" />
+              <Dropdown.Item text="Zist Articles" />
+              <Dropdown.Item text="Zist Recipes" />
+              <Dropdown.Item text="Zist Mission & Vision" />  
+            </Dropdown.Menu>
+          </Dropdown>
           </Grid.Column>
-          <Grid.Column>
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+          <Grid.Column style={{padding:0}}>
+          <Dropdown text="Proximity" style={{ fontSize: '18px',color: '#050504'}}>
+            <Dropdown.Menu >
+              <Dropdown.Item text="Shopping" />
+              <Dropdown.Item text="Zist Articles" />
+              <Dropdown.Item text="Zist Recipes" />
+              <Dropdown.Item text="Zist Mission & Vision" />  
+            </Dropdown.Menu>
+          </Dropdown>
           </Grid.Column>
-          <Grid.Column>
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+          <Grid.Column style={{padding:0}}>
+          <Dropdown text="Niche" style={{ fontSize: '18px',color: '#050504'}}>
+            <Dropdown.Menu >
+              <Dropdown.Item text="Shopping" />
+              <Dropdown.Item text="Zist Articles" />
+              <Dropdown.Item text="Zist Recipes" />
+              <Dropdown.Item text="Zist Mission & Vision" />  
+            </Dropdown.Menu>
+          </Dropdown>
           </Grid.Column>
-          <Grid.Column>
-            <Image src='https://react.semantic-ui.com/images/wireframe/image.png' />
+
+          <Grid.Column style={{padding:0}}>
+          <Dropdown text="Schedule" style={{ fontSize: '18px',color: '#050504'}}>
+            <Dropdown.Menu >
+              <Dropdown.Item text="Shopping" />
+              <Dropdown.Item text="Zist Articles" />
+              <Dropdown.Item text="Zist Recipes" />
+              <Dropdown.Item text="Zist Mission & Vision" />  
+            </Dropdown.Menu>
+          </Dropdown>
           </Grid.Column>
+
         </Grid.Row>
   
 

@@ -224,7 +224,7 @@ const handleRedirect = () =>{
           </List>
           
           <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
-           open={openModal}
+          //  open={openModal}
            onOpen={handleOpen}
           //  onClose={handleClose}
            trigger={<Button
@@ -290,7 +290,7 @@ const handleRedirect = () =>{
           </Modal>
 
           <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
-          open={openModal}
+          // open={openModal}
           onOpen={handleOpen}
          //  onClose={handleClose}
           trigger={
