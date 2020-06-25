@@ -28,8 +28,11 @@ const CardHeading = styled.h2`
     margin: 0 0 8px 0;
 `;
 const CardSubHeading = styled.h4`
-    color: grey;
     margin: 0;
+`;
+const SubHeading = styled.h4`
+    margin: 0;
+    color: grey;
 `;
 
 
@@ -185,12 +188,12 @@ const handleLogin = (event) => {
         </Grid.Row>
 
         <Grid.Row >
-        <CardSubHeading>Not sure of where to shop from? Here are some suggestions...</CardSubHeading>
+        <SubHeading>Not sure of where to shop from? Here are some suggestions...</SubHeading>
         </Grid.Row>
 
-        <Grid.Row style={{padding:'0'}}>
+        <Grid.Row style={{padding:'20px 0'}} width={16}>
 
-          <Grid.Column style={{padding:'0'}} >
+          <Grid.Column style={{padding:'0'}} width={2}>
           <Dropdown text="Pickup" style={{ fontSize: '18px',color: '#050504'}}>
             <Dropdown.Menu >
               <Dropdown.Item text="Shopping" />
@@ -201,7 +204,7 @@ const handleLogin = (event) => {
           </Dropdown>
           </Grid.Column>
 
-          <Grid.Column style={{padding:0}}>
+          <Grid.Column style={{padding:0}} width={3}>
           <Dropdown text="Pricing rating" style={{ fontSize: '18px',color: '#050504'}}>
             <Dropdown.Menu >
               <Dropdown.Item text="Shopping" />
@@ -212,7 +215,7 @@ const handleLogin = (event) => {
           </Dropdown>
           </Grid.Column>
 
-          <Grid.Column style={{padding:0}}>
+          <Grid.Column style={{padding:0}} width={3}>
           <Dropdown text="Proximity" style={{ fontSize: '18px',color: '#050504'}}>
             <Dropdown.Menu >
               <Dropdown.Item text="Shopping" />
@@ -223,7 +226,7 @@ const handleLogin = (event) => {
           </Dropdown>
           </Grid.Column>
 
-          <Grid.Column style={{padding:0}}>
+          <Grid.Column style={{padding:0}} width={3}>
           <Dropdown text="Niche" style={{ fontSize: '18px',color: '#050504'}}>
             <Dropdown.Menu >
               <Dropdown.Item text="Shopping" />
@@ -234,7 +237,7 @@ const handleLogin = (event) => {
           </Dropdown>
           </Grid.Column>
 
-          <Grid.Column style={{padding:0}}>
+          <Grid.Column style={{padding:0}} width={2}>
           <Dropdown text="Schedule" style={{ fontSize: '18px',color: '#050504'}}>
             <Dropdown.Menu >
               <Dropdown.Item text="Shopping" />
