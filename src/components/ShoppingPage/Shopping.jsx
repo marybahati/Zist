@@ -130,7 +130,7 @@ const handleLogin = (event) => {
 }
   return (
     <div >
-      <Grid  style={{ backgroundColor: "", textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
+      <Grid mobile={16} tablet={16} computer={16} style={{ backgroundColor: "", textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
         <Grid.Row width={16} >
           <Grid.Column width={16} style={{ display: 'inline-block', paddingRight: '40px' }}>
             <List style={{ display: 'inline-block' }}>
