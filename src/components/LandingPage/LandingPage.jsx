@@ -284,7 +284,43 @@ const handleRedirect = () =>{
                 </Form>
               </Modal.Description>
               <p style={{color:'#BCB4A7'}}>Already have an account ?</p> 
-               <a href='' style={{color:'#050504'}}><strong>Login</strong></a>
+               {/* <a href='' style={{color:'#050504'}}><strong><Button></Button>Login</strong></a> */}
+               <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
+                //  open={openModal}
+                onOpen={handleOpen}
+                //  onClose={handleClose}
+                trigger={<Button
+                  style={{
+                   border:'0'
+                }}  >Login</Button>}   >
+               <Grid width={16} style={{padding:'61px 0 80px 105px',backgroundColor:'',textAlign:'center'}}>
+            <Modal.Content>
+            <h2 >LOG IN</h2>
+              <Modal.Description style={{marginBottom: '40px'}}>
+                {/* <Header style={{marginBottom:'50px',marginTop: '50px',fontSize:'28px'}}>Get into your account</Header> */}
+                <Form onSubmit={handleLogin}>
+                <Form.Input   transparent
+                onChange={ e => setLoginEmail(e.target.value) }
+                required={true}
+                type='email'
+                textAlign='center'
+                size='tiny'
+                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
+
+                <Form.Input   transparent
+                onChange={ e => setLoginPassword(e.target.value) }
+                required={true}
+                type='password'
+                textAlign='center'
+                size='tiny'
+                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
+
+                 <ModalLoginButton/>
+                </Form>
+                </Modal.Description>
+                </Modal.Content>
+                </Grid>
+                </Modal>
             </Modal.Content>
            </Grid>
           </Modal>
@@ -332,7 +368,70 @@ const handleRedirect = () =>{
                 </Form>
                 <a href='' style={{color:'#BCB4A7',textDecoration: 'underline'}}>Can't Sign in?</a>
               </Modal.Description>
-              <a href='' style={{color:'#BCB4A7'}}>New to Zist Shopping ? <br/> Sign up</a>
+              <a href='' style={{color:'#BCB4A7'}}>New to Zist Shopping ?</a> <br/>
+              <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
+                // open={openModal}
+                onOpen={handleOpen}
+              //  onClose={handleClose}
+                trigger={
+                  <Button
+                  basic
+                  style={{
+                    border:'0 !important'
+                }}
+                  >Sign up</Button>
+                }
+            >
+           <Grid width={16} style={{padding:'61px 0 60px 105px',backgroundColor:'',textAlign:'center'}}>
+            <Modal.Content>
+            <h3 >SIGN UP </h3>
+              <Modal.Description style={{marginBottom: '40px'}}>
+                <Header style={{marginBottom:'30px',marginTop: '30px',fontSize:'18px'}}>Create a new account</Header>
+                <Form onSubmit={handleSignup}>
+
+                <Form.Input   transparent
+                name='first_name'
+                required={true}
+                type='text'
+                textAlign='center'
+                size='tiny'
+                onChange = { e => setFirstName(e.target.value) }
+                placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
+
+                {/* <Form.Input   transparent
+                name='last_name'
+                required={true}
+                type='text'
+                textAlign='center'
+                size='tiny'
+                onChange = { e => setLastName(e.target.value)}
+                placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} /> */}
+
+                <Form.Input   transparent
+                name='email'
+                required={true}
+                type='email'
+                textAlign='center'
+                size='tiny'
+                onChange = { e => setEmail(e.target.value)}
+                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
+
+                <Form.Input   transparent
+                name='password'
+                required={true}
+                type='password'
+                textAlign='center'
+                size='tiny'
+                onChange = { e => setPassword(e.target.value)}
+                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
+                 <ModalSignUpButton />
+                </Form>
+              </Modal.Description>
+              <p style={{color:'#BCB4A7'}}>Already have an account ?</p> 
+               <a href='' style={{color:'#050504'}}><strong>Login</strong></a>
+            </Modal.Content>
+           </Grid>
+          </Modal>
             </Modal.Content>
            </Grid>
           </Modal>
