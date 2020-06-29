@@ -12,11 +12,16 @@ import card4 from './../../Assets/4.jpg';
 import card8 from './../../Assets/8.jpg';
 import card9 from './../../Assets/9.jpg';
 import card10 from './../../Assets/10.jpg';
+import refineImage from './../../Assets/sort.svg'
+import locationImage from './../../Assets/location.svg'
+import scheduleImage from './../../Assets/schedule.svg'
+import categoryImage from './../../Assets/category.svg'
 import cart from "./../../Assets/searchCart.png";
 import StarRatings from 'react-star-ratings';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { RatedStars } from './Ratings';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
@@ -34,6 +39,9 @@ const SubHeading = styled.h4`
     margin: 0;
     color: grey;
 `;
+// const Gridcolumn = styled(Grid.Column)`
+//     padding: 0;
+// `;
 
 
 export const Shopping = () => {
@@ -192,61 +200,72 @@ const handleLogin = (event) => {
         </Grid.Row>
 
         <Grid.Row style={{padding:'20px 0'}} width={16}>
-
           <Grid.Column style={{padding:'0'}} width={2}>
-          <Dropdown text="Pickup" style={{ fontSize: '18px',color: '#050504'}}>
-            <Dropdown.Menu >
-              <Dropdown.Item text="Shopping" />
-              <Dropdown.Item text="Zist Articles" />
-              <Dropdown.Item text="Zist Recipes" />
-              <Dropdown.Item text="Zist Mission & Vision" />  
-            </Dropdown.Menu>
-          </Dropdown>
+            <Image src={refineImage}/>
+            <h4 style={{marginTop:'0'}}>Refine</h4>
+          </Grid.Column>
+        
+          <Grid.Column style={{padding:0}} width={4} >
+          <Grid >
+            <Grid.Row>
+              <Grid.Column width={2} style={{padding:'0',float:'right'}} >
+              <Image src={locationImage}/>
+              </Grid.Column>
+              <Grid.Column width={14} style={{padding:'0'}}>
+              <Dropdown text="Proximity" style={{ fontSize: '18px',color: '#050504'}}>
+                <Dropdown.Menu >
+                  <Dropdown.Item text="Shopping" />
+                  <Dropdown.Item text="Zist Articles" />
+                  <Dropdown.Item text="Zist Recipes" />
+                  <Dropdown.Item text="Zist Mission & Vision" />  
+                </Dropdown.Menu>
+              </Dropdown>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
           </Grid.Column>
 
-          <Grid.Column style={{padding:0}} width={3}>
-          <Dropdown text="Pricing rating" style={{ fontSize: '18px',color: '#050504'}}>
-            <Dropdown.Menu >
-              <Dropdown.Item text="Shopping" />
-              <Dropdown.Item text="Zist Articles" />
-              <Dropdown.Item text="Zist Recipes" />
-              <Dropdown.Item text="Zist Mission & Vision" />  
-            </Dropdown.Menu>
-          </Dropdown>
+          <Grid.Column style={{padding:0}} width={4} >
+          <Grid >
+            <Grid.Row>
+              <Grid.Column width={2} style={{padding:'0',float:'right'}} >
+              <Image src={categoryImage}/>
+              </Grid.Column>
+              <Grid.Column width={14} style={{padding:'0'}}>
+              <Dropdown text="Niche" style={{ fontSize: '18px',color: '#050504'}}>
+                <Dropdown.Menu >
+                  <Dropdown.Item text="Shopping" />
+                  <Dropdown.Item text="Zist Articles" />
+                  <Dropdown.Item text="Zist Recipes" />
+                  <Dropdown.Item text="Zist Mission & Vision" />  
+                </Dropdown.Menu>
+              </Dropdown>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
           </Grid.Column>
 
-          <Grid.Column style={{padding:0}} width={3}>
-          <Dropdown text="Proximity" style={{ fontSize: '18px',color: '#050504'}}>
-            <Dropdown.Menu >
-              <Dropdown.Item text="Shopping" />
-              <Dropdown.Item text="Zist Articles" />
-              <Dropdown.Item text="Zist Recipes" />
-              <Dropdown.Item text="Zist Mission & Vision" />  
-            </Dropdown.Menu>
-          </Dropdown>
+
+          <Grid.Column style={{padding:0}} width={4} >
+          <Grid >
+            <Grid.Row>
+              <Grid.Column width={2} style={{padding:'0',float:'right'}} >
+              <Image src={scheduleImage}/>
+              </Grid.Column>
+              <Grid.Column width={14} style={{padding:'0'}}>
+              <Dropdown text="Schedule" style={{ fontSize: '18px',color: '#050504'}}>
+                <Dropdown.Menu >
+                  <Dropdown.Item text="Shopping" />
+                  <Dropdown.Item text="Zist Articles" />
+                  <Dropdown.Item text="Zist Recipes" />
+                  <Dropdown.Item text="Zist Mission & Vision" />  
+                </Dropdown.Menu>
+              </Dropdown>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
           </Grid.Column>
 
-          <Grid.Column style={{padding:0}} width={3}>
-          <Dropdown text="Niche" style={{ fontSize: '18px',color: '#050504'}}>
-            <Dropdown.Menu >
-              <Dropdown.Item text="Shopping" />
-              <Dropdown.Item text="Zist Articles" />
-              <Dropdown.Item text="Zist Recipes" />
-              <Dropdown.Item text="Zist Mission & Vision" />  
-            </Dropdown.Menu>
-          </Dropdown>
-          </Grid.Column>
-
-          <Grid.Column style={{padding:0}} width={2}>
-          <Dropdown text="Schedule" style={{ fontSize: '18px',color: '#050504'}}>
-            <Dropdown.Menu >
-              <Dropdown.Item text="Shopping" />
-              <Dropdown.Item text="Zist Articles" />
-              <Dropdown.Item text="Zist Recipes" />
-              <Dropdown.Item text="Zist Mission & Vision" />  
-            </Dropdown.Menu>
-          </Dropdown>
-          </Grid.Column>
 
         </Grid.Row>
   
@@ -256,7 +275,7 @@ const handleLogin = (event) => {
         <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
         </div>
         <Grid.Row width={16} style={{  margin: '0 0 50px 0' }} >
-          <CardColumn width={7} style={{ margin: '0 100px 0 0' }}>
+          <CardColumn width={7} style={{ margin: '0 89px 0 0' }}>
             <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
               <Image src={card1} wrapped ui={false} />
               <Card.Content>
@@ -268,18 +287,11 @@ const handleLogin = (event) => {
                   All your utilities in one place
                   </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={3}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                 
+                  <RatedStars rating={3}/> 
                 </Grid.Column>
+
                 </Grid.Row>
                 </Grid>
 
@@ -305,18 +317,11 @@ const handleLogin = (event) => {
                   High quality groceries from local producers
                 </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={4}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                 
+                  <RatedStars rating={4}/>
                 </Grid.Column>
+
                 </Grid.Row>
                 </Grid>
               
@@ -347,18 +352,11 @@ const handleLogin = (event) => {
                   High quality groceries from local producers
                 </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={5}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                 
+                  <RatedStars rating={5}/>               
                 </Grid.Column>
+
                 </Grid.Row>
                 </Grid>
 
@@ -383,18 +381,11 @@ const handleLogin = (event) => {
                   With unique shops only on zist
                 </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={5}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                 
+                  <RatedStars rating={5}/>
                 </Grid.Column>
+
                 </Grid.Row>
                 </Grid>
 
@@ -427,18 +418,11 @@ const handleLogin = (event) => {
                   Fresh produce from real farms
                 </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={3}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                
+                  <RatedStars rating={3}/>
                 </Grid.Column>
+                
                 </Grid.Row>
                 </Grid>
 
@@ -463,18 +447,11 @@ const handleLogin = (event) => {
                   freshly sourced produce
                 </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={3}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                
+                  <RatedStars rating={3}/>
                 </Grid.Column>
+
                 </Grid.Row>
                 </Grid>
 
@@ -505,18 +482,11 @@ const handleLogin = (event) => {
                   Wide variety of goods
                 </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={4}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                
+                  <RatedStars rating={4}/>
                 </Grid.Column>
+
                 </Grid.Row>
                 </Grid>
 
@@ -541,18 +511,11 @@ const handleLogin = (event) => {
                   Fresh meat from organic farmers
                 </h4>
                 </Grid.Column>
+
                 <Grid.Column width={6} style={{textAlign:'center'}}>
-                
-                <StarRatings
-                  rating={4}
-                  starRatedColor="orange"
-                  numberOfStars={5}
-                  name='rating'
-                  starDimension="20px"
-                  starSpacing="2px"
-                />
-                
+                 <RatedStars rating={4}/>
                 </Grid.Column>
+
                 </Grid.Row>
                 </Grid>
 
