@@ -17,7 +17,6 @@ import locationImage from './../../Assets/location.svg'
 import scheduleImage from './../../Assets/schedule.svg'
 import categoryImage from './../../Assets/category.svg'
 import cart from "./../../Assets/searchCart.png";
-import StarRatings from 'react-star-ratings';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
@@ -138,6 +137,7 @@ const handleLogin = (event) => {
                 HELP
             </List.Item>
             </List>
+            {/* <ToastContainer autoClose={4000} onOpen={snackbarOpen} /> */}
             <LoginButton />
             <SignUpButton />
 
@@ -168,8 +168,14 @@ const handleLogin = (event) => {
               style={{ display: "inline-block", 
               border:'0',width:'120px',height:'130px',margin:'0',paddingBottom:'35px' }}
             />
-          <input type='search' style={{border:'0',paddingRight:'8px'}}/>
+          <input type='search' style={{border:'0',paddingRight:'8px'}} name="searchOption" list="searchOption" />
         </Input>
+        <datalist id="searchOption">
+          <option value="Camaro"/>
+          <option value="Corvette"/>
+          <option value="Impala"/>
+          <option value="Colorado"/>
+        </datalist>
          </Grid.Row>
 
       </Grid>
@@ -188,11 +194,12 @@ const handleLogin = (event) => {
         value={location}
         onChange={event => setLocation(event.target.value)}
         placeholder='Enter your address …'>
-          <Label basic style={{margin:'0',border:'0',padding:'0'}}>
-            <Icon size="large" color='black' name="map marker alternate" link/>
+          <Label basic style={{margin:'0',border:'0',padding:'0',height:'30 !important',width:'30px'}}>
+          <Image src={locationImage} />
           </Label>
-          <input style={{border:'0',padding:' 0 8px'}}/>
+          <input  style={{border:'0'}} />
         </Input>
+        
         </Grid.Row>
 
         <Grid.Row >

@@ -216,7 +216,7 @@ const handleRedirect = () =>{
         </Grid.Column>
 
         <Grid.Column width={12} style={{ backgroundColor: "" }}>
-        <ToastContainer autoClose={5000} onOpen={snackbarOpen} />
+        <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
          <List style={{display:'inline-block'}}>
             <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline'}}>
               HELP
