@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import zist from "./../../Assets/zist.svg";
 import { Grid, Dropdown, Image, Icon, Input, Button , Label, List, Header, Modal,Form,Message} from "semantic-ui-react";
 import cartImage from "./../../Assets/cart.png";
-import { LoginButton } from "./LoginButton";
 import styled from 'styled-components';
 import coffeShop from "./../../Assets/coffeShop.png";
 import step1 from "./../../Assets/step1.png";
@@ -10,14 +9,10 @@ import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
 import zistApp from "./../../Assets/zistApp.png";
 import "./styles.css";     
-import { SignUpButton } from "./SignUpButton";
-import { ModalLoginButton } from "./ModalLoginButtonn";
-import { ModalSignUpButton } from "./ModalSignUpButton";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { GoogleComponent } from 'react-google-location';
 import history from './../../History';
-import axios from 'axios';
+import { SignupButtonSection } from "./SignupButtonSection";
+import { LoginButtonSection } from "./LoginButtonSection";
 
 const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'  
 
@@ -102,88 +97,9 @@ const SocialMediaLinks = styled(List.Item)`
 
 const LandingPage = () => { 
   const [location, setLocation] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+  
 
-  console.log(firstName,lastName,email,password)
-  console.log(location)
-  const handleOpen = () => setOpenModal({ openModal: true })
-  const handleClose = () => setOpenModal({ openModal: false })
-  console.log(openModal)
-
-const handleSignup = (event) => {
-  event.preventDefault();
-  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { 
-    first_name: firstName,
-    // last_name: lastName,
-    email: email,
-    password: password
-   })
-    .then(res => {
-
-     if(res.status === 201 ){
-      setSnackbarOpen(true)
-      toast.success("You have successfully signed up",{
-        className:'toast',
-        draggable: true,
-        position: toast.POSITION.TOP_CENTER,
-        type: toast.TYPE.SUCCES,
-        hideProgressBar: true
-      })
-      setOpenModal(false)   
-     } 
-
-    }).catch(error => {
-      setSnackbarOpen(true)
-      toast.error("An error occurred, please check your email and password",{
-        className:'toast',
-        draggable: true,
-        position: toast.POSITION.TOP_CENTER,
-        type: toast.TYPE.ERROR,
-        hideProgressBar: true
-      })   
-    });
-}
-
-
-const handleLogin = (event) => {
-  event.preventDefault();
-  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/token/', {
-    // data to be sent
-      email: loginEmail ,
-      password: loginPassword
-    })
-    .then(res => {
-
-      if(res.status === 200 ){
-       setSnackbarOpen(true)
-       toast.success("You have successfully logged in",{
-         className:'toast',
-         draggable: true,
-         position: toast.POSITION.TOP_CENTER,
-         type: toast.TYPE.SUCCES,
-         hideProgressBar: true
-       }) 
-       setOpenModal(false)  
-      } 
  
-     }).catch(error => {
-       setSnackbarOpen(true)
-       toast.error("An error occurred, please check your email and password",{
-         className:'toast',
-         draggable: true,
-         position: toast.POSITION.TOP_CENTER,
-         type: toast.TYPE.ERROR,
-         hideProgressBar: true
-       })   
-     });
-}
 
 const handleRedirect = () =>{
   if( location == null ){
@@ -196,7 +112,7 @@ const handleRedirect = () =>{
   return (
     <MainDiv >
     {/* start of the navbar section */}
-    <Grid style={{ margin: " 39px 97px 0px 32px", textAlign: "right" }}>
+    <Grid style={{ margin: " 39px 10px 0px 32px", textAlign: "right" }}>
       <Grid.Row>
         <Grid.Column
           width={4}
@@ -215,231 +131,42 @@ const handleRedirect = () =>{
           </Dropdown>
         </Grid.Column>
 
-        <Grid.Column width={12} style={{ backgroundColor: "" }}>
-        <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
-         <List style={{display:'inline-block'}}>
-            <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline'}}>
-              HELP
-            </List.Item>
-          </List>
+        <Grid.Column width={12} style={{ display:'inline-block' }}>
+        <Grid>
+          <Grid.Row>
+
+            <Grid.Column width={8} style={{ padding: '16px 0 0 0'}}>
+              <List >
+              <List.Item as='a'href='' style={{paddingRight: '30px', fontSize: '20px',color: '#050504',textDecoration:'underline'}}>
+                HELP
+              </List.Item>
+            </List>
+            </Grid.Column>
+
+            <Grid.Column width={3} style={{ padding: '5px 0 0 0'}}>
+              <SignupButtonSection  />
+            </Grid.Column>
+
+            <Grid.Column width={3} style={{ padding: '5px 0 0 0'}} >
+              <LoginButtonSection />
+            </Grid.Column>
+
+            <Grid.Column width={2} style={{padding: '0'}} >
+              <Image
+              src={cartImage}
+              style={{ display: "inline-block", marginLeft: "5px" }}
+              />
+            </Grid.Column>
+
+          </Grid.Row>
+        </Grid>
+         
           
-          <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
-          //  open={openModal}
-           onOpen={handleOpen}
-          //  onClose={handleClose}
-           trigger={<Button
-            style={{
-              width: '201px',
-              height: '48px',
-              background: '#0B0B0B 0% 0% no-repeat padding-box',
-              color: '#fff',
-              opacity:1,  
-              borderRadius:'20px',
-              marginRight: '20px'
-          }}  >SIGN UP</Button>}   >
+          
+
+         
            
-           <Grid width={16} style={{padding:'61px 0 60px 105px',backgroundColor:'',textAlign:'center'}}>
-            <Modal.Content>
-            <h3 >SIGN UP </h3>
-              <Modal.Description style={{marginBottom: '40px'}}>
-                <Header style={{marginBottom:'30px',marginTop: '30px',fontSize:'18px'}}>Create a new account</Header>
-                <Form onSubmit={handleSignup}>
-
-                <Form.Input   transparent
-                name='first_name'
-                required={true}
-                type='text'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setFirstName(e.target.value) }
-                placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
-
-                {/* <Form.Input   transparent
-                name='last_name'
-                required={true}
-                type='text'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setLastName(e.target.value)}
-                placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} /> */}
-
-                <Form.Input   transparent
-                name='email'
-                required={true}
-                type='email'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setEmail(e.target.value)}
-                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
-
-                <Form.Input   transparent
-                name='password'
-                required={true}
-                type='password'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setPassword(e.target.value)}
-                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
-                 <ModalSignUpButton />
-                </Form>
-              </Modal.Description>
-              <p style={{color:'#BCB4A7'}}>Already have an account ?</p> 
-               {/* <a href='' style={{color:'#050504'}}><strong><Button></Button>Login</strong></a> */}
-               <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
-                //  open={openModal}
-                onOpen={handleOpen}
-                //  onClose={handleClose}
-                trigger={<Button
-                  style={{
-                   border:'0'
-                }}  >Login</Button>}   >
-               <Grid width={16} style={{padding:'61px 0 80px 105px',backgroundColor:'',textAlign:'center'}}>
-            <Modal.Content>
-            <h2 >LOG IN</h2>
-              <Modal.Description style={{marginBottom: '40px'}}>
-                {/* <Header style={{marginBottom:'50px',marginTop: '50px',fontSize:'28px'}}>Get into your account</Header> */}
-                <Form onSubmit={handleLogin}>
-                <Form.Input   transparent
-                onChange={ e => setLoginEmail(e.target.value) }
-                required={true}
-                type='email'
-                textAlign='center'
-                size='tiny'
-                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
-
-                <Form.Input   transparent
-                onChange={ e => setLoginPassword(e.target.value) }
-                required={true}
-                type='password'
-                textAlign='center'
-                size='tiny'
-                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
-
-                 <ModalLoginButton/>
-                </Form>
-                </Modal.Description>
-                </Modal.Content>
-                </Grid>
-                </Modal>
-            </Modal.Content>
-           </Grid>
-          </Modal>
-
-          <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
-          // open={openModal}
-          onOpen={handleOpen}
-         //  onClose={handleClose}
-          trigger={
-            <Button
-            style={{
-              width: '201px',
-              height: '48px',
-              background: ' 0% 0% no-repeat padding-box',
-              border:' 2px solid #080808',
-              opacity:1,  
-              borderRadius:'20px'
-          }}
-            >LOGIN</Button>
-          }
-            >
-           <Grid width={16} style={{padding:'61px 0 80px 105px',backgroundColor:'',textAlign:'center'}}>
-            <Modal.Content>
-            <h2 >LOG IN</h2>
-              <Modal.Description style={{marginBottom: '40px'}}>
-                {/* <Header style={{marginBottom:'50px',marginTop: '50px',fontSize:'28px'}}>Get into your account</Header> */}
-                <Form onSubmit={handleLogin}>
-                <Form.Input   transparent
-                onChange={ e => setLoginEmail(e.target.value) }
-                required={true}
-                type='email'
-                textAlign='center'
-                size='tiny'
-                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
-
-                <Form.Input   transparent
-                onChange={ e => setLoginPassword(e.target.value) }
-                required={true}
-                type='password'
-                textAlign='center'
-                size='tiny'
-                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
-
-                 <ModalLoginButton/>
-                </Form>
-                <a href='' style={{color:'#BCB4A7',textDecoration: 'underline'}}>Can't Sign in?</a>
-              </Modal.Description>
-              <a href='' style={{color:'#BCB4A7'}}>New to Zist Shopping ?</a> <br/>
-              <Modal  size='tiny' closeIcon={true}  style={{border:'1px solid #707070'}} centered={false}
-                // open={openModal}
-                onOpen={handleOpen}
-              //  onClose={handleClose}
-                trigger={
-                  <Button
-                  basic
-                  style={{
-                    border:'0 !important'
-                }}
-                  >Sign up</Button>
-                }
-            >
-           <Grid width={16} style={{padding:'61px 0 60px 105px',backgroundColor:'',textAlign:'center'}}>
-            <Modal.Content>
-            <h3 >SIGN UP </h3>
-              <Modal.Description style={{marginBottom: '40px'}}>
-                <Header style={{marginBottom:'30px',marginTop: '30px',fontSize:'18px'}}>Create a new account</Header>
-                <Form onSubmit={handleSignup}>
-
-                <Form.Input   transparent
-                name='first_name'
-                required={true}
-                type='text'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setFirstName(e.target.value) }
-                placeholder='First Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
-
-                {/* <Form.Input   transparent
-                name='last_name'
-                required={true}
-                type='text'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setLastName(e.target.value)}
-                placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} /> */}
-
-                <Form.Input   transparent
-                name='email'
-                required={true}
-                type='email'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setEmail(e.target.value)}
-                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} />
-
-                <Form.Input   transparent
-                name='password'
-                required={true}
-                type='password'
-                textAlign='center'
-                size='tiny'
-                onChange = { e => setPassword(e.target.value)}
-                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
-                 <ModalSignUpButton />
-                </Form>
-              </Modal.Description>
-              <p style={{color:'#BCB4A7'}}>Already have an account ?</p> 
-               <a href='' style={{color:'#050504'}}><strong>Login</strong></a>
-            </Modal.Content>
-           </Grid>
-          </Modal>
-            </Modal.Content>
-           </Grid>
-          </Modal>
-           
-          <Image
-            src={cartImage}
-            style={{ display: "inline-block", marginLeft: "20px" }}
-          />
+         
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -508,31 +235,6 @@ const handleRedirect = () =>{
          <Grid.Row style={{padding: '0'}}>
          <MenuGrid >
       <div style={{border: "1px solid #707070", height:'77px', backgroundColor:'#fff'}}>
-      {/* <Menu  secondary >
-      <TabDiv pointing >
-      <Menu.Item
-            name='SHOPPING'
-            style={{color:'#FFBD59',backgroundColor:'#fff',textAlign: 'center',borderBottom: '2px solid #FFBD59'}}
-            active={activeTab === 'SHOPPING'}
-            onClick={handleItemClick}
-          />
-      </TabDiv>
-      
-       <TabDiv>
-      <Menu.Item
-      style={{backgroundColor:''}}
-            name='DELIVERY'
-            active={activeTab === 'DELIVERY'}
-            onClick={handleItemClick}
-          />
-      </TabDiv> 
-
-      </Menu> */}
-      {/* <Button basic fluid style={{border:'0' ,display:'inline-block',textAlign:'left'}}>
-      <Icon name='location arrow' link style={{width:'100%', fontSize:'30px',paddingTop:'20px'}} >
-      </Icon>
-      Use my current location
-      </Button> */}
 
       <Button  basic fluid style={{border:'0' ,textAlign:'left',paddingBottom:'27px',fontSize:'25px',paddingLeft:'20px'}}>
         <Button.Content >
