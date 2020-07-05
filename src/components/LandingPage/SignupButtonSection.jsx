@@ -16,10 +16,6 @@ export class SignupButtonSection extends React.Component {
   render() {
     return([
         <SignUpButton // Button to click to activate the Modal
-          key='button1'
-          primary
-          content='Click!'
-          
           handleClick={
             () => {
               this.setState({ modalOpen: true })
