@@ -13,6 +13,7 @@ import { GoogleComponent } from 'react-google-location';
 import history from './../../History';
 import { SignupButtonSection } from "./SignupButtonSection";
 import { LoginButtonSection } from "./LoginButtonSection";
+import { withRouter } from 'react-router-dom';
 
 const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'  
 
@@ -96,16 +97,17 @@ const SocialMediaLinks = styled(List.Item)`
 `;
 
 const LandingPage = () => { 
-  const [location, setLocation] = useState(null);
-  
 
- 
+const [location, setLocation] = useState(null);
 
 const handleRedirect = () =>{
   if( location == null ){
     alert('please fill in your location to continue')
   } else {
-    history.push('/shopping')
+    history.push({
+      pathname: '/shopping',
+       state : location
+    })
   }
 } 
 
@@ -355,4 +357,4 @@ const handleRedirect = () =>{
 }
   
 
-export default LandingPage;
+export default withRouter(LandingPage);

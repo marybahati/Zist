@@ -3,8 +3,6 @@ import bgImage from './../../Assets/bgShopping.png'
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card } from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
-import { LoginButton } from './../LandingPage/LoginButton';
-import { SignUpButton } from './../LandingPage/SignUpButton';
 import card1 from './../../Assets/1.jpg';
 import card2 from './../../Assets/2.jpg';
 import card3 from './../../Assets/3.jpg';
@@ -17,10 +15,10 @@ import locationImage from './../../Assets/location.svg'
 import scheduleImage from './../../Assets/schedule.svg'
 import categoryImage from './../../Assets/category.svg'
 import cart from "./../../Assets/searchCart.png";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { RatedStars } from './Ratings';
+import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
+import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
@@ -43,109 +41,35 @@ const SubHeading = styled.h4`
 // `;
 
 
-export const Shopping = () => {
-  const [location, setLocation] = useState('Forest Lane, Nairobi');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
+export const Shopping = (props) => {
+  const location = (props.location && props.location.state) || '';
+  const [address, setAddress] = useState(location);
 
-  console.log(firstName,lastName,email,password)
-  console.log(location)
-  const handleOpen = () => setOpenModal({ openModal: true })
-  const handleClose = () => setOpenModal({ openModal: false })
-  console.log(openModal)
-
-const handleSignup = (event) => {
-  event.preventDefault();
-  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', { 
-    first_name: firstName,
-    // last_name: lastName,
-    email: email,
-    password: password
-   })
-    .then(res => {
-
-     if(res.status === 201 ){
-      setSnackbarOpen(true)
-      toast.success("You have successfully signed up",{
-        className:'toast',
-        draggable: true,
-        position: toast.POSITION.TOP_CENTER,
-        type: toast.TYPE.SUCCES,
-        hideProgressBar: true
-      })
-      setOpenModal(false)   
-     } 
-
-    }).catch(error => {
-      setSnackbarOpen(true)
-      toast.error("An error occurred, please check your email and password",{
-        className:'toast',
-        draggable: true,
-        position: toast.POSITION.TOP_CENTER,
-        type: toast.TYPE.ERROR,
-        hideProgressBar: true
-      })   
-    });
-}
-
-
-const handleLogin = (event) => {
-  event.preventDefault();
-  axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/token/', {
-    // data to be sent
-      email: loginEmail ,
-      password: loginPassword
-    })
-    .then(res => {
-
-      if(res.status === 200 ){
-       setSnackbarOpen(true)
-       toast.success("You have successfully logged in",{
-         className:'toast',
-         draggable: true,
-         position: toast.POSITION.TOP_CENTER,
-         type: toast.TYPE.SUCCES,
-         hideProgressBar: true
-       }) 
-       setOpenModal(false)  
-      } 
- 
-     }).catch(error => {
-       setSnackbarOpen(true)
-       toast.error("An error occurred, please check your email and password",{
-         className:'toast',
-         draggable: true,
-         position: toast.POSITION.TOP_CENTER,
-         type: toast.TYPE.ERROR,
-         hideProgressBar: true
-       })   
-     });
-}
   return (
     <div >
-      <Grid mobile={16} tablet={16} computer={16} style={{ backgroundColor: "", textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
-        <Grid.Row width={16} >
-          <Grid.Column width={16} style={{ display: 'inline-block', paddingRight: '40px' }}>
+      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
+        <Grid.Row width={12} style={{ backgroundColor: ""}} >
+          <Grid.Column width={10} style={{ padding: '16px 0 0 0',textAlign: 'right'}}>
             <List style={{ display: 'inline-block' }}>
-              <List.Item as='a' href='' style={{ paddingRight: '30px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '80px' }}>
+              <List.Item as='a' href='' style={{ paddingRight:'20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '80px' }}>
                 HELP
             </List.Item>
             </List>
-            {/* <ToastContainer autoClose={4000} onOpen={snackbarOpen} /> */}
-            <LoginButton />
-            <SignUpButton />
-
-            <Image
-              src={cartImage}
-              style={{ display: "inline-block", margin: " 0 30px 0 18px" }}
-            />
           </Grid.Column>
+          <Grid.Column width={2} style={{ padding: '5px 0 0 0',marginTop: '70px'}}>
+              <SignupButtonSection  />
+            </Grid.Column>
+
+            <Grid.Column width={2} style={{ padding: '5px 0 0 0',marginTop: '70px'}} >
+              <LoginButtonSection />
+            </Grid.Column>
+
+            <Grid.Column width={2} style={{padding: '0',marginTop: '60px'}} >
+              <Image
+              src={cartImage}
+              style={{ display: "block", margin: '0 auto' }}
+              />
+            </Grid.Column>
         </Grid.Row>
 
          <Grid.Row width={16} style={{padding: '0 '}}>
@@ -191,8 +115,8 @@ const handleLogin = (event) => {
         }}
         size="small"
         type="text"
-        value={location}
-        onChange={event => setLocation(event.target.value)}
+        value={address}
+        onChange={event => setAddress(event.target.value)}
         placeholder='Enter your address …'>
           <Label basic style={{margin:'0',border:'0',padding:'0',height:'30 !important',width:'30px'}}>
           <Image src={locationImage} />

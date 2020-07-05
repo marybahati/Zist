@@ -6,6 +6,7 @@ import history from './History';
 import { SignupButtonSection } from './components/LandingPage/SignupButtonSection';
 import { LoginButtonSection } from './components/LandingPage/LoginButtonSection'
 import { Cards } from './components/ShoppingPage/Cards';
+
 function App() {
   return (
     <Router history={history} >
