@@ -3,8 +3,6 @@ import { Router, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage';
 import {Shopping} from './components/ShoppingPage/Shopping'
 import history from './History';
-import { SignupButtonSection } from './components/LandingPage/SignupButtonSection';
-import { LoginButtonSection } from './components/LandingPage/LoginButtonSection'
 import { Cards } from './components/ShoppingPage/Cards';
 
 function App() {

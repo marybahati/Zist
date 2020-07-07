@@ -9,10 +9,15 @@ export  class Cards extends React.Component {
     }
   
     componentDidMount() {
-      axios.get(`https://jsonplaceholder.typicode.com/users`)
+      axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/businesseyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTk0NDY2NjE2LCJqdGkiOiI0NmRmZDZkYjY1NWY0YWYwOGQ3ZDYxMWY3NGNlMjliYSIsInVzZXJfaWQiOjU1fQ.foqW3xDCBMMEbrLUEP4lAyaaVnqoNZQx_pesdZv3-7U`,{
+      // headers: {
+      //   'Authorization': 'Basic {access_token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTk0NDY2NjE2LCJqdGkiOiI0NmRmZDZkYjY1NWY0YWYwOGQ3ZDYxMWY3NGNlMjliYSIsInVzZXJfaWQiOjU1fQ.foqW3xDCBMMEbrLUEP4lAyaaVnqoNZQx_pesdZv3-7U } '
+      // }
+      })
         .then(res => {
           const business = res.data;
           this.setState({ business });
+          console.log(business)
         })
     }
   
