@@ -3,10 +3,11 @@ import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal,
 import styled from 'styled-components';
 import axios from 'axios';
 import vendor from './../../Assets/vendor.png';
+import video from './../../Assets/intro-video.mp4';
 
 const Intro = styled(Grid)`
    background: #FEE2D4;
-   padding : 40px 0 80px 0 !important;
+   padding : 40px 0 0 0 !important;
 `;
 const IntroRows = styled(Grid.Row)`
    padding : 0;
@@ -28,7 +29,7 @@ const MainGrid = styled(Grid)`
     background: #F9F7F1 0% 0% no-repeat padding-box;
     border: 1px solid #707070;
     opacity: 1;
-    padding: 80px !important;
+    padding: 80px 0 80px 80px !important;
 `;
 const FormInput = styled.input`
     padding: 30px 20px !important;
@@ -52,9 +53,10 @@ const FormDropdowns = styled(Dropdown)`
 `;
 const FormTitle = styled.h1`
     text-align: center;
+    margin-bottom: 30px;
 `;
 const FormLabels = styled.label`
-    font-size: 20px !important;
+    font-size: 25px !important;
 `;
 const ContinueButton = styled(Button)`
     background: #FEE2D4 0% 0% no-repeat padding-box !important;
@@ -69,6 +71,9 @@ const ContinueButton = styled(Button)`
 `;
 const ButtonGrid = styled(Grid)`
     width: 50%;
+    margin: 0 auto !important;
+`;
+const VideoGrid = styled(Grid)`
     margin: 0 auto !important;
 `;
 const countryOptions = [
@@ -91,70 +96,83 @@ export const VendorRegistration = (props) => {
                      <Icon name='arrow left' size='large'/>
                     </Icons>
                 </Grid.Row>
-                 <IntroRows width={16}>
-                    <IntroRows width={12}><h1>GET WITH THE TIMES , ESTABLISH AN ONLINE PRESENCE…</h1></IntroRows>
-                </IntroRows> 
-                <IntroRows width={16}>
-                < VendorImage src={vendor}  />
-                </IntroRows>
-                <IntroRows width={16} >
-                  <IntroRows width={12}><h1>Register and start selling on Zist Shopping without any stress.</h1></IntroRows>
-                </IntroRows>
+
+                 {/* <IntroRows width={16}>
+                    <IntroRows width={12}>
+                        <h1>GET WITH THE TIMES , ESTABLISH AN ONLINE PRESENCE…</h1>
+                    </IntroRows>
+                </IntroRows>  */}
+
+                {/* <IntroRows width={16}> */}
+                    <VideoGrid>
+                    <video autoPlay='autoplay' loop='loop' muted  style={{maxHeight:700,textAlign:'center'}}>
+                        <source src={video} type='video/mp4' />
+                    </video>
+                    </VideoGrid>
+                {/* </IntroRows> */}
+
+                {/* <IntroRows width={16} >
+                    <IntroRows width={12}>
+                        <h1>Register and start selling on Zist Shopping without any stress.</h1>
+                    </IntroRows>
+                </IntroRows> */}
+
             </Intro>
             <MainGrid>
                 <Grid.Row width={16} >
                     <Grid.Column width={14}>
                         <FormTitle>Enter your business information.</FormTitle>
-                        <Form >
-                            <Form.Field>
-                            <FormLabels>Name of business</FormLabels>
-                            <FormInput placeholder='Enter the name your business is registered under…' />
-                            </Form.Field>
-                            
+                            <Form >
+                                <Form.Field>
+                                <FormLabels>Name of business</FormLabels>
+                                <FormInput placeholder='Enter the name your business is registered under…' />
+                                </Form.Field>
+                                
 
-                            <Form.Field>
-                            <FormLabels>Nature of Store/Stall</FormLabels>
-                            <FormDropdowns
-                                placeholder='Select whether your business is an independent / in a hypermarket.'
-                                fluid
-                                search
-                                selection
-                                options={countryOptions}
-                            />
-                            </Form.Field>
+                                <Form.Field>
+                                <FormLabels>Nature of Store/Stall</FormLabels>
+                                <FormDropdowns
+                                    placeholder='Select whether your business is an independent / in a hypermarket.'
+                                    fluid
+                                    search
+                                    selection
+                                    options={countryOptions}
+                                />
+                                </Form.Field>
 
-                            <Form.Field>
-                            <FormLabels>Niche of business</FormLabels>
-                            <FormDropdowns
-                                placeholder='Where appropriate , select which products your store deals in.'
-                                fluid
-                                search
-                                selection
-                                options={countryOptions}
-                            />
-                            </Form.Field>
-                            
-                            <Form.Field>
-                            <FormLabels>Contact Details</FormLabels>
-                            <FormInput placeholder='Enter your primary contact (phone number)' />
-                            <FormInput placeholder='Enter your secondary contact (email)' />
-                            </Form.Field>
+                                <Form.Field>
+                                <FormLabels>Niche of business</FormLabels>
+                                <FormDropdowns
+                                    placeholder='Where appropriate , select which products your store deals in.'
+                                    fluid
+                                    search
+                                    selection
+                                    options={countryOptions}
+                                />
+                                </Form.Field>
+                                
+                                <Form.Field>
+                                <FormLabels>Contact Details</FormLabels>
+                                <FormInput placeholder='Enter your primary contact (phone number)' />
+                                <FormInput placeholder='Enter your secondary contact (email)' />
+                                </Form.Field>
 
-                            <ButtonGrid width={16} >
-                                <ContinueButton> CONTINUE </ContinueButton>
-                            </ButtonGrid>
+                                <ButtonGrid width={16} >
+                                    <ContinueButton> CONTINUE </ContinueButton>
+                                </ButtonGrid>
 
                             </Form>
-                            <h1>*Your contact is important in reaching you and getting you 
-                                verified as a Zist Vendor. Contact should be made within 24 hrs post application.</h1>
+                                <h1>
+                                    *Your contact is important in reaching you and getting you 
+                                    verified as a Zist Vendor. Contact should be made within 24 hrs post application.
+                                </h1>
+                        
                     </Grid.Column>
-                    <Icons width={2}>
-                        <Icon name='help circle' size='huge' />
-                    </Icons>
+                        <Icons width={2}>
+                            <Icon name='help circle' size='huge' />
+                        </Icons>
                 </Grid.Row>
-                <Grid.Row width={16}>
                 
-                </Grid.Row>
             </MainGrid>
         </div>
     )
