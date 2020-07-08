@@ -1,10 +1,12 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card } from "semantic-ui-react";
 import styled from 'styled-components';
 import axios from 'axios';
 import vendor from './../../Assets/vendor.png';
 import video from './../../Assets/intro-video.mp4';
-
+import { ContinueButton } from './ContinueButton';
+import { ContinueButtonSection } from './ContinueButtonSection';
+// import { ContinueButtonSction } from './../Vendor/ContinueButtonSection';
 const Intro = styled(Grid)`
    background: #FEE2D4;
    padding : 40px 0 0 0 !important;
@@ -58,17 +60,17 @@ const FormTitle = styled.h1`
 const FormLabels = styled.label`
     font-size: 25px !important;
 `;
-const ContinueButton = styled(Button)`
-    background: #FEE2D4 0% 0% no-repeat padding-box !important;
-    border: 2px solid #FEE2D4 !important;
-    border-radius: 24px !important;
-    opacity: 1;
-    height: 66px !important;
-    width: 100%;
-    font-size: 26px !important;
-    color: #050504 !important;
-    margin: 50px 0 !important;
-`;
+// const ContinueButton = styled(Button)`
+//     background: #FEE2D4 0% 0% no-repeat padding-box !important;
+//     border: 2px solid #FEE2D4 !important;
+//     border-radius: 24px !important;
+//     opacity: 1;
+//     height: 66px !important;
+//     width: 100%;
+//     font-size: 26px !important;
+//     color: #050504 !important;
+//     margin: 50px 0 !important;
+// `;
 const ButtonGrid = styled(Grid)`
     width: 50%;
     margin: 0 auto !important;
@@ -92,6 +94,8 @@ const countryOptions = [
     { key: 'ag', value: 'ag', flag: 'ag', text: 'Antigua' },
   ]
 export const VendorRegistration = (props) => {
+    const [openModal, setModalOpen] = useState(false)
+    console.log(openModal)
     return (
         <div>
             <Intro width={16}>
@@ -162,7 +166,11 @@ export const VendorRegistration = (props) => {
                                 </Form.Field>
 
                                 <ButtonGrid width={16} >
-                                    <ContinueButton> CONTINUE </ContinueButton>
+                                    {/* <ContinueButton> CONTINUE </ContinueButton> */}
+                                    {/* <ContinueButton handleClick={() => setModalOpen({ openModal: true }) } />
+                                    <Modal/> */}
+                                    {/* <ContinueButtonSction /> */}
+                                    <ContinueButtonSection />
                                 </ButtonGrid>
 
                             </Form>

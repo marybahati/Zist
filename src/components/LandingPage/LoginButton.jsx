@@ -37,7 +37,7 @@ const LoginButtonX = styled(Button)`
             
         };
 `;
-export const LoginButton = (props) => (
-    <LoginButtonX basic  onClick={props.handleClick} >LOGIN</LoginButtonX>
-)
+export const LoginButton = (props) => {
+   return <LoginButtonX basic  onClick={props.handleClick} >LOGIN</LoginButtonX>
+}
     

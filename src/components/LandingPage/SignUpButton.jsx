@@ -38,7 +38,7 @@ const SignButtonX = styled(Button)`
 `;
 
 
-export const SignUpButton = (props) => (
-    <SignButtonX onClick={props.handleClick} >SIGN UP</SignButtonX>
-)
+export const SignUpButton = (props) => {
+  return  <SignButtonX onClick={props.handleClick} >SIGN UP</SignButtonX>
+}
     
