@@ -55,7 +55,21 @@ const FormTitle = styled.h1`
 `;
 const FormLabels = styled.label`
     font-size: 20px !important;
-    
+`;
+const ContinueButton = styled(Button)`
+    background: #FEE2D4 0% 0% no-repeat padding-box !important;
+    border: 2px solid #FEE2D4 !important;
+    border-radius: 24px !important;
+    opacity: 1;
+    height: 66px !important;
+    width: 100%;
+    font-size: 26px !important;
+    color: #050504 !important;
+    margin: 50px 0 !important;
+`;
+const ButtonGrid = styled(Grid)`
+    width: 50%;
+    margin: 0 auto !important;
 `;
 const countryOptions = [
     { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
@@ -67,20 +81,6 @@ const countryOptions = [
     { key: 'ao', value: 'ao', flag: 'ao', text: 'Angola' },
     { key: 'ai', value: 'ai', flag: 'ai', text: 'Anguilla' },
     { key: 'ag', value: 'ag', flag: 'ag', text: 'Antigua' },
-    { key: 'ar', value: 'ar', flag: 'ar', text: 'Argentina' },
-    { key: 'am', value: 'am', flag: 'am', text: 'Armenia' },
-    { key: 'aw', value: 'aw', flag: 'aw', text: 'Aruba' },
-    { key: 'au', value: 'au', flag: 'au', text: 'Australia' },
-    { key: 'at', value: 'at', flag: 'at', text: 'Austria' },
-    { key: 'az', value: 'az', flag: 'az', text: 'Azerbaijan' },
-    { key: 'bs', value: 'bs', flag: 'bs', text: 'Bahamas' },
-    { key: 'bh', value: 'bh', flag: 'bh', text: 'Bahrain' },
-    { key: 'bd', value: 'bd', flag: 'bd', text: 'Bangladesh' },
-    { key: 'bb', value: 'bb', flag: 'bb', text: 'Barbados' },
-    { key: 'by', value: 'by', flag: 'by', text: 'Belarus' },
-    { key: 'be', value: 'be', flag: 'be', text: 'Belgium' },
-    { key: 'bz', value: 'bz', flag: 'bz', text: 'Belize' },
-    { key: 'bj', value: 'bj', flag: 'bj', text: 'Benin' },
   ]
 export const VendorRegistration = (props) => {
     return (
@@ -140,11 +140,13 @@ export const VendorRegistration = (props) => {
                             <FormInput placeholder='Enter your secondary contact (email)' />
                             </Form.Field>
 
-                            <Form.Field>
-                            </Form.Field>
-                            <Button type='submit'>Submit</Button>
+                            <ButtonGrid width={16} >
+                                <ContinueButton> CONTINUE </ContinueButton>
+                            </ButtonGrid>
 
                             </Form>
+                            <h1>*Your contact is important in reaching you and getting you 
+                                verified as a Zist Vendor. Contact should be made within 24 hrs post application.</h1>
                     </Grid.Column>
                     <Icons width={2}>
                         <Icon name='help circle' size='huge' />
