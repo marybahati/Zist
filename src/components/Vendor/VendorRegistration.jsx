@@ -76,6 +76,10 @@ const ButtonGrid = styled(Grid)`
 const VideoGrid = styled(Grid)`
     margin: 0 auto !important;
 `;
+const Video = styled.video`
+    max-height: 700px;
+    text-align: center;
+`;
 const countryOptions = [
     { key: 'af', value: 'af', flag: 'af', text: 'Afghanistan' },
     { key: 'ax', value: 'ax', flag: 'ax', text: 'Aland Islands' },
@@ -105,9 +109,9 @@ export const VendorRegistration = (props) => {
 
                 {/* <IntroRows width={16}> */}
                     <VideoGrid>
-                    <video autoPlay='autoplay' loop='loop' muted  style={{maxHeight:700,textAlign:'center'}}>
-                        <source src={video} type='video/mp4' />
-                    </video>
+                        <Video autoPlay='autoplay' loop='loop' muted >
+                            <source src={video} type='video/mp4' />
+                        </Video>
                     </VideoGrid>
                 {/* </IntroRows> */}
 
