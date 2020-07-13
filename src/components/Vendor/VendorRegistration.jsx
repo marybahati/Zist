@@ -6,7 +6,6 @@ import vendor from './../../Assets/vendor.png';
 import video from './../../Assets/intro-video.mp4';
 import { ContinueButton } from './ContinueButton';
 import { ContinueButtonSection } from './ContinueButtonSection';
-// import { ContinueButtonSction } from './../Vendor/ContinueButtonSection';
 const Intro = styled(Grid)`
    background: #FEE2D4;
    padding : 40px 0 0 0 !important;
@@ -43,10 +42,10 @@ const FormInput = styled.input`
         font-size: 29px !important;
     }
 `;
-const FormDropdowns = styled(Dropdown)`
+const FormSelect = styled(Form.Select)`
     padding: 30px 20px !important;
     font-size: 18px !important;
-    width: 100%;
+    width: 100% !important;
     margin: 20px 0 !important;
     @media only screen and (min-width: 1400px) {
         padding: 50px 20px !important;
@@ -55,22 +54,11 @@ const FormDropdowns = styled(Dropdown)`
 `;
 const FormTitle = styled.h1`
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 `;
 const FormLabels = styled.label`
     font-size: 25px !important;
 `;
-// const ContinueButton = styled(Button)`
-//     background: #FEE2D4 0% 0% no-repeat padding-box !important;
-//     border: 2px solid #FEE2D4 !important;
-//     border-radius: 24px !important;
-//     opacity: 1;
-//     height: 66px !important;
-//     width: 100%;
-//     font-size: 26px !important;
-//     color: #050504 !important;
-//     margin: 50px 0 !important;
-// `;
 const ButtonGrid = styled(Grid)`
     width: 50%;
     margin: 0 auto !important;
@@ -133,43 +121,42 @@ export const VendorRegistration = (props) => {
                             <Form >
                                 <Form.Field>
                                 <FormLabels>Name of business</FormLabels>
-                                <FormInput placeholder='Enter the name your business is registered under…' />
+                                <FormInput placeholder='Enter the name your business is registered under…' 
+                                type='text' required/>
                                 </Form.Field>
                                 
 
                                 <Form.Field>
                                 <FormLabels>Nature of Store/Stall</FormLabels>
-                                <FormDropdowns
+                                <FormSelect
                                     placeholder='Select whether your business is an independent / in a hypermarket.'
                                     fluid
                                     search
                                     selection
                                     options={countryOptions}
+                                    required
                                 />
                                 </Form.Field>
 
                                 <Form.Field>
                                 <FormLabels>Niche of business</FormLabels>
-                                <FormDropdowns
+                                <FormSelect
                                     placeholder='Where appropriate , select which products your store deals in.'
                                     fluid
                                     search
                                     selection
                                     options={countryOptions}
+                                    required
                                 />
                                 </Form.Field>
                                 
                                 <Form.Field>
                                 <FormLabels>Contact Details</FormLabels>
-                                <FormInput placeholder='Enter your primary contact (phone number)' />
-                                <FormInput placeholder='Enter your secondary contact (email)' />
+                                <FormInput placeholder='Enter your primary contact (phone number)' required type="tel"  />
+                                <FormInput placeholder='Enter your secondary contact (email)' required  type='email' />
                                 </Form.Field>
 
                                 <ButtonGrid width={16} >
-                                    {/* <ContinueButton> CONTINUE </ContinueButton> */}
-                                    {/* <ContinueButton handleClick={() => setModalOpen({ openModal: true }) } />
-                                    <Modal/> */}
-                                    {/* <ContinueButtonSction /> */}
                                     <ContinueButtonSection />
                                 </ButtonGrid>
 

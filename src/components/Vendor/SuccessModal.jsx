@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 import { Modal, Header, Icon, Grid } from 'semantic-ui-react';
 
 
 export const SuccessModal = (props) => {
 
+const Description = styled.h3`
+  text-align: left !important;
+  line-height : 40px;
+`;
+const Signature = styled.h3`
+  text-align: left !important;
+  margin-top: 140px !important;
+`;
 
   return (
     <div>
@@ -12,7 +21,7 @@ export const SuccessModal = (props) => {
         size='small'
         closeOnEscape={true}
         centered={false}
-        style={{ padding: '40px 15px' }}
+        style={{ padding: '40px 15px 25px 15px' }}
       >
         <Header style={{ border: '0' }}>
           <Grid>
@@ -29,32 +38,21 @@ export const SuccessModal = (props) => {
                   />
                 </Modal.Actions>
               </Grid.Column>
-              <Grid.Column width={15} >
+              <Grid.Column width={14} >
                 <Modal.Content  style={{textAlign: 'center'}} >
                 <Icon name='check circle outline' size='massive'/>
-                <h2 style={{textAlign: 'left !important'}}>
+                <Description >
                 Congrats on knocking the first step out of the woods , You’re officially on your way to being a 
                 fully-fledged veon Zist Shopping. We’ll contact you with the guidelines and relevant
-                 information on the same. The Zist Team,
-                </h2>
+                 information on the same.
+                </Description>
+                <Signature> The Zist Team,</Signature>
                 </Modal.Content>
                 
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Header>
-
-
-        <Modal.Content>
-          <Grid>
-            <Grid.Row>
-              {/* <Grid.Column width={1} style={{ background: '' }} > </Grid.Column> */}
-              <Grid.Column width={16} style={{ background: '', textAlign: 'center', fontSize: '18px' }} >
-
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Modal.Content>
 
       </Modal>
     </div>
