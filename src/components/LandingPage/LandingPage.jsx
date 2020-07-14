@@ -325,7 +325,7 @@ const handleRedirect = () =>{
       <FooterGrid width={6}>
       <FooterTitle>Vendors</FooterTitle>
       <List>
-        <FooterLinks as='a'>Sell on Zist Shoppping</FooterLinks>
+        <FooterLinks as='a' href='/vendor' >Sell on Zist Shoppping</FooterLinks>
       </List>
       <FooterTitle>Become a Zister</FooterTitle>
       <List>

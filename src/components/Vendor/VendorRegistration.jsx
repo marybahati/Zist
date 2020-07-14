@@ -1,11 +1,13 @@
 import React,{useState} from 'react';
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card } from "semantic-ui-react";
 import styled from 'styled-components';
+import history from './../../History';
 import axios from 'axios';
 import vendor from './../../Assets/vendor.png';
 import video from './../../Assets/intro-video.mp4';
 import { ContinueButton } from './ContinueButton';
 import { ContinueButtonSection } from './ContinueButtonSection';
+import { withRouter } from 'react-router-dom';
 const Intro = styled(Grid)`
    background: #FEE2D4;
    padding : 40px 0 0 0 !important;
@@ -81,15 +83,19 @@ const countryOptions = [
     { key: 'ai', value: 'ai', flag: 'ai', text: 'Anguilla' },
     { key: 'ag', value: 'ag', flag: 'ag', text: 'Antigua' },
   ]
-export const VendorRegistration = (props) => {
+const VendorRegistration = (props) => {
     const [openModal, setModalOpen] = useState(false)
     console.log(openModal)
+
+    const handleGoingBack = () => {
+        history.goBack()
+    }
     return (
         <div>
             <Intro width={16}>
                 <Grid.Row >
                     <Icons width={1}>
-                     <Icon name='arrow left' size='large'/>
+                     <Button style={{background: 'inherit'}} onClick={handleGoingBack}>  <Icon name='chevron left' size='large' link  /> </Button>
                     </Icons>
                 </Grid.Row>
 
@@ -176,3 +182,5 @@ export const VendorRegistration = (props) => {
         </div>
     )
 }
+
+export default VendorRegistration
