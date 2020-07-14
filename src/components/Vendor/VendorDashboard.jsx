@@ -75,29 +75,29 @@ export const VendorDashboard = () => {
                         <Grid.Column width={6} style={{ padding: '0' }} >
                             <h1 style={{ paddingBottom: '21px' }} > Order details </h1>
                         </Grid.Column>
-                        <Grid.Column width={5} style={{ padding: '0' }} >
-                            <h1 style={{ paddingBottom: '10px' }} > Date </h1>
+                        <Grid.Column width={5} style={{ padding: '0 !important' }} >
+                            <h1 style={{ padding: '0 0 10px 0 ' }} > Date </h1>
                         </Grid.Column>
                     </Grid.Row>
 
                     <Grid.Row>
 
                         <Grid.Column width={5} style={{ padding: '0' }} >
-                            <h1> 36221708 </h1>
+                            <h2> 36221708 </h2>
                         </Grid.Column>
 
                         <Grid.Column width={6} style={{ padding: '0' }} >
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={6} >
-                                        <h1> Total </h1>
+                                        <h2> Total </h2>
                                     </Grid.Column>
                                     <Grid.Column width={6} >
-                                        <Dropdown text='Kshs. 750' as='h1' upward={false} direction='left'>
-                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px' }} >
+                                        <Dropdown text='Kshs. 750' as='h2' upward={false} >
+                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px',minWidth: '650px' }} >
                                                 <Grid>
-                                                    <Grid.Row width={16}>
-                                                        <Grid.Column width={3}  >
+                                                    <Grid.Row  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v6} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -111,7 +111,7 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v7} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -125,7 +125,7 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v8} />
                                                             <h1 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h1>
                                                         </Grid.Column>
@@ -149,29 +149,29 @@ export const VendorDashboard = () => {
                         </Grid.Column>
 
                         <Grid.Column width={5} style={{ textAlign: 'left' }}>
-                            <h1> Monday 29th June 13:00 </h1>
+                            <h2> Monday 29th June 13:00 </h2>
                         </Grid.Column>
 
                     </Grid.Row>
 
-                    <Grid.Row>
+                    <Grid.Row style={{margin : '30px 0 0 0'}} >
 
                         <Grid.Column width={5} style={{ padding: '0' }} >
-                            <h1> 36221717 </h1>
+                            <h2> 36221717 </h2>
                         </Grid.Column>
 
                         <Grid.Column width={6} style={{ padding: '0' }} >
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={6} >
-                                        <h1> Total </h1>
+                                        <h2> Total </h2>
                                     </Grid.Column>
                                     <Grid.Column width={6} >
-                                        <Dropdown text='Kshs. 500' as='h1' upward={false} >
-                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px' }} >
+                                        <Dropdown text='Kshs. 500' as='h2' upward={false} >
+                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px',minWidth: '650px' }} >
                                                 <Grid>
                                                     <Grid.Row width={16}>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v6} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -185,7 +185,7 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v7} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -199,7 +199,7 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v8} />
                                                             <h1 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h1>
                                                         </Grid.Column>
@@ -223,15 +223,15 @@ export const VendorDashboard = () => {
                         </Grid.Column>
 
                         <Grid.Column width={5} style={{ textAlign: 'left' }}>
-                            <h1> Monday 29th June 18:00 </h1>
+                            <h2> Monday 29th June 18:00 </h2>
                         </Grid.Column>
 
                     </Grid.Row>
 
-                    <Grid.Row>
+                    <Grid.Row style={{margin : '30px 0'}}>
 
                         <Grid.Column width={5} style={{ padding: '0' }} >
-                            <h1> 36221895 </h1>
+                            <h2> 36221895 </h2>
                         </Grid.Column>
 
                         <Grid.Column width={6} style={{ padding: '0' }} >
@@ -241,11 +241,11 @@ export const VendorDashboard = () => {
                                         <h1> Total </h1>
                                     </Grid.Column>
                                     <Grid.Column width={6} >
-                                        <Dropdown text='Kshs. 1700' as='h1' upward={false} >
-                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px' }} >
+                                        <Dropdown text='Kshs. 1700' as='h2' upward={false} >
+                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px',minWidth: '650px' }} >
                                                 <Grid>
                                                     <Grid.Row width={16}>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v6} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -259,7 +259,7 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v7} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -273,7 +273,7 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={3}  >
+                                                        <Grid.Column width={4}  >
                                                             <Image src={v8} />
                                                             <h1 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h1>
                                                         </Grid.Column>
@@ -297,7 +297,7 @@ export const VendorDashboard = () => {
                         </Grid.Column>
 
                         <Grid.Column width={5} style={{ textAlign: 'left' }}>
-                            <h1> Tuesday 30th June 07:00 </h1>
+                            <h2> Tuesday 30th June 07:00 </h2>
                         </Grid.Column>
 
                     </Grid.Row>
