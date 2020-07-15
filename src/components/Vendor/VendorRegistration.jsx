@@ -44,8 +44,8 @@ const FormInput = styled.input`
         font-size: 29px !important;
     }
 `;
-const FormSelect = styled(Form.Select)`
-    padding: 30px 20px !important;
+const FormSelectDropdown = styled(Dropdown)`
+    padding: 300px 20px !important;
     font-size: 18px !important;
     width: 100% !important;
     margin: 20px 0 !important;
@@ -134,7 +134,7 @@ const VendorRegistration = (props) => {
 
                                 <Form.Field>
                                 <FormLabels>Nature of Store/Stall</FormLabels>
-                                <FormSelect
+                                <FormSelectDropdown
                                     placeholder='Select whether your business is an independent / in a hypermarket.'
                                     fluid
                                     search
@@ -146,7 +146,7 @@ const VendorRegistration = (props) => {
 
                                 <Form.Field>
                                 <FormLabels>Niche of business</FormLabels>
-                                <FormSelect
+                                <FormSelectDropdown
                                     placeholder='Where appropriate , select which products your store deals in.'
                                     fluid
                                     search
