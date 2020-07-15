@@ -101,7 +101,6 @@ const ExploreLinks = styled(List.Item)`
   color: #0B0B0B;
   font-weight: bold;
   padding: 0 70px !important;
-  margin-top: 100px !important;
 `;
 const LandingPage = () => {
 
