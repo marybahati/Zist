@@ -100,7 +100,7 @@ const ExploreLinks = styled(List.Item)`
   font-size: 20px;
   color: #0B0B0B;
   font-weight: bold;
-  padding: 0 70px !important;
+  padding: 0 0 0 30px !important;
 `;
 const LandingPage = () => {
 
@@ -133,8 +133,8 @@ const LandingPage = () => {
             <Dropdown text="EXPLORE" style={{ fontSize: '18px', color: '#050504' }}>
               <Dropdown.Menu >
                 <Grid>
-                  <Grid.Row style={{height:320}}>
-                    <Grid.Column width={5} >
+                  <Grid.Row style={{padding: 0}}>
+                    <Grid.Column width={7} style={{border: '1px grey solid',padding: 0, background: 'white'}}>
                       {/* <Dropdown.Item text="Shopping" />
                       <Dropdown.Item text="Zist Articles" />
                       <Dropdown.Item text="Zist Recipes" />
@@ -162,15 +162,15 @@ const LandingPage = () => {
                           onClick={handleItemClick}
                         />
                       </Menu> */}
-                      <List link verticalAlign style={{padding: '10px 0',lineHeight: '60px'}} >
-                        <ExploreLinks as='a'>Shopping</ExploreLinks> <br/>
-                        <ExploreLinks as='a'>Zist Articles</ExploreLinks> <br/>
-                        <ExploreLinks as='a'>Zist Recipes</ExploreLinks> <br/>
-                        <ExploreLinks as='a'>Zist Mission & Vision</ExploreLinks>
+                      <List link fluid verticalAlign style={{lineHeight: '60px'}} >
+                        <ExploreLinks as='a' href='' >Shopping</ExploreLinks> <br/>
+                        <ExploreLinks as='a' href='' >Zist Articles</ExploreLinks> <br/>
+                        <ExploreLinks as='a' href='' >Zist Recipes</ExploreLinks> <br/>
+                        <ExploreLinks as='a' href='' >Zist Mission & Vision</ExploreLinks>
                       </List>
                     </Grid.Column>
-                    <Grid.Column width={11} style={{textAlign: 'center'}}>
-                      <Image align='right' src={explore} />
+                    <Grid.Column width={9} style={{textAlign: 'center',border: '1px grey solid',padding: 0 , background: 'white'}} >
+                      <Image align='right' src={explore} fluid />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
@@ -357,7 +357,7 @@ const LandingPage = () => {
 
       <IntroGrid>
 
-        <Grid.Row width={16}>
+        <Grid.Row width={16} style={{paddingTop:'70px'}}>
           <FooterGrid width={7}>
             <FooterTitle>Zist Shopping</FooterTitle>
             <List link >
