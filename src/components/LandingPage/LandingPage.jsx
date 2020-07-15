@@ -133,8 +133,8 @@ const LandingPage = () => {
             <Dropdown text="EXPLORE" style={{ fontSize: '18px', color: '#050504' }}>
               <Dropdown.Menu >
                 <Grid>
-                  <Grid.Row>
-                    <Grid.Column width={8} >
+                  <Grid.Row style={{height:320}}>
+                    <Grid.Column width={5} >
                       {/* <Dropdown.Item text="Shopping" />
                       <Dropdown.Item text="Zist Articles" />
                       <Dropdown.Item text="Zist Recipes" />
@@ -162,15 +162,15 @@ const LandingPage = () => {
                           onClick={handleItemClick}
                         />
                       </Menu> */}
-                      <List link verticalAlign >
+                      <List link verticalAlign style={{padding: '10px 0',lineHeight: '60px'}} >
                         <ExploreLinks as='a'>Shopping</ExploreLinks> <br/>
                         <ExploreLinks as='a'>Zist Articles</ExploreLinks> <br/>
                         <ExploreLinks as='a'>Zist Recipes</ExploreLinks> <br/>
                         <ExploreLinks as='a'>Zist Mission & Vision</ExploreLinks>
                       </List>
                     </Grid.Column>
-                    <Grid.Column width={8}>
-                      <Image position='right' src={explore} />
+                    <Grid.Column width={11} style={{textAlign: 'center'}}>
+                      <Image align='right' src={explore} />
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>
