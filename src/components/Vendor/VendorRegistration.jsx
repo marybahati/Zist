@@ -45,7 +45,7 @@ const FormInput = styled.input`
     }
 `;
 const FormSelectDropdown = styled(Dropdown)`
-    padding: 300px 20px !important;
+    padding: 30px 20px !important;
     font-size: 18px !important;
     width: 100% !important;
     margin: 20px 0 !important;
