@@ -116,7 +116,7 @@ const LandingPage = () => {
       history.push({
         pathname: '/shopping',
         state: location
-      })
+      },document.getElementById('location'))
     }
   }
 

@@ -10,11 +10,12 @@ import v5 from './../../Assets/v5.png';
 import v6 from './../../Assets/V6.png';
 import v7 from './../../Assets/V7.png';
 import v8 from './../../Assets/V8.png';
-
+import Collapsible from 'react-collapsible';
+import { DonutChart, Chart } from './Chart';
 
 const MainGrid = styled(Grid)`
    background: #F9F7F1;
-   padding : 80px 0 450px 60px !important;
+   padding : 80px 0 50px 60px !important;
 `;
 const ImageColumn = styled(Grid.Column)`
    padding : 0 40px 0 0 !important;
@@ -23,11 +24,19 @@ const ImageColumn = styled(Grid.Column)`
 const Heading = styled.h1`
    padding : 0 !important;
 `;
-const SubHeading = styled.h1`
+const SubHeading = styled.h3`
    padding : 60px 0 15px 0 !important;
 `;
 const SubHeadingText = styled.h2`
    text-decoration: underline;
+`;
+const DropdownButtons = styled(Button)`
+    background: #F9F7F1 !important;
+    border: 0 ;
+    box-shadow: 0px !important;
+    font-size: 22px !important;
+    padding: 0 !important;
+    color: black !important;
 `;
 export const VendorDashboard = () => {
 
@@ -61,7 +70,7 @@ export const VendorDashboard = () => {
                     </Grid.Row>
 
                     <Grid.Row>
-                        <SubHeading> Recent Transactions. </SubHeading>
+                        <h2> Recent Transactions. </h2>
                     </Grid.Row>
 
                     <Grid.Row>
@@ -69,35 +78,34 @@ export const VendorDashboard = () => {
                     </Grid.Row>
 
                     <Grid.Row>
-                        <Grid.Column width={5} style={{ padding: '0' }} >
+                        <Grid.Column width={4} style={{ padding: '0' }} >
                             <h1 style={{ paddingBottom: '10px' }} > Order Number </h1>
                         </Grid.Column>
-                        <Grid.Column width={6} style={{ padding: '0' }} >
+                        <Grid.Column width={7} style={{ padding: '0' }} >
                             <h1 style={{ paddingBottom: '21px' }} > Order details </h1>
                         </Grid.Column>
-                        <Grid.Column width={5} style={{ padding: '0 !important' }} >
+                        <Grid.Column width={5} style={{ padding: '0' }} >
                             <h1 style={{ padding: '0 0 10px 0 ' }} > Date </h1>
                         </Grid.Column>
                     </Grid.Row>
 
                     <Grid.Row>
 
-                        <Grid.Column width={5} style={{ padding: '0' }} >
+                        <Grid.Column width={4} style={{ padding: '0' }} >
                             <h2> 36221708 </h2>
                         </Grid.Column>
 
-                        <Grid.Column width={6} style={{ padding: '0' }} >
+                        <Grid.Column width={7} style={{ padding: '0' }} >
                             <Grid>
                                 <Grid.Row>
-                                    <Grid.Column width={6} >
-                                        <h2> Total </h2>
+                                    <Grid.Column width={3} style={{padding:0}} >
+                                        <h2 style={{padding:'0 0 0 10px'}} > Total </h2>
                                     </Grid.Column>
-                                    <Grid.Column width={6} >
-                                        <Dropdown text='Kshs. 750' as='h2' upward={false} >
-                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px',minWidth: '650px' }} >
-                                                <Grid>
-                                                    <Grid.Row  >
-                                                        <Grid.Column width={4}  >
+                                    <Grid.Column width={12} style={{marginLeft:20,padding: '0'}} >
+                                    <Collapsible trigger={<DropdownButtons  >Kshs. 750 <Icon name='dropdown' style={{marginLeft:30}}/></DropdownButtons>} triggerTagName='h3' link >
+                                                <Grid width={16} >
+                                                    <Grid.Row >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v6} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -111,7 +119,7 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={4}  >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v7} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -125,22 +133,21 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={4}  >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v8} />
-                                                            <h1 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h1>
+                                                            <h3 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h3>
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
                                                             <SubHeading> Bananas (2) </SubHeading>
                                                         </Grid.Column>
                                                         <Grid.Column width={5} style={{ textAlign: 'center' }} >
                                                             <SubHeading> Kshs. 80 </SubHeading>
-                                                            <h1 style={{ padding: '50px 0 0 0' }}> Kshs. 750 </h1>
+                                                            <h3 style={{ padding: '27px 0 0 0' }}> Kshs. 750 </h3>
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>
 
-                                            </Dropdown.Menu>
-                                        </Dropdown>
+                                        </Collapsible>
                                     </Grid.Column>
                                 </Grid.Row>
 
@@ -156,65 +163,63 @@ export const VendorDashboard = () => {
 
                     <Grid.Row style={{margin : '30px 0 0 0'}} >
 
-                        <Grid.Column width={5} style={{ padding: '0' }} >
-                            <h2> 36221717 </h2>
+                    <Grid.Column width={4} style={{ padding: '0' }} >
+                            <h2> 36221708 </h2>
                         </Grid.Column>
 
-                        <Grid.Column width={6} style={{ padding: '0' }} >
+                        <Grid.Column width={7} style={{ padding: '0' }} >
                             <Grid>
                                 <Grid.Row>
-                                    <Grid.Column width={6} >
-                                        <h2> Total </h2>
+                                    <Grid.Column width={3} style={{padding:0}} >
+                                        <h2 style={{padding:'0 0 0 10px'}} > Total </h2>
                                     </Grid.Column>
-                                    <Grid.Column width={6} >
-                                        <Dropdown text='Kshs. 500' as='h2' upward={false} >
-                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px',minWidth: '650px' }} >
-                                                <Grid>
-                                                    <Grid.Row width={16}>
-                                                        <Grid.Column width={4}  >
+                                    <Grid.Column width={12} style={{marginLeft:20,padding: '0'}} >
+                                    <Collapsible trigger={<DropdownButtons  >Kshs. 650 <Icon name='dropdown' style={{marginLeft:30}}/></DropdownButtons>} triggerTagName='h3' link >
+                                                <Grid width={16} >
+                                                    <Grid.Row >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v6} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
                                                             <SubHeading> Blueberries (2) </SubHeading>
                                                         </Grid.Column>
                                                         <Grid.Column width={5} style={{ textAlign: 'center' }} >
-                                                            <SubHeading> Kshs. 300 </SubHeading>
+                                                            <SubHeading> Kshs. 500 </SubHeading>
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={4}  >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v7} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
                                                             <SubHeading>Bryan’s Bread (1) </SubHeading>
                                                         </Grid.Column>
                                                         <Grid.Column width={5} style={{ textAlign: 'center' }} >
-                                                            <SubHeading> Kshs.100 </SubHeading>
+                                                            <SubHeading> Kshs.70 </SubHeading>
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={4}  >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v8} />
-                                                            <h1 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h1>
+                                                            <h3 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h3>
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
                                                             <SubHeading> Bananas (2) </SubHeading>
                                                         </Grid.Column>
                                                         <Grid.Column width={5} style={{ textAlign: 'center' }} >
-                                                            <SubHeading> Kshs. 100 </SubHeading>
-                                                            <h1 style={{ padding: '50px 0 0 0' }}> Kshs. 500 </h1>
+                                                            <SubHeading> Kshs. 80 </SubHeading>
+                                                            <h3 style={{ padding: '27px 0 0 0' }}> Kshs. 650 </h3>
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>
 
-                                            </Dropdown.Menu>
-                                        </Dropdown>
+                                        </Collapsible>
                                     </Grid.Column>
                                 </Grid.Row>
 
@@ -223,29 +228,29 @@ export const VendorDashboard = () => {
                         </Grid.Column>
 
                         <Grid.Column width={5} style={{ textAlign: 'left' }}>
-                            <h2> Monday 29th June 18:00 </h2>
+                            <h2> Monday 29th June 13:00 </h2>
                         </Grid.Column>
+
 
                     </Grid.Row>
 
                     <Grid.Row style={{margin : '30px 0'}}>
 
-                        <Grid.Column width={5} style={{ padding: '0' }} >
-                            <h2> 36221895 </h2>
+                    <Grid.Column width={4} style={{ padding: '0' }} >
+                            <h2> 36221708 </h2>
                         </Grid.Column>
 
-                        <Grid.Column width={6} style={{ padding: '0' }} >
+                        <Grid.Column width={7} style={{ padding: '0' }} >
                             <Grid>
                                 <Grid.Row>
-                                    <Grid.Column width={6} >
-                                        <h1> Total </h1>
+                                    <Grid.Column width={3} style={{padding:0}} >
+                                        <h2 style={{padding:'0 0 0 10px'}} > Total </h2>
                                     </Grid.Column>
-                                    <Grid.Column width={6} >
-                                        <Dropdown text='Kshs. 1700' as='h2' upward={false} >
-                                            <Dropdown.Menu style={{ padding: '40px 0 20px 40px',minWidth: '650px' }} >
-                                                <Grid>
-                                                    <Grid.Row width={16}>
-                                                        <Grid.Column width={4}  >
+                                    <Grid.Column width={12} style={{marginLeft:20,padding: '0'}} >
+                                    <Collapsible trigger={<DropdownButtons  >Kshs. 850 <Icon name='dropdown' style={{marginLeft:30}}/></DropdownButtons>} triggerTagName='h3' link >
+                                                <Grid width={16} >
+                                                    <Grid.Row >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v6} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
@@ -259,36 +264,35 @@ export const VendorDashboard = () => {
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={4}  >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v7} />
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
                                                             <SubHeading>Bryan’s Bread (1) </SubHeading>
                                                         </Grid.Column>
                                                         <Grid.Column width={5} style={{ textAlign: 'center' }} >
-                                                            <SubHeading> Kshs.600 </SubHeading>
+                                                            <SubHeading> Kshs.70 </SubHeading>
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>
 
                                                 <Grid>
                                                     <Grid.Row>
-                                                        <Grid.Column width={4}  >
+                                                        <Grid.Column width={5}  >
                                                             <Image src={v8} />
-                                                            <h1 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h1>
+                                                            <h3 style={{ textAlign: 'center', padding: '55px 0 0 0' }}> Total </h3>
                                                         </Grid.Column>
                                                         <Grid.Column width={6} style={{ textAlign: 'center' }} >
                                                             <SubHeading> Bananas (2) </SubHeading>
                                                         </Grid.Column>
                                                         <Grid.Column width={5} style={{ textAlign: 'center' }} >
-                                                            <SubHeading> Kshs. 500 </SubHeading>
-                                                            <h1 style={{ padding: '50px 0 0 0' }}> Kshs. 1700 </h1>
+                                                            <SubHeading> Kshs. 180 </SubHeading>
+                                                            <h3 style={{ padding: '27px 0 0 0' }}> Kshs. 850 </h3>
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>
 
-                                            </Dropdown.Menu>
-                                        </Dropdown>
+                                        </Collapsible>
                                     </Grid.Column>
                                 </Grid.Row>
 
@@ -297,11 +301,27 @@ export const VendorDashboard = () => {
                         </Grid.Column>
 
                         <Grid.Column width={5} style={{ textAlign: 'left' }}>
-                            <h2> Tuesday 30th June 07:00 </h2>
+                            <h2> Monday 29th June 13:00 </h2>
                         </Grid.Column>
 
                     </Grid.Row>
-
+                    <Grid.Row style={{marginTop:'50px'}}>
+                        <Grid.Column style={{margin:'auto 0',textAlign:'right'}} width={6}>
+                            <h2> Target for the week is Kshs. 6,000 </h2>
+                        </Grid.Column>
+                        <Grid.Column width={4} >
+                            <Chart/>
+                        </Grid.Column>
+                        <Grid.Column style={{margin:'auto 0'}} width={6} >
+                           <h2>  Total made Kshs. 2950 </h2>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row width={16} >
+                       <Grid.Column width={5} style={{margin:'0 auto',textAlign:'center'}}>
+                       <h2 > Ksh.3050 left to meet target </h2>
+                        <h2> 49.16% of target met </h2>
+                       </Grid.Column>
+                    </Grid.Row>
                 </Grid>
             </MainGrid>
         </div>

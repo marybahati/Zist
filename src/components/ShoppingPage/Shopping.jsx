@@ -106,7 +106,7 @@ export const Shopping = (props) => {
 
       <Grid width={16} style={{  margin: '40px 0 0 80px' }}>
 
-        <Grid.Row >
+        <Grid.Row id='location' >
         <Input labelPosition='right' type='text'
         style={{
           backgroundColor: "white",
