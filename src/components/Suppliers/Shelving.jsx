@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Grid, Image, Icon, Input, List, Header, Card, Dropdown, Button } from "semantic-ui-react";
+import { Grid, Image,  Button,List } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
-import history from './../../History'
-import trialImage from './../../Assets/v1.png'
+import history from './../../History';
+import trialImage from './../../Assets/v1.png';
+
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
     opacity: 1;
-    margin-bottom: 100px;
     padding: 50px 0 !important;
 `;
 const MainGrid = styled(Grid)`
     width: 80%;
-    margin: 0 auto !important;
+    margin: 0 auto 100px auto !important;
 `;
 const ImageColumn = styled(Grid.Column)`
    padding : 0 40px 0 0 !important;
+   text-align: center;
+`;
+const ProductRows = styled(Grid.Row)`
+   margin : 0 0 40px 0 !important;
+`;
+const IntroColumn = styled(Grid.Column)`
+   margin : 30px 0  !important;
    text-align: center;
 `;
 const ImageButtons = styled(Button)`
@@ -24,7 +31,7 @@ const ImageButtons = styled(Button)`
     color: black !important;
     font-size: 23px !important;
 `;
-const IntroText = styled.h1`
+const IntroText = styled.h2`
    text-align: center !important;
 `;
 const ItemsColumn = styled(Grid.Column)`
@@ -33,6 +40,11 @@ const ItemsColumn = styled(Grid.Column)`
 const ProductNameColumn = styled(Grid.Column)`
    text-align: center !important;
    margin: ${props => props.center ? "auto 0 !important" : " 0 "};
+`;
+const EditProductLink = styled(List.Item)`
+   color: black !important;
+   font-size: 22px !important;
+   text-decoration: underline;
 `;
 
 export const Shelving = () => {
@@ -44,25 +56,32 @@ export const Shelving = () => {
             <MainGrid>
                 <Grid.Row>
                     <ImageColumn width={5}>
-                        <ImageButtons onClick={analyticsRedirect}>
+                        <ImageButtons >
                             <Image src={trialImage} />
-                            <h1> SHELVING </h1>
+                            <h2> SHELVING </h2>
                         </ImageButtons>
                     </ImageColumn>
                     <ImageColumn width={5}>
                         <ImageButtons onClick={analyticsRedirect}>
                             <Image src={trialImage} />
-                            <h1> SUPPLIERS </h1>
+                            <h2> SUPPLIERS </h2>
                         </ImageButtons>
                     </ImageColumn>
                     <ImageColumn width={5}>
                         <ImageButtons onClick={analyticsRedirect}>
                             <Image src={trialImage} />
-                            <h1> REQUESTS </h1>
+                            <h2> REQUESTS </h2>
                         </ImageButtons>
                     </ImageColumn>
-                    <IntroText> Put items on your digital shelf for the new age digital customer. </IntroText>
                 </Grid.Row>
+                <ProductRows>
+                    <IntroColumn>
+                        <IntroText> Put items on your digital shelf for the new age digital customer. </IntroText>
+                        <List>
+                            <EditProductLink as='a' href='#' > EDIT PRODUCTS </EditProductLink>
+                        </List>
+                    </IntroColumn>
+                </ProductRows>
                 <Grid.Row>
                    <Grid.Column width={3}>
                        <h3> PRODUCT IMAGES </h3>
@@ -78,7 +97,7 @@ export const Shelving = () => {
                    </Grid.Column>
                 </Grid.Row>
 
-                <Grid.Row>
+                <ProductRows>
                 <Grid.Column width={3}>
                     <Image src={trialImage} />
                    </Grid.Column>
@@ -91,9 +110,9 @@ export const Shelving = () => {
                    <ItemsColumn width={4}>
                        <h3> 12 </h3>
                    </ItemsColumn>
-                </Grid.Row>
+                </ProductRows>
 
-                <Grid.Row>
+                <ProductRows>
                 <Grid.Column width={3}>
                     <Image src={trialImage} />
                    </Grid.Column>
@@ -106,9 +125,9 @@ export const Shelving = () => {
                    <ItemsColumn width={4}>
                        <h3> 24 </h3>
                    </ItemsColumn>
-                </Grid.Row>
+                </ProductRows>
 
-                <Grid.Row>
+                <ProductRows>
                 <Grid.Column width={3}>
                     <Image src={trialImage} />
                    </Grid.Column>
@@ -121,7 +140,7 @@ export const Shelving = () => {
                    <ItemsColumn width={4}>
                        <h3> 10 </h3>
                    </ItemsColumn>
-                </Grid.Row>
+                </ProductRows>
 
             </MainGrid>
         </MainDiv>
