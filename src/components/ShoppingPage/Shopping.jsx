@@ -42,6 +42,7 @@ const SubHeading = styled.h4`
 
 
 export const Shopping = (props) => {
+
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
 
@@ -104,8 +105,9 @@ export const Shopping = (props) => {
 
       </Grid>
 
-      <Grid width={16} style={{  margin: '40px 0 0 80px' }}>
+      <Grid width={16} style={{  margin: '40px 0 0 80px' }} >
 
+        {/* <div id='location' > */}
         <Grid.Row id='location' >
         <Input labelPosition='right' type='text'
         style={{
@@ -125,6 +127,7 @@ export const Shopping = (props) => {
         </Input>
         
         </Grid.Row>
+        {/* </div> */}
 
         <Grid.Row >
         <SubHeading>Not sure of where to shop from? Here are some suggestions...</SubHeading>

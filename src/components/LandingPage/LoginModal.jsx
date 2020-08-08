@@ -3,17 +3,23 @@ import { Modal, Header, Button, Icon, Grid, Form } from 'semantic-ui-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { ModalSignUpButton } from './ModalSignUpButton';
 import { LinkingButton } from './LinkingButtons';
 import { LinkingLoginButton } from './LinkingLoginButton';
 import { ModalLoginButton } from './ModalLoginButton';
 import { LinkingSignupButton } from './LinkingSignupButton';
+import { withCookies,Cookies } from 'react-cookie';
 
-export const LoginModal = (props) => {
-
+const LoginModal = (props) => {
+  
+    const cookies = new Cookies();
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
+    const [token, setToken] = useState('')
+    const [refreshToken, setRefreshToken] = useState('')
     const [snackbarOpen, setSnackbarOpen] = useState(false);
+    cookies.set('access-token', token, { path: '/' });
+    const access = cookies.get('access-token')
+    console.log(access)
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -23,8 +29,9 @@ export const LoginModal = (props) => {
             password: loginPassword
           })
           .then(res => {
-      
             if(res.status === 200 ){
+             setToken(res.data.access)
+             setRefreshToken(res.data.refresh)
              setSnackbarOpen(true)
              toast.success("You have successfully logged in",{
                className:'toast',
@@ -121,4 +128,4 @@ export const LoginModal = (props) => {
     </div>
   )
 }
-
+export default withCookies(LoginModal)

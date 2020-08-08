@@ -1,7 +1,7 @@
 import React from 'react'
 import MyModal, { SignupModal } from './SignupModal';
 import { LinkingButton } from './LinkingButtons';
-import { LoginModal } from './LoginModal';
+import  LoginModal  from './LoginModal';
 
 export class LinkingLoginButton extends React.Component {
 

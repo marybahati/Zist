@@ -18,7 +18,7 @@ export const SignupModal = (props) => {
   const handleSignup = (event) => {
     event.preventDefault();
     axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', {
-      first_name: firstName,
+      // first_name: firstName,
       // last_name: lastName,
       email: email,
       password: password
@@ -91,14 +91,14 @@ export const SignupModal = (props) => {
                 <h2>Create a new account </h2>
                 <Form onSubmit={handleSignup} style={{width: '80%',margin: '0 auto'}}>
 
-                  <Form.Input transparent
+                  {/* <Form.Input transparent
                     name='first_name'
                     required={true}
                     type='text'
                     textAlign='center'
                     size='tiny'
                     onChange={e => setFirstName(e.target.value)}
-                    placeholder='First Name' style={{ borderBottom: '2px solid #FFE5B4', margin: '20px 0 ' }} />
+                    placeholder='First Name' style={{ borderBottom: '2px solid #FFE5B4', margin: '20px 0 ' }} /> */}
 
                       {/* <Form.Input   transparent
                     name='last_name'
@@ -116,7 +116,7 @@ export const SignupModal = (props) => {
                     textAlign='center'
                     size='tiny'
                     onChange={e => setEmail(e.target.value)}
-                    placeholder='Email' style={{ borderBottom: '2px solid #FFE5B4', marginBottom: '20px' }} />
+                    placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
 
                   <Form.Input transparent
                     name='password'

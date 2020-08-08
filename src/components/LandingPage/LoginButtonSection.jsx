@@ -3,7 +3,7 @@ import MyModal, { SignupModal } from './SignupModal';
 import { Button, Grid } from 'semantic-ui-react';
 import { SignUpButton } from './SignUpButton';
 import { LoginButton } from './LoginButton';
-import { LoginModal } from './LoginModal';
+import  LoginModal from './LoginModal';
 
 export class LoginButtonSection extends React.Component {
 
@@ -17,6 +17,7 @@ export class LoginButtonSection extends React.Component {
 
   render() {
     return([
+      
         <LoginButton 
           key='button1'
           handleClick={

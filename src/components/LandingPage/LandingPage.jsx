@@ -7,8 +7,8 @@ import coffeShop from "./../../Assets/coffeShop.png";
 import step1 from "./../../Assets/step1.png";
 import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
-import zistApp from "./../../Assets/zistApp.png";
-import explore from "./../../Assets/explorePic.png";
+import zistApp from "./../../Assets/order-now-img.png";
+import explore from "./../../Assets/explore.png";
 import "./styles.css";
 import { GoogleComponent } from 'react-google-location';
 import history from './../../History';
@@ -42,7 +42,8 @@ const IntroGrid = styled(Grid)`
 `
 const IntroColumn = styled(Grid.Column)`
     border: 1px solid #707070;
-    padding-bottom: 100px;
+    padding: auto !important;
+    margin: 0 auto !important;
 `
 const BetaButton = styled.button`
     width: 450px;
@@ -65,14 +66,15 @@ const AppSectionGrid = styled(Grid)`
 const AppLinkButton = styled.button`
     background: #FFBD59 0% 0% no-repeat padding-box;
     opacity: 1;
-    width:500px;
+    width:70% !important;
     height: 111px;
     border-radius: 55px;
-    margin-left: 100px;
-    margin-top: 120px;
+    // margin-left: 100px;
+    // margin-top: 120px;
     color: #050504;
-    font-size: 20px;
+    font-size: 25px;
     border: none;
+    font-weight: bold;
 `
 const FooterGrid = styled(Grid.Column)`
     margin-left: 90px;
@@ -116,7 +118,8 @@ const LandingPage = () => {
       history.push({
         pathname: '/shopping',
         state: location
-      },document.getElementById('location'))
+      })
+      // ,document.getElementById('location').scrollIntoView(true)
     }
   }
 
@@ -134,34 +137,7 @@ const LandingPage = () => {
               <Dropdown.Menu >
                 <Grid>
                   <Grid.Row style={{padding: 0}}>
-                    <Grid.Column width={7} style={{border: '1px grey solid',padding: 0, background: 'white'}}>
-                      {/* <Dropdown.Item text="Shopping" />
-                      <Dropdown.Item text="Zist Articles" />
-                      <Dropdown.Item text="Zist Recipes" />
-                      <Dropdown.Item text="Zist Mission & Vision" /> */}
-                      {/* <Menu text vertical>
-
-                        <Menu.Item
-                          name='Shopping'
-                          active={activeExploreItem === 'Shopping'}
-                          onClick={handleItemClick}
-                        />
-                        <Menu.Item
-                          name='Zist Articles'
-                          active={activeExploreItem === 'Zist Articles'}
-                          onClick={handleItemClick}
-                        />
-                        <Menu.Item
-                          name='Zist Recipes'
-                          active={activeExploreItem === 'Zist Recipes'}
-                          onClick={handleItemClick}
-                        />
-                        <Menu.Item
-                          name='Zist Mission & Vision'
-                          active={activeExploreItem === 'Zist Mission & Vision'}
-                          onClick={handleItemClick}
-                        />
-                      </Menu> */}
+                    <Grid.Column width={7} style={{padding: 0, background: 'white'}}>
                       <List link fluid verticalAlign style={{lineHeight: '60px'}} >
                         <ExploreLinks as='a' href='' >Shopping</ExploreLinks> <br/>
                         <ExploreLinks as='a' href='' >Zist Articles</ExploreLinks> <br/>
@@ -169,7 +145,7 @@ const LandingPage = () => {
                         <ExploreLinks as='a' href='' >Zist Mission & Vision</ExploreLinks>
                       </List>
                     </Grid.Column>
-                    <Grid.Column width={9} style={{textAlign: 'center',border: '1px grey solid',padding: 0 , background: 'white'}} >
+                    <Grid.Column width={9} style={{textAlign: 'center',padding: 0 , background: 'white'}} >
                       <Image align='right' src={explore} fluid />
                     </Grid.Column>
                   </Grid.Row>
@@ -210,13 +186,6 @@ const LandingPage = () => {
 
               </Grid.Row>
             </Grid>
-
-
-
-
-
-
-
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -309,7 +278,7 @@ const LandingPage = () => {
         mundane tasks so that YOU can focus <br />
         on what truly MATTERS.
         </p>
-          <BetaButton >SIGN ME UP FOR THE BETA</BetaButton>
+          <BetaButton >RSVP</BetaButton>
         </IntroColumn>
       </IntroGrid>
       <DemoGrid>
@@ -345,13 +314,10 @@ const LandingPage = () => {
     </h1>
       </DemoGrid>
       <AppSectionGrid>
-        <IntroColumn width={8}> <Image src={zistApp} style={{ paddingTop: 150 }} /> </IntroColumn>
+        <IntroColumn width={8}> <Image src={zistApp} style={{ padding: 'auto !important',height: '500px'}} /> </IntroColumn>
         <IntroColumn width={8} textAlign='left'>
-          <h6 style={{ fontSize: '25px', paddingLeft: 100, paddingTop: 150 }}>GET THE ZIST SHOPPING APP ON MOBILE TO</h6>
-          <h6 style={{ fontSize: '25px', paddingLeft: 100 }}>STAY NOTIFIED ON THE LATEST DEALS +</h6>
-          <h6 style={{ fontSize: '25px', paddingLeft: 100 }}>BE ABLE TO ACCESS IT FROM ANYWHERE/</h6>
-          <h6 style={{ fontSize: '25px', paddingLeft: 100 }}>ANYTIME</h6>
-          <AppLinkButton>TEXT ME THE LINK TO THE APP</AppLinkButton>
+          <h1 style={{ fontSize: '25px'}}>Handpicked and Delivered with care.</h1>
+          <AppLinkButton> ORDER NOW </AppLinkButton>
         </IntroColumn>
       </AppSectionGrid>
 

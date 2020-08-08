@@ -15,7 +15,7 @@ const Buttonx = styled(Button)`
 `;
 
 export const ContinueButton = (props) => {
-    return  <Buttonx onClick={props.handleClick} > CONTINUE </Buttonx>
+    return  <Buttonx type='submit' onClick={props.handleClick} > CONTINUE </Buttonx>
 }
 
 
