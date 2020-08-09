@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card } from "semantic-ui-react";
+import { Grid, Popup, Image, Icon, Input, Button, Form, List, Card } from "semantic-ui-react";
 import styled from 'styled-components';
 import axios from 'axios';
 import { RatedStars } from './../ShoppingPage/Ratings';
@@ -35,13 +35,16 @@ const FormInput = styled.input`
         font-size: 20px !important;
     }
 `;
-const warningText = styled.label`
+const warningText = styled.h2`
     margin: 20px 0 !important;
     font-size: 20px !important;
 `;
 const Titles = styled.h2`
     padding: 0 !important;
 `;
+const ColumnForm = styled(Grid.Column)`
+    padding: 0 !important;
+`
 export const Storefront = () => {
 
     const [name, setName] = useState('')
@@ -52,8 +55,12 @@ export const Storefront = () => {
     return (
         <MainDiv>
             <MainGrid>
-                <h2> Fresh Field Vegetables’ Storefront. </h2>
-                <h2> OUTLOOK OF YOUR BUSINESS’ PROFILE </h2>
+                <Grid.Row>
+                    <h2> Fresh Field Vegetables’ Storefront. </h2>
+                </Grid.Row>
+                <Grid.Row>
+                    <h2> OUTLOOK OF YOUR BUSINESS’ PROFILE </h2>
+                </Grid.Row>
                 <Grid.Row>
                     <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
                         <Image src={card1} wrapped ui={false} />
@@ -84,77 +91,72 @@ export const Storefront = () => {
                     </Card>
                 </Grid.Row>
                 <Grid.Row>
-                    <Form  fluid >
-                        <Form.Field>
-                            <FormLabels>Name of business</FormLabels>
-                            <FormInput placeholder='Enter the name your business is registered under…'
-                                type='text'
-                                required
-                                fluid
-                                onChange={e => setName(e.target.value)}
-                            />
-                        </Form.Field>
-                        <warningText>
-                            * changing the business name would involve the verification process being done again for validity purposes.
-                        </warningText>
-
-                        <Form.Field>
-                            <FormLabels>Nature of Store/Stall</FormLabels>
-                            <FormInput
-                                fluid={true}
-                                placeholder='Nature of Store/Stall'
-                                search
-                                selection
-                                // value={natureOfBusiness}
-                                onChange={ e => setNatureOfBusiness(e.target.value)}
-                                style={{ padding: '50px 20px !important', position: 'inherit !important', boxShadow: 'none' }}
-                            />
-                            {/* <Form.Select
-                                    placeholder='Select whether your business is an independent / in a hypermarket.'
-                                    // fluid
+                    <ColumnForm>
+                        <Form >
+                            <Form.Field>
+                                <FormLabels>Name of business</FormLabels>
+                                <Popup
+                                    trigger={
+                                        <FormInput placeholder='Enter the name your business is registered under…'
+                                        type='text'
+                                        required
+                                        fluid
+                                        onChange={e => setName(e.target.value)}
+                                        />
+                                    }
+                                    content='* changing the business name would involve the verification process being done again for validity purposes.'
+                                    position='bottom left'
+                                />
+                                
+                            </Form.Field>
+                            <Form.Field>
+                                <FormLabels>Nature of Store/Stall</FormLabels>
+                                <FormInput
+                                    fluid={true}
+                                    placeholder='Nature of Store/Stall'
                                     search
-                                    // selection
-                                    options={countryOptions}
-                                    required
-                                    onChange={ e => setNatureOfBusiness(e.target.value) }
+                                    selection
+                                    // value={natureOfBusiness}
+                                    onChange={e => setNatureOfBusiness(e.target.value)}
+                                    style={{ padding: '50px 20px !important', position: 'inherit !important', boxShadow: 'none' }}
+                                />
+                            </Form.Field>
 
-                                /> */}
-                        </Form.Field>
 
+                            <Form.Field>
+                                <FormLabels> Business Niche </FormLabels>
+                                <FormInput
+                                    placeholder='Business niche '
+                                    onChange={e => setNiche(e.target.value)}
+                                    clearable
+                                    search
+                                    style={{ padding: '2rem !important' }}
+                                />
+                            </Form.Field>
 
-                        <Form.Field>
-                            <FormLabels> Business Niche </FormLabels>
-                            <FormInput
-                                placeholder='Business niche '
-                                onChange={ e => setNiche(e.target.value)}
-                                clearable
-                                search
-                                style={{ padding: '2rem !important' }}
-                            />
-                        </Form.Field>
+                            <Form.Field>
+                                <FormLabels>Primary contact information</FormLabels>
+                                <FormInput placeholder='Enter your primary contact (phone number)'
+                                    required type="tel"
+                                    onChange={e => setTel(e.target.value)}
+                                />
+                            </Form.Field>
 
-                        <Form.Field>
-                            <FormLabels>Primary contact information</FormLabels>
-                            <FormInput placeholder='Enter your primary contact (phone number)'
-                                required type="tel"
-                                onChange={e => setTel(e.target.value)}
-                            />
-                        </Form.Field>
+                            <Form.Field>
+                                <FormLabels>Secondary contact information</FormLabels>
+                                <FormInput placeholder='Enter your secondary contact (email)'
+                                    required type='email'
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                            </Form.Field>
 
-                        <Form.Field>
-                        <FormLabels>Secondary contact information</FormLabels>
-                            <FormInput placeholder='Enter your secondary contact (email)'
-                                required type='email'
-                                onChange={e => setEmail(e.target.value)}
-                            />
-                        </Form.Field>
+                            <ButtonGrid width={16} >
+                                <ContinueButtonSection type='submit' name={name} natureOfBusiness={natureOfBusiness}
+                                    niche={niche} tel={tel} email={email} />
+                            </ButtonGrid>
 
-                        <ButtonGrid width={16} >
-                            <ContinueButtonSection type='submit' name={name} natureOfBusiness={natureOfBusiness}
-                                niche={niche} tel={tel} email={email} />
-                        </ButtonGrid>
-
-                    </Form>
+                        </Form>
+                    </ColumnForm>
                 </Grid.Row>
             </MainGrid>
         </MainDiv>

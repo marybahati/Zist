@@ -4,7 +4,12 @@ import { Grid, Image,  Button,List } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
 import history from './../../History';
-import trialImage from './../../Assets/v1.png';
+import shelving from './../../Assets/shelving.png';
+import bananas from './../../Assets/bananas.png';
+import blueberries from './../../Assets/blue-berries.png';
+import strawberries from './../../Assets/strawberries.png';
+import suppliers from './../../Assets/suppliers.png';
+import requests from './../../Assets/requests.png';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -20,7 +25,7 @@ const ImageColumn = styled(Grid.Column)`
    text-align: center;
 `;
 const ProductRows = styled(Grid.Row)`
-   margin : 0 0 40px 0 !important;
+   margin : ${props => props.spaced ? "0 0 20px 0 !important" : " 0 0 40px 0 !important "};
 `;
 const IntroColumn = styled(Grid.Column)`
    margin : 30px 0  !important;
@@ -57,19 +62,19 @@ export const Shelving = () => {
                 <Grid.Row>
                     <ImageColumn width={5}>
                         <ImageButtons >
-                            <Image src={trialImage} />
+                            <Image src={shelving} />
                             <h2> SHELVING </h2>
                         </ImageButtons>
                     </ImageColumn>
                     <ImageColumn width={5}>
                         <ImageButtons onClick={analyticsRedirect}>
-                            <Image src={trialImage} />
+                            <Image src={suppliers} />
                             <h2> SUPPLIERS </h2>
                         </ImageButtons>
                     </ImageColumn>
                     <ImageColumn width={5}>
                         <ImageButtons onClick={analyticsRedirect}>
-                            <Image src={trialImage} />
+                            <Image src={requests} />
                             <h2> REQUESTS </h2>
                         </ImageButtons>
                     </ImageColumn>
@@ -82,11 +87,11 @@ export const Shelving = () => {
                         </List>
                     </IntroColumn>
                 </ProductRows>
-                <Grid.Row>
-                   <Grid.Column width={3}>
+                <ProductRows spaced>
+                   <Grid.Column width={4}>
                        <h3> PRODUCT IMAGES </h3>
                    </Grid.Column>
-                   <ProductNameColumn width={5}>
+                   <ProductNameColumn width={4}>
                        <h3> PRODUCT NAME </h3>
                    </ProductNameColumn>
                    <Grid.Column width={4}>
@@ -95,11 +100,11 @@ export const Shelving = () => {
                    <Grid.Column width={4}>
                        <h3> PRICE/UNIT </h3>
                    </Grid.Column>
-                </Grid.Row>
+                </ProductRows>
 
                 <ProductRows>
                 <Grid.Column width={3}>
-                    <Image src={trialImage} />
+                    <Image src={blueberries} />
                    </Grid.Column>
                    <ProductNameColumn center width={5} >
                        <h3> BLUEBERRIES </h3>
@@ -114,7 +119,7 @@ export const Shelving = () => {
 
                 <ProductRows>
                 <Grid.Column width={3}>
-                    <Image src={trialImage} />
+                    <Image src={bananas} />
                    </Grid.Column>
                    <ProductNameColumn center width={5} >
                        <h3> BANANAS </h3>
@@ -129,7 +134,7 @@ export const Shelving = () => {
 
                 <ProductRows>
                 <Grid.Column width={3}>
-                    <Image src={trialImage} />
+                    <Image src={strawberries} />
                    </Grid.Column>
                    <ProductNameColumn center width={5} >
                        <h3> STRAWBERRIES </h3>
