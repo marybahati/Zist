@@ -9,10 +9,11 @@ const SignButtonX = styled(Button)`
         opacity: 1;  
         border-radius: 20px !important;
         margin-right: 20px;
+
         /* Medium devices (landscape tablets, 768px and up) */
         @media only screen and (min-width: 768px) {
-        width: 50px;
-        height: 48px;
+        width: 100px;
+        height: 38px;
 
         };
 

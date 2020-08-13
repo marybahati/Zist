@@ -32,11 +32,6 @@ const TabPanels = styled(Tab.Pane)`
 const ImageButtons = styled(Button)`
    background: inherit !important;
    font-size: 30px !important;
-//    padding: 0 30px 0 0 !important;
-   //    color: black;
-//    &:active {
-//     color: red !important; 
-//   }
 `;
 const ProductColumns = styled(Grid.Column)`
    margin: auto 0  !important;
@@ -65,9 +60,12 @@ const TargetRow = styled(Grid.Row)`
    margin:  100px 0 0 0  !important;
    padding: 0 !important;
 `;
+const TabImages = styled(Image)`
+   margin: 0 0 25px 0 !important;
+`;
 const panes = [
     {
-        menuItem: <ImageButtons><Image src={Analyse} /> Analytics </ImageButtons>,
+        menuItem: <ImageButtons><TabImages src={Analyse} /> Analytics </ImageButtons>,
         render: () => <TabPanels attached={false}>
             <TabGrid>
                 <TitleRow>
@@ -250,7 +248,7 @@ const panes = [
         </TabPanels>,
     },
     {
-        menuItem: <ImageButtons><Image src={transact} /> Transcation </ImageButtons>,
+        menuItem: <ImageButtons><TabImages src={transact} /> Transcation </ImageButtons>,
         render: () => <TabPanels attached={false} ><Transcations/> </TabPanels>,
     }
 ]

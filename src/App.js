@@ -12,7 +12,6 @@ import { Inventory } from './components/Vendor/Inventory';
 import { ServiceDesk } from './components/Vendor/ServiceDesk';
 import { Settings } from './components/Vendor/Settings';
 import { Announcements } from './components/Vendor/Announcements';
-import { Shelving } from './components/Suppliers/Shelving';
 import { Transcations } from './components/Vendor/Transcations'
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
       <Route exact path='/vendor-service-desk' component={ServiceDesk} />
       <Route exact path='/vendor-settings' component={Settings} />  
       <Route exact path='/vendor-announcements' component={Announcements} />
-      <Route exact path='/shelving' component={Shelving} />
       <Route exact path='/vendor-transcations' component={Transcations} />
     </Router>
   );

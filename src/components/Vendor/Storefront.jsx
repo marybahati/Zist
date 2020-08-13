@@ -65,7 +65,7 @@ export const Storefront = () => {
                     <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
                         <Image src={card1} wrapped ui={false} />
                         <Card.Content>
-                            <Card.Header>Brandy's Deli <Icon name='check circle' color='yellow' /></Card.Header>
+                            <Card.Header> Fresh Field Vegetables. <Icon name='check circle' color='yellow' /></Card.Header>
                             <Grid>
                                 <Grid.Row width={16} style={{ marginTop: '15px', marginBottom: '5px' }}>
                                     <Grid.Column width={10} >

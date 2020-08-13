@@ -26,10 +26,21 @@ const MainDiv = styled.div`
     left: 0;
     background: #ffecd2;
 `;
+const NavbarGrid = styled(Grid)`
+    margin: 39px 10px 0px 32px !important;
+    text-align: right !important;
+    background-color: inherit !important;
+
+`;
+
 const MenuGrid = styled.div`
     width: 45%;
     margin: 0 auto 100px auto ;
-    height: 145px;
+    // height: 145px;
+    @media only screen and (max-width: 750px) {
+      font-size: 18px !important;
+      width: 70% !important;
+      };
 `
 const TabDiv = styled.div`
     width: 100%;
@@ -46,36 +57,48 @@ const IntroColumn = styled(Grid.Column)`
     margin: 0 auto !important;
 `
 const BetaButton = styled.button`
-    width: 450px;
+    width: 100%;
     height: 109px;
     background-color: inherit;
     color: #050504;
-    margin-left: 120px;
-    margin-top: 120px;
-    margin-bottom: 150px;
+    font-size: 28px;
     border: 1px solid #707070;
     font-weight: bold;
+    @media only screen and (max-width: 450px) {
+      height: 60px;
+      font-size: 14px;
+      };
 `
 const DemoGrid = styled(Grid)`
     background: #FEE2D4 0% 0% no-repeat padding-box;
+    padding-bottom: ${props => props.spaced ? "80px !important" : " "};
 `
 const AppSectionGrid = styled(Grid)`
     background: #FFE5B4D3;
     margin-top: 100px;
-`
-const AppLinkButton = styled.button`
-    background: #FFBD59 0% 0% no-repeat padding-box;
+    border: 1px solid #707070 !important;
+`;
+const AppSectionColumn = styled(Grid.Column)`
+    border-left: 1px solid #707070 !important;
+    margin: ${props => props.spaceVertically ? "auto 0 !important" : " 0 auto !important"};
+    text-align: ${props => props.centered ? "center" : " left"};
+`;
+const AppLinkButton = styled(Button)`
+    background: #FFBD59 0% 0% no-repeat padding-box !important;
     opacity: 1;
     width:70% !important;
-    height: 111px;
-    border-radius: 55px;
-    // margin-left: 100px;
-    // margin-top: 120px;
-    color: #050504;
-    font-size: 25px;
-    border: none;
-    font-weight: bold;
-`
+    height: 111px !important;
+    border-radius: 55px !important;
+    color: #050504 !important;
+    font-size: 25px !important;
+    border: none !important;
+    font-weight: bold !important;
+    @media only screen and (max-width: 768px) {
+      height: 60px !important;
+      font-size: 14px !important;
+      border-radius: 30px !important;
+      };
+`;
 const FooterGrid = styled(Grid.Column)`
     margin-left: 90px;
     margin-top: 100px;
@@ -104,6 +127,218 @@ const ExploreLinks = styled(List.Item)`
   font-weight: bold;
   padding: 0 0 0 30px !important;
 `;
+const OrderNowColumns = styled(Grid.Column)`
+  margin: ${props => props.spaceVertically ? "auto 0 !important" : " 0 auto !important"};
+  text-align: ${props => props.centered ? "center" : " left"};
+  border-right: ${props => props.border ? "1px solid #707070 !important": "0"};
+
+`;
+const Title = styled.h1`
+  font-size: 30px !important;
+  font-weight: bold !important;
+  @media only screen and (max-width: 1100px) {
+    font-size: 20px !important;
+    };
+`;
+const MenuDropdown = styled(Dropdown)`
+  font-size: 18px;
+  color: #050504;
+`;
+const DropdownColumn = styled(Grid.Column)`
+  padding: 0 !important;
+  background: white !important;
+`;
+const NavbarActionsColumn = styled(Grid.Column)`
+  display: inline-block !important;
+  padding: 0 !important;
+`;
+const Columns = styled(Grid.Column)`
+  padding:  0 !important;
+`;
+const ButtonColumns = styled(Grid.Column)`
+  padding: ${props => props.morePadding ? "16px 0 0 0 !important" : " 5px 0 0 0 !important"};
+`;
+const HelpLink = styled(List.Item)`
+  font-size: 30px !important;
+  font-weight: bold !important;
+  padding-right: 30px !important;
+  font-size: 20px !important;
+  color: #050504 !important;
+  text-decoration: underline; 
+  @media only screen and (max-width: 1100px) {
+    font-size: 16px !important;
+    };
+`;
+const Cart = styled(Image)`
+  display: inline-block !important;
+`;
+const HeroImage = styled(Image)`
+  margin: 40px auto 0 auto !important;
+`;
+const IntroText = styled.h1`
+margin: ${props => props.margin ? "60px auto 0 auto !important" : " 29px auto 0 auto !important"};
+font-weight: bold;
+font-size: 48.5px;
+@media only screen and (max-width: 1100px) {
+  font-size: 25px !important;
+  text-align: center !important;
+  };
+`;
+const Grids = styled(Grid)`
+background-color: inherit !important;
+`;
+const LocationInput = styled(Input)`
+background-color: white !important;
+margin: 80px auto 0px auto !important;
+width: 45% !important;
+border: 1px solid #707070 !important;
+font-size: 30px !important;
+@media only screen and (max-width: 1100px) {
+  font-size: 18px !important;
+  };
+  @media only screen and (max-width: 750px) {
+    font-size: 18px !important;
+    width: 70% !important;
+    };
+`;
+const LocationIconLabel = styled(Label)`
+padding-left: 20px !important;
+margin: 0 !important; 
+border: 0 !important;
+padding-right: 0 !important; 
+`;
+const InputLocation = styled.input`
+border: 0 !important; 
+padding: 0 8px !important;
+`;
+const SubmitLocationButton = styled(Button)`
+margin: 0 !important;
+padding: auto 0 !important;
+border-radius: 0 !important;
+border-left: 1px solid grey !important;
+`;
+const SubmitIcon = styled(Icon)`
+font-size: 40px !important;
+padding-top: 12px !important;
+@media only screen and (max-width: 1100px) {
+  font-size: 20px !important;
+  };
+
+`;
+const LocaationDiv = styled.div`
+border: 1px solid #707070 !important;
+// height: 77px !important;
+background-color: #fff !important;
+`;
+const LocationPickerButton = styled(Button)`
+border: 0 !important;
+text-align: left !important;
+padding-bottom: 27px !important;
+font-size: 25px !important;
+padding-left: 20px !important;
+
+@media only screen and (max-width: 1100px) {
+  font-size: 18px !important;
+  };
+`;
+const LocationPickerIcon = styled(Icon)`
+font-size: 28px !important;
+margin-right: 40px !important;
+@media only screen and (max-width: 1100px) {
+  font-size: 18px !important;
+  };
+`;
+const BetaColumn = styled(Grid.Column)`
+width: 60% !important;
+margin:120px auto !important;
+@media only screen and (max-width: 450px) {
+  margin: 0 auto !important;
+  };
+`;
+const BetaColumnText = styled(Grid.Column)`
+width: 80% !important;
+margin: 120px auto 0 auto !important;
+@media only screen and (max-width: 450px) {
+  font-size: 15px !important;
+  margin: 0 auto !important;
+  };
+`;
+const BetaText = styled.h2`
+font-size: 24px !important;
+@media only screen and (max-width: 450px) {
+  font-size: 13px !important;
+  };
+  @media only screen and (min-width: 900px) {
+    font-size: 16px !important;
+    };
+`;
+const BetaImageColumn = styled(Grid.Column)`
+@media only screen and (max-width: 900px) {
+  margin: auto 0 !important;
+  };
+`;
+const BetaGrid = styled(Grid)`
+border: 1px solid #707070;
+background: #FEE2D4 0% 0% no-repeat padding-box;
+`;
+const BetaRsvp = styled(Grid.Column)`
+border-left: 1px solid #707070 !important;
+`;
+const GridRows = styled(Grid.Row)`
+padding: ${props => props.padding ? "70px 0 0 0 !important" : " 0 !important"};
+`;
+const Demo1 = styled.h1`
+padding-top: 120px;
+padding-bottom: 50px;
+font-size: 70px;
+font-weight: bold;
+@media only screen and (max-width: 600px) {
+  padding-top: 40px;
+  padding-bottom: 0;
+  font-size: 35px;
+  };
+`;
+const OrderColumnText = styled.h1`
+font-size: 25px;
+font-weight: bold;
+padding: 30px 0 !important;
+@media only screen and (max-width: 450px) {
+  font-size: 12px;
+  };
+  @media only screen and (max-width: 800px) {
+    font-size: 15px;
+    };
+`;
+const DemoDescription = styled.h1`
+font-size: 35px;
+font-weight: bold;
+@media only screen and (max-width: 600px) {
+  font-size: 20px;
+  };
+`;
+const DemoTitleColumn = styled(Grid.Column)`
+width: 85% !important;
+margin: 0 auto !important;
+@media only screen and (max-width: 450px) {
+  width: 90% !important;
+  };
+`;
+const SocialMediaRow = styled(Grid.Row)`
+margin: 100px 0 0 90px !important;
+`;
+const FooterColumn = styled(Grid.Column)`
+width: 85% !important;
+margin: 0 auto !important;
+padding: 40px 0 80px 0 !important;
+@media only screen and (max-width: 450px) {
+  width: 60% !important;
+  margin: 0 auto !important;
+  };
+  @media only screen and (min-width: 768px) {
+    width: 80% !important;
+    margin: 0 auto !important;
+    };  
+`;
 const LandingPage = () => {
 
   const [location, setLocation] = useState(null);
@@ -119,218 +354,230 @@ const LandingPage = () => {
         pathname: '/shopping',
         state: location
       })
-      // ,document.getElementById('location').scrollIntoView(true)
     }
+  }
+  const orderNowRedirect = () => {
+      history.push('/shopping')
   }
 
   return (
     <MainDiv >
       {/* start of the navbar section */}
-      <Grid style={{ margin: " 39px 10px 0px 32px", textAlign: "right" }}>
-        <Grid.Row>
+      <NavbarGrid>
+        <Grid.Row >
           <Grid.Column
             width={4}
             textAlign="left"
+            mobile={16} tablet={8} computer={4}
           >
-            <h1 style={{ fontSize: "30px", fontWeight: "bold" }}>ZIST SHOPPING</h1>
-            <Dropdown text="EXPLORE" style={{ fontSize: '18px', color: '#050504' }}>
+            <Title> ZIST SHOPPING </Title>
+            <MenuDropdown text="EXPLORE" >
               <Dropdown.Menu >
-                <Grid>
-                  <Grid.Row style={{padding: 0}}>
-                    <Grid.Column width={7} style={{padding: 0, background: 'white'}}>
-                      <List link fluid verticalAlign style={{lineHeight: '60px'}} >
-                        <ExploreLinks as='a' href='' >Shopping</ExploreLinks> <br/>
-                        <ExploreLinks as='a' href='' >Zist Articles</ExploreLinks> <br/>
-                        <ExploreLinks as='a' href='' >Zist Recipes</ExploreLinks> <br/>
+                <Grids>
+                  <Grid.Row >
+                    <DropdownColumn width={7} >
+                      <List link fluid verticalAlign style={{ lineHeight: '60px' }} >
+                        <ExploreLinks as='a' href='' >Shopping</ExploreLinks> <br />
+                        <ExploreLinks as='a' href='' >Zist Articles</ExploreLinks> <br />
+                        <ExploreLinks as='a' href='' >Zist Recipes</ExploreLinks> <br />
                         <ExploreLinks as='a' href='' >Zist Mission & Vision</ExploreLinks>
                       </List>
-                    </Grid.Column>
-                    <Grid.Column width={9} style={{textAlign: 'center',padding: 0 , background: 'white'}} >
+                    </DropdownColumn>
+                    <DropdownColumn width={9}  >
                       <Image align='right' src={explore} fluid />
-                    </Grid.Column>
+                    </DropdownColumn>
                   </Grid.Row>
-                </Grid>
-
-
-
+                </Grids>
               </Dropdown.Menu>
-            </Dropdown>
+            </MenuDropdown>
           </Grid.Column>
 
-          <Grid.Column width={12} style={{ display: 'inline-block' }}>
-            <Grid>
-              <Grid.Row>
+          <NavbarActionsColumn width={12}  >
+            <Grids >
+              <Grid.Row >
 
-                <Grid.Column width={8} style={{ padding: '16px 0 0 0' }}>
+                <ButtonColumns morePadding width={8} >
                   <List >
-                    <List.Item as='a' href='' style={{ paddingRight: '30px', fontSize: '20px', color: '#050504', textDecoration: 'underline' }}>
+                    <HelpLink as='a' href='' >
                       HELP
-              </List.Item>
+                    </HelpLink>
                   </List>
-                </Grid.Column>
+                </ButtonColumns>
 
-                <Grid.Column width={3} style={{ padding: '5px 0 0 0' }}>
+                <ButtonColumns width={3} >
                   <SignupButtonSection />
-                </Grid.Column>
+                </ButtonColumns>
 
-                <Grid.Column width={3} style={{ padding: '5px 0 0 0' }} >
+                <ButtonColumns width={3} >
                   <LoginButtonSection />
-                </Grid.Column>
+                </ButtonColumns>
 
-                <Grid.Column width={2} style={{ padding: '0' }} >
-                  <Image
+                <Columns width={2} >
+                  <Cart
                     src={cartImage}
-                    style={{ display: "inline-block", marginLeft: "5px" }}
                   />
-                </Grid.Column>
+                </Columns>
 
               </Grid.Row>
-            </Grid>
-          </Grid.Column>
+            </Grids>
+          </NavbarActionsColumn>
         </Grid.Row>
-      </Grid>
+      </NavbarGrid>
       {/* end of the navbar section */}
 
-      <Grid width={2} style={{ backgroundColor: "" }}>
-        <Image
+      <Grids width={2} >
+        <HeroImage
           src={zist}
-          style={{ marginLeft: "auto", marginRight: "auto", marginTop: "40px" }}
         />
-      </Grid>
-      <Grid width={5} >
-        <h2
-          style={{
-            marginLeft: "auto",
-            marginRight: "auto",
-            marginTop: "29px",
-            fontWeight: "bold",
-            fontSize: "48.5px"
-          }}
-        >
-          SHOPPING REINVENTED.
-      </h2>
-      </Grid>
-      <Grid width={8} style={{ backgroundColor: "inherit" }}>
-        <h2
-          style={{
-            marginLeft: "auto",
-            marginRight: "auto",
-            marginTop: "60px",
-            fontWeight: "bold",
-            fontSize: "48px"
-          }}
-        >
-          YOUR SHOPPING? WE’RE BUILT FOR THAT!
-      </h2>
-      </Grid>
+      </Grids>
+      <Grids width={5} >
+        <IntroText> SHOPPING REINVENTED. </IntroText>
+      </Grids>
+      <Grids width={8} >
+        <IntroText> YOUR SHOPPING? WE’RE BUILT FOR THAT! </IntroText>
+      </Grids>
 
 
 
-      <Grid style={{ backgroundColor: "inherit" }}>
-        <Grid.Row style={{ padding: '0', height: '170px' }}>
-          <Input labelPosition='right' type='search'
-            style={{
-              backgroundColor: "white",
-              margin: "80px auto 0px auto",
-              width: "45%",
-              border: "1px solid #707070",
-              fontSize: '30px'
-            }}
+      <Grids>
+        <GridRows>
+          <LocationInput labelPosition='right' type='search'
             size="small"
             type="text"
             value={location}
-            onChange={event => setLocation(event.target.value)}
-            placeholder='Enter your address …'>
-            <Label basic style={{ paddingLeft: '20px', margin: '0', border: '0', paddingRight: '0' }}>
-              <Icon size="large" color='black' name="map marker alternate" link />
-            </Label>
-            <input style={{ border: '0', padding: ' 0 8px' }} />
-            <Button onClick={handleRedirect} type="submit" basic style={{ margin: '0', paddingLeft: '0' }}>
-              <Icon size="huge" color="orange" name="angle right" link />
-            </Button>
-          </Input>
-        </Grid.Row>
+          >
+            <LocationIconLabel basic >
+              <Icon color='black' name="map marker alternate" link />
+            </LocationIconLabel>
+            <InputLocation placeholder='Enter your address …'  onChange={event => setLocation(event.target.value)} />
+            <SubmitLocationButton onClick={handleRedirect} type="submit" basic>
+              <SubmitIcon color="orange" name="angle right" link />
+            </SubmitLocationButton>
+          </LocationInput>
+        </GridRows>
 
-        <Grid.Row style={{ padding: '0' }}>
+        <GridRows>
           <MenuGrid >
-            <div style={{ border: "1px solid #707070", height: '77px', backgroundColor: '#fff' }}>
-
-              <Button basic fluid style={{ border: '0', textAlign: 'left', paddingBottom: '27px', fontSize: '25px', paddingLeft: '20px' }}>
+            <LocaationDiv >
+              <LocationPickerButton basic fluid >
                 <Button.Content >
-                  <Icon name='location arrow' link style={{ fontSize: '28px', marginRight: '40px' }} />
-          Use my current location
-        </Button.Content>
-              </Button>
-
-            </div>
+                  <Icon name='location arrow' link />
+                      Use my current location
+                </Button.Content>
+              </LocationPickerButton>
+            </LocaationDiv>
           </MenuGrid>
+        </GridRows>
+      </Grids>
+
+      <BetaGrid>
+        <BetaImageColumn width={8}> <Image src={coffeShop} /> </BetaImageColumn>
+        <BetaRsvp width={8} textAlign='left'>
+          <Grid>
+            <Grid.Row>
+              <BetaColumnText>
+                <BetaText> Life is all about priorities. We’re BUILT to  </BetaText>
+                <BetaText> cater to your shoppinng needs + your  </BetaText>
+                <BetaText> mundane tasks so that YOU can focus  </BetaText>
+                <BetaText> on what truly MATTERS.RSVP your </BetaText> 
+                <BetaText> email address to be the FIRST to know when we LAUNCH. </BetaText>
+              </BetaColumnText>
+            </Grid.Row>
+            <Grid.Row>
+              <BetaColumn >
+                <BetaButton> RSVP </BetaButton>
+              </BetaColumn>
+            </Grid.Row>
+          </Grid>
+        </BetaRsvp>
+      </BetaGrid>
+
+      <DemoGrid>
+        <Grid.Row>
+          <DemoTitleColumn>
+            <Demo1>
+              Here's how it works
+            </Demo1>
+          </DemoTitleColumn>
         </Grid.Row>
-        <Grid.Row></Grid.Row>
+      </DemoGrid>
 
-      </Grid>
+      <DemoGrid>
+      <Grid.Row>
+          <Image src={step1} />
+        </Grid.Row>
+        <Grid.Row>
+          <DemoTitleColumn>
+            <DemoDescription >
+              1.  Search for the place/item you'd like to shop at/for
+            </DemoDescription>
+          </DemoTitleColumn>
+        </Grid.Row>
+      </DemoGrid>
 
-      <IntroGrid>
-        <IntroColumn width={8}><Image src={coffeShop} ></Image></IntroColumn>
-        <IntroColumn width={8} textAlign='left'>
-          <p style={{ padding: '150px 200px 0 66px', fontSize: '20px', color: '#050504', lineHeight: '55px' }}>
-            Life is all about priorities. We’re BUILT to <br />
-        cater to your shoppinng needs + your <br />
-        mundane tasks so that YOU can focus <br />
-        on what truly MATTERS.
-        </p>
-          <BetaButton >RSVP</BetaButton>
-        </IntroColumn>
-      </IntroGrid>
       <DemoGrid>
-        <h1 style={{ paddingTop: '150px', fontSize: '70px', fontWeight: 'bold', paddingLeft: 78 }}>
-          Here's how it works
-      </h1>
-        <Image src={step1} />
+      <Grid.Row>
+          <Image src={step2} />
+        </Grid.Row>
+        <Grid.Row>
+          <DemoTitleColumn>
+            <DemoDescription >
+              2.  Come up with your list and where you'd want to shop
+            </DemoDescription>
+            <DemoDescription >
+              the various items (because we know you LIKE getting
+            </DemoDescription>
+            <DemoDescription >
+              Your things only from where you LIKE getting them)
+            </DemoDescription>
+            <DemoDescription >
+              whether it's just you or your entire family's shopping,
+            </DemoDescription>
+            <DemoDescription >
+              don't worry we can handle it!
+            </DemoDescription>
+          </DemoTitleColumn>
+        </Grid.Row>
       </DemoGrid>
-      <DemoGrid>
-        <h1 style={{ fontSize: '35px', fontWeight: 'bold', paddingLeft: 78 }}>
-          1.  Search for the place/item you'd like to shop at/for
-    </h1>
+
+      <DemoGrid spaced>
+      <Grid.Row>
+          <Image src={step3} />
+        </Grid.Row>
+        <Grid.Row>
+          <DemoTitleColumn>
+            <DemoDescription >
+                3.  Relax and do things that matter to you whilst
+            </DemoDescription>
+            <DemoDescription >
+                we get your shopping done for you.
+            </DemoDescription>
+          </DemoTitleColumn>
+        </Grid.Row>
       </DemoGrid>
-      <DemoGrid>
-        <Image src={step2} style={{ paddingLeft: 62 }} />
-      </DemoGrid>
-      <DemoGrid>
-        <h1 style={{ fontSize: '35px', fontWeight: 'bold', paddingLeft: 78, lineHeight: '70px' }}>
-          2.  Come up with your list and where you'd want to shop<br />
-        the various items (because we know you LIKE getting <br />
-        Your things only from where you LIKE getting them)<br />
-        whether it's just you or your entire family's shopping, <br />
-        don't worry we can handle it!
-    </h1>
-      </DemoGrid>
-      <DemoGrid>
-        <Image src={step3} style={{ paddingLeft: 62 }} />
-      </DemoGrid>
-      <DemoGrid>
-        <h1 style={{ fontSize: '35px', fontWeight: 'bold', paddingLeft: 78, paddingBottom: 150, lineHeight: '70px' }}>
-          3.  Relax and do things that matter to you whilst<br />
-        we get your shopping done for you.
-    </h1>
-      </DemoGrid>
+
       <AppSectionGrid>
-        <IntroColumn width={8}> <Image src={zistApp} style={{ padding: 'auto !important',height: '500px'}} /> </IntroColumn>
-        <IntroColumn width={8} textAlign='left'>
-          <h1 style={{ fontSize: '25px'}}>Handpicked and Delivered with care.</h1>
-          <AppLinkButton> ORDER NOW </AppLinkButton>
-        </IntroColumn>
+        <GridRows>
+          <OrderNowColumns border width={8}>
+            <Image src={zistApp} />
+          </OrderNowColumns>
+          <OrderNowColumns spaceVertically width={8} textAlign='center'>
+            <OrderColumnText> Handpicked and Delivered with care. </OrderColumnText>
+           <AppLinkButton onClick={orderNowRedirect} > ORDER NOW </AppLinkButton>
+          </OrderNowColumns>
+        </GridRows>
       </AppSectionGrid>
 
       <IntroGrid>
 
-        <Grid.Row width={16} style={{paddingTop:'70px'}}>
+        <GridRows padding width={16} >
           <FooterGrid width={7}>
             <FooterTitle>Zist Shopping</FooterTitle>
             <List link >
               <FooterLinks as='a'>Zist articles</FooterLinks><br />
               <FooterLinks as='a' >Careers</FooterLinks><br />
               <FooterLinks as='a'>Zist recipes</FooterLinks><br />
-              <FooterLinks as='a'>Shopping</FooterLinks><br />
+              <FooterLinks as='a' href='/shopping' >Shopping</FooterLinks><br />
               <FooterLinks as='a'>Delivery</FooterLinks><br />
               <FooterLinks as='a'>API docs</FooterLinks>
             </List>
@@ -352,19 +599,21 @@ const LandingPage = () => {
               <FooterLinks as='a'>Zist help</FooterLinks>
             </List>
           </FooterGrid>
-        </Grid.Row>
+        </GridRows>
 
-        <Grid.Row style={{ marginLeft: 90, marginTop: 100 }}>
+        <SocialMediaRow>
           <List>
             <FooterTitle> Follow us </FooterTitle>
             <SocialMediaLinks as='a' href='https://twitter.com/zistshopping'>Twitter</SocialMediaLinks><br />
             <SocialMediaLinks as='a' href=''>Facebook</SocialMediaLinks><br />
             <SocialMediaLinks as='a' href='https://instagram.com/zistshopping?igshid=gnx5fg8h7zeo'>Instagram</SocialMediaLinks>
           </List>
+        </SocialMediaRow>
+        <Grid.Row textAlign='left'>
+          <FooterColumn>
+           <FooterTitle> @2020 Zist Shopping inc. Terms. Privacy.</FooterTitle>
+          </FooterColumn>
         </Grid.Row>
-        <Grid style={{ paddingBottom: '80px', margin: '120px auto 0px 326px' }} textAlign='left' width={18}>
-          <FooterTitle> @2020 Zist Shopping inc. Terms. Privacy.</FooterTitle>
-        </Grid>
       </IntroGrid>
     </MainDiv>
   )

@@ -125,10 +125,10 @@ export const VendorDashboard = () => {
                     </Grid.Row>
 
                     <Grid.Row>
-                        <Grid.Column width={4} style={{ padding: '0' }} >
+                        <Grid.Column width={6} style={{ padding: '0' }} >
                             <h1 style={{ paddingBottom: '10px' }} > Order Number </h1>
                         </Grid.Column>
-                        <Grid.Column width={7} style={{ padding: '0' }} >
+                        <Grid.Column width={5} style={{ padding: '0' }} >
                             <h1 style={{ paddingBottom: '21px' }} > Order details </h1>
                         </Grid.Column>
                         <Grid.Column width={5} style={{ padding: '0' }} >
@@ -202,8 +202,8 @@ export const VendorDashboard = () => {
 
                         </Grid.Column>
 
-                        <Grid.Column width={5} style={{ textAlign: 'left' }}>
-                            <h2> Monday 29th June 13:00 </h2>
+                        <Grid.Column width={5} style={{ textAlign: 'left',padding:0 }}>
+                            <h2 > Monday 29th June 13:00 </h2>
                         </Grid.Column>
 
                     </Grid.Row>
@@ -274,7 +274,7 @@ export const VendorDashboard = () => {
 
                         </Grid.Column>
 
-                        <Grid.Column width={5} style={{ textAlign: 'left' }}>
+                        <Grid.Column width={5} style={{ textAlign: 'left',padding:0 }}>
                             <h2> Monday 29th June 13:00 </h2>
                         </Grid.Column>
 
@@ -347,7 +347,7 @@ export const VendorDashboard = () => {
 
                         </Grid.Column>
 
-                        <Grid.Column width={5} style={{ textAlign: 'left' }}>
+                        <Grid.Column width={5} style={{ textAlign: 'left',padding:0 }}>
                             <h2> Monday 29th June 13:00 </h2>
                         </Grid.Column>
 

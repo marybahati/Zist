@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Grid, Image,  Button,List } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
-import history from './../../History';
-import shelving from './../../Assets/shelving.png';
+import history from '../../History';
 import bananas from './../../Assets/bananas.png';
 import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
-import suppliers from './../../Assets/suppliers.png';
-import requests from './../../Assets/requests.png';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -31,11 +27,6 @@ const IntroColumn = styled(Grid.Column)`
    margin : 30px 0  !important;
    text-align: center;
 `;
-const ImageButtons = styled(Button)`
-    background: inherit !important;
-    color: black !important;
-    font-size: 23px !important;
-`;
 const IntroText = styled.h2`
    text-align: center !important;
 `;
@@ -45,6 +36,13 @@ const ItemsColumn = styled(Grid.Column)`
 const ProductNameColumn = styled(Grid.Column)`
    text-align: center !important;
    margin: ${props => props.center ? "auto 0 !important" : " 0 "};
+`;
+const ProductName = styled(Grid.Column)`
+   margin: auto 0 auto 15px !important;
+`;
+const ProductImages = styled(Image)`
+   width: 80% !important;
+   margin: 0 auto 0 0 !important;
 `;
 const EditProductLink = styled(List.Item)`
    color: black !important;
@@ -57,28 +55,7 @@ export const Shelving = () => {
         history.push('/vendor-analytics')
     }
     return (
-        <MainDiv>
-            <MainGrid>
-                <Grid.Row>
-                    <ImageColumn width={5}>
-                        <ImageButtons >
-                            <Image src={shelving} />
-                            <h2> SHELVING </h2>
-                        </ImageButtons>
-                    </ImageColumn>
-                    <ImageColumn width={5}>
-                        <ImageButtons onClick={analyticsRedirect}>
-                            <Image src={suppliers} />
-                            <h2> SUPPLIERS </h2>
-                        </ImageButtons>
-                    </ImageColumn>
-                    <ImageColumn width={5}>
-                        <ImageButtons onClick={analyticsRedirect}>
-                            <Image src={requests} />
-                            <h2> REQUESTS </h2>
-                        </ImageButtons>
-                    </ImageColumn>
-                </Grid.Row>
+            <Grid>
                 <ProductRows>
                     <IntroColumn>
                         <IntroText> Put items on your digital shelf for the new age digital customer. </IntroText>
@@ -91,63 +68,62 @@ export const Shelving = () => {
                    <Grid.Column width={4}>
                        <h3> PRODUCT IMAGES </h3>
                    </Grid.Column>
-                   <ProductNameColumn width={4}>
+                   <ProductName width={4}>
                        <h3> PRODUCT NAME </h3>
-                   </ProductNameColumn>
+                   </ProductName>
                    <Grid.Column width={4}>
                        <h3> PRICE/UNIT </h3>
                    </Grid.Column>
-                   <Grid.Column width={4}>
-                       <h3> PRICE/UNIT </h3>
+                   <Grid.Column width={3}>
+                       <h3> IN STOCK </h3>
                    </Grid.Column>
                 </ProductRows>
 
                 <ProductRows>
-                <Grid.Column width={3}>
-                    <Image src={blueberries} />
+                <Grid.Column width={4}>
+                    <ProductImages src={blueberries} />
                    </Grid.Column>
-                   <ProductNameColumn center width={5} >
+                   <ProductName center width={4} >
                        <h3> BLUEBERRIES </h3>
-                   </ProductNameColumn>
+                   </ProductName>
                    <ItemsColumn width={4}>
                        <h3> Kshs. 300/pack </h3>
                    </ItemsColumn>
-                   <ItemsColumn width={4}>
+                   <ItemsColumn width={3}>
                        <h3> 12 </h3>
                    </ItemsColumn>
                 </ProductRows>
 
                 <ProductRows>
-                <Grid.Column width={3}>
-                    <Image src={bananas} />
+                <Grid.Column width={4}>
+                    <ProductImages src={bananas} />
                    </Grid.Column>
-                   <ProductNameColumn center width={5} >
+                   <ProductName width={4} >
                        <h3> BANANAS </h3>
-                   </ProductNameColumn>
+                   </ProductName>
                    <ItemsColumn width={4}>
                        <h3> Kshs. 40/bunch </h3>
                    </ItemsColumn>
-                   <ItemsColumn width={4}>
+                   <ItemsColumn width={3}>
                        <h3> 24 </h3>
                    </ItemsColumn>
                 </ProductRows>
 
                 <ProductRows>
-                <Grid.Column width={3}>
-                    <Image src={strawberries} />
+                <Grid.Column width={4}>
+                    <ProductImages src={strawberries} />
                    </Grid.Column>
-                   <ProductNameColumn center width={5} >
+                   <ProductName  width={4} >
                        <h3> STRAWBERRIES </h3>
-                   </ProductNameColumn>
+                   </ProductName>
                    <ItemsColumn width={4}>
                        <h3>Kshs. 340/pack </h3>
                    </ItemsColumn>
-                   <ItemsColumn width={4}>
+                   <ItemsColumn width={3}>
                        <h3> 10 </h3>
                    </ItemsColumn>
                 </ProductRows>
 
-            </MainGrid>
-        </MainDiv>
+            </Grid>
     )
 }

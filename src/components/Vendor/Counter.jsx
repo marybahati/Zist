@@ -21,13 +21,13 @@ const CounterColumn = styled(Grid.Column)`
 export const Counter = () => {
     const [count, setCount] = React.useState(6500);
 
-    const increment = () => setCount(count => count + 1);
+    const increment = () => setCount(count => count + 100);
 
     const decrement = () => {
         if (count == 0) {
             setCount(0)
         } else {
-            setCount(count => count - 1)
+            setCount(count => count - 100)
         }
     }
 
