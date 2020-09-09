@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Grid, Image,  Button,List } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
-import history from '../../History';
 import bananas from './../../Assets/bananas.png';
 import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
+import EditProducts from './EditProducts';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -44,23 +44,22 @@ const ProductImages = styled(Image)`
    width: 80% !important;
    margin: 0 auto 0 0 !important;
 `;
-const EditProductLink = styled(List.Item)`
+const EditButton = styled(Button)`
    color: black !important;
    font-size: 22px !important;
    text-decoration: underline;
+   background: inherit !important;
+
 `;
 
-export const Shelving = () => {
-    const analyticsRedirect = () => {
-        history.push('/vendor-analytics')
-    }
+const ProductsSection = (props) => {
+    const [prodects,setProducts] = useState([])
     return (
-            <Grid>
-                <ProductRows>
+        <Grid>
+             <ProductRows>
                     <IntroColumn>
-                        <IntroText> Put items on your digital shelf for the new age digital customer. </IntroText>
                         <List>
-                            <EditProductLink as='a' href='#' > EDIT PRODUCTS </EditProductLink>
+                            <EditButton onClick={props.handleEdit} > EDIT PRODUCTS </EditButton>
                         </List>
                     </IntroColumn>
                 </ProductRows>
@@ -123,7 +122,24 @@ export const Shelving = () => {
                        <h3> 10 </h3>
                    </ItemsColumn>
                 </ProductRows>
-
+        </Grid>
+    )
+}
+export const Shelving = (props) => {
+    const [ edit, setEdit ] = useState(false)
+    const handleEdit = () => {
+        setEdit(true)
+    }
+    return (
+            <Grid>
+                <Grid.Row>
+                    <IntroColumn>
+                        <IntroText> Put items on your digital shelf for the new age digital customer. </IntroText>
+                    </IntroColumn>
+                </Grid.Row>
+               <Grid.Row>
+               { edit ? <EditProducts/> : <ProductsSection handleEdit={handleEdit} /> }
+               </Grid.Row>
             </Grid>
     )
 }

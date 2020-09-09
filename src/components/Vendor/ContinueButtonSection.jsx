@@ -5,7 +5,7 @@ import history from './../../History';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { withCookies,Cookies } from 'react-cookie';
+import { withCookies} from 'react-cookie';
 
 
 

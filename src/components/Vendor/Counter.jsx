@@ -18,7 +18,7 @@ const CounterColumn = styled(Grid.Column)`
    text-align: center !important;
    margin: auto 0 !important;
 `;
-export const Counter = () => {
+export const Counter = (props) => {
     const [count, setCount] = React.useState(6500);
 
     const increment = () => setCount(count => count + 100);

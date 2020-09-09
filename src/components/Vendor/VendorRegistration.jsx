@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Select } from "semantic-ui-react";
 import styled from 'styled-components';
 import history from './../../History';
-import axios from 'axios';
 import video from './../../Assets/intro-video.mp4';
 import ContinueButtonSection from './ContinueButtonSection';
 import { ToastContainer, toast } from 'react-toastify';

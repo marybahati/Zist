@@ -39,7 +39,7 @@ const Images = styled(Image)`
 const panes = [
     {
         menuItem: <ImageButtons><Images src={shelving} /> SHELVING </ImageButtons>,
-        render: () => <TabPanels attached={false} ><Shelving/> </TabPanels>,
+    render: () => <TabPanels attached={false} > <Shelving /> </TabPanels>,
     },
     {
         menuItem: <ImageButtons><Images src={suppliers} /> SUPPLIERS </ImageButtons>,
@@ -54,7 +54,7 @@ export const Inventory = () => {
     return (
         <MainDiv>
             <MainGrid>
-            <Grid.Row>
+                <Grid.Row>
                     <Columns >
                         <Tab menu={{ text: true, color: 'orange' }} panes={panes} />
                     </Columns>

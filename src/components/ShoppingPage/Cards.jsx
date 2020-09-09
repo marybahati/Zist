@@ -1,31 +1,55 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Grid,Image, Icon, Input,  List, Header, Card, Dropdown } from "semantic-ui-react";
+import { Grid,Image, Icon, Input,  List, Header, Card, Dropdown, Button  } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import { RatedStars } from './Ratings';
 import styled from 'styled-components';
+import cart from "./../../Assets/searchCart.png";
+import { withCookies } from 'react-cookie';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
     padding: 0 0 0 80px !important;
 `;
+const SearchBar = styled(Dropdown)`
+    margin: 0 0 40px 0 !important;
+    padding: 20px 20px !important;
+`;
 
-export class Cards extends React.Component {
+class Cards extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       businesses: [],
+      products: [],
       search: ''
     }
   }
 
   async componentDidMount() {
+    const { cookies } = this.props
+    const token = cookies.get('access-token')
+    console.log(token)
+
     try {
-      const res = await axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/`)
-      if (res.status == 200) {
-        this.setState({ businesses: res.data })
+      const businesses_res = await axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/`)
+      if (businesses_res.status == 200) {
+        this.setState({ businesses: businesses_res.data })
       }
-      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+
+    try {
+      const products_res = await axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/products/`,
+      { 
+        headers: {"Authorization" : `Bearer ${token}`} 
+      }
+      )
+      if ( products_res.status == 200) {
+        this.setState({ products: products_res.data })
+      }
+      console.log(products_res)
     } catch (error) {
       console.log(error)
     }
@@ -71,17 +95,15 @@ onSearch = (e) => {
 }
   render() {
     console.log(this.state.businesses);
+    console.log(this.state.products);
     console.log(this.state.search)
     return (
       <div>
         <Grid>
           <Grid.Row width={16} style={{background:'pink'}}>
           <Input placeholder='Search...'
-          //  as='input'
            search 
            onChange={this.onSearch} 
-          //  icon='search' 
-          //  selection
            options={this.state.businesses.map( business => business.name )}
            />
           </Grid.Row>
@@ -96,3 +118,4 @@ onSearch = (e) => {
     )
   }
 }
+export default withCookies(Cards)
