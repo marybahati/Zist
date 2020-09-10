@@ -78,7 +78,7 @@ const EditProducts = (props) => {
 
     return (
         <Grid>
-            { products.length == 0 ? <h1>array is empty </h1> : <h1> array has value </h1>}
+            {/* { products.length == 0 ? <h1>array is empty </h1> : <h1> array has value </h1>} */}
             <ProductRows spaced>
                 <Grid.Column width={4}>
                     <h3> PRODUCT IMAGES </h3>

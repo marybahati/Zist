@@ -17,6 +17,9 @@ import EditProducts from './components/Vendor/EditProducts';
 import AddProduct from './components/Vendor/AddProduct';
 import SearchBar from './components/ShoppingPage/SearchBar';
 import UserList from './components/Vendor/UserList';
+import CreateList from './components/Vendor/CreateList';
+import OrderDetails from './components/Vendor/OrderDetails';
+import EditShoppingList from './components/Vendor/EditShoppingList';
 
 function App() {
   return (
@@ -36,6 +39,9 @@ function App() {
       <Route exact path='/vendor-products-edit' component={EditProducts} />
       <Route exact path='/vendor-add-product' component={AddProduct} />
       <Route exact path='/user-list' component={UserList} />
+      <Route exact path='/create-list' component={CreateList} />
+      <Route exact path='/order-details' component={OrderDetails} />
+      <Route exact path='/edit-shopping-list' component={EditShoppingList} />
     </Router>
   );
 }
