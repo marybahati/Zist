@@ -65,6 +65,7 @@ const OrderNowButton = styled(Button)`
 `;
 
 const OrderDetails = () => {
+    
     return (
         <MainDiv>
             <MainGrid>
@@ -187,7 +188,7 @@ const OrderDetails = () => {
                 </ProductRows>
                 <Grid.Row>
                     <OrderNowColumn>
-                        <OrderNowButton> Order Now </OrderNowButton>
+                        <OrderNowButton > Order Now </OrderNowButton>
                     </OrderNowColumn>
                 </Grid.Row>
             </MainGrid>

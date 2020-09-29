@@ -110,6 +110,7 @@ const UserList = () => {
     ]
 
     const [selectedOption, setSelectedOption] = useState('')
+    const [products, setProducts] = useState([options])
     const [hideAisles, setHideAisles] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [showFruits, setShowFruits] = useState(false)
@@ -177,6 +178,10 @@ const UserList = () => {
 
         )
     }
+    const filteredProducts = options.filter( product => {
+        return product.name.toLowerCase().includes(searchText)
+        console.log(product.name)
+    })
     return (
         <MainDiv>
             <MainGrid>

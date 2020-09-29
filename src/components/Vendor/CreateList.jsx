@@ -6,6 +6,7 @@ import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
 import Collapsible from 'react-collapsible';
+import history from './../../History';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -156,6 +157,10 @@ const CreateList = (props) => {
     //     setCost(itemCost)
     // }
 
+    const handleOrderDetailsDisplay = () => {
+        history.push('/order-details')
+    }
+
 
     return (
         <MainDiv>
@@ -299,7 +304,7 @@ const CreateList = (props) => {
                 </Grid.Row>
                 <Grid.Row>
                     <OrderNowColumn>
-                        <OrderNowButton> Order Now </OrderNowButton>
+                        <OrderNowButton onClick={handleOrderDetailsDisplay} > Order Now </OrderNowButton>
                     </OrderNowColumn>
                 </Grid.Row>
             </MainGrid>

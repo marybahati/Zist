@@ -5,7 +5,9 @@ import bananas from './../../Assets/bananas.png';
 import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
+import add from './../../Assets/add.png'
 import Collapsible from 'react-collapsible';
+import history from './../../History';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -80,6 +82,9 @@ const StockColumn = styled(Grid.Column)`
 const CenteredTextColumn = styled(Grid.Column)`
    margin: auto 0 !important;
 `;
+const AddButton = styled(Button)`
+   background: inherit !important;
+`;
 
 const EditShoppingList = () => {
     const [inStock, setInStock] = useState(6)
@@ -92,6 +97,10 @@ const EditShoppingList = () => {
             setInStock(stock => stock - 1)
         }
     }
+    const handleOrderDetailsDisplay = () => {
+        history.push('/order-details')
+    }
+
     return (
         <MainDiv>
             <MainGrid>
@@ -204,9 +213,19 @@ const EditShoppingList = () => {
                     <h3>Kshs. 940 </h3>
                 </ItemsColumn>
             </ProductRows>
+            <ProductRows>
+                <Grid.Column width={4}>
+                    <AddButton>
+                        <Image src={add}/>
+                    </AddButton>
+                </Grid.Column>
+                <ItemsColumn width={4}>
+                    <h3> Add an item </h3>
+                </ItemsColumn>
+            </ProductRows>
                 <Grid.Row>
                     <OrderNowColumn>
-                        <OrderNowButton> CONFIRM </OrderNowButton>
+                        <OrderNowButton onClick={handleOrderDetailsDisplay}> CONFIRM </OrderNowButton>
                     </OrderNowColumn>
                 </Grid.Row>
             </MainGrid>
