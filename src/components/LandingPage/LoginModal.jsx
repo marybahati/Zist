@@ -18,8 +18,6 @@ const LoginModal = (props) => {
     const [refreshToken, setRefreshToken] = useState('')
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     cookies.set('access-token', token, { path: '/' });
-    const access = cookies.get('access-token')
-    console.log(access)
 
     const handleLogin = (event) => {
         event.preventDefault();

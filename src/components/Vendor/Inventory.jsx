@@ -5,6 +5,8 @@ import { Shelving } from './Shelving';
 import shelving from './../../Assets/shelving.png';
 import suppliers from './../../Assets/suppliers.png';
 import requests from './../../Assets/requests.png';
+import Suppliers from './Suppliers';
+import Requests from './Requests';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -43,11 +45,11 @@ const panes = [
     },
     {
         menuItem: <ImageButtons><Images src={suppliers} /> SUPPLIERS </ImageButtons>,
-        render: () => <TabPanels attached={false} > welcome to suppliers </TabPanels>,
+        render: () => <TabPanels attached={false} > <Suppliers/> </TabPanels>,
     },
     {
         menuItem: <ImageButtons><Images src={requests} /> REQUESTS </ImageButtons>,
-        render: () => <TabPanels attached={false} > welcome to requests </TabPanels>,
+        render: () => <TabPanels attached={false} > <Requests/> </TabPanels>,
     }
 ]
 export const Inventory = () => {

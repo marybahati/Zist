@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage';
-import {Shopping} from './components/ShoppingPage/Shopping'
+import Shopping from './components/ShoppingPage/Shopping'
 import history from './History';
 import Cards from './components/ShoppingPage/Cards';
 import  VendorRegistration  from './components/Vendor/VendorRegistration';
@@ -20,6 +20,9 @@ import UserList from './components/Vendor/UserList';
 import CreateList from './components/Vendor/CreateList';
 import OrderDetails from './components/Vendor/OrderDetails';
 import EditShoppingList from './components/Vendor/EditShoppingList';
+import UpdateUserProfile from './components/LandingPage/UpdateUserProfile';
+import PersonalInfo from './Zister/PersonalInfo';
+import VehicleInfo from './Zister/VehicleInfo';
 
 function App() {
   return (
@@ -42,6 +45,9 @@ function App() {
       <Route exact path='/create-list' component={CreateList} />
       <Route exact path='/order-details' component={OrderDetails} />
       <Route exact path='/edit-shopping-list' component={EditShoppingList} />
+      <Route exact path='/update-profile' component={UpdateUserProfile} />
+      <Route exact path='/zister-vehicle-info' component={VehicleInfo} />
+      <Route exact path='/zister-personal-info' component={PersonalInfo} />
     </Router>
   );
 }

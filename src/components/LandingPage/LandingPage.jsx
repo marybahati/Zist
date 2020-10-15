@@ -588,7 +588,7 @@ const LandingPage = () => {
             <List>
               <FooterLinks as='a' href='/vendor' >Sell on Zist Shoppping</FooterLinks>
             </List>
-            <FooterTitle>Become a Zister</FooterTitle>
+            <FooterTitle as='a' href='/zister-personal-info'>Become a Zister</FooterTitle>
             <List>
               <FooterLinks as='a'>Make money delivering</FooterLinks>
             </List>

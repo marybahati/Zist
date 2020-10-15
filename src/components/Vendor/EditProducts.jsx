@@ -3,9 +3,11 @@ import { Grid, Image, Button, List, Tab } from "semantic-ui-react";
 import styled from 'styled-components';
 import bananas from './../../Assets/bananas.png';
 import blueberries from './../../Assets/blue-berries.png';
+import addButton from './../../Assets/add-button.png';
 import strawberries from './../../Assets/strawberries.png';
 import axios from 'axios';
 import { withCookies } from 'react-cookie';
+import AddProduct from './AddProduct';
 
 const ProductRows = styled(Grid.Row)`
    margin : ${props => props.spaced ? "0 0 20px 0 !important" : " 0 0 40px 0 !important "};
@@ -36,15 +38,30 @@ const StockColumn = styled(Grid.Column)`
 const CenteredTextColumn = styled(Grid.Column)`
    margin: auto 0 !important;
 `;
+const CenteredColumn = styled(Grid.Column)`
+   margin: 0 auto !important;
+`;
+const ActionButton = styled(Button)`
+    background: #FEE2D4 0% 0% no-repeat padding-box !important;
+    border: 2px solid #FEE2D4 !important;
+    border-radius: 24px !important;
+    opacity: 1;
+    height: 66px !important;
+    width: 100%;
+    font-size: 26px !important;
+    color: #050504 !important;
+    margin: 50px 0 !important;
+`;
 
 const EditProducts = (props) => {
     const { cookies } = props
     const token = cookies.get('access-token')
     console.log(token)
 
-    const [products,setProducts] = useState([])
-    const [addProduct, setAddProduct] = useState()
+    const [products, setProducts] = useState([])
+    const [addProduct, setAddProduct] = useState(false)
     const [inStock, setInStock] = useState(6)
+    // const [complete, setComplete] = useState(false)
 
     const increment = () => setInStock(stock => stock + 1);
 
@@ -55,26 +72,28 @@ const EditProducts = (props) => {
             setInStock(stock => stock - 1)
         }
     }
-
+    const handleAddProduct = () => {
+        setAddProduct(true)
+    }
     const fetchProducts = async () => {
         try {
             const products_res = await axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/products/`,
-            { 
-              headers: {"Authorization" : `Bearer ${token}`} 
-            }
+                {
+                    headers: { "Authorization": `Bearer ${token}` }
+                }
             )
-            if ( products_res.status == 200) {
+            if (products_res.status == 200) {
                 setProducts({ products: products_res.data })
-              console.log(products.map( product  => product.length() ))
+                console.log(products.map(product => product.length))
             }
             console.log(products_res)
-          } catch (error) {
+        } catch (error) {
             console.log(error)
-          }
+        }
     }
     useEffect(() => {
         fetchProducts()
-    }, [] )
+    }, [])
 
     return (
         <Grid>
@@ -167,6 +186,30 @@ const EditProducts = (props) => {
                     </Grid>
                 </ItemsColumn>
             </ProductRows>
+
+            {addProduct ? (
+                <Grid.Row>
+                    <Grid.Column>
+                        <AddProduct />
+                    </Grid.Column>
+                </Grid.Row>
+            ) : (
+                    <Grid.Row>
+                        <Grid.Column width={4}  >
+                            <ButtonCounters onClick={handleAddProduct} >
+                                <Image src={addButton} />
+                            </ButtonCounters>
+                        </Grid.Column >
+                        <CenteredTextColumn width={6} >
+                            <h2> Add new product </h2>
+                        </CenteredTextColumn>
+                    </Grid.Row>
+                )}
+            <Grid.Row>
+                <CenteredColumn width={7}>
+                    {addProduct ? null : <ActionButton> COMPLETE </ActionButton>}
+                </CenteredColumn>
+            </Grid.Row>
         </Grid>
     )
 }
