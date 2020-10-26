@@ -1,2 +1,3 @@
 
     NETLIFY_USE_YARN = true
+    command = "CI= yarn build"
