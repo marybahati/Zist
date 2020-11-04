@@ -5,6 +5,7 @@ import heroImg from './../../src/Assets/stepper.svg';
 import { ContinueButton } from './../components/Vendor/ContinueButton';
 import history from './../History';
 import Stepper from 'react-stepper-enhanced';
+import { Link } from 'react-router-dom';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -24,6 +25,11 @@ const CenteredImage = styled(Image)`
     display: block !important;
     height: 500px;
 `;
+const Linking = styled(Link)`
+    font-size: 22px !important;
+    margin: 20px auto !important;
+    color: #FFBD59 !important;
+`;
 
 
 const Progress = () => {
@@ -40,16 +46,19 @@ const Progress = () => {
                         <CenteredImage src={heroImg} />
                         <div>
                             <Stepper 
-                            steps={[{ title: 'Step One' }, { title: 'Step Two' }, { title: 'Step Three' }, { title: 'Step Four' }, { title: 'Step Five' }, { title: 'Step Six' }]} activeStep={2}
+                            steps={[{ title: 'Step One' }, { title: 'Step Two' }, { title: 'Step Three' }, { title: 'Step Four' }, { title: 'Step Five',href:'/rider/' }, { title: 'Step Six' }]} activeStep={2}
                             activeColor=' #FFBD59'
                             completeColor=' #FFBD59'
                             defaultColor='#FEE2D4'
                             size={50}
                              />
                             <h2> Almost there setting up your profile… </h2>
+                            <Linking to='/rider'> Next </Linking>
                         </div>
                     </CenteredColumn>
                 </Grid.Row>
+
+        
             </MainGrid>
         </MainDiv>
 
