@@ -69,7 +69,7 @@ const VehicleInfo = () => {
     const [tel, setTel] = useState('')
 
     const handleRedirect = () => {
-        history.push('/')
+        history.push('/zister-onboarding/')
     }
 
     return (
@@ -199,7 +199,7 @@ const VehicleInfo = () => {
                                 </Grid>
 
                                 <ButtonGrid width={16} >
-                                    <ContinueButton type='submit' />
+                                    <ContinueButton type='submit' handleClick={handleRedirect}/>
                                 </ButtonGrid>
 
                             </VendorForm>
