@@ -71,10 +71,10 @@ const Shopping = (props) => {
   }, [])
   const countryOptions = [
     { text: 'fruits', value: 'fruits' , image:{src:card4}},
-    { text: 'vegetables', value: 'vegetables', image:{src:card10} },
-    { text: 'cakes', value: 'cakes', image:{src:card3} },
-    { text: 'chocaolates', value: 'chocaolates' , image:{src:card9}},
-    { text: 'flour', value: 'flour', image:{src:card8} },
+    { text: 'vegetables', value: 'vegetables', image:{src:card4} },
+    { text: 'cakes', value: 'cakes', image:{src:card4} },
+    { text: 'chocaolates', value: 'chocaolates' , image:{src:card4}},
+    { text: 'flour', value: 'flour', image:{src:card4} },
 ]
   const handleLogOut = () => {
     const logout = cookies.remove('access-token')
