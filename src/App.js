@@ -24,6 +24,8 @@ import UpdateUserProfile from './components/LandingPage/UpdateUserProfile';
 import PersonalInfo from './Zister/PersonalInfo';
 import VehicleInfo from './Zister/VehicleInfo';
 import Onboarding from './Zister/Onboarding';
+import Progress from './Zister/Stepper';
+import RiderDashboard from './Zister/RiderDashboard';
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
       <Route exact path='/zister-vehicle-info' component={VehicleInfo} />
       <Route exact path='/zister-personal-info' component={PersonalInfo} />
       <Route exact path='/zister-onboarding' component={Onboarding} />
+      <Route exact path='/zister-progress' component={Progress} />
+      <Route exact path='/rider' component={RiderDashboard} />
     </Router>
   );
 }

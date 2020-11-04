@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Image, Button, List, Tab, Form, Dropdown } from "semantic-ui-react";
 import styled from 'styled-components';
 import ImageUploader from 'react-images-upload';
+import history from './../History';
 
 const MainDiv = styled.div`
    background: #F9F7F1;
@@ -89,7 +90,9 @@ const countryOptions = [
 const Onboarding = (props) => {
 
     const [picture, setPicture] = useState()
-
+    const handleRedirect = () => {
+        history.push('/zister-progress/')
+    }
 
     return (
         <MainDiv>
@@ -146,7 +149,7 @@ const Onboarding = (props) => {
                             />
                         </Form.Field>
                         <ButtonGrid width={16}>
-                            <ActionButton> CONTINUE </ActionButton>
+                            <ActionButton onClick={handleRedirect}> CONTINUE </ActionButton>
                         </ButtonGrid>
                         
                         </Form>
