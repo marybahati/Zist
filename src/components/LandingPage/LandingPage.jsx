@@ -87,7 +87,7 @@ const AppLinkButton = styled(Button)`
     background: #FFBD59 0% 0% no-repeat padding-box !important;
     opacity: 1;
     width:70% !important;
-    height: 111px !important;
+    height: 100px !important;
     border-radius: 55px !important;
     color: #050504 !important;
     font-size: 25px !important;

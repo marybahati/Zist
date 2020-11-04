@@ -79,12 +79,12 @@ const Shopping = (props) => {
   const handleLogOut = () => {
     const logout = cookies.remove('access-token')
     return logout
-    window.location.reload(false);
+    // window.location.reload(false);
   }
   return (
     <div >
       <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
-        {token !== undefined ? (
+        {/* {token !== undefined ? (
           <Grid.Row width={16} >
             <Grid.Column >
               <Grid>
@@ -100,7 +100,6 @@ const Shopping = (props) => {
                     <Icon name='user circle' color='black' size='huge' />
                   </Grid.Column>
                   <Grid.Column width={1} style={{ paddingTop: '80px' }}>
-                    {/* <h2> Account </h2> */}
                     <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
                       <Menu.Menu >
                         <Dropdown  text='Account' icon='' >
@@ -122,7 +121,7 @@ const Shopping = (props) => {
               </Grid>
             </Grid.Column>
           </Grid.Row>
-        ) : (
+        ) : ( */}
             <Grid.Row width={16} >
               <Grid.Column >
                 <Grid >
@@ -152,7 +151,7 @@ const Shopping = (props) => {
 
               </Grid.Column>
             </Grid.Row>
-          )}
+          {/* )} */}
         <Grid.Row width={16} style={{ padding: '0 ' }}>
               <Input labelPosition='right' type='search'
                 style={{

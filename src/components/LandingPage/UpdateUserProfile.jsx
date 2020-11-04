@@ -25,7 +25,7 @@ const FormInput = styled.input`
     font-size: 18px !important;
     width: 100%;
     margin: 20px 0 !important;
-    @media only screen and (min-width: 1400px) {
+    @media only screen and (min-width: 1400px) {  
         padding: 20px 20px !important;
         font-size: 20px !important;
     }

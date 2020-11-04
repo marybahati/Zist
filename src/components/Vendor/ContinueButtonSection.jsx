@@ -5,7 +5,7 @@ import history from './../../History';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { withCookies} from 'react-cookie';
+import { withCookies } from 'react-cookie';
 
 
 
@@ -21,56 +21,111 @@ class ContinueButtonSection extends React.Component {
     this.handleRedirect = this.handleRedirect.bind(this);
   }
 
-    handleSubmit = (props) => {
-      const { cookies } = props
-      const token = cookies.get('access-token')
-      console.log(token)
-       axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/', {
-      // data to be sent
-        name: props.name,
-        business_type: props.natureOfBusiness,
-        bio: props.niche,
-        email: props.email ,
-        tel: props.tel,
-      },
-      { headers: {"Authorization" : `Bearer ${token}`} }
-      )
+  handleSubmit = (props) => {
+    const { cookies } = props
+    const token = cookies.get('access-token')
+    console.log(token)
+      axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/',{},
+       { headers: { "Authorization": `Bearer ${token}` } }
+       ) 
+    .then(res => {
+      console.log(res)
+        if (res.status === 201) {
+          axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/', {
+              name: props.name,
+              business_type: props.natureOfBusiness,
+              bio: props.niche,
+              email: props.email,
+              tel: props.tel,
+              location: props.location
+            },
+              { headers: { "Authorization": `Bearer ${token}` } }
+            ).then( res => {
+              if (res.status === 201) {
+                const data = res.data
+                cookies.set('business-info', data, { path: '/' });
+                this.setState({ modalOpen: true })
+
+                toast.success(`You have succesfully registerd your business`, {
+                  className: 'toast',
+                  draggable: true,
+                  position: toast.POSITION.TOP_CENTER,
+                  type: toast.TYPE.SUCCESS,
+                  hideProgressBar: true
+                })
+              }
+            }).catch( error => {
+              toast.error(`${error}`, {
+                className: 'toast',
+                draggable: true,
+                position: toast.POSITION.TOP_CENTER,
+                type: toast.TYPE.ERROR,
+                hideProgressBar: true
+              })
+            })
+         
+        }
+
+      }).catch(error => {
+        console.log(error)
+        //  this.setState({errorSnackbar:true})
+        toast.error(`${error}`, {
+          className: 'toast',
+          draggable: true,
+          position: toast.POSITION.TOP_CENTER,
+          type: toast.TYPE.ERROR,
+          hideProgressBar: true
+        })
+      });
+  }
+  handleVendorBusiness = (props) => {
+    const { cookies } = props
+    const token = cookies.get('access-token')
+    axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/', {
+      name: props.name,
+      business_type: props.natureOfBusiness,
+      bio: props.niche,
+      email: props.email,
+      tel: props.tel,
+      location: props.location
+    },
+      { headers: { "Authorization": `Bearer ${token}` } }
+    )
       .then(res => {
-  
-        if(res.status === 201 ){
+
+        if (res.status === 201) {
           this.setState({ modalOpen: true })
-        } 
-   
-       }).catch(error => {
-         console.log(error)
-         this.setState({errorSnackbar:true})
-         toast.error("An error occurred, please fill in all the fields and check your email and password",{
-           className:'toast',
-           draggable: true,
-           position: toast.POSITION.TOP_CENTER,
-           type: toast.TYPE.ERROR,
-           hideProgressBar: true
-         })   
-       });
+        }
+
+      }).catch(error => {
+        console.log(error)
+        toast.error(`${error}`, {
+          className: 'toast',
+          draggable: true,
+          position: toast.POSITION.TOP_CENTER,
+          type: toast.TYPE.ERROR,
+          hideProgressBar: true
+        })
+      });
   }
 
-   handleRedirect () {
+  handleRedirect() {
     this.setState({ modalOpen: false })
     history.push('/vendor-dashboard')
   }
 
 
   render() {
-    return([
-        <ContinueButton // Button to click to activate the Modal
-          handleClick={ () =>  this.handleSubmit(this.props) }
-        />,
-        <SuccessModal // The invisible modal itself
-          key='modal1'
-          modalOpen={this.state.modalOpen}
-          handleClose={this.handleRedirect}
-        />,
-        <ToastContainer autoClose={4000} onOpen={this.errorSnackbar} />
+    return ([
+      <ContinueButton // Button to click to activate the Modal
+        handleClick={() => this.handleSubmit(this.props)}
+      />,
+      <SuccessModal // The invisible modal itself
+        key='modal1'
+        modalOpen={this.state.modalOpen}
+        handleClose={this.handleRedirect}
+      />,
+      <ToastContainer autoClose={4000} onOpen={this.errorSnackbar} />
     ])
   }
 }

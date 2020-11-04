@@ -30,19 +30,19 @@ const LoginModal = (props) => {
             if(res.status === 200 ){
              setToken(res.data.access)
              setRefreshToken(res.data.refresh)
-             setSnackbarOpen(true)
+            //  setSnackbarOpen(true)
              toast.success("You have successfully logged in",{
                className:'toast',
                draggable: true,
                position: toast.POSITION.TOP_CENTER,
-               type: toast.TYPE.SUCCES,
+               type: toast.TYPE.SUCCESS,
                hideProgressBar: true
              }) 
              props.handleClose() 
             } 
        
            }).catch(error => {
-             setSnackbarOpen(true)
+            //  setSnackbarOpen(true)
              toast.error("An error occurred, please check your email and password",{
                className:'toast',
                draggable: true,

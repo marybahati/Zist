@@ -56,7 +56,6 @@ const ActionButton = styled(Button)`
 const EditProducts = (props) => {
     const { cookies } = props
     const token = cookies.get('access-token')
-    console.log(token)
 
     const [products, setProducts] = useState([])
     const [addProduct, setAddProduct] = useState(false)
@@ -83,10 +82,12 @@ const EditProducts = (props) => {
                 }
             )
             if (products_res.status == 200) {
-                setProducts({ products: products_res.data })
-                console.log(products.map(product => product.length))
+                console.log('fetched data')
+                setProducts({products:products_res.data} )
+                console.log(products)
+                
             }
-            console.log(products_res)
+            
         } catch (error) {
             console.log(error)
         }
@@ -187,6 +188,36 @@ const EditProducts = (props) => {
                 </ItemsColumn>
             </ProductRows>
 
+                {/* {
+                    products.map( product => {
+                        return (
+                            <ProductRows>
+                            <Grid.Column width={4}>
+                                <ProductImages src={bananas} />
+                            </Grid.Column>
+                            <ProductName width={4} >
+                                <h3> {product.name} </h3>
+                            </ProductName>
+                            <ItemsColumn width={3}>
+                                <h3>Kshs. {product.price} </h3>
+                            </ItemsColumn>
+                            <ItemsColumn width={4}>
+                                <Grid>
+                                    <Grid.Row>
+                                        <CenteredTextColumn width={3}>
+                                            <ButtonCounters onClick={decrement}> - </ButtonCounters>
+                                        </CenteredTextColumn>
+                                        <StockColumn width={9}> <h2> {product.stock} </h2> </StockColumn>
+                                        <CenteredTextColumn width={3}>
+                                            <ButtonCounters onClick={increment}> + </ButtonCounters>
+                                        </CenteredTextColumn>
+                                    </Grid.Row>
+                                </Grid>
+                            </ItemsColumn>
+                        </ProductRows>
+                        )
+                    })
+                } */}
             {addProduct ? (
                 <Grid.Row>
                     <Grid.Column>

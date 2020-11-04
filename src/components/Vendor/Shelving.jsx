@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Image,  Button,List } from "semantic-ui-react";
+import { Grid, Image, Button, List, Icon } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
 import bananas from './../../Assets/bananas.png';
@@ -51,6 +51,10 @@ const EditButton = styled(Button)`
    background: inherit !important;
 
 `;
+const EditIcon = styled(Icon)`
+   font-size: 22px !important;
+    margin-left: 12px !important;
+`;
 
 const ProductsSection = (props) => {
     const [prodects,setProducts] = useState([])
@@ -59,7 +63,8 @@ const ProductsSection = (props) => {
              <ProductRows>
                     <IntroColumn>
                         <List>
-                            <EditButton onClick={props.handleEdit} > EDIT PRODUCTS </EditButton>
+                            <EditButton onClick={props.handleEdit} name='pencil' > EDIT PRODUCTS  <EditIcon name='pencil' size='small' /> </EditButton>
+                           
                         </List>
                     </IntroColumn>
                 </ProductRows>

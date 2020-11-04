@@ -7,7 +7,7 @@ import Cards from './components/ShoppingPage/Cards';
 import  VendorRegistration  from './components/Vendor/VendorRegistration';
 import  { VendorDashboard }  from './components/Vendor/VendorDashboard';
 import { Analytics } from './components/Vendor/Analytics';
-import { Storefront } from './components/Vendor/Storefront';
+import  Storefront  from './components/Vendor/Storefront';
 import { Inventory } from './components/Vendor/Inventory';
 import { ServiceDesk } from './components/Vendor/ServiceDesk';
 import { Settings } from './components/Vendor/Settings';
@@ -23,6 +23,7 @@ import EditShoppingList from './components/Vendor/EditShoppingList';
 import UpdateUserProfile from './components/LandingPage/UpdateUserProfile';
 import PersonalInfo from './Zister/PersonalInfo';
 import VehicleInfo from './Zister/VehicleInfo';
+import Onboarding from './Zister/Onboarding';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
       <Route exact path='/update-profile' component={UpdateUserProfile} />
       <Route exact path='/zister-vehicle-info' component={VehicleInfo} />
       <Route exact path='/zister-personal-info' component={PersonalInfo} />
+      <Route exact path='/zister-onboarding' component={Onboarding} />
     </Router>
   );
 }

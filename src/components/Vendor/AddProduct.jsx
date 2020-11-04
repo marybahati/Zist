@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Image, Button, List, Form } from "semantic-ui-react";
+import { Grid, Image, Button, List, Form, Dropdown } from "semantic-ui-react";
 import styled from 'styled-components';
 import { withCookies } from 'react-cookie';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 
 
@@ -27,35 +28,72 @@ const AddProduct = (props) => {
     const { cookies } = props
     const token = cookies.get('access-token')
     const [name, setName] = useState()
-    const [price, setPrice] = useState()
-    const [category, setCategory] = useState()
+    const [price, setPrice] = useState('')
+    const [category, setCategory] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState()
     const [description, setDescription] = useState('')
     const [image, setImage] = useState()
     const [stock, setStock] = useState()
-    const [cancel,setCancel] = useState()
+    const [cancel, setCancel] = useState()
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    
     // const handleChange = (e) => {
     //     const { name, value } = e.target
     //     setFormData((prevState) => ({ ...prevState, [name]: value }))
     // }
+    useEffect(async () => {
+        try {
+            const result = await axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/categories/`,
+                {
+                    headers: { "Authorization": `Bearer ${token}` }
+                }
+            )
+            if (result.status == 200) {
+                setCategory(result.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
 
+    }, []);
+
+    const categories = category.map(x => ({ text: x.category, value: x.id }))
+    console.log(selectedCategory)
     const handleSubmit = async () => {
+        const categorySelected = Object.values(selectedCategory)
+        console.log(categorySelected)
         try {
             const product_res = await axios.post(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/products/`,
                 {
                     name: name,
                     price: price,
-                    category: category,
+                    category: 2,
                     description: description,
-                    image: image,
+                    // image: image,
                     metadata: stock
                 },
                 { headers: { "Authorization": `Bearer ${token}` } }
             )
             if (product_res.status == 201) {
                 console.log(product_res)
+                setSnackbarOpen(true)
+                toast.success("You have successfully added a new product",{
+                    className:'toast',
+                    draggable: true,
+                    position: toast.POSITION.TOP_CENTER,
+                    type: toast.TYPE.SUCCESS,
+                    hideProgressBar: true
+                  }) 
             }
         } catch (error) {
             console.log(error)
+            toast.error(`${error}`,{
+                className:'toast',
+                draggable: true,
+                position: toast.POSITION.TOP_CENTER,
+                type: toast.TYPE.ERROR,
+                hideProgressBar: true
+              }) 
         }
     }
     // const handleCancel = (props) => {
@@ -67,10 +105,9 @@ const AddProduct = (props) => {
             <Form.Group>
                 <Grid>
                     <Grid.Row>
-
+                    <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
                         <Grid.Column width={5}>
                             <Form.Input
-                                required
                                 placeholder='Add an image'
                                 name='image'
                                 type='file'
@@ -100,12 +137,23 @@ const AddProduct = (props) => {
 
                     <Grid.Row>
                         <Grid.Column width={5}>
-                            <Form.Input
+                            {/* <Form.Input
                                 required
                                 placeholder='Add the category of the item'
                                 name='category'
                                 type='text'
                                 onChange={e => setCategory(e.target.value)}
+                            /> */}
+                            < Dropdown
+                                placeholder='Add the category of the item'
+                                openOnFocus={false}
+                                fluid
+                                selection
+                                options={categories}
+                                onChange={(e, { value }) => setSelectedCategory({ SelectedCategory: value })}
+                                clearable
+                                search
+                                style={{ padding: '2rem !important' }}
                             />
                         </Grid.Column>
                         <Grid.Column width={5}>

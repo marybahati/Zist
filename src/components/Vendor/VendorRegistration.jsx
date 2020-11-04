@@ -69,7 +69,7 @@ const VendorForm = styled(Form)`
     width: 100% !important;
 `;
 const SelectDropdown = styled(Dropdown)`
-    margin: 0 0 40px 0 !important;
+    margin: 20px 0 40px 0 !important;
     padding: 20px 20px !important;
 `;
 const countryOptions = [
@@ -85,8 +85,15 @@ const VendorRegistration = (props) => {
     const [niche, setNiche] = useState('')
     const [email, setEmail] = useState('')
     const [tel, setTel] = useState('')
+    const [location,setLocation] = useState('')
     const [snackbarOpen, setSnackbarOpen] = useState(false)
+    
     console.log(name, natureOfBusiness, niche, email, tel)
+    const bussinessType = Object.values(natureOfBusiness)
+    const businessInfo = bussinessType.toString();
+    const bio = Object.values(niche)
+    const businessBio = bio.toString();
+    console.log(businessInfo,businessBio)
 
     const handleGoingBack = () => {
         history.goBack()
@@ -170,6 +177,15 @@ const VendorRegistration = (props) => {
                                         style={{ padding: '2rem !important' }}
                                     />
                                 </Form.Field>
+                                <Form.Field>
+                                    <FormLabels>Location</FormLabels>
+                                    <FormInput placeholder='Enter the business location'
+                                        fluid
+                                        type='text'
+                                        required
+                                        onChange={e => setLocation(e.target.value)}
+                                    />
+                                </Form.Field>
 
                                 <Form.Field>
                                     <FormLabels>Contact Details</FormLabels>
@@ -184,8 +200,8 @@ const VendorRegistration = (props) => {
                                 </Form.Field>
 
                                 <ButtonGrid width={16} >
-                                    <ContinueButtonSection type='submit' name={name} natureOfBusiness={natureOfBusiness}
-                                        niche={niche} tel={tel} email={email} />
+                                    <ContinueButtonSection type='submit' name={name} natureOfBusiness={businessInfo}
+                                        niche={businessBio} tel={tel} email={email} location={location}/>
                                 </ButtonGrid>
 
                             </VendorForm>
