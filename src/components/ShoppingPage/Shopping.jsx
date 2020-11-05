@@ -83,7 +83,7 @@ const Shopping = (props) => {
   }
   return (
     <div >
-      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px' }}>
+      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px',backgroundRepeat:'no-repeat', backgroundSize: 'cover'}}>
         {/* {token !== undefined ? (
           <Grid.Row width={16} >
             <Grid.Column >
