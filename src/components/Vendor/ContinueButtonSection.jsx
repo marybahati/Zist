@@ -34,10 +34,11 @@ class ContinueButtonSection extends React.Component {
           axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/', {
               name: props.name,
               business_type: props.natureOfBusiness,
-              bio: props.niche,
+              bio: props.description,
               email: props.email,
               tel: props.tel,
-              location: props.location
+              location: props.location,
+              metadat: props.niche
             },
               { headers: { "Authorization": `Bearer ${token}` } }
             ).then( res => {
@@ -84,10 +85,11 @@ class ContinueButtonSection extends React.Component {
     axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/', {
       name: props.name,
       business_type: props.natureOfBusiness,
-      bio: props.niche,
+      bio: props.decription,
       email: props.email,
       tel: props.tel,
-      location: props.location
+      location: props.location,
+      metadata: props.niche
     },
       { headers: { "Authorization": `Bearer ${token}` } }
     )

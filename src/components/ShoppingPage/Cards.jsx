@@ -9,7 +9,7 @@ import { withCookies } from 'react-cookie';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
-    padding: 0 0 0 80px !important;
+    padding: 0 0 0 30px !important;
 `;
 const SearchBar = styled(Dropdown)`
     margin: 0 0 40px 0 !important;
@@ -29,13 +29,17 @@ class Cards extends React.Component {
   async componentDidMount() {
     const { cookies } = this.props
     const token = cookies.get('access-token')
-    console.log(token)
-
     try {
       const businesses_res = await axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/`)
       if (businesses_res.status == 200) {
         this.setState({ businesses: businesses_res.data })
+        const fetchedBusineses = this.state.businesses
+         console.log(fetchedBusineses)
+         return fetchedBusineses
       }
+
+      return 
+      
     } catch (error) {
       console.log(error)
     }
@@ -54,17 +58,22 @@ class Cards extends React.Component {
       console.log(error)
     }
 
-  }
+  }    
+  
+
 renderCards = business => {
   if ( this.state.search !== '' && business.name.toLowerCase().indexOf( this.state.search) === -1 && business.business_type.toLowerCase().indexOf(this.state.search) === -1  ) {
     return null 
   }
   return (
       <CardColumn width={7} style={{ margin: '0 30px 80px 0'}}>
-        <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070',minHeight:'570px ' }}>
+        <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070',minHeight:'570px '}} key={business.name} >
           <Image src={card2} wrapped ui={false} />
           <Card.Content>
-            <Card.Header>{business.name} <Icon name='check circle' color='yellow' /></Card.Header>
+            <Card.Header>
+              <a href='/user-list' style={{color:'black'}}> {business.name} </a>
+            <Icon name='check circle' color='yellow' />
+            </Card.Header>
             <Grid>
               <Grid.Row width={16} style={{ marginTop: '15px', marginBottom: '5px' }}>
                 <Grid.Column width={10} >
@@ -87,6 +96,7 @@ renderCards = business => {
           </Card.Content>
 
         </Card>
+        
       </CardColumn>
   )
 }  
@@ -94,19 +104,16 @@ onSearch = (e) => {
     this.setState({search: e.target.value})
 }
   render() {
-    console.log(this.state.businesses);
-    console.log(this.state.products);
-    console.log(this.state.search)
     return (
       <div>
         <Grid>
-          <Grid.Row width={16} style={{background:'pink'}}>
+          {/* <Grid.Row width={16} style={{background:'pink'}}>
           <Input placeholder='Search...'
            search 
            onChange={this.onSearch} 
            options={this.state.businesses.map( business => business.name )}
            />
-          </Grid.Row>
+          </Grid.Row> */}
           <Grid.Row width={16} style={{ background: '', margin: '0 auto 0 auto' }} >
             { this.state.businesses.map( business => {
               return this.renderCards(business)

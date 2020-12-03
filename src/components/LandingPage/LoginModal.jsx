@@ -8,6 +8,7 @@ import { LinkingLoginButton } from './LinkingLoginButton';
 import { ModalLoginButton } from './ModalLoginButton';
 import { LinkingSignupButton } from './LinkingSignupButton';
 import { withCookies,Cookies } from 'react-cookie';
+import History from '../../History';
 
 const LoginModal = (props) => {
   
@@ -15,9 +16,11 @@ const LoginModal = (props) => {
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const [token, setToken] = useState('')
+    const [userData, setUserData] = useState()
     const [refreshToken, setRefreshToken] = useState('')
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    cookies.set('access-token', token, { path: '/' });
+    cookies.set('access-token',token,{path: '/'})
+    // cookies.set('access-token',token,{path: '/'})
 
     const handleLogin = (event) => {
         event.preventDefault();
@@ -29,7 +32,7 @@ const LoginModal = (props) => {
           .then(res => {
             if(res.status === 200 ){
              setToken(res.data.access)
-             setRefreshToken(res.data.refresh)
+             res.data.vendor !== null ? History.push('/vendor-dashboard') : History.push('/shopping')
             //  setSnackbarOpen(true)
              toast.success("You have successfully logged in",{
                className:'toast',
@@ -112,9 +115,9 @@ const LoginModal = (props) => {
 
                  <ModalLoginButton />
                 </Form>
-                <a href='' style={{color:'#BCB4A7',textDecoration: 'underline',fontSize:'14px'}}>Can't Sign in?</a> <br/>
+                <a href='' style={{color:'black',textDecoration: 'underline',fontSize:'14px'}}>Can't Sign in?</a> <br/>
                 <div>
-                <p style={{color:'#BCB4A7',fontSize:'14px',margin:'20px 0 0 0'}}>New to Zist Shopping ?</p> <br/>
+                <p style={{color:'black',fontSize:'14px',margin:'20px 0 0 0'}}>New to Zist Shopping ?</p> <br/>
                 <LinkingSignupButton/>
                 </div>
               </Grid.Column>

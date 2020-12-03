@@ -72,12 +72,12 @@ const SelectDropdown = styled(Dropdown)`
     margin: 20px 0 40px 0 !important;
     padding: 20px 20px !important;
 `;
-const countryOptions = [
-    { text: 'fruits', value: 'fruits' },
-    { text: 'vegetables', value: 'vegetables' },
-    { text: 'cakes', value: 'cakes' },
-    { text: 'chocaolates', value: 'chocaolates' },
-    { text: 'flour', value: 'flour' },
+const options = [
+    { text: 'Groceries', value: 'Groceries' },
+    { text: 'Cosmetics', value: 'Cosmetics' },
+    { text: 'Bakery', value: 'Bakery' },
+    { text: 'Meat', value: 'Meat' },
+    { text: 'Drinks', value: 'Drinks' },
 ]
 const VendorRegistration = (props) => {
     const [name, setName] = useState('')
@@ -85,15 +85,16 @@ const VendorRegistration = (props) => {
     const [niche, setNiche] = useState('')
     const [email, setEmail] = useState('')
     const [tel, setTel] = useState('')
-    const [location,setLocation] = useState('')
+    const [location, setLocation] = useState('')
+    const [description, setLocation] = useState('')
     const [snackbarOpen, setSnackbarOpen] = useState(false)
-    
+
     console.log(name, natureOfBusiness, niche, email, tel)
     const bussinessType = Object.values(natureOfBusiness)
     const businessInfo = bussinessType.toString();
     const bio = Object.values(niche)
     const businessBio = bio.toString();
-    console.log(businessInfo,businessBio)
+    console.log(businessInfo, businessBio)
 
     const handleGoingBack = () => {
         history.goBack()
@@ -141,42 +142,6 @@ const VendorRegistration = (props) => {
                                         onChange={e => setName(e.target.value)}
                                     />
                                 </Form.Field>
-
-
-
-                                <FormLabels>Nature of Store/Stall</FormLabels>
-                                {/* <FormInput
-                                    placeholder='Nature of Store/Stall'
-                                    type='search'
-                                    list="searchOption"
-                                    onChange={e => setNatureOfBusiness(e.target.value)}
-                                /> */}
-                                <SelectDropdown
-                                        placeholder='Nature of Store/Stall'
-                                        openOnFocus={false}
-                                        fluid
-                                        selection
-                                        options={countryOptions}
-                                        onChange={(e, { value } ) => setNatureOfBusiness({ natureOfBusiness : value})}
-                                        clearable
-                                        search
-                                        style={{ padding: '2rem !important' }}
-                                    />
-
-                                <Form.Field>
-                                    <FormLabels>Niche of business</FormLabels>
-                                    <SelectDropdown
-                                        placeholder='Niche of business'
-                                        openOnFocus={false}
-                                        fluid
-                                        selection
-                                        options={countryOptions}
-                                        onChange={(e, { value }) => setNiche({ niche: value })}
-                                        clearable
-                                        search
-                                        style={{ padding: '2rem !important' }}
-                                    />
-                                </Form.Field>
                                 <Form.Field>
                                     <FormLabels>Location</FormLabels>
                                     <FormInput placeholder='Enter the business location'
@@ -184,6 +149,50 @@ const VendorRegistration = (props) => {
                                         type='text'
                                         required
                                         onChange={e => setLocation(e.target.value)}
+                                    />
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <FormLabels>Nature of Store/Stall</FormLabels>
+                                    {/* <FormInput
+                                    placeholder='Nature of Store/Stall'
+                                    type='search'
+                                    list="searchOption"
+                                    onChange={e => setNatureOfBusiness(e.target.value)}
+                                /> */}
+                                    <SelectDropdown
+                                        placeholder='Nature of Store/Stall'
+                                        openOnFocus={false}
+                                        fluid
+                                        selection
+                                        options={options}
+                                        onChange={(e, { value }) => setNatureOfBusiness({ natureOfBusiness: value })}
+                                        clearable
+                                        search
+                                        style={{ padding: '2rem !important' }}
+                                    />
+                                </Form.Field>
+                                <Form.Field>
+                                    <FormLabels>Business Description</FormLabels>
+                                    <FormInput placeholder='High quality groceries from local producers'
+                                        fluid
+                                        type='text'
+                                        required
+                                        onChange={e => setLocation(e.target.value)}
+                                    />
+                                </Form.Field>
+                                <Form.Field>
+                                    <FormLabels>Niche of business</FormLabels>
+                                    <SelectDropdown
+                                        placeholder='Niche of business'
+                                        openOnFocus={false}
+                                        fluid
+                                        selection
+                                        options={options}
+                                        onChange={(e, { value }) => setNiche({ niche: value })}
+                                        clearable
+                                        search
+                                        style={{ padding: '2rem !important' }}
                                     />
                                 </Form.Field>
 
@@ -201,7 +210,7 @@ const VendorRegistration = (props) => {
 
                                 <ButtonGrid width={16} >
                                     <ContinueButtonSection type='submit' name={name} natureOfBusiness={businessInfo}
-                                        niche={businessBio} tel={tel} email={email} location={location}/>
+                                        niche={businessBio} tel={tel} email={email} location={location} />
                                 </ButtonGrid>
 
                             </VendorForm>

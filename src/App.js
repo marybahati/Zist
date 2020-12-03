@@ -26,6 +26,7 @@ import VehicleInfo from './Zister/VehicleInfo';
 import Onboarding from './Zister/Onboarding';
 import Progress from './Zister/Stepper';
 import RiderDashboard from './Zister/RiderDashboard';
+import PaymentDetails from './components/Vendor/PaymentDetails';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
       <Route exact path='/create-list' component={CreateList} />
       <Route exact path='/order-details' component={OrderDetails} />
       <Route exact path='/edit-shopping-list' component={EditShoppingList} />
+      <Route exact path='/payment-details' component={PaymentDetails} />
       <Route exact path='/update-profile' component={UpdateUserProfile} />
       <Route exact path='/zister-vehicle-info' component={VehicleInfo} />
       <Route exact path='/zister-personal-info' component={PersonalInfo} />

@@ -150,7 +150,7 @@ const DropdownColumn = styled(Grid.Column)`
 `;
 const NavbarActionsColumn = styled(Grid.Column)`
   display: inline-block !important;
-  padding: 0 !important;
+  padding: 0  !important;
 `;
 const Columns = styled(Grid.Column)`
   padding:  0 !important;
@@ -339,7 +339,7 @@ padding: 40px 0 80px 0 !important;
     margin: 0 auto !important;
     };  
 `;
-const LandingPage = () => {
+const LandingPage = (props) => {
 
   const [location, setLocation] = useState(null);
   const [activeExploreItem, setActiveExploreItem] = useState('');
@@ -393,33 +393,37 @@ const LandingPage = () => {
           </Grid.Column>
 
           <NavbarActionsColumn width={12}  >
-            <Grids >
+            <Grid >
               <Grid.Row >
 
-                <ButtonColumns morePadding width={8} >
+                {/* <ButtonColumns morePadding width={8} >
                   <List >
                     <HelpLink as='a' href='' >
                       HELP
                     </HelpLink>
                   </List>
-                </ButtonColumns>
+                </ButtonColumns> */}
 
-                <ButtonColumns width={3} >
+               
+                  <Grid.Column width={10} >
                   <SignupButtonSection />
-                </ButtonColumns>
-
-                <ButtonColumns width={3} >
-                  <LoginButtonSection />
-                </ButtonColumns>
-
-                <Columns width={2} >
+                </Grid.Column>
+                                            
+                 <Grid.Column width={3} >
+                 <LoginButtonSection />
+               </Grid.Column>
+                
+                <Grid.Column width={2} >
                   <Cart
                     src={cartImage}
                   />
-                </Columns>
+                </Grid.Column>
+                <Grid.Column width={1} >
+
+                </Grid.Column>
 
               </Grid.Row>
-            </Grids>
+            </Grid>
           </NavbarActionsColumn>
         </Grid.Row>
       </NavbarGrid>
@@ -477,7 +481,7 @@ const LandingPage = () => {
             <Grid.Row>
               <BetaColumnText>
                 <BetaText> Life is all about priorities. We’re BUILT to  </BetaText>
-                <BetaText> cater to your shoppinng needs + your  </BetaText>
+                <BetaText> cater to your shopping needs + your  </BetaText>
                 <BetaText> mundane tasks so that YOU can focus  </BetaText>
                 <BetaText> on what truly MATTERS.RSVP your </BetaText> 
                 <BetaText> email address to be the FIRST to know when we LAUNCH. </BetaText>

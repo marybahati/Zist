@@ -15,6 +15,7 @@ export class LinkingSignupButton extends React.Component {
   render() {
     return([
         <LinkingButton 
+        black
           onClick={
             () => {
               this.setState({ modalOpen: true })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Grid, Image, Button, Dropdown, Input, Icon } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
@@ -6,6 +6,8 @@ import bananas from './../../Assets/bananas.png';
 import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
+import axios from 'axios'
+import { withCookies,Cookies} from 'react-cookie';
 import Collapsible from 'react-collapsible';
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -87,7 +89,9 @@ const DropdownButtons = styled(Button)`
     padding: 0 !important;
     color: black !important;
 `;
-const UserList = () => {
+const UserList = (props) => {
+    const { cookies } = props
+    const token = cookies.get('access-token')
     const options = [
         {
             key: 'Strawberry',
@@ -110,14 +114,14 @@ const UserList = () => {
     ]
 
     const [selectedOption, setSelectedOption] = useState('')
-    const [products, setProducts] = useState([options])
+    const [products, setProducts] = useState([])
     const [hideAisles, setHideAisles] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [showFruits, setShowFruits] = useState(false)
     const [showGreens, setShowGreens] = useState(false)
     const [showSnacks, setShowSnacks] = useState(false)
     const [showCooking, setShowCooking] = useState(false)
-    console.log(searchText)
+    console.log(products)
     const handleHideAisles = () => {
         setHideAisles(true)
         setShowFruits(false)
@@ -156,9 +160,7 @@ const UserList = () => {
         setShowGreens(false)
         setShowSnacks(false)
     }
-    const onSearch = (e) => {
-        setSearchText({ searchText: e.target.value })
-    }
+    
     const renderProducts = (product) => {
         if (searchText !== '' && product.name.toLowerCase().indexOf(searchText) === -1) {
             return null
@@ -166,22 +168,41 @@ const UserList = () => {
         return (
             <ProductRows key={product.name}>
                 <Grid.Column width={5}>
-                    <ProductImages src={product.image.src} />
+                    <ProductImages src={bananas} />
                 </Grid.Column>
                 <ProductName center width={5} >
                     <h3> {product.name} </h3>
                 </ProductName>
                 <ItemsColumn width={4}>
-                    <h3> {product.price} </h3>
+                    <h3> Ksh.{product.price} </h3>
                 </ItemsColumn>
             </ProductRows>
 
         )
     }
-    const filteredProducts = options.filter( product => {
+    const onSearch = (e) => {
+        setSearchText({ searchText: e.target.value })
+        console.log(searchText)
+    }
+    const filteredProducts = products.filter(product => {
         return product.name.toLowerCase().includes(searchText)
         console.log(product.name)
     })
+    
+    useEffect(() => { 
+        axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/products/',  { 
+            headers: {"Authorization" : `Bearer ${token}`} 
+          })
+            .then((response) => {
+                if(response.status == 200){
+                    setProducts(response.data); 
+                }
+                
+            })
+            .catch( error => {
+                console.log(error)
+            })
+    },[])
     return (
         <MainDiv>
             <MainGrid>
@@ -189,7 +210,7 @@ const UserList = () => {
                     <IntroColumn>
                         <h2> Construct your shopping list and fill your trolley </h2>
                         <h2> From wherever you are. </h2>
-                        <UserName> Bryan’s Shopping List </UserName>
+                        <UserName> Shopping List </UserName>
                         <BusinessImage src={BusinessPic} />
                         <UserName> The Freshest Grocery Shop </UserName>
                     </IntroColumn>
@@ -253,7 +274,7 @@ const UserList = () => {
                         <Grid.Column>
                             <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                                 <Grid width={16}  >
-                                    {options.map(product => {
+                                    {filteredProducts.map(product => {
                                         return renderProducts(product)
                                     })}
                                 </Grid>
@@ -283,11 +304,11 @@ const UserList = () => {
                         />
                     </SearchInputColumn>
                 </Grid.Row>
-                {options.map(product => {
+                {products.map(product => {
                     return renderProducts(product)
                 })}
             </MainGrid>
         </MainDiv>
     )
 }
-export default UserList
+export default withCookies(UserList)

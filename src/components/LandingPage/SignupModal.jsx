@@ -6,6 +6,7 @@ import axios from 'axios';
 import { ModalSignUpButton } from './ModalSignUpButton';
 import { LinkingButton } from './LinkingButtons';
 import { LinkingLoginButton } from './LinkingLoginButton';
+import History from '../../History';
 
 export const SignupModal = (props) => {
 
@@ -14,6 +15,8 @@ export const SignupModal = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
+  console.log(userId)
 
   const handleSignup = (event) => {
     event.preventDefault();
@@ -26,6 +29,7 @@ export const SignupModal = (props) => {
       .then(res => {
 
         if (res.status === 201) {
+          setUserId(res.data.id)
           setSnackbarOpen(true)
           toast.success("You have successfully signed up", {
             className: 'toast',
@@ -35,8 +39,11 @@ export const SignupModal = (props) => {
             hideProgressBar: true
           })
           props.handleClose()
+          History.push({ 
+            pathname: '/shopping',
+            state: userId
+           })
         }
-
       }).catch(error => {
         setSnackbarOpen(true)
         toast.error("An error occurred, please check your email and password", {
@@ -129,7 +136,7 @@ export const SignupModal = (props) => {
                   <ModalSignUpButton />
                 </Form>
 
-                <p style={{color:'#BCB4A7',paddingTop: '20px',fontSize: '14px'}}>Already have an account ?</p>
+                <p style={{color:'black',paddingTop: '20px',fontSize: '14px'}}>Already have an account ?</p>
                 {/* <LinkingLoginButton/> */}
                 <LinkingLoginButton/>
 

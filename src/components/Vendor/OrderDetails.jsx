@@ -6,6 +6,7 @@ import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
 import Collapsible from 'react-collapsible';
+import { Checkbox } from 'semantic-ui-react'
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -167,6 +168,16 @@ const OrderDetails = () => {
                         <Form>
                             <TextArea placeholder='Please include specifics if you have any' />
                         </Form>
+                    </Grid.Column>
+                </ProductRows>
+                <ProductRows>
+                    <Grid.Column>
+                        <Checkbox label='Contactless Delivery' style={{fontSize:25}} />
+                    </Grid.Column>
+                </ProductRows>
+                <ProductRows>
+                    <Grid.Column>
+                        <List as='a' href='/payment-details' style={{fontSize:25,color:'black'}} > Payment Details </List>
                     </Grid.Column>
                 </ProductRows>
                 <ProductRows>

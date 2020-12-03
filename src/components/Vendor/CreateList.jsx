@@ -7,6 +7,7 @@ import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
 import Collapsible from 'react-collapsible';
 import history from './../../History';
+import { Checkbox } from 'semantic-ui-react'
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -169,7 +170,7 @@ const CreateList = (props) => {
                     <IntroColumn>
                         <h2> Construct your shopping list and fill your trolley </h2>
                         <h2> From wherever you are. </h2>
-                        <UserName> Bryan’s Shopping List </UserName>
+                        <UserName> Shopping List </UserName>
                         <BusinessImage src={BusinessPic} />
                         <UserName> The Freshest Grocery Shop </UserName>
                     </IntroColumn>
@@ -180,7 +181,7 @@ const CreateList = (props) => {
                     </Grid.Row>
                 ) : (
                         <Grid.Row>
-                            <AisleColumn width={3} >
+                            <AisleColumn width={3} >   
                                 <AisleButton> Fruits </AisleButton>
                             </AisleColumn>
                             <AisleColumn width={3}> <AisleButton> Greens </AisleButton> </AisleColumn>
