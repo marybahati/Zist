@@ -130,13 +130,17 @@ const CreateList = (props) => {
             image: { src: blueberries },
         },
     ]
-
+    const info = (props.location && props.location.state) || '';
+    const {clickedBusiness} = (props.location && props.location.state) || '';
+     console.log(props.location && props.location.state)
     const [hideAisles, setHideAisles] = useState(false)
-    const [inStock, setInStock] = useState(15)
+    const [inStock, setInStock] = useState()
+    const [inStock2, setInStock2] = useState(4)
+    const [inStock3, setInStock3] = useState(7)
     const [searchText, setSearchText] = useState('')
-    const [price, setPrice] = useState(500)
+    // const [price, setPrice] = useState(500)
     const [cost, setCost] = useState()
-    console.log(cost)
+    
     const handleHideAisles = () => {
         setHideAisles(true)
     }
@@ -144,13 +148,31 @@ const CreateList = (props) => {
         setHideAisles(false)
     }
 
-    const increment = () => setInStock(stock => stock + 1);
+    const increment = (price) => setInStock(stock => stock + 1);
 
-    const decrement = () => {
-        if (inStock == 0) {
+    const decrement = (price) => {
+        if (price == 0) {
             setInStock(0)
         } else {
             setInStock(stock => stock - 1)
+        }
+    }
+    const increment2 = () => setInStock2(stock => stock + 1);
+
+    const decrement2 = () => {
+        if (inStock2 == 0) {
+            setInStock2(0)
+        } else {
+            setInStock2(stock => stock - 1)
+        }
+    }
+    const increment3 = () => setInStock3(stock => stock + 1);
+
+    const decrement3 = () => {
+        if (inStock3 == 0) {
+            setInStock3(0)
+        } else {
+            setInStock3(stock => stock - 1)
         }
     }
     // const calculateCost = () => {
@@ -159,7 +181,10 @@ const CreateList = (props) => {
     // }
 
     const handleOrderDetailsDisplay = () => {
-        history.push('/order-details')
+        history.push({
+            pathname:'/order-details',
+            state: info 
+    })
     }
 
 
@@ -172,10 +197,10 @@ const CreateList = (props) => {
                         <h2> From wherever you are. </h2>
                         <UserName> Shopping List </UserName>
                         <BusinessImage src={BusinessPic} />
-                        <UserName> The Freshest Grocery Shop </UserName>
+                        <UserName> {clickedBusiness} </UserName>
                     </IntroColumn>
                 </Grid.Row>
-                {hideAisles ? (
+                {/* {hideAisles ? (
                     <Grid.Row>
                         <Grid.Column width={3}> <HideAisleButton onClick={handleShowAisles}> Show Aisles </HideAisleButton> </Grid.Column>
                     </Grid.Row>
@@ -192,13 +217,17 @@ const CreateList = (props) => {
                     )}
                 <Grid.Row>
                     <SearchText> Search for what you want and add it just like you’d do with a regular list… </SearchText>
-                </Grid.Row>
+                </Grid.Row> */}
+                { info ?.map(product => {
+                    console.log(product)
+                        return (
                 <ProductRows>
                     <Grid.Column width={4}>
-                        <ProductImages src={blueberries} />
+                        <ProductImages src={strawberries} />
                     </Grid.Column>
                     <ProductName center width={3} >
-                        <h3> Blueberries </h3>
+                        <h3> {product.productName} </h3>
+                        
                     </ProductName>
                     <ItemsColumn width={5}>
                         <Grid>
@@ -206,7 +235,7 @@ const CreateList = (props) => {
                                 <CenteredTextColumn width={3}>
                                     <ButtonCounters onClick={decrement}> - </ButtonCounters>
                                 </CenteredTextColumn>
-                                <StockColumn width={9}> <h2> {inStock} </h2> </StockColumn>
+                                <StockColumn width={9}> <h2> {product.productPrice} </h2> </StockColumn>
                                 <CenteredTextColumn width={3}>
                                     <ButtonCounters onClick={increment}> + </ButtonCounters>
                                 </CenteredTextColumn>
@@ -214,10 +243,12 @@ const CreateList = (props) => {
                         </Grid>
                     </ItemsColumn>
                     <ItemsColumn width={3}>
-                        <h3> Kshs. 3000 </h3>
+                        <h3> Ksh. {product.productPrice} </h3>
                     </ItemsColumn>
                 </ProductRows>
-                <ProductRows>
+                  )
+                })}
+                {/* <ProductRows>
                     <Grid.Column width={4}>
                         <ProductImages src={strawberries} />
                     </Grid.Column>
@@ -228,11 +259,11 @@ const CreateList = (props) => {
                         <Grid>
                             <Grid.Row>
                                 <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={decrement}> - </ButtonCounters>
+                                    <ButtonCounters onClick={decrement2}> - </ButtonCounters>
                                 </CenteredTextColumn>
-                                <StockColumn width={9}> <h2> {inStock} </h2> </StockColumn>
+                                <StockColumn width={9}> <h2> {inStock2} </h2> </StockColumn>
                                 <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={increment}> + </ButtonCounters>
+                                    <ButtonCounters onClick={increment2}> + </ButtonCounters>
                                 </CenteredTextColumn>
                             </Grid.Row>
                         </Grid>
@@ -252,11 +283,11 @@ const CreateList = (props) => {
                         <Grid>
                             <Grid.Row>
                                 <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={decrement}> - </ButtonCounters>
+                                    <ButtonCounters onClick={decrement3}> - </ButtonCounters>
                                 </CenteredTextColumn>
-                                <StockColumn width={9}> <h2> {inStock} </h2> </StockColumn>
+                                <StockColumn width={9}> <h2> {inStock3} </h2> </StockColumn>
                                 <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={increment}> + </ButtonCounters>
+                                    <ButtonCounters onClick={increment3}> + </ButtonCounters>
                                 </CenteredTextColumn>
                             </Grid.Row>
                         </Grid>
@@ -264,16 +295,16 @@ const CreateList = (props) => {
                     <ItemsColumn width={3}>
                         <h3> Kshs. 6000 </h3>
                     </ItemsColumn>
-                </ProductRows>
+                </ProductRows> */}
                 <Grid.Row >
                     <BusinessColumns center>
                         <Collapsible width={16} fluid trigger={<DropdownButtons > Continue shopping from another store within Mall A <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                             <Grid width={16}  >
                                 <Grid.Row >
-                                    <Grid.Column width={5} >
+                                    <Grid.Column width={5} style={{paddingLeft:40}} >
                                         <Image src={BusinessPic} />
                                     </Grid.Column>
-                                    <BusinessColumns width={11}  >
+                                    <BusinessColumns width={10}  >
                                         <h2> Thiga’s Field Fresh Vegetables <Icon name='check circle' color='yellow' /> </h2>
                                         <List bulleted horizontal >
                                             <List.Item ></List.Item>
@@ -287,7 +318,7 @@ const CreateList = (props) => {
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={5}  >
-                                        <Image src={BusinessPic} />
+                                        <Image src={BusinessPic} style={{paddingLeft:40}} />
                                     </Grid.Column>
                                     <BusinessColumns width={10} style={{ textAlign: 'center' }} >
                                         <h2> Mary’s Apothecary <Icon name='check circle' color='yellow' /> </h2>

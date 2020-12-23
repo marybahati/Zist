@@ -88,6 +88,10 @@ const AddButton = styled(Button)`
 
 const EditShoppingList = () => {
     const [inStock, setInStock] = useState(6)
+    const [inStock2, setInStock2] = useState(4)
+    const [inStock3, setInStock3] = useState(7)
+    // const [complete, setComplete] = useState(false)
+
     const increment = () => setInStock(stock => stock + 1);
 
     const decrement = () => {
@@ -95,6 +99,24 @@ const EditShoppingList = () => {
             setInStock(0)
         } else {
             setInStock(stock => stock - 1)
+        }
+    }
+    const increment2 = () => setInStock2(stock => stock + 1);
+
+    const decrement2 = () => {
+        if (inStock2 == 0) {
+            setInStock2(0)
+        } else {
+            setInStock2(stock => stock - 1)
+        }
+    }
+    const increment3 = () => setInStock3(stock => stock + 1);
+
+    const decrement3 = () => {
+        if (inStock3 == 0) {
+            setInStock3(0)
+        } else {
+            setInStock3(stock => stock - 1)
         }
     }
     const handleOrderDetailsDisplay = () => {
@@ -176,11 +198,11 @@ const EditShoppingList = () => {
                     <Grid>
                         <Grid.Row>
                             <CenteredTextColumn width={3}>
-                                <ButtonCounters onClick={decrement}> - </ButtonCounters>
+                                <ButtonCounters onClick={decrement2}> - </ButtonCounters>
                             </CenteredTextColumn>
-                            <StockColumn width={9}> <h2> {inStock} </h2> </StockColumn>
+                            <StockColumn width={9}> <h2> {inStock2} </h2> </StockColumn>
                             <CenteredTextColumn width={3}>
-                                <ButtonCounters onClick={increment}> + </ButtonCounters>
+                                <ButtonCounters onClick={increment2}> + </ButtonCounters>
                             </CenteredTextColumn>
                         </Grid.Row>
                     </Grid>
@@ -200,11 +222,11 @@ const EditShoppingList = () => {
                     <Grid>
                         <Grid.Row>
                             <CenteredTextColumn width={3}>
-                                <ButtonCounters onClick={decrement}> - </ButtonCounters>
+                                <ButtonCounters onClick={decrement3}> - </ButtonCounters>
                             </CenteredTextColumn>
-                            <StockColumn width={9}> <h2> {inStock} </h2> </StockColumn>
+                            <StockColumn width={9}> <h2> {inStock3} </h2> </StockColumn>
                             <CenteredTextColumn width={3}>
-                                <ButtonCounters onClick={increment}> + </ButtonCounters>
+                                <ButtonCounters onClick={increment3}> + </ButtonCounters>
                             </CenteredTextColumn>
                         </Grid.Row>
                     </Grid>

@@ -16,7 +16,7 @@ export const SignupModal = (props) => {
   const [password, setPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [userId, setUserId] = useState(null);
-  console.log(userId)
+  // console.log(userId)
 
   const handleSignup = (event) => {
     event.preventDefault();

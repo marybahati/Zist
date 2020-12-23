@@ -6,7 +6,7 @@ import { RatedStars } from './Ratings';
 import styled from 'styled-components';
 import cart from "./../../Assets/searchCart.png";
 import { withCookies } from 'react-cookie';
-
+import {Link} from "react-router-dom"
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
     padding: 0 0 0 30px !important;
@@ -15,13 +15,17 @@ const SearchBar = styled(Dropdown)`
     margin: 0 0 40px 0 !important;
     padding: 20px 20px !important;
 `;
-
+const CardButton = styled(Button)`
+    border: none !important;
+    background: white !important;
+`
 class Cards extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       businesses: [],
       products: [],
+      cardId: '',
       search: ''
     }
   }
@@ -60,18 +64,23 @@ class Cards extends React.Component {
 
   }    
   
-
+  handleCardClicked = e => {
+    this.setState({ id: e.target.value });
+    console.log(this.state.cardId)
+  };
+  
 renderCards = business => {
   if ( this.state.search !== '' && business.name.toLowerCase().indexOf( this.state.search) === -1 && business.business_type.toLowerCase().indexOf(this.state.search) === -1  ) {
     return null 
   }
   return (
       <CardColumn width={7} style={{ margin: '0 30px 80px 0'}}>
+        <CardButton key={business.id} value={business.name} onClick={this.handleCardClicked} >
         <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070',minHeight:'570px '}} key={business.name} >
           <Image src={card2} wrapped ui={false} />
           <Card.Content>
             <Card.Header>
-              <a href='/user-list' style={{color:'black'}}> {business.name} </a>
+              <Link to='/user-list' style={{color:'black'}}> {business.name} </Link>
             <Icon name='check circle' color='yellow' />
             </Card.Header>
             <Grid>
@@ -96,7 +105,7 @@ renderCards = business => {
           </Card.Content>
 
         </Card>
-        
+        </CardButton> 
       </CardColumn>
   )
 }  

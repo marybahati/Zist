@@ -25,7 +25,7 @@ class ContinueButtonSection extends React.Component {
     const { cookies } = props
     const token = cookies.get('access-token')
     console.log(token)
-      axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/',{},
+      axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/',
        { headers: { "Authorization": `Bearer ${token}` } }
        ) 
     .then(res => {
@@ -34,11 +34,11 @@ class ContinueButtonSection extends React.Component {
           axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/', {
               name: props.name,
               business_type: props.natureOfBusiness,
-              bio: props.description,
+              bio: props.niche,
               email: props.email,
               tel: props.tel,
               location: props.location,
-              metadat: props.niche
+              // metadata: props.niche
             },
               { headers: { "Authorization": `Bearer ${token}` } }
             ).then( res => {

@@ -86,7 +86,7 @@ const VendorRegistration = (props) => {
     const [email, setEmail] = useState('')
     const [tel, setTel] = useState('')
     const [location, setLocation] = useState('')
-    const [description, setLocation] = useState('')
+    const [description, setDescription] = useState('')
     const [snackbarOpen, setSnackbarOpen] = useState(false)
 
     console.log(name, natureOfBusiness, niche, email, tel)
@@ -178,7 +178,7 @@ const VendorRegistration = (props) => {
                                         fluid
                                         type='text'
                                         required
-                                        onChange={e => setLocation(e.target.value)}
+                                        onChange={e => setDescription(e.target.value)}
                                     />
                                 </Form.Field>
                                 <Form.Field>

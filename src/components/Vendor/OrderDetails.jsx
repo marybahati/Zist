@@ -65,8 +65,17 @@ const OrderNowButton = styled(Button)`
    font-size: 22px !important;
 `;
 
-const OrderDetails = () => {
-    
+const OrderDetails = (props) => {
+    const [total,setTotal] = useState()
+    const [n,setN] = useState([])
+    const info = (props.location && props.location.state) || '';
+    // info.map( no => {
+    //     const numbers = no.productPrice 
+    //     // console.log(numbers)
+    //     setN([...n, numbers])
+    //     console.log(n, numbers)
+    // })
+    console.log(info)
     return (
         <MainDiv>
             <MainGrid>
@@ -107,18 +116,22 @@ const OrderDetails = () => {
                         </List>
                     </Columns>
                 </Grid.Row>
-                <ProductRows>
+               {info ?.map( res => {
+                   return(
+                    <ProductRows>
                     <Grid.Column width={5}>
-                        <ProductImages src={blueberries} />
+                        <ProductImages src={strawberries} />
                     </Grid.Column>
                     <ProductName center width={5} >
-                        <h3> Blueberries </h3>
+                        <h3> {res.productName} </h3>
                     </ProductName>
                     <ItemsColumn width={3}>
-                        <h3> Kshs. 3000 </h3>
+                        <h3> Kshs.{res.productPrice} </h3>
                     </ItemsColumn>
                 </ProductRows>
-                <ProductRows>
+                   )
+               })}
+                {/* <ProductRows>
                     <Grid.Column width={5}>
                         <ProductImages src={bananas} />
                     </Grid.Column>
@@ -128,8 +141,8 @@ const OrderDetails = () => {
                     <ItemsColumn width={3}>
                         <h3> Kshs. 4000 </h3>
                     </ItemsColumn>
-                </ProductRows>
-                <ProductRows>
+                </ProductRows> */}
+                {/* <ProductRows>
                     <Grid.Column width={5}>
                         <ProductImages src={strawberries} />
                     </Grid.Column>
@@ -139,18 +152,18 @@ const OrderDetails = () => {
                     <ItemsColumn width={3}>
                         <h3> Kshs. 7000 </h3>
                     </ItemsColumn>
-                </ProductRows>
-                <ProductRows>
+                </ProductRows> */}
+                {/* <ProductRows>
                     <Grid.Column width={5}>
                         {/* <Icon name='fire' color='black' size='huge'/> */}
-                    </Grid.Column>
+                    {/* </Grid.Column>
                     <ProductName center width={5} >
                         <h3> Delivery fee </h3>
                     </ProductName>
                     <ItemsColumn width={3}>
                         <h3> Kshs. 200 </h3>
                     </ItemsColumn>
-                </ProductRows>
+                </ProductRows>  */}
                 <ProductRows>
                     <Grid.Column width={5}>
                         {/* <Icon name='fire' color='black' size='huge'/> */}

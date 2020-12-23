@@ -20,8 +20,9 @@ const LoginModal = (props) => {
     const [refreshToken, setRefreshToken] = useState('')
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     cookies.set('access-token',token,{path: '/'})
-    // cookies.set('access-token',token,{path: '/'})
+    // if(token === '' || token === undefined ){
 
+    // }
     const handleLogin = (event) => {
         event.preventDefault();
         axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/token/', {
@@ -32,7 +33,6 @@ const LoginModal = (props) => {
           .then(res => {
             if(res.status === 200 ){
              setToken(res.data.access)
-             res.data.vendor !== null ? History.push('/vendor-dashboard') : History.push('/shopping')
             //  setSnackbarOpen(true)
              toast.success("You have successfully logged in",{
                className:'toast',
@@ -43,6 +43,7 @@ const LoginModal = (props) => {
              }) 
              props.handleClose() 
             } 
+            // res.data.vendor !== null ? History.push('/vendor-dashboard') : History.push('/shopping')
        
            }).catch(error => {
             //  setSnackbarOpen(true)

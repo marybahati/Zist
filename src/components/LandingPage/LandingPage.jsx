@@ -34,8 +34,9 @@ const NavbarGrid = styled(Grid)`
 `;
 
 const MenuGrid = styled.div`
-    width: 45%;
+    width: 46.5%;
     margin: 0 auto 100px auto ;
+    // padding: 0 !important;
     // height: 145px;
     @media only screen and (max-width: 750px) {
       font-size: 18px !important;
@@ -189,6 +190,7 @@ background-color: inherit !important;
 `;
 const LocationInput = styled(Input)`
 background-color: white !important;
+padding: 0 !important;
 margin: 80px auto 0px auto !important;
 width: 45% !important;
 border: 1px solid #707070 !important;
@@ -444,11 +446,12 @@ const LandingPage = (props) => {
 
 
       <Grids>
-        <GridRows>
+        <GridRows >
           <LocationInput labelPosition='right' type='search'
             size="small"
             type="text"
             value={location}
+            style={{padding:'0 !importat'}}
           >
             <LocationIconLabel basic >
               <Icon color='black' name="map marker alternate" link />

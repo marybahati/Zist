@@ -21,6 +21,7 @@ import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
 import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
 import { withCookies, Cookies } from 'react-cookie';
 import Cards from './Cards';
+import History from '../../History';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
@@ -56,43 +57,75 @@ const Shopping = (props) => {
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [business, setBusiness] = useState()
-  const [businesses, setBusinesses] = useState()
-  console.log(businesses)
+  // const [business, setBusiness] = useState()
+  const [clickedBusiness, setClickedBusiness] = useState('')
+  const [businesses, setBusinesses] = useState([])
 
-  const { userId } = (props.location && props.location.state) || {};
-  useEffect(() => { 
+  const fetchBusinesses =  () => {
     axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/')
-        .then((response) => {
-            if(response.status == 200){
-              const res = response.data
-              setBusinesses(res) 
-            } 
-        })
-        .catch( error => {
-            console.log(error)
-        })
-},[])
+    .then( res => {
+      console.log(res)
+      setBusinesses(res.data)
+    })
+    .catch(error => {
+      return []
+      console.log(error)
+    })
 
-  const countryOptions = [
-    // businesses.map( x => ({ text:x.name, value: x.id,image: { src: card4 }}) ) 
-    { text: 'fruits', value: 'fruits', image: { src: card4 } },
-    { text: 'vegetables', value: 'vegetables', image: { src: card4 } },
-    { text: 'cakes', value: 'cakes', image: { src: card4 } },
-    { text: 'chocaolates', value: 'chocolates', image: { src: card4 } },
-    { text: 'flour', value: 'flour', image: { src: card4 } },
-  ]
-  const handleLogOut = () => {
-    const logout = cookies.remove('access-token')
-    return logout
-    // window.location.reload(false);
+    // try {
+    //   const request = await axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/')
+      
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
+useEffect(() => {
+  fetchBusinesses()
+  
+  // 
+  // console.log(res)
+},[])
+//   useEffect( () => {
+//     const response =  axios.get( 'https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/' );
+//     console.log(response)
+//     setD( response)
+
+// }, []);
+
+// if(d.status == 200){
+//   setBusinesses(d.res)
+// }
+
+const optionsResults = businesses?.map(x => ({ text: x.name, value: x.id, image: { src: card4 } }))
 
 
-  return (
-    <div >
-      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-        {/* {token !== undefined ? (
+const countryOptions = [
+  { text: 'fruits', value: 'fruits', image: { src: card4 } },
+  { text: 'vegetables', value: 'vegetables', image: { src: card4 } },
+  { text: 'cakes', value: 'cakes', image: { src: card4 } },
+  { text: 'chocaolates', value: 'chocolates', image: { src: card4 } },
+  { text: 'flour', value: 'flour', image: { src: card4 } },
+]
+// const handleLogOut = () => {
+//   const logout = cookies.remove('access-token')
+//   return logout
+//   window.location.reload(false);
+// }
+const handleCardClicked = (e, name) => {
+  // setClickedBusiness(e)
+  History.push({
+    pathname: '/user-list',
+    state: name
+  });
+}
+// cookies.set('business-name', clickedBusiness, { path: '/' })
+
+
+return (
+  <div >
+    <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+     
+      {/* {token !== undefined ? (
           <Grid.Row width={16} >
             <Grid.Column >
               <Grid>
@@ -130,198 +163,245 @@ const Shopping = (props) => {
             </Grid.Column>
           </Grid.Row>
         ) : ( */}
-        <Grid.Row width={16} >
-          <Grid.Column >
-            <Grid >
-              <Grid.Row style={{ padding: '0' }}>
-                <Grid.Column width={10}>
-                  {/* <List style={{ display: 'inline-block' }}>
+      <Grid.Row width={16} >
+        <Grid.Column >
+          <Grid >
+            <Grid.Row style={{ padding: '0' }}>
+              <Grid.Column width={10}>
+                {/* <List style={{ display: 'inline-block' }}>
                         <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '100px' }}>
                           HELP
                     </List.Item>
                       </List> */}
-                </Grid.Column>
-                {/* {userId == null ? ( */}
-                  <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }}>
-                    <SignupButtonSection />
-                  </Grid.Column>
-                {/* ) : null} */}
+              </Grid.Column>
+              {/* {userId == null ? ( */}
+              <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }}>
+                <SignupButtonSection />
+              </Grid.Column>
+              {/* ) : null} */}
 
 
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }} >
-                  <LoginButtonSection />
-                </Grid.Column>
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '60px' }} >
-                  <Image
-                    src={cartImage}
-                    style={{ display: "block", margin: '0 auto' }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
+              <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }} >
+                <LoginButtonSection />
+              </Grid.Column>
+              <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '60px' }} >
+                <Image
+                  src={cartImage}
+                  style={{ display: "block", margin: '0 auto' }}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
 
-          </Grid.Column>
-        </Grid.Row>
-        {/* )} */}
-        <Grid.Row width={16} style={{ padding: '0 ' }}>
-          <Input labelPosition='right' type='search'
+        </Grid.Column>
+      </Grid.Row>
+      {/* )} */}
+      <Grid.Row width={16} style={{ padding: '0 ' }}>
+    
+        <Input labelPosition='right' type='search'
+          style={{
+            backgroundColor: "white",
+            margin: "0 auto 0px auto",
+            width: "50%",
+            border: "1px solid #707070",
+            fontSize: '20px',
+            height: '90px '
+          }}
+          size="small"
+          placeholder='SEARCH FOR A PLACE OR ITEM'>
+          <Button type="submit" basic style={{ paddingLeft: '30px', margin: '0' }}>
+            <Icon size="big" color='black' name="search" link />
+          </Button>
+          <Image
+            src={cart}
             style={{
-              backgroundColor: "white",
-              margin: "0 auto 0px auto",
-              width: "50%",
-              border: "1px solid #707070",
-              fontSize: '20px',
-              height: '90px '
+              display: "inline-block",
+              border: '0', width: '120px', height: '130px', margin: '0', paddingBottom: '35px'
             }}
-            size="small"
-            placeholder='SEARCH FOR A PLACE OR ITEM'>
-            <Button type="submit" basic style={{ paddingLeft: '30px', margin: '0' }}>
-              <Icon size="big" color='black' name="search" link />
-            </Button>
-            <Image
-              src={cart}
-              style={{
-                display: "inline-block",
-                border: '0', width: '120px', height: '130px', margin: '0', paddingBottom: '35px'
-              }}
-            />
-            <SelectDropdown
-              placeholder='SEARCH FOR A PLACE OR AN ITEM'
-              noResultsMessage='Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else'
-              openOnFocus={false}
-              scrolling
-              fluid
-              selection
-               options={countryOptions}
-              onChange={(e, { value }) => setBusiness({ business: value })}
-              clearable
-              search
-              style={{ padding: '2rem !important' }}
-            />
-            {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
-          </Input>
-          <datalist id="searchOption">
-            <option value="Camaro" />
-            <option value="Corvette" />
-            <option value="Impala" />
-            <option value="Colorado" />
-          </datalist>
-        </Grid.Row>
+          />
+          <SelectDropdown
+            placeholder='SEARCH FOR A PLACE OR AN ITEM'
+            noResultsMessage='Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else'
+            openOnFocus={false}
+            scrolling
+            fluid
+            selection
+            options={optionsResults}
+            // onChange={(e, { value }) => setBusiness({ business: value })}
+            clearable
+            search
+            style={{ padding: '2rem !important' }}
+          />
+          {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
+        </Input>
+        <datalist id="searchOption">
+          <option value="Camaro" />
+          <option value="Corvette" />
+          <option value="Impala" />
+          <option value="Colorado" />
+        </datalist>
+      </Grid.Row>
 
-      </Grid>
+    </Grid>
 
-      <Grid width={16} style={{ margin: '40px 0 0 80px' }} >
+    <Grid width={16} style={{ margin: '40px 0 0 80px' }} >
 
-        {/* <div id='location' > */}
-        <Grid.Row id='location' style={{ padding: '0 0 10px 22px ' }}>
-          <Input labelPosition='right' type='text'
-            style={{
-              backgroundColor: "white",
-              width: "50%",
-              fontSize: '20px'
-            }}
-            size="small"
-            type="text"
-            value={address}
-            onChange={event => setAddress(event.target.value)}
-            placeholder='Enter your address …'>
-            <Label basic style={{ margin: '0', border: '0', padding: '0', height: '30 !important', width: '30px' }}>
-              <Image src={locationImage} />
-            </Label>
-            <input style={{ border: '0' }} />
-          </Input>
+      {/* <div id='location' > */}
+      <Grid.Row id='location' style={{ padding: '0 0 10px 22px ' }}>
+        <Input labelPosition='right' type='text'
+          style={{
+            backgroundColor: "white",
+            width: "50%",
+            fontSize: '20px'
+          }}
+          size="small"
+          type="text"
+          value={address}
+          onChange={event => setAddress(event.target.value)}
+          placeholder='Enter your address …'>
+          <Label basic style={{ margin: '0', border: '0', padding: '0', height: '30 !important', width: '30px' }}>
+            <Image src={locationImage} />
+          </Label>
+          <input style={{ border: '0' }} />
+        </Input>
 
-        </Grid.Row>
-        {/* </div> */}
+      </Grid.Row>
+      {/* </div> */}
 
-        <Grid.Row style={{ padding: '0 0 10px 22px ' }}>
-          <SubHeading>Not sure of where to shop from? Here are some suggestions...</SubHeading>
-        </Grid.Row>
+      <Grid.Row style={{ padding: '0 0 10px 22px ' }}>
+        <SubHeading>Not sure of where to shop from? Here are some suggestions...</SubHeading> <br/>
+        {/* { token !== '' && token !== undefined ? (
 
-        <Grid.Row style={{ padding: '20px 0 20px 22px' }} width={16}>
-          <Grid.Column style={{ padding: '0' }} width={2}>
-            <Image src={refineImage} />
-            <h4 style={{ marginTop: '0' }}>Refine</h4>
-          </Grid.Column>
+<div> meeeeeeeeeeeeeeeeeeeeee</div>
+      ):(
+<div> ussssssssssssssssssssssss </div>
+      )
+      
+      } */}
+      </Grid.Row>
 
-          <Grid.Column style={{ padding: 0 }} width={3} >
-            <Grid >
-              <Grid.Row>
-                <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
-                  <Image src={locationImage} />
-                </Grid.Column>
-                <Grid.Column width={14} style={{ padding: '0' }}>
-                  <Dropdown text="Proximity" style={{ fontSize: '18px', color: '#050504' }}>
-                    <Dropdown.Menu >
-                      <Dropdown.Item text="Shopping" />
-                      <Dropdown.Item text="Zist Articles" />
-                      <Dropdown.Item text="Zist Recipes" />
-                      <Dropdown.Item text="Zist Mission & Vision" />
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Grid.Column>
+      <Grid.Row style={{ padding: '20px 0 20px 22px' }} width={16}>
+        <Grid.Column style={{ padding: '0' }} width={2}>
+          <Image src={refineImage} />
+          <h4 style={{ marginTop: '0' }}>Refine</h4>
+        </Grid.Column>
 
-          <Grid.Column style={{ padding: 0 }} width={3} >
-            <Grid >
-              <Grid.Row>
-                <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
-                  <Image src={categoryImage} />
-                </Grid.Column>
-                <Grid.Column width={14} style={{ padding: '0' }}>
-                  <Dropdown text="Niche" style={{ fontSize: '18px', color: '#050504' }}>
-                    <Dropdown.Menu >
-                      <Dropdown.Item text="Shopping" />
-                      <Dropdown.Item text="Zist Articles" />
-                      <Dropdown.Item text="Zist Recipes" />
-                      <Dropdown.Item text="Zist Mission & Vision" />
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Grid.Column>
+        <Grid.Column style={{ padding: 0 }} width={3} >
+          <Grid >
+            <Grid.Row>
+              <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
+                <Image src={locationImage} />
+              </Grid.Column>
+              <Grid.Column width={14} style={{ padding: '0' }}>
+                <Dropdown text="Proximity" style={{ fontSize: '18px', color: '#050504' }}>
+                  <Dropdown.Menu >
+                    <Dropdown.Item text="2 km radius" />
+                    <Dropdown.Item text="Near ngong road" />
+                    <Dropdown.Item text="around CBD " />
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Grid.Column>
+
+        <Grid.Column style={{ padding: 0 }} width={3} >
+          <Grid >
+            <Grid.Row>
+              <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
+                <Image src={categoryImage} />
+              </Grid.Column>
+              <Grid.Column width={14} style={{ padding: '0' }}>
+                <Dropdown text="Niche" style={{ fontSize: '18px', color: '#050504' }}>
+                  <Dropdown.Menu >
+                    <Dropdown.Item text="Groceries" />
+                    <Dropdown.Item text="Meat" />
+                    <Dropdown.Item text="Cosmetics" />
+                    <Dropdown.Item text="Drinks" />
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Grid.Column>
 
 
-          <Grid.Column style={{ padding: 0 }} width={3} >
-            <Grid >
-              <Grid.Row>
-                <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
-                  <Image src={scheduleImage} />
-                </Grid.Column>
-                <Grid.Column width={14} style={{ padding: '0' }}>
-                  <Dropdown text="Schedule" style={{ fontSize: '18px', color: '#050504' }}>
-                    <Dropdown.Menu >
-                      <Dropdown.Item text="Shopping" />
-                      <Dropdown.Item text="Zist Articles" />
-                      <Dropdown.Item text="Zist Recipes" />
-                      <Dropdown.Item text="Zist Mission & Vision" />
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Grid.Column>
+        <Grid.Column style={{ padding: 0 }} width={3} >
+          <Grid >
+            <Grid.Row>
+              <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
+                <Image src={scheduleImage} />
+              </Grid.Column>
+              <Grid.Column width={14} style={{ padding: '0' }}>
+                <Dropdown text="Schedule" style={{ fontSize: '18px', color: '#050504' }}>
+                  <Dropdown.Menu >
+                    <Dropdown.Item text="8.00 A.M" />
+                    <Dropdown.Item text="10.00 A.m" />
+                    <Dropdown.Item text="1.00 P.M" />
+                    <Dropdown.Item text="4.00 P.M" />
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Grid.Column>
 
 
-        </Grid.Row>
+      </Grid.Row>
 
 
-        <div style={{ padding: '0 0 10px 22px ' }}>
-          <CardHeading>Zist karibu</CardHeading>
-          <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
-        </div>
-        <Grid.Row>
-          <Cards />
-        </Grid.Row>
+      <div style={{ padding: '0 0 10px 22px ' }}>
+        <CardHeading>Zist karibu</CardHeading>
+        <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
+      </div>
+      <Grid.Row>
+        {/* <Cards /> */}
+        {businesses?.map(business => {
+          return (
+            <CardColumn width={7} style={{ margin: '0 30px 80px 0' }}>
+              <Card key={business.id} value={business.name} onClick={(e) => handleCardClicked(e, business.name)} fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '570px ',color:'black' }} key={business.name} >
+                {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                <Image src={card2} wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header style={{paddingTop:20}}>
+                  {business.name}
+                    <Icon name='check circle' color='yellow' />
+                    </Card.Header>
+                    <Card.Header style={{padding:'10px 0' }}>
+                    {business.bio}
+                    </Card.Header>
+                  {/* <Grid>
+                    <Grid.Row width={16} style={{ marginTop: '15px', marginBottom: '5px' }}>
+                      <Grid.Column width={10} >
+                        <h4>
+                          {business.bio}
+                        </h4>
+                      </Grid.Column>
+
+                      <Grid.Column width={6} style={{ textAlign: 'center' }}>
+                        <RatedStars rating={5} />
+                      </Grid.Column>
+
+                    </Grid.Row>
+                  </Grid> */}
+
+                  <List bulleted horizontal >
+                    <List.Item ></List.Item>
+                    <List.Item >{business.business_type}</List.Item>
+                  </List>
+                </Card.Content>
+
+              </Card>
+            </CardColumn>
+          )
+        })}
+      </Grid.Row>
 
 
 
-      </Grid>
-    </div>
-  )
+    </Grid>
+  </div>
+)
 }
 
 export default withCookies(Shopping)

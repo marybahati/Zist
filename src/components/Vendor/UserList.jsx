@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from 'react';
-import { Grid, Image, Button, Dropdown, Input, Icon } from "semantic-ui-react";
+import React, { useState, useEffect } from 'react';
+import { Grid, Image, Button, List, Input, Icon, Card } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
 import bananas from './../../Assets/bananas.png';
@@ -7,8 +7,10 @@ import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
 import axios from 'axios'
-import { withCookies,Cookies} from 'react-cookie';
+import { withCookies, Cookies } from 'react-cookie';
 import Collapsible from 'react-collapsible';
+import History from '../../History'
+import { RatedStars } from './../ShoppingPage/Ratings';
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
     opacity: 1;
@@ -89,9 +91,20 @@ const DropdownButtons = styled(Button)`
     padding: 0 !important;
     color: black !important;
 `;
+const CardColumn = styled(Grid.Column)`
+    margin-bottom: 100px;
+    padding: 0 0 0 30px !important;
+`;
 const UserList = (props) => {
     const { cookies } = props
     const token = cookies.get('access-token')
+    // const clickedBusiness = cookies.get('business-name')
+    console.log(token)
+    console.log(props.location)
+    const clickedBusiness = (props.location && props.location.state) || '';
+
+    // const { clickedBusiness } = (props.location && props.location.state)
+
     const options = [
         {
             key: 'Strawberry',
@@ -111,6 +124,12 @@ const UserList = (props) => {
             price: 'Kshs. 300/pack',
             image: { src: blueberries },
         },
+        {
+            key: 'Onions',
+            name: 'Onions',
+            price: 'Kshs. 120/pack',
+            image: { src: blueberries },
+        },
     ]
 
     const [selectedOption, setSelectedOption] = useState('')
@@ -121,7 +140,38 @@ const UserList = (props) => {
     const [showGreens, setShowGreens] = useState(false)
     const [showSnacks, setShowSnacks] = useState(false)
     const [showCooking, setShowCooking] = useState(false)
+    const [cart, setCart] = useState([])
     console.log(products)
+    console.log(cart)
+    useEffect(() => {
+        axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/list/', { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => {
+                console.log(response)
+                if (response.status == 200) {
+                    const res = response.data
+                    //   setBusinesses(res)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
+
+    // useEffect(() => {
+    //     axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/',
+    //     { headers: {"Authorization" : `Bearer ${token}`} 
+    //     })
+    //       .then((response) => {
+    //         if (response.status == 200) {
+    //           const res = response.data
+    //           setProducts(res)
+    //         }
+    //       })
+    //       .catch(error => {
+    //         console.log(error)
+    //       })
+    //   }, [])
+
     const handleHideAisles = () => {
         setHideAisles(true)
         setShowFruits(false)
@@ -160,23 +210,37 @@ const UserList = (props) => {
         setShowGreens(false)
         setShowSnacks(false)
     }
-    
+
     const renderProducts = (product) => {
         if (searchText !== '' && product.name.toLowerCase().indexOf(searchText) === -1) {
             return null
         }
         return (
-            <ProductRows key={product.name}>
-                <Grid.Column width={5}>
-                    <ProductImages src={bananas} />
-                </Grid.Column>
-                <ProductName center width={5} >
-                    <h3> {product.name} </h3>
-                </ProductName>
-                <ItemsColumn width={4}>
-                    <h3> Ksh.{product.price} </h3>
-                </ItemsColumn>
-            </ProductRows>
+           
+            <CardColumn width={7} style={{ margin: '0 30px 80px 0'}}>
+                        <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
+                            <Image src={card2} wrapped ui={false} />
+                            <Card.Content>
+                                <Card.Header style={{paddingTop:20}}>
+                                    {product.name} 
+                                </Card.Header>
+                                <Card.Header style={{paddingTop:20}}>
+                                    Ksh.{product.price}
+                                </Card.Header>
+                            </Card.Content>
+                        </Card>
+               </CardColumn>
+            // <ProductRows key={product.name} as='button' onClick={(e) => handleAddProduct(e, product.name, product.price)}>
+            //     <Grid.Column width={5}>
+            //         <ProductImages src={bananas} />
+            //     </Grid.Column>
+            //     <ProductName center width={5} >
+            //         <h3> {product.name} </h3>
+            //     </ProductName>
+            //     <ItemsColumn width={4}>
+            //         <h3> Ksh.{product.price} </h3>
+            //     </ItemsColumn>
+            // </ProductRows>
 
         )
     }
@@ -188,21 +252,52 @@ const UserList = (props) => {
         return product.name.toLowerCase().includes(searchText)
         console.log(product.name)
     })
-    
-    useEffect(() => { 
-        axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/products/',  { 
-            headers: {"Authorization" : `Bearer ${token}`} 
-          })
+    const suggestedProducts = products.slice(0, 4).map(product => {
+        return (
+            <CardColumn width={7} style={{ margin: '0 30px 80px 0'}}>
+            <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
+                <Image src={card2} wrapped ui={false} />
+                <Card.Content>
+                    <Card.Header style={{paddingTop:20}}>
+                        {product.name} 
+                    </Card.Header>
+                    <Card.Header style={{paddingTop:20}}>
+                        Ksh.{product.price}
+                    </Card.Header>
+                </Card.Content>
+            </Card>
+   </CardColumn>
+        )
+    })
+    const handleAddedProduct = () => {
+        History.push({
+            pathname: '/create-list',
+            state: cart
+        });
+    }
+
+    const handleAddProduct = (e, productName, productPrice) => {
+        const d = { productName: productName, productPrice: productPrice }
+        //    [...cart, d]
+        console.log(d)
+        setCart([...cart, d])
+        console.log(cart, d)
+    }
+
+    useEffect(() => {
+        axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/products/', {
+            headers: { "Authorization": `Bearer ${token}` }
+        })
             .then((response) => {
-                if(response.status == 200){
-                    setProducts(response.data); 
+                if (response.status == 200) {
+                    setProducts(response.data);
                 }
-                
+
             })
-            .catch( error => {
+            .catch(error => {
                 console.log(error)
             })
-    },[])
+    }, [])
     return (
         <MainDiv>
             <MainGrid>
@@ -212,7 +307,8 @@ const UserList = (props) => {
                         <h2> From wherever you are. </h2>
                         <UserName> Shopping List </UserName>
                         <BusinessImage src={BusinessPic} />
-                        <UserName> The Freshest Grocery Shop </UserName>
+                        <UserName> {clickedBusiness} </UserName>
+                        {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> view cart </Button> : null}
                     </IntroColumn>
                 </Grid.Row>
                 {hideAisles ? (
@@ -235,9 +331,7 @@ const UserList = (props) => {
                         <Grid.Column>
                             <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                                 <Grid width={16}  >
-                                    {options.map(product => {
-                                        return renderProducts(product)
-                                    })}
+                                    {suggestedProducts}
                                 </Grid>
                             </Collapsible>
                         </Grid.Column>
@@ -248,9 +342,7 @@ const UserList = (props) => {
                         <Grid.Column>
                             <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                                 <Grid width={16}  >
-                                    {options.map(product => {
-                                        return renderProducts(product)
-                                    })}
+                                    {suggestedProducts}
                                 </Grid>
                             </Collapsible>
                         </Grid.Column>
@@ -261,9 +353,7 @@ const UserList = (props) => {
                         <Grid.Column>
                             <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                                 <Grid width={16}  >
-                                    {options.map(product => {
-                                        return renderProducts(product)
-                                    })}
+                                    {suggestedProducts}
                                 </Grid>
                             </Collapsible>
                         </Grid.Column>
@@ -274,7 +364,7 @@ const UserList = (props) => {
                         <Grid.Column>
                             <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                                 <Grid width={16}  >
-                                    {filteredProducts.map(product => {
+                                    {options.map(product => {
                                         return renderProducts(product)
                                     })}
                                 </Grid>
