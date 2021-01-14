@@ -102,6 +102,8 @@ const UserList = (props) => {
     console.log(token)
     console.log(props.location)
     const clickedBusiness = (props.location && props.location.state) || '';
+    console.log(props.location && props.location.state)
+    const businessType = (props.location && props.location.state) || '';
 
     // const { clickedBusiness } = (props.location && props.location.state)
 
@@ -216,20 +218,20 @@ const UserList = (props) => {
             return null
         }
         return (
-           
-            <CardColumn width={7} style={{ margin: '0 30px 80px 0'}}>
-                        <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
-                            <Image src={card2} wrapped ui={false} />
-                            <Card.Content>
-                                <Card.Header style={{paddingTop:20}}>
-                                    {product.name} 
-                                </Card.Header>
-                                <Card.Header style={{paddingTop:20}}>
-                                    Ksh.{product.price}
-                                </Card.Header>
-                            </Card.Content>
-                        </Card>
-               </CardColumn>
+
+            <CardColumn width={7} style={{ margin: '0 30px 80px 0' }}>
+                <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
+                    <Image src={card2} wrapped ui={false} />
+                    <Card.Content>
+                        <Card.Header style={{ paddingTop: 20 }}>
+                            {product.name}
+                        </Card.Header>
+                        <Card.Header style={{ paddingTop: 20 }}>
+                            Ksh.{product.price}
+                        </Card.Header>
+                    </Card.Content>
+                </Card>
+            </CardColumn>
             // <ProductRows key={product.name} as='button' onClick={(e) => handleAddProduct(e, product.name, product.price)}>
             //     <Grid.Column width={5}>
             //         <ProductImages src={bananas} />
@@ -254,19 +256,19 @@ const UserList = (props) => {
     })
     const suggestedProducts = products.slice(0, 4).map(product => {
         return (
-            <CardColumn width={7} style={{ margin: '0 30px 80px 0'}}>
-            <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
-                <Image src={card2} wrapped ui={false} />
-                <Card.Content>
-                    <Card.Header style={{paddingTop:20}}>
-                        {product.name} 
-                    </Card.Header>
-                    <Card.Header style={{paddingTop:20}}>
-                        Ksh.{product.price}
-                    </Card.Header>
-                </Card.Content>
-            </Card>
-   </CardColumn>
+            <CardColumn width={7} style={{ margin: '0 30px 80px 0' }}>
+                <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
+                    <Image src={card2} wrapped ui={false} />
+                    <Card.Content>
+                        <Card.Header style={{ paddingTop: 20 }}>
+                            {product.name}
+                        </Card.Header>
+                        <Card.Header style={{ paddingTop: 20 }}>
+                            Ksh.{product.price}
+                        </Card.Header>
+                    </Card.Content>
+                </Card>
+            </CardColumn>
         )
     })
     const handleAddedProduct = () => {
@@ -308,6 +310,10 @@ const UserList = (props) => {
                         <UserName> Shopping List </UserName>
                         <BusinessImage src={BusinessPic} />
                         <UserName> {clickedBusiness} </UserName>
+                        <List bulleted horizontal >
+                            <List.Item ></List.Item>
+                            <List.Item >{businessType}</List.Item>
+                        </List>
                         {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> view cart </Button> : null}
                     </IntroColumn>
                 </Grid.Row>

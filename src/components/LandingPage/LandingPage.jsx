@@ -71,13 +71,14 @@ const BetaButton = styled.button`
       };
 `
 const DemoGrid = styled(Grid)`
-    background: #FEE2D4 0% 0% no-repeat padding-box;
+    background: #F9F7F1 0% 0% no-repeat padding-box;
+    opacity: 1;
     padding-bottom: ${props => props.spaced ? "80px !important" : " "};
 `
 const AppSectionGrid = styled(Grid)`
-    background: #FFE5B4D3;
+    background: #F9F7F1 0% 0% no-repeat padding-box;
+    opacity: 1;
     margin-top: 100px;
-    border: 1px solid #707070 !important;
 `;
 const AppSectionColumn = styled(Grid.Column)`
     border-left: 1px solid #707070 !important;
@@ -252,26 +253,29 @@ margin-right: 40px !important;
 `;
 const BetaColumn = styled(Grid.Column)`
 width: 60% !important;
-margin:120px auto !important;
+margin: auto 0 !important;
 @media only screen and (max-width: 450px) {
   margin: 0 auto !important;
   };
 `;
 const BetaColumnText = styled(Grid.Column)`
 width: 80% !important;
-margin: 120px auto 0 auto !important;
+margin:  auto 0 !important;
+padding-left: 50px !important;
 @media only screen and (max-width: 450px) {
   font-size: 15px !important;
   margin: 0 auto !important;
   };
 `;
-const BetaText = styled.h2`
-font-size: 24px !important;
+const BetaText = styled.h1`
+font-size: 30px !important;
+line-height:2;
+padding-left: 10px !important;
 @media only screen and (max-width: 450px) {
   font-size: 13px !important;
   };
   @media only screen and (min-width: 900px) {
-    font-size: 16px !important;
+    font-size: 26px !important;
     };
 `;
 const BetaImageColumn = styled(Grid.Column)`
@@ -280,19 +284,19 @@ const BetaImageColumn = styled(Grid.Column)`
   };
 `;
 const BetaGrid = styled(Grid)`
-border: 1px solid #707070;
-background: #FEE2D4 0% 0% no-repeat padding-box;
+background: #F9F7F1 0% 0% no-repeat padding-box;
+opacity: 1;
 `;
 const BetaRsvp = styled(Grid.Column)`
-border-left: 1px solid #707070 !important;
+margin: auto 0 !important;
 `;
 const GridRows = styled(Grid.Row)`
 padding: ${props => props.padding ? "70px 0 0 0 !important" : " 0 !important"};
 `;
 const Demo1 = styled.h1`
-padding-top: 120px;
-padding-bottom: 50px;
-font-size: 70px;
+// padding-top: 120px;
+// padding-bottom: 50px;
+font-size: 60px;
 font-weight: bold;
 @media only screen and (max-width: 600px) {
   padding-top: 40px;
@@ -301,7 +305,8 @@ font-weight: bold;
   };
 `;
 const OrderColumnText = styled.h1`
-font-size: 25px;
+font-size: 30px;
+line-height:1.4;
 font-weight: bold;
 padding: 30px 0 !important;
 @media only screen and (max-width: 450px) {
@@ -314,6 +319,7 @@ padding: 30px 0 !important;
 const DemoDescription = styled.h1`
 font-size: 35px;
 font-weight: bold;
+line-height:1.2;
 @media only screen and (max-width: 600px) {
   font-size: 20px;
   };
@@ -483,17 +489,14 @@ const LandingPage = (props) => {
           <Grid>
             <Grid.Row>
               <BetaColumnText>
-                <BetaText> Life is all about priorities. We’re BUILT to  </BetaText>
-                <BetaText> cater to your shopping needs + your  </BetaText>
-                <BetaText> mundane tasks so that YOU can focus  </BetaText>
-                <BetaText> on what truly MATTERS.RSVP your </BetaText> 
-                <BetaText> email address to be the FIRST to know when we LAUNCH. </BetaText>
+              <Demo1>
+              Tailored to you.
+            </Demo1>
+                <BetaText> Taking charge of your priorities <br/>
+                And choosing whom or what <br/>
+                matters most starts with you , <br/> 
+               we’re here to help!  </BetaText>
               </BetaColumnText>
-            </Grid.Row>
-            <Grid.Row>
-              <BetaColumn >
-                <BetaButton> RSVP </BetaButton>
-              </BetaColumn>
             </Grid.Row>
           </Grid>
         </BetaRsvp>
@@ -503,7 +506,7 @@ const LandingPage = (props) => {
         <Grid.Row>
           <DemoTitleColumn>
             <Demo1>
-              Here's how it works
+                 Here’s how it works!
             </Demo1>
           </DemoTitleColumn>
         </Grid.Row>
@@ -511,12 +514,13 @@ const LandingPage = (props) => {
 
       <DemoGrid>
       <Grid.Row>
-          <Image src={step1} />
+          <Image src={step1} style={{height:800,width:'70%'}}/>
         </Grid.Row>
         <Grid.Row>
           <DemoTitleColumn>
-            <DemoDescription >
-              1.  Search for the place/item you'd like to shop at/for
+            <DemoDescription > 1.  With a myriad of options , select / search for the store </DemoDescription>
+              <DemoDescription > or item you’d like to purchase and get to have whatever it is </DemoDescription>
+              <DemoDescription >That you’d like from wherever you’d like.
             </DemoDescription>
           </DemoTitleColumn>
         </Grid.Row>
@@ -524,24 +528,18 @@ const LandingPage = (props) => {
 
       <DemoGrid>
       <Grid.Row>
-          <Image src={step2} />
+          <Image src={step2} style={{height:800,width:'70%'}}/>
         </Grid.Row>
         <Grid.Row>
           <DemoTitleColumn>
             <DemoDescription >
-              2.  Come up with your list and where you'd want to shop
+              2.  Get to browse through the different aisles just like you’d do 
             </DemoDescription>
             <DemoDescription >
-              the various items (because we know you LIKE getting
+            in a regular store , also quickly search and add items to 
             </DemoDescription>
             <DemoDescription >
-              Your things only from where you LIKE getting them)
-            </DemoDescription>
-            <DemoDescription >
-              whether it's just you or your entire family's shopping,
-            </DemoDescription>
-            <DemoDescription >
-              don't worry we can handle it!
+            your list just like you’d do with a regular list.
             </DemoDescription>
           </DemoTitleColumn>
         </Grid.Row>
@@ -549,15 +547,21 @@ const LandingPage = (props) => {
 
       <DemoGrid spaced>
       <Grid.Row>
-          <Image src={step3} />
+          <Image src={step3} style={{height:800,width:'70%'}}/>
         </Grid.Row>
         <Grid.Row>
           <DemoTitleColumn>
             <DemoDescription >
-                3.  Relax and do things that matter to you whilst
+                3.  With the fastest selection to checkout process you’ll 
             </DemoDescription>
             <DemoDescription >
-                we get your shopping done for you.
+            find anywhere , get to focus on yourself and things that 
+            </DemoDescription>
+            <DemoDescription >
+            matter whilst our dedicated team of Zisters gets your items 
+            </DemoDescription>
+            <DemoDescription >
+            quickly & efficiently!
             </DemoDescription>
           </DemoTitleColumn>
         </Grid.Row>
@@ -565,12 +569,15 @@ const LandingPage = (props) => {
 
       <AppSectionGrid>
         <GridRows>
+          <OrderNowColumns spaceVertically width={8} textAlign='center'>
+            <OrderColumnText>
+               Get whatever it is that you <br/>
+               want at the tap of a button.
+            </OrderColumnText>
+           <AppLinkButton onClick={orderNowRedirect} > Get the App </AppLinkButton>
+          </OrderNowColumns>
           <OrderNowColumns border width={8}>
             <Image src={zistApp} />
-          </OrderNowColumns>
-          <OrderNowColumns spaceVertically width={8} textAlign='center'>
-            <OrderColumnText> Handpicked and Delivered with care. </OrderColumnText>
-           <AppLinkButton onClick={orderNowRedirect} > ORDER NOW </AppLinkButton>
           </OrderNowColumns>
         </GridRows>
       </AppSectionGrid>

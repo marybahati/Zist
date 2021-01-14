@@ -61,15 +61,15 @@ export const SignupModal = (props) => {
       <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
       <Modal
         open={props.modalOpen}
-        size='tiny'
+        size='small'
         closeOnEscape={true}
-        centered={false}
-        style={{ padding: '30px 30px' }}
+        // centered={false}
+        style={{ padding: '30px 30px'}}
       >
         <Header style={{ border: '0' }}>
           <Grid>
             <Grid.Row style={{ padding: '0'}}>
-              <Grid.Column width={2} style={{ background: '' }} >
+              <Grid.Column width={12} style={{ background: '' }} >
                 <Modal.Actions>
                   <Icon
                     type='button'
@@ -81,9 +81,16 @@ export const SignupModal = (props) => {
                   />
                 </Modal.Actions>
               </Grid.Column>
-              <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px'}} >
+              {/* <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px'}} >
                 <h2> SIGN UP </h2>
 
+              </Grid.Column> */}
+            </Grid.Row>
+            <Grid.Row style={{ padding: '10px 0 0 0 '}}>
+              <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px'}} >
+                <h1> Don’t miss out on your items </h1>
+                <h2> SIGN UP </h2>
+                <h2>Create a new account </h2>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -93,9 +100,10 @@ export const SignupModal = (props) => {
         <Modal.Content>
           <Grid>
             <Grid.Row>
-              {/* <Grid.Column width={1} style={{ background: '' }} > </Grid.Column> */}
+              {/* <Grid.Column width={1} style={
+                { background: '' }} > </Grid.Column> */}
               <Grid.Column width={16} style={{ background: '', textAlign: 'center', fontSize: '18px' }} >
-                <h2>Create a new account </h2>
+                
                 <Form onSubmit={handleSignup} style={{width: '80%',margin: '0 auto'}}>
 
                   {/* <Form.Input transparent

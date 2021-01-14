@@ -27,6 +27,9 @@ const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
     padding: 0 !important;
 `;
+const Rows = styled(Grid.Row)`
+    padding: 0 !important;
+`;
 const CardHeading = styled.h2`
     font-size: 20px !important ;
     text-decoration: underline;
@@ -38,6 +41,7 @@ const CardSubHeading = styled.h4`
 const SubHeading = styled.h4`
     margin: 0;
     color: grey;
+    padding:0;ist karibu
 `;
 const SelectDropdown = styled(Dropdown)`
     margin: auto !important;
@@ -58,7 +62,7 @@ const Shopping = (props) => {
   const [address, setAddress] = useState(location);
   const [loggedIn, setLoggedIn] = useState(false);
   // const [business, setBusiness] = useState()
-  const [clickedBusiness, setClickedBusiness] = useState('')
+  const [clickedBusiness, setClickedBusiness] = useState()
   const [businesses, setBusinesses] = useState([])
 
   const fetchBusinesses =  () => {
@@ -111,11 +115,15 @@ const countryOptions = [
 //   return logout
 //   window.location.reload(false);
 // }
-const handleCardClicked = (e, name) => {
+const handleCardClicked = (e, name,type) => {
+  const d = { name: name, type: type }
+  console.log(d)
+  setClickedBusiness([...clickedBusiness, d])
+  console.log(clickedBusiness, d)
   // setClickedBusiness(e)
   History.push({
     pathname: '/user-list',
-    state: name
+    state: clickedBusiness
   });
 }
 // cookies.set('business-name', clickedBusiness, { path: '/' })
@@ -244,7 +252,7 @@ return (
 
     </Grid>
 
-    <Grid width={16} style={{ margin: '40px 0 0 80px' }} >
+    <Grid width={16} style={{ margin: '40px 80px' }} >
 
       {/* <div id='location' > */}
       <Grid.Row id='location' style={{ padding: '0 0 10px 22px ' }}>
@@ -269,7 +277,7 @@ return (
       {/* </div> */}
 
       <Grid.Row style={{ padding: '0 0 10px 22px ' }}>
-        <SubHeading>Not sure of where to shop from? Here are some suggestions...</SubHeading> <br/>
+        <SubHeading>Want a look around ? Here are some suggestions to get you started.</SubHeading> <br/>
         {/* { token !== '' && token !== undefined ? (
 
 <div> meeeeeeeeeeeeeeeeeeeeee</div>
@@ -280,7 +288,7 @@ return (
       } */}
       </Grid.Row>
 
-      <Grid.Row style={{ padding: '20px 0 20px 22px' }} width={16}>
+      <Rows style={{ padding: '20px 0 20px 22px',textAlign:'center !important ' }} width={16}>
         <Grid.Column style={{ padding: '0' }} width={2}>
           <Image src={refineImage} />
           <h4 style={{ marginTop: '0' }}>Refine</h4>
@@ -309,27 +317,6 @@ return (
           <Grid >
             <Grid.Row>
               <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
-                <Image src={categoryImage} />
-              </Grid.Column>
-              <Grid.Column width={14} style={{ padding: '0' }}>
-                <Dropdown text="Niche" style={{ fontSize: '18px', color: '#050504' }}>
-                  <Dropdown.Menu >
-                    <Dropdown.Item text="Groceries" />
-                    <Dropdown.Item text="Meat" />
-                    <Dropdown.Item text="Cosmetics" />
-                    <Dropdown.Item text="Drinks" />
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Grid.Column>
-
-
-        <Grid.Column style={{ padding: 0 }} width={3} >
-          <Grid >
-            <Grid.Row>
-              <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
                 <Image src={scheduleImage} />
               </Grid.Column>
               <Grid.Column width={14} style={{ padding: '0' }}>
@@ -346,11 +333,10 @@ return (
           </Grid>
         </Grid.Column>
 
+      </Rows>
 
-      </Grid.Row>
 
-
-      <div style={{ padding: '0 0 10px 22px ' }}>
+      <div style={{ padding: '10px 0 10px 0px ' }}>
         <CardHeading>Zist karibu</CardHeading>
         <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
       </div>
@@ -358,8 +344,8 @@ return (
         {/* <Cards /> */}
         {businesses?.map(business => {
           return (
-            <CardColumn width={7} style={{ margin: '0 30px 80px 0' }}>
-              <Card key={business.id} value={business.name} onClick={(e) => handleCardClicked(e, business.name)} fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '570px ',color:'black' }} key={business.name} >
+            <CardColumn width={5} style={{ margin: '0 23px 80px 0' }}>
+              <Card key={business.id} value={business.name} onClick={(e) => handleCardClicked(e, business.name, business.business_type)} fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '570px ',color:'black' }} key={business.name} >
                 {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
                 <Image src={card2} wrapped ui={false} />
                 <Card.Content>
