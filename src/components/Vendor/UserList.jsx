@@ -10,7 +10,9 @@ import axios from 'axios'
 import { withCookies, Cookies } from 'react-cookie';
 import Collapsible from 'react-collapsible';
 import History from '../../History'
+import { ToastContainer, toast } from 'react-toastify';
 import { RatedStars } from './../ShoppingPage/Ratings';
+
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
     opacity: 1;
@@ -98,14 +100,7 @@ const CardColumn = styled(Grid.Column)`
 const UserList = (props) => {
     const { cookies } = props
     const token = cookies.get('access-token')
-    // const clickedBusiness = cookies.get('business-name')
-    console.log(token)
-    console.log(props.location)
     const clickedBusiness = (props.location && props.location.state) || '';
-    console.log(props.location && props.location.state)
-    const businessType = (props.location && props.location.state) || '';
-
-    // const { clickedBusiness } = (props.location && props.location.state)
 
     const options = [
         {
@@ -145,19 +140,19 @@ const UserList = (props) => {
     const [cart, setCart] = useState([])
     console.log(products)
     console.log(cart)
-    useEffect(() => {
-        axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/list/', { headers: { "Authorization": `Bearer ${token}` } })
-            .then((response) => {
-                console.log(response)
-                if (response.status == 200) {
-                    const res = response.data
-                    //   setBusinesses(res)
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }, [])
+    // useEffect(() => {
+    //     axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/list/', { headers: { "Authorization": `Bearer ${token}` } })
+    //         .then((response) => {
+    //             console.log(response)
+    //             if (response.status == 200) {
+    //                 const res = response.data
+    //                 //   setBusinesses(res)
+    //             } 
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         })
+    // }, [])
 
     // useEffect(() => {
     //     axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/',
@@ -298,10 +293,18 @@ const UserList = (props) => {
             })
             .catch(error => {
                 console.log(error)
+                // toast.error("Please login to start shopping ",{
+                //     className:'toast',
+                //     draggable: true,
+                //     position: toast.POSITION.TOP_CENTER,
+                //     type: toast.TYPE.ERROR,
+                //     hideProgressBar: true
+                //   })   
             })
     }, [])
     return (
         <MainDiv>
+             <ToastContainer autoClose={4000} onOpen={true} />
             <MainGrid>
                 <Grid.Row>
                     <IntroColumn>
@@ -309,10 +312,10 @@ const UserList = (props) => {
                         <h2> From wherever you are. </h2>
                         <UserName> Shopping List </UserName>
                         <BusinessImage src={BusinessPic} />
-                        <UserName> {clickedBusiness} </UserName>
+                        <UserName> {clickedBusiness.name} </UserName>
                         <List bulleted horizontal >
                             <List.Item ></List.Item>
-                            <List.Item >{businessType}</List.Item>
+                            <List.Item style={{fontSize:20}}  >{clickedBusiness.type} </List.Item>
                         </List>
                         {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> view cart </Button> : null}
                     </IntroColumn>

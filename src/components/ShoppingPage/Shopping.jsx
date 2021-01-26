@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import bgImage from './../../Assets/bgShopping.png'
+import bgImage from './../../Assets/shopping-hero-img.png'
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card, Menu } from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
@@ -38,10 +38,11 @@ const CardHeading = styled.h2`
 const CardSubHeading = styled.h4`
     margin: 0;
 `;
-const SubHeading = styled.h4`
+const SubHeading = styled.h3`
     margin: 0;
     color: grey;
-    padding:0;ist karibu
+    padding:0 0 15px 0;
+    
 `;
 const SelectDropdown = styled(Dropdown)`
     margin: auto !important;
@@ -62,78 +63,72 @@ const Shopping = (props) => {
   const [address, setAddress] = useState(location);
   const [loggedIn, setLoggedIn] = useState(false);
   // const [business, setBusiness] = useState()
-  const [clickedBusiness, setClickedBusiness] = useState()
+  const [clickedBusiness, setClickedBusiness] = useState([])
   const [businesses, setBusinesses] = useState([])
 
-  const fetchBusinesses =  () => {
+  const fetchBusinesses = () => {
     axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/')
-    .then( res => {
-      console.log(res)
-      setBusinesses(res.data)
-    })
-    .catch(error => {
-      return []
-      console.log(error)
-    })
+      .then(res => {
+        console.log(res)
+        setBusinesses(res.data)
+      })
+      .catch(error => {
+        return []
+        console.log(error)
+      })
 
     // try {
     //   const request = await axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/')
-      
+
     // } catch (error) {
     //   console.log(error)
     // }
   }
-useEffect(() => {
-  fetchBusinesses()
-  
-  // 
-  // console.log(res)
-},[])
-//   useEffect( () => {
-//     const response =  axios.get( 'https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/' );
-//     console.log(response)
-//     setD( response)
+  useEffect(() => {
+    fetchBusinesses()
 
-// }, []);
+    // 
+    // console.log(res)
+  }, [])
+  //   useEffect( () => {
+  //     const response =  axios.get( 'https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/' );
+  //     console.log(response)
+  //     setD( response)
 
-// if(d.status == 200){
-//   setBusinesses(d.res)
-// }
+  // }, []);
 
-const optionsResults = businesses?.map(x => ({ text: x.name, value: x.id, image: { src: card4 } }))
+  // if(d.status == 200){
+  //   setBusinesses(d.res)
+  // }
 
-
-const countryOptions = [
-  { text: 'fruits', value: 'fruits', image: { src: card4 } },
-  { text: 'vegetables', value: 'vegetables', image: { src: card4 } },
-  { text: 'cakes', value: 'cakes', image: { src: card4 } },
-  { text: 'chocaolates', value: 'chocolates', image: { src: card4 } },
-  { text: 'flour', value: 'flour', image: { src: card4 } },
-]
-// const handleLogOut = () => {
-//   const logout = cookies.remove('access-token')
-//   return logout
-//   window.location.reload(false);
-// }
-const handleCardClicked = (e, name,type) => {
-  const d = { name: name, type: type }
-  console.log(d)
-  setClickedBusiness([...clickedBusiness, d])
-  console.log(clickedBusiness, d)
-  // setClickedBusiness(e)
-  History.push({
-    pathname: '/user-list',
-    state: clickedBusiness
-  });
-}
-// cookies.set('business-name', clickedBusiness, { path: '/' })
+  const optionsResults = businesses?.map(x => ({ text: x.name, value: x.id, image: { src: card4 } }))
 
 
-return (
-  <div >
-    <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, height: '1290px', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
-     
-      {/* {token !== undefined ? (
+  const countryOptions = [
+    { text: 'fruits', value: 'fruits', image: { src: card4 } },
+    { text: 'vegetables', value: 'vegetables', image: { src: card4 } },
+    { text: 'cakes', value: 'cakes', image: { src: card4 } },
+    { text: 'chocaolates', value: 'chocolates', image: { src: card4 } },
+    { text: 'flour', value: 'flour', image: { src: card4 } },
+  ]
+  // const handleLogOut = () => {
+  //   const logout = cookies.remove('access-token')
+  //   return logout
+  //   window.location.reload(false);
+  // }
+  const handleCardClicked = (e, name, type) => {
+    const d = { name: name, type: type }
+    History.push({
+      pathname: '/user-list',
+      state: d
+    });
+  }
+
+  return (
+    <div >
+      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover',height:760,width:'100% !important'}}>
+
+        {/* {token !== undefined ? (
           <Grid.Row width={16} >
             <Grid.Column >
               <Grid>
@@ -171,114 +166,114 @@ return (
             </Grid.Column>
           </Grid.Row>
         ) : ( */}
-      <Grid.Row width={16} >
-        <Grid.Column >
-          <Grid >
-            <Grid.Row style={{ padding: '0' }}>
-              <Grid.Column width={10}>
-                {/* <List style={{ display: 'inline-block' }}>
+        <Grid.Row width={16} >
+          <Grid.Column >
+            <Grid >
+              <Grid.Row style={{ padding: '0' }}>
+                <Grid.Column width={10}>
+                  {/* <List style={{ display: 'inline-block' }}>
                         <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '100px' }}>
                           HELP
                     </List.Item>
                       </List> */}
-              </Grid.Column>
-              {/* {userId == null ? ( */}
-              <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }}>
-                <SignupButtonSection />
-              </Grid.Column>
-              {/* ) : null} */}
+                </Grid.Column>
+                {/* {userId == null ? ( */}
+                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }}>
+                  <SignupButtonSection />
+                </Grid.Column>
+                {/* ) : null} */}
 
 
-              <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }} >
-                <LoginButtonSection />
-              </Grid.Column>
-              <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '60px' }} >
-                <Image
-                  src={cartImage}
-                  style={{ display: "block", margin: '0 auto' }}
-                />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }} >
+                  <LoginButtonSection />
+                </Grid.Column>
+                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '60px' }} >
+                  <Image
+                    src={cartImage}
+                    style={{ display: "block", margin: '0 auto' }}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
 
-        </Grid.Column>
-      </Grid.Row>
-      {/* )} */}
-      <Grid.Row width={16} style={{ padding: '0 ' }}>
-    
-        <Input labelPosition='right' type='search'
-          style={{
-            backgroundColor: "white",
-            margin: "0 auto 0px auto",
-            width: "50%",
-            border: "1px solid #707070",
-            fontSize: '20px',
-            height: '90px '
-          }}
-          size="small"
-          placeholder='SEARCH FOR A PLACE OR ITEM'>
-          <Button type="submit" basic style={{ paddingLeft: '30px', margin: '0' }}>
-            <Icon size="big" color='black' name="search" link />
-          </Button>
-          <Image
-            src={cart}
+          </Grid.Column>
+        </Grid.Row>
+        {/* )} */}
+        <Grid.Row width={16} style={{ padding: '0 ' }}>
+
+          <Input labelPosition='right' type='search'
             style={{
-              display: "inline-block",
-              border: '0', width: '120px', height: '130px', margin: '0', paddingBottom: '35px'
+              backgroundColor: "white",
+              margin: "0 auto 0px auto",
+              width: "50%",
+              border: "1px solid #707070",
+              fontSize: '20px',
+              height: '90px '
             }}
-          />
-          <SelectDropdown
-            placeholder='SEARCH FOR A PLACE OR AN ITEM'
-            noResultsMessage='Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else'
-            openOnFocus={false}
-            scrolling
-            fluid
-            selection
-            options={optionsResults}
-            // onChange={(e, { value }) => setBusiness({ business: value })}
-            clearable
-            search
-            style={{ padding: '2rem !important' }}
-          />
-          {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
-        </Input>
-        <datalist id="searchOption">
-          <option value="Camaro" />
-          <option value="Corvette" />
-          <option value="Impala" />
-          <option value="Colorado" />
-        </datalist>
-      </Grid.Row>
+            size="small"
+            placeholder='SEARCH FOR A PLACE OR ITEM'>
+            <Button type="submit" basic style={{ paddingLeft: '30px', margin: '0' }}>
+              <Icon size="big" color='black' name="search" link />
+            </Button>
+            <Image
+              src={cart}
+              style={{
+                display: "inline-block",
+                border: '0', width: '120px', height: '130px', margin: '0', paddingBottom: '35px'
+              }}
+            />
+            <SelectDropdown
+              placeholder='SEARCH FOR A PLACE OR AN ITEM'
+              noResultsMessage='Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else'
+              openOnFocus={false}
+              scrolling
+              fluid
+              selection
+              options={optionsResults}
+              // onChange={(e, { value }) => setBusiness({ business: value })}
+              clearable
+              search
+              style={{ padding: '2rem !important' }}
+            />
+            {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
+          </Input>
+          <datalist id="searchOption">
+            <option value="Camaro" />
+            <option value="Corvette" />
+            <option value="Impala" />
+            <option value="Colorado" />
+          </datalist>
+        </Grid.Row>
 
-    </Grid>
+      </Grid>
 
-    <Grid width={16} style={{ margin: '40px 80px' }} >
+      <Grid width={16} style={{ margin: '40px 80px' }} >
 
-      {/* <div id='location' > */}
-      <Grid.Row id='location' style={{ padding: '0 0 10px 22px ' }}>
-        <Input labelPosition='right' type='text'
-          style={{
-            backgroundColor: "white",
-            width: "50%",
-            fontSize: '20px'
-          }}
-          size="small"
-          type="text"
-          value={address}
-          onChange={event => setAddress(event.target.value)}
-          placeholder='Enter your address …'>
-          <Label basic style={{ margin: '0', border: '0', padding: '0', height: '30 !important', width: '30px' }}>
-            <Image src={locationImage} />
-          </Label>
-          <input style={{ border: '0' }} />
-        </Input>
+        {/* <div id='location' > */}
+        <Grid.Row id='location' style={{ padding: '0 0 10px 0px ' }}>
+          <Input labelPosition='right' type='text'
+            style={{
+              backgroundColor: "white",
+              width: "50%",
+              fontSize: '20px'
+            }}
+            size="small"
+            type="text"
+            value={address}
+            onChange={event => setAddress(event.target.value)}
+            placeholder='Enter your address …'>
+            <Label basic style={{ margin: '0', border: '0', padding: '0', height: '30 !important', width: '30px' }}>
+              <Image src={locationImage} />
+            </Label>
+            <input style={{ border: '0' }} />
+          </Input>
 
-      </Grid.Row>
-      {/* </div> */}
+        </Grid.Row>
+        {/* </div> */}
 
-      <Grid.Row style={{ padding: '0 0 10px 22px ' }}>
-        <SubHeading>Want a look around ? Here are some suggestions to get you started.</SubHeading> <br/>
-        {/* { token !== '' && token !== undefined ? (
+        <Grid.Row style={{ padding: '10px 0 15px 0px ' }}>
+          <SubHeading>Want a look around ? Here are some suggestions to get you started.</SubHeading> <br />
+          {/* { token !== '' && token !== undefined ? (
 
 <div> meeeeeeeeeeeeeeeeeeeeee</div>
       ):(
@@ -286,108 +281,94 @@ return (
       )
       
       } */}
-      </Grid.Row>
+        </Grid.Row>
 
-      <Rows style={{ padding: '20px 0 20px 22px',textAlign:'center !important ' }} width={16}>
-        <Grid.Column style={{ padding: '0' }} width={2}>
-          <Image src={refineImage} />
-          <h4 style={{ marginTop: '0' }}>Refine</h4>
-        </Grid.Column>
+        <Rows style={{ padding: '20px 0 20px 0px', textAlign: 'center !important ' }} width={16}>
+          <Grid.Column style={{ padding: '0' }} width={2}>
+            <Image src={refineImage} />
+            <h4 style={{ marginTop: '0' }}>Refine</h4>
+          </Grid.Column>
 
-        <Grid.Column style={{ padding: 0 }} width={3} >
-          <Grid >
-            <Grid.Row>
-              <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
-                <Image src={locationImage} />
-              </Grid.Column>
-              <Grid.Column width={14} style={{ padding: '0' }}>
-                <Dropdown text="Proximity" style={{ fontSize: '18px', color: '#050504' }}>
-                  <Dropdown.Menu >
-                    <Dropdown.Item text="2 km radius" />
-                    <Dropdown.Item text="Near ngong road" />
-                    <Dropdown.Item text="around CBD " />
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Grid.Column>
+          <Grid.Column style={{ padding: 0 }} width={3} >
+            <Grid >
+              <Grid.Row>
+                <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
+                  <Image src={locationImage} />
+                </Grid.Column>
+                <Grid.Column width={14} style={{ padding: '0' }}>
+                  <Dropdown text="Proximity" style={{ fontSize: '18px', color: '#050504' }}>
+                    <Dropdown.Menu >
+                      <Dropdown.Item text="2 km radius" />
+                      <Dropdown.Item text="Near ngong road" />
+                      <Dropdown.Item text="around CBD " />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
 
-        <Grid.Column style={{ padding: 0 }} width={3} >
-          <Grid >
-            <Grid.Row>
-              <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
-                <Image src={scheduleImage} />
-              </Grid.Column>
-              <Grid.Column width={14} style={{ padding: '0' }}>
-                <Dropdown text="Schedule" style={{ fontSize: '18px', color: '#050504' }}>
-                  <Dropdown.Menu >
-                    <Dropdown.Item text="8.00 A.M" />
-                    <Dropdown.Item text="10.00 A.m" />
-                    <Dropdown.Item text="1.00 P.M" />
-                    <Dropdown.Item text="4.00 P.M" />
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Grid.Column>
+          <Grid.Column style={{ padding: 0 }} width={3} >
+            <Grid >
+              <Grid.Row>
+                <Grid.Column width={2} style={{ padding: '0', float: 'right' }} >
+                  <Image src={scheduleImage} />
+                </Grid.Column>
+                <Grid.Column width={14} style={{ padding: '0' }}>
+                  <Dropdown text="Schedule" style={{ fontSize: '18px', color: '#050504' }}>
+                    <Dropdown.Menu >
+                      <Dropdown.Item text="8.00 A.M" />
+                      <Dropdown.Item text="10.00 A.m" />
+                      <Dropdown.Item text="1.00 P.M" />
+                      <Dropdown.Item text="4.00 P.M" />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
 
-      </Rows>
+        </Rows>
 
 
-      <div style={{ padding: '10px 0 10px 0px ' }}>
-        <CardHeading>Zist karibu</CardHeading>
-        <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
-      </div>
-      <Grid.Row>
-        {/* <Cards /> */}
-        {businesses?.map(business => {
-          return (
-            <CardColumn width={5} style={{ margin: '0 23px 80px 0' }}>
-              <Card key={business.id} value={business.name} onClick={(e) => handleCardClicked(e, business.name, business.business_type)} fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '570px ',color:'black' }} key={business.name} >
-                {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                <Image src={card2} wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header style={{paddingTop:20}}>
-                  {business.name}
-                    <Icon name='check circle' color='yellow' />
+        <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+            <CardHeading>Zist karibu</CardHeading>
+            <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          {businesses?.map(business => {
+            return (
+              <CardColumn width={5} style={{ margin: '0 23px 80px 0' }}>
+                <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type)} fluid={true} style={{ color: 'black', boxShadow: 'none' }} >
+                  {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                  <Image src={card2} wrapped ui={false} style={{ bordeRadius: '8px' }} />
+                  <Card.Content>
+                    <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                      {business.name}
+                      <Icon name='check circle' color='yellow' />
                     </Card.Header>
-                    <Card.Header style={{padding:'10px 0' }}>
-                    {business.bio}
+                    <Card.Header style={{ padding: '10px 0',fontSize:20 }}>
+                      {business.bio}
                     </Card.Header>
-                  {/* <Grid>
-                    <Grid.Row width={16} style={{ marginTop: '15px', marginBottom: '5px' }}>
-                      <Grid.Column width={10} >
-                        <h4>
-                          {business.bio}
-                        </h4>
-                      </Grid.Column>
+                    <List bulleted horizontal >
+                      <List.Item ></List.Item>
+                      <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                    </List>
+                  </Card.Content>
 
-                      <Grid.Column width={6} style={{ textAlign: 'center' }}>
-                        <RatedStars rating={5} />
-                      </Grid.Column>
-
-                    </Grid.Row>
-                  </Grid> */}
-
-                  <List bulleted horizontal >
-                    <List.Item ></List.Item>
-                    <List.Item >{business.business_type}</List.Item>
-                  </List>
-                </Card.Content>
-
-              </Card>
-            </CardColumn>
-          )
-        })}
-      </Grid.Row>
+                </Card>
+              </CardColumn>
+            )
+          })}
+        </Grid.Row>
 
 
 
-    </Grid>
-  </div>
-)
+      </Grid>
+    </div>
+  )
 }
 
 export default withCookies(Shopping)
