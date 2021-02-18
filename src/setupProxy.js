@@ -1,10 +1,13 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
-module.exports = function(app) {
+const PROXY_SERVER = 'http://zist.herokuapp.com/'
+module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:5000',
+      target: PROXY_SERVER,
       changeOrigin: true,
+      disableHostCheck: true,
+      pathRewrite: { '^/api': '' }
     })
-  );
-};
+  )
+}

@@ -7,6 +7,7 @@ import card1 from './../../Assets/1.jpg';
 import { ContinueButton } from './ContinueButton';
 import { withCookies, Cookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
+import {HOST_API} from './../../endpoints';
 
 const MainDiv = styled.div`
    background: #F9F7F1;
@@ -49,22 +50,24 @@ const ColumnForm = styled(Grid.Column)`
 `
 const Storefront = (props) => {
     const { cookies } = props
-    const token = cookies.get('access-token')
+    const userData = cookies.get('login-res')
+    const token = userData.access 
+    console.log(userData,token)
+    const businessData = userData.business[0]
     const data = cookies.get('business-info')
-   
+   const id = userData.business[0].id
 
     // console.log(data)
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [businessInfo, setbusinessInfo] = useState()
-    const [name, setName] = useState(data.name)
-    const [natureOfBusiness, setNatureOfBusiness] = useState(data.business_type)
-    const [niche, setNiche] = useState(data.bio)
-    const [email, setEmail] = useState(data.email)
-    const [tel, setTel] = useState(data.tel)
-    const [location, setLocation] = useState(data.location)
+    const [businessInfo, setbusinessInfo] = useState([])
+    const [name, setName] = useState(businessData.name)
+    const [natureOfBusiness, setNatureOfBusiness] = useState(businessData.business_type)
+    const [niche, setNiche] = useState(businessData.bio)
+    const [email, setEmail] = useState(businessData.email)
+    const [tel, setTel] = useState(businessData.tel)
+    const [location, setLocation] = useState(businessData.location)
 
-    console.log(businessInfo)
-    const id = data.id
+    console.log(businessInfo,name)
 
     // useEffect(() => {
     //     axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/${id}/`, {
@@ -80,25 +83,29 @@ const Storefront = (props) => {
     //         }
     //     })
     //   }, []);
-      useEffect(async () => {
-        try {
-            const result = await axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/${id}/`,
-            { 
-              headers: {"Authorization" : `Bearer ${token}`} 
-            }
-            )
-            if ( result.status == 200) {
-                setbusinessInfo(result.data)
-            }
-            console.log(result)
-          } catch (error) {
-            console.log(error)
-          }
-     
-      }, []);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const res = await axios.get(HOST_API +`zist/vendor/business/${id}/`,
+                { 
+                  headers: {"Authorization" : `Bearer ${token}`} 
+                }
+                )
+                if ( res.status == 200) {
+                    setbusinessInfo(res.data)
+                    console.log(res.data)
+                }
+              } catch (error) {
+                console.log(error)
+              }
+        } )();
+    }, []);
+   
+
     const handleUpdate = (event) => {
         event.preventDefault();
-        axios.put(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/${id}/`, {
+        axios.put(HOST_API +`zist/vendor/business/${id}/`, {
             name: name,
             business_type: natureOfBusiness,
             bio: niche,
@@ -136,113 +143,113 @@ const Storefront = (props) => {
     return (
         <MainDiv>
             <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
-            <MainGrid>
-                <Grid.Row>
-                    <h2> {name}’ Storefront. </h2>
-                </Grid.Row>
-                <Grid.Row>
-                    <h2> OUTLOOK OF YOUR BUSINESS’ PROFILE </h2>
-                </Grid.Row>
-                <Grid.Row>
-                    <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
-                        <Image src={card1} wrapped ui={false} />
-                        <Card.Content>
-                            <Card.Header> {name} <Icon name='check circle' color='yellow' /></Card.Header>
-                            <Grid>
-                                <Grid.Row width={16} style={{ marginTop: '15px', marginBottom: '5px' }}>
-                                    <Grid.Column width={10} >
-                                        <h4>
-                                            {niche}
-                                        </h4>
-                                    </Grid.Column>
-
-                                    <Grid.Column width={6} style={{ textAlign: 'center' }}>
-                                        <RatedStars rating={3} />
-                                    </Grid.Column>
-
-                                </Grid.Row>
-                            </Grid>
-
-                            <List bulleted horizontal >
-                                <List.Item ></List.Item>
-                                <List.Item >{natureOfBusiness}</List.Item>
-                            </List>
-                        </Card.Content>
-
-                    </Card>
-                </Grid.Row>
-                <Grid.Row>
-                    <ColumnForm>
-                        <Form >
-                            <Form.Field>
-                                <FormLabels>Name of business</FormLabels>
-                                <Popup
-                                    trigger={
-                                        <FormInput placeholder='Enter the name your business is registered under…'
-                                            type='text'
-                                            required
-                                            fluid
-                                            value={name}
-                                            onChange={e => setName(e.target.value)}
-                                        />
-                                    }
-                                    content='* changing the business name would involve the verification process being done again for validity purposes.'
-                                    position='bottom left'
-                                />
-
-                            </Form.Field>
-                            <Form.Field>
-                                <FormLabels>Nature of Store/Stall</FormLabels>
-                                <FormInput
-                                    fluid={true}
-                                    placeholder='Nature of Store/Stall'
-                                    search
-                                    selection
-                                    value={natureOfBusiness}
-                                    onChange={e => setNatureOfBusiness(e.target.value)}
-                                    style={{ padding: '50px 20px !important', position: 'inherit !important', boxShadow: 'none' }}
-                                />
-                            </Form.Field>
-
-
-                            <Form.Field>
-                                <FormLabels> Business Niche </FormLabels>
-                                <FormInput
-                                    placeholder='Business niche '
-                                    onChange={e => setNiche(e.target.value)}
-                                    clearable
-                                    search
-                                    value={niche}
-                                    style={{ padding: '2rem !important' }}
-                                />
-                            </Form.Field>
-
-                            <Form.Field>
-                                <FormLabels>Primary contact information</FormLabels>
-                                <FormInput placeholder='Enter your primary contact (phone number)'
-                                    required type="tel"
-                                    onChange={e => setTel(e.target.value)}
-                                    value={tel}
-                                />
-                            </Form.Field>
-
-                            <Form.Field>
-                                <FormLabels>Secondary contact information</FormLabels>
-                                <FormInput placeholder='Enter your secondary contact (email)'
-                                    required type='email'
-                                    onChange={e => setEmail(e.target.value)}
-                                    value={email}
-                                />
-                            </Form.Field>
-
-                            <ButtonGrid width={16} >
-                                <ContinueButton type='submit' handleClick={handleUpdate} />
-                            </ButtonGrid>
-
-                        </Form>
-                    </ColumnForm>
-                </Grid.Row>
-            </MainGrid>
+                    <MainGrid>
+                    <Grid.Row>
+                        <h2> {name}’ Storefront. </h2>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <h2> OUTLOOK OF YOUR BUSINESS’ PROFILE </h2>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
+                            <Image src={card1} wrapped ui={false} />
+                            <Card.Content>
+                                <Card.Header> {name} <Icon name='check circle' color='yellow' /></Card.Header>
+                                <Grid>
+                                    <Grid.Row width={16} style={{ marginTop: '15px', marginBottom: '5px' }}>
+                                        <Grid.Column width={10} >
+                                            <Card.Header style={{paddingLeft:'10px'}}>
+                                                <h3> {niche} </h3>
+                                            </Card.Header>
+                                        </Grid.Column>
+    
+                                        <Grid.Column width={6} style={{textAlign:'center'}} >
+                                            <RatedStars rating={3} />
+                                        </Grid.Column>
+    
+                                    </Grid.Row>
+                                </Grid>
+    
+                                <List bulleted horizontal >
+                                    <List.Item ></List.Item>
+                                    <List.Item >{natureOfBusiness}</List.Item>
+                                </List>
+                            </Card.Content>
+    
+                        </Card>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <ColumnForm>
+                            <Form >
+                                <Form.Field>
+                                    <FormLabels>Name of business</FormLabels>
+                                    <Popup
+                                        trigger={
+                                            <FormInput placeholder='Enter the name your business is registered under…'
+                                                type='text'
+                                                required
+                                                fluid
+                                                value={name}
+                                                onChange={e => setName(e.target.value)}
+                                            />
+                                        }
+                                        content='* changing the business name would involve the verification process being done again for validity purposes.'
+                                        position='bottom left'
+                                    />
+    
+                                </Form.Field>
+                                <Form.Field>
+                                    <FormLabels>Nature of Store/Stall</FormLabels>
+                                    <FormInput
+                                        fluid={true}
+                                        placeholder='Nature of Store/Stall'
+                                        search
+                                        selection
+                                        value={natureOfBusiness}
+                                        onChange={e => setNatureOfBusiness(e.target.value)}
+                                        style={{ padding: '50px 20px !important', position: 'inherit !important', boxShadow: 'none' }}
+                                    />
+                                </Form.Field>
+    
+    
+                                <Form.Field>
+                                    <FormLabels> Business Niche </FormLabels>
+                                    <FormInput
+                                        placeholder='Business niche '
+                                        onChange={e => setNiche(e.target.value)}
+                                        clearable
+                                        search
+                                        value={niche}
+                                        style={{ padding: '2rem !important' }}
+                                    />
+                                </Form.Field>
+    
+                                <Form.Field>
+                                    <FormLabels>Primary contact information</FormLabels>
+                                    <FormInput placeholder='Enter your primary contact (phone number)'
+                                        required type="tel"
+                                        onChange={e => setTel(e.target.value)}
+                                        value={tel}
+                                    />
+                                </Form.Field>
+    
+                                <Form.Field>
+                                    <FormLabels>Secondary contact information</FormLabels>
+                                    <FormInput placeholder='Enter your secondary contact (email)'
+                                        required type='email'
+                                        onChange={e => setEmail(e.target.value)}
+                                        value={email}
+                                    />
+                                </Form.Field>
+    
+                                <ButtonGrid width={16} >
+                                    <ContinueButton type='submit' handleClick={handleUpdate} />
+                                </ButtonGrid>
+    
+                            </Form>
+                        </ColumnForm>
+                    </Grid.Row>
+                </MainGrid>
         </MainDiv>
     )
 }

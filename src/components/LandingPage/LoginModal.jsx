@@ -9,6 +9,7 @@ import { ModalLoginButton } from './ModalLoginButton';
 import { LinkingSignupButton } from './LinkingSignupButton';
 import { withCookies,Cookies } from 'react-cookie';
 import History from '../../History';
+import {HOST_API} from './../../endpoints';
 
 const LoginModal = (props) => {
   
@@ -25,14 +26,15 @@ const LoginModal = (props) => {
     // }
     const handleLogin = (event) => {
         event.preventDefault();
-        axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/token/', {
+        axios.post(HOST_API + 'token/', {
           // data to be sent
             email: loginEmail ,
             password: loginPassword
           })
           .then(res => {
             if(res.status === 200 ){
-             setToken(res.data.access)
+              console.log(res.data)
+              cookies.set('login-res', res.data,{ path: '/' })
             //  setSnackbarOpen(true)
              toast.success("You have successfully logged in",{
                className:'toast',
@@ -47,13 +49,14 @@ const LoginModal = (props) => {
        
            }).catch(error => {
             //  setSnackbarOpen(true)
-             toast.error("An error occurred, please check your email and password",{
+             toast.error(`${error}`,{
                className:'toast',
                draggable: true,
                position: toast.POSITION.TOP_CENTER,
                type: toast.TYPE.ERROR,
                hideProgressBar: true
              })   
+            console.log(error)
            });
       }
 

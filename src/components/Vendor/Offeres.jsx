@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Image, Button, List, Icon, Form } from "semantic-ui-react";
+import { Grid, Image, Button, List, Icon, Form, Checkbox } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import styled from 'styled-components';
 import bananas from './../../Assets/bananas.png';
@@ -121,10 +121,8 @@ const ProductsSection = (props) => {
 
     }, []);
     return (
-        <div>
-            {products.length == 0 ? null : (
-                <Grid>
-                    <ProductRows>
+        <Grid>
+            <ProductRows>
                 <IntroColumn>
                     <List>
                         <EditButton onClick={props.handleEdit} name='pencil' > EDIT PRODUCTS  <EditIcon name='pencil' size='small' /> </EditButton>
@@ -133,6 +131,8 @@ const ProductsSection = (props) => {
                 </IntroColumn>
             </ProductRows>
             <ProductRows >
+                <Grid.Column width={2}>
+                </Grid.Column>
                 <Grid.Column width={3}>
                     <h3> PRODUCT IMAGES </h3>
                 </Grid.Column>
@@ -145,16 +145,16 @@ const ProductsSection = (props) => {
                 <Grid.Column width={2}>
                     <h3> IN STOCK </h3>
                 </Grid.Column>
-                <Grid.Column width={2}>
-                    <h3> INGREDIENTS </h3>
-                </Grid.Column>
                 <Grid.Column width={3}>
-                    <h3 style={{textAlign:'center'}}> AISLE UNDER </h3>
+                    <h3 style={{ textAlign: 'center' }}> AISLE UNDER </h3>
                 </Grid.Column>
             </ProductRows>
             { products?.map(product => {
                 return (
                     <ProductRows>
+                        <ItemsColumn width={2}>
+                            <Checkbox/>
+                        </ItemsColumn>
                         <Grid.Column width={3}>
                             <ProductImages src={blueberries} />
                         </Grid.Column>
@@ -167,57 +167,33 @@ const ProductsSection = (props) => {
                         <ItemsColumn width={2}>
                             <h3> {product.metadata} </h3>
                         </ItemsColumn>
-                        <ItemsColumn width={2}>
-                            <h3> {product.description} </h3>
-                        </ItemsColumn>
                         <ItemsColumn width={3}>
-                        <OffersButton> Grocery </OffersButton>
+                            <OffersButton> Grocery </OffersButton>
                         </ItemsColumn>
                     </ProductRows>
                 )
             })}
-                </Grid>
-            )}
-        </div>
+        </Grid>
     )
 }
-const Shelving = (props) => {
+const Offers = (props) => {
     const { cookies } = props
     const userData = cookies.get('login-res')
     const [edit, setEdit] = useState(false)
     const [addAisles, setAddAisles] = useState(false)
     const [step2, setStep2] = useState(false)
 
-    const handleEdit = () => {
-        setEdit(true)
-    }
     const handleAddAisles = () => {
         setAddAisles(true)
     }
-    const handleStep2 = () => {
-        setStep2(true)
-    }
+
     return (
         <Grid>
             <Grid.Row>
                 <Grid.Column style={{ paddingBottom: 50 }}>
-                    <h1> Welcome to Shelving where putting up your wares is all within a button’s reach. </h1>
+                    <h2> Welcome to Shelving where putting up your wares is all within a button’s reach. </h2>
                 </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-                <Grid.Column>
-                    <h2> Step 1 </h2>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column>
-                    <h2>Structure out your aisles to segment your products for easy curation by the customer just
-                    like you’d do in a physical Brick and mortar store.
-                         </h2>
-                </Grid.Column>
-            </Grid.Row>
-            {addAisles ? (
-                <Grid>
                     <Grid.Row style={{ paddingTop: 30 }}>
                         <Grid.Column width={4} >
                             <OffersButton > Greens </OffersButton>
@@ -243,52 +219,11 @@ const Shelving = (props) => {
                             </Grid>
                         </Grid.Column>
                     </Grid.Row>
-                    {step2 ? (
-                        <Grid.Row>
-                            <Columns width={16}>
-                                <h2> Step 2 </h2>
-                                <h3> Add your products. </h3>
-                                {edit ? <EditProducts /> : <ProductsSection handleEdit={handleEdit} userData={userData} />}
-                                <AddProduct />
-                            </Columns>
-                        </Grid.Row>
-                    ) : (
-                            <Grid.Row>
-                                <Columns width={7}>
-                                    <Form>
-                                        <Form.Field required >
-                                            <h2> Create a new aisle </h2>
-                                            <input required placeholder='Add a new aisle' style={{ padding: '15px 20px' }} />
-                                        </Form.Field>
-                                        <DoneButton type='submit' onClick={handleStep2}> DONE </DoneButton>
-                                    </Form>
-                                </Columns>
-                            </Grid.Row>
-                        )}
-                </Grid>
-            ) : <Grid.Row >
-                    <CenteredTextColumn width={4}>
-                        <OffersButton> Offers </OffersButton>
-                    </CenteredTextColumn>
-                    <Grid.Column width={6}>
-                        <Grid>
-                            <Grid.Row>
-                                <CenteredTextColumn width={7}  >
-                                    <AddButton onClick={handleAddAisles} >
-                                        <Image src={addButton} />
-                                    </AddButton>
-                                </CenteredTextColumn >
-                                <CenteredTextColumn width={9} >
-                                    <h2> Add Aisles </h2>
-                                </CenteredTextColumn>
-                            </Grid.Row>
-                        </Grid>
-                    </Grid.Column>
-                </Grid.Row>}
+      
             {/* <Grid.Row>
                 { edit ? <EditProducts/> : <ProductsSection handleEdit={handleEdit} userData={userData} /> }
             </Grid.Row> */}
         </Grid>
     )
 }
-export default withCookies(Shelving)
+export default withCookies(Offers)

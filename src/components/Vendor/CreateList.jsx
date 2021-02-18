@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import bananas from './../../Assets/bananas.png';
 import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
-import BusinessPic from './../../Assets/user-list-business.png'
+import BusinessPic from './../../Assets/store.png'
 import Collapsible from 'react-collapsible';
 import history from './../../History';
 import { Checkbox } from 'semantic-ui-react'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Header, Button, Icon, Grid, Image } from 'semantic-ui-react';
+import { Modal, Header, Button, Icon, Grid, Image, Link, List } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { RatedStars } from './../ShoppingPage/Ratings';
 import user1 from './../../Assets/user1.png';
@@ -25,7 +25,11 @@ const CustomerReply = styled(Grid.Column)`
    margin: auto 0 !important;
 `;
 const CustomerMessage = styled(Grid.Row)`
-   padding: 0 0 0 14px !important;
+   padding: 0 0 15px 14px !important;
+`;
+const DisputeLink = styled(List.Item)`
+font-size: 20px;
+color: black;
 `;
 // const CustomerImages = styled(Image)`
 //    border-radius: 60% !important;
@@ -56,14 +60,15 @@ export const ServiceDesk = () => {
                             </Grid.Column>
                             <CustomerReply width={13} >
                                 <Grid stackable>
-                                    <Grid.Row >
-                                        <Grid.Column width={2} >
+                                    <CustomerMessage>
+                                        <Grid.Column width={3}  >
                                             <h3> Bryan </h3>
                                         </Grid.Column>
-                                        <CustomerReply width={6} >
-                                            <RatedStars rating={5} /> 
+                                        <Grid.Column width={11}/>
+                                        <CustomerReply width={2} >
+                                            <Icon name='like' color='red' size='large' />
                                         </CustomerReply>
-                                    </Grid.Row>
+                                    </CustomerMessage>
 
                                     <CustomerMessage>
                                     <h3>
@@ -71,6 +76,15 @@ export const ServiceDesk = () => {
                                     night and others ripening for the next day.
                                     </h3>
                                     </CustomerMessage>
+                                    <Grid.Row>
+                                        <Grid.Column style={{textAlign:'right'}}>
+                                            <List>
+                                                <DisputeLink as='a' href='' >
+                                                    Dispute
+                                                </DisputeLink>
+                                            </List>
+                                        </Grid.Column>
+                                    </Grid.Row>
                                 </Grid>
                             </CustomerReply>
                         </CustomerProfile>
@@ -80,20 +94,30 @@ export const ServiceDesk = () => {
                             </Grid.Column>
                             <CustomerReply width={13} >
                                 <Grid stackable>
-                                    <Grid.Row >
-                                        <Grid.Column width={2} >
+                                    <CustomerMessage >
+                                        <Grid.Column width={3} >
                                             <h3> James </h3>
                                         </Grid.Column>
-                                        <CustomerReply width={6} >
-                                            <RatedStars rating={3} /> 
+                                        <Grid.Column width={11}/>
+                                        <CustomerReply width={2} >
+                                            <Icon name='like' color='red' size='large' />
                                         </CustomerReply>
-                                    </Grid.Row>
+                                    </CustomerMessage>
 
                                     <CustomerMessage>
                                     <h3>
                                        The groceries were okay.
                                     </h3>
                                     </CustomerMessage>
+                                    <Grid.Row>
+                                        <Grid.Column style={{textAlign:'right'}}>
+                                            <List>
+                                                <DisputeLink as='a' href='' >
+                                                    Dispute
+                                                </DisputeLink>
+                                            </List>
+                                        </Grid.Column>
+                                    </Grid.Row>
                                 </Grid>
                             </CustomerReply>
                         </CustomerProfile>
@@ -103,14 +127,15 @@ export const ServiceDesk = () => {
                             </Grid.Column>
                             <CustomerReply width={13} >
                                 <Grid stackable>
-                                    <Grid.Row >
+                                    <CustomerMessage >
                                         <Grid.Column width={3}>
                                             <h3> Anne Marie </h3>
                                         </Grid.Column>
-                                        <CustomerReply width={6} >
-                                            <RatedStars rating={5} /> 
+                                        <Grid.Column width={11}/>
+                                        <CustomerReply width={2} >
+                                            <Icon name='like' color='red' size='large' />
                                         </CustomerReply>
-                                    </Grid.Row>
+                                    </CustomerMessage>
 
                                     <CustomerMessage>
                                     <h3>
@@ -118,6 +143,15 @@ export const ServiceDesk = () => {
                                     quality, Would totally recommend.
                                     </h3>
                                     </CustomerMessage>
+                                    <Grid.Row>
+                                        <Grid.Column style={{textAlign:'right'}}>
+                                            <List>
+                                                <DisputeLink as='a' href='' >
+                                                    Dispute
+                                                </DisputeLink>
+                                            </List>
+                                        </Grid.Column>
+                                    </Grid.Row>
                                 </Grid>
                             </CustomerReply>
                         </CustomerProfile>

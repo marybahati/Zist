@@ -202,7 +202,7 @@ const LocationColumn = styled(Grid.Column)`
 background-color: white !important;
 padding: 0 !important;
 // width: 30% !important;
-margin: 0 auto 0px 200px !important;
+margin: 0 auto 0px 90px !important;
 border: 1px solid #707070 !important;
 @media only screen and (max-width: 1100px) {
   font-size: 18px !important;
@@ -409,6 +409,7 @@ const LandingPage = (props) => {
 
               </Grid.Row>
               <GridRows style={{ top: '350px' }}>
+                {/* <Grid.Column width={1}></Grid.Column> */}
                 <LocationColumn width={6}>
                   <LocationInput labelPosition='right' type='search'
                     size="small"
@@ -533,7 +534,22 @@ const LandingPage = (props) => {
           </DemoTitleColumn>
         </Grid.Row>
       </DemoGrid>
-      <Grid style={{ background: '#F9F7F1 0% 0% no-repeat padding-box' }}>
+      <AppSectionGrid>
+        <GridRows>
+          <OrderNowColumns spaceVertically width={6} textAlign='center'>
+            <OrderColumnText>
+              Get whatever it is that you <br />
+               want at the tap of a button.
+            </OrderColumnText>
+            <AppLinkButton onClick={orderNowRedirect} > Get the App </AppLinkButton>
+          </OrderNowColumns>
+          <OrderNowColumns border width={10}>
+            <Image src={shop} />
+          </OrderNowColumns>
+        </GridRows>
+      </AppSectionGrid>
+
+      <Grid style={{ background: '#F9F7F1 0% 0% no-repeat padding-box',paddingBottom:50 }}>
         <Grid.Row>
           <Grid.Column width={8} style={{ margin: '0 auto', textAlign: 'center' }}>
             <Image src={zist} />
@@ -556,22 +572,7 @@ const LandingPage = (props) => {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      <AppSectionGrid>
-        <GridRows>
-          <OrderNowColumns spaceVertically width={6} textAlign='center'>
-            <OrderColumnText>
-              Get whatever it is that you <br />
-               want at the tap of a button.
-            </OrderColumnText>
-            <AppLinkButton onClick={orderNowRedirect} > Get the App </AppLinkButton>
-          </OrderNowColumns>
-          <OrderNowColumns border width={10}>
-            <Image src={shop} />
-          </OrderNowColumns>
-        </GridRows>
-      </AppSectionGrid>
-
-      <IntroGrid>
+      <IntroGrid style={{background:'#FEE2D4',paddingTop:100}}>
 
         <GridRows width={16} >
           <FooterGrid width={1}></FooterGrid>
@@ -595,7 +596,7 @@ const LandingPage = (props) => {
           <FooterGrid width={5}>
             <FooterTitle>Vendor</FooterTitle>
             <List>
-              <FooterTitle as='a' href='/vendor' >Sell on Zist Shoppping</FooterTitle>
+              <FooterTitle as='a' href='/vendor-intro' >Sell on Zist Shoppping</FooterTitle>
             </List>
             <FooterTitle as='a' href=''>Vendor Help</FooterTitle>
           </FooterGrid>
@@ -609,7 +610,7 @@ const LandingPage = (props) => {
         </GridRows>
         <GridRows>
           <FooterGrid width={1}></FooterGrid>
-          <FooterGrid width={7} style={{paddingTop:50}}>
+          <FooterGrid width={7} style={{ paddingTop: 50 }}>
             <List link >
               <FooterTitle as='a' href=''>Terms & Policy</FooterTitle>
             </List>

@@ -14,6 +14,7 @@ import announcements from './../../Assets/announcements.png';
 import Collapsible from 'react-collapsible';
 import { Chart } from './Chart';
 import history from './../../History';
+import { withCookies } from 'react-cookie';
 
 const MainGrid = styled(Grid)`
    background: #F9F7F1;
@@ -48,7 +49,25 @@ const SpacerDiv = styled.div`
     width: 87%;
     margin: 0 auto;
 `
-export const VendorDashboard = () => {
+const VendorDashboard = () => {
+    const [bussinessInfo,setbusinessInfo] = useState()
+   console.log(bussinessInfo)
+    const fetchBusiness = () => {
+        axios.get(HOST_API +`zist/vendor/business/${id}/`,{
+            headers: {"Authorization" : `Bearer ${token}`} 
+        })
+          .then(res => {
+            console.log(res.data)
+            setbusinessInfo(res.data)
+          })
+          .catch(error => {
+            return []
+            console.log(error)
+          })
+      }
+      useEffect(() => {
+        fetchBusiness()
+      }, [])
 
     const analyticsRedirect = () => {
         history.push('/vendor-analytics')
@@ -375,3 +394,4 @@ export const VendorDashboard = () => {
         </div>
     )
 } 
+export default withCookies(VendorDashboard)

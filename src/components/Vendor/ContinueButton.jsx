@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Grid, Button } from "semantic-ui-react";
 
 const Buttonx = styled(Button)`
-    background: #FEE2D4 0% 0% no-repeat padding-box !important;
+    background: #FFBD59 0% 0% no-repeat padding-box !important;
     border: 2px solid #FEE2D4 !important;
     border-radius: 24px !important;
     opacity: 1;

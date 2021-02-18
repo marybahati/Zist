@@ -3,13 +3,9 @@ import bgImage from './../../Assets/shopping-hero-img.png'
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card, Menu } from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
-import card1 from './../../Assets/1.jpg';
+import store from './../../Assets/store.png';
 import card2 from './../../Assets/2.jpg';
-import card3 from './../../Assets/3.jpg';
 import card4 from './../../Assets/4.jpg';
-import card8 from './../../Assets/8.jpg';
-import card9 from './../../Assets/9.jpg';
-import card10 from './../../Assets/10.jpg';
 import refineImage from './../../Assets/sort.svg'
 import locationImage from './../../Assets/location.svg'
 import scheduleImage from './../../Assets/schedule.svg'
@@ -22,6 +18,7 @@ import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
 import { withCookies, Cookies } from 'react-cookie';
 import Cards from './Cards';
 import History from '../../History';
+import {HOST_API} from './../../endpoints';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
@@ -57,7 +54,8 @@ const SelectDropdown = styled(Dropdown)`
 
 const Shopping = (props) => {
   const { cookies } = props
-  const token = cookies.get('access-token')
+  const userData = cookies.get('login-res')
+  console.log(userData)
 
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
@@ -67,39 +65,19 @@ const Shopping = (props) => {
   const [businesses, setBusinesses] = useState([])
 
   const fetchBusinesses = () => {
-    axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/')
+    axios.get( HOST_API +'zist/business/')
       .then(res => {
-        console.log(res)
-        setBusinesses(res.data)
+        console.log(res.data.results)
+        setBusinesses(res.data.results)
       })
       .catch(error => {
         return []
         console.log(error)
       })
-
-    // try {
-    //   const request = await axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/')
-
-    // } catch (error) {
-    //   console.log(error)
-    // }
   }
   useEffect(() => {
     fetchBusinesses()
-
-    // 
-    // console.log(res)
   }, [])
-  //   useEffect( () => {
-  //     const response =  axios.get( 'https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/' );
-  //     console.log(response)
-  //     setD( response)
-
-  // }, []);
-
-  // if(d.status == 200){
-  //   setBusinesses(d.res)
-  // }
 
   const optionsResults = businesses?.map(x => ({ text: x.name, value: x.id, image: { src: card4 } }))
 
@@ -343,7 +321,7 @@ const Shopping = (props) => {
               <CardColumn width={5} style={{ margin: '0 23px 80px 0' }}>
                 <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type)} fluid={true} style={{ color: 'black', boxShadow: 'none' }} >
                   {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                  <Image src={card2} wrapped ui={false} style={{ bordeRadius: '8px' }} />
+                  <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
                   <Card.Content>
                     <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                       {business.name}

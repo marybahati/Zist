@@ -5,7 +5,7 @@ import Shopping from './components/ShoppingPage/Shopping'
 import history from './History';
 import Cards from './components/ShoppingPage/Cards';
 import  VendorRegistration  from './components/Vendor/VendorRegistration';
-import  { VendorDashboard }  from './components/Vendor/VendorDashboard';
+import  VendorDashboard  from './components/Vendor/Vendor-Dashboard';
 import { Analytics } from './components/Vendor/Analytics';
 import  Storefront  from './components/Vendor/Storefront';
 import { Inventory } from './components/Vendor/Inventory';
@@ -27,10 +27,12 @@ import Onboarding from './Zister/Onboarding';
 import Progress from './Zister/Stepper';
 import RiderDashboard from './Zister/RiderDashboard';
 import PaymentDetails from './components/Vendor/PaymentDetails';
-
+import VendorIntro from './components/Vendor/Vendor-Intro';
+import Suppliers from './components/Vendor/Suppliers';
 function App() {
   return (
     <Router history={history} >
+      <Route exact path='/vendor-intro' component={VendorIntro}/>
       <Route exact path='/' component={LandingPage} />
       <Route exact path='/shopping' component={Shopping} />
       <Route exact path='/search' component={SearchBar} />
@@ -56,6 +58,8 @@ function App() {
       <Route exact path='/zister-onboarding' component={Onboarding} />
       <Route exact path='/zister-progress' component={Progress} />
       <Route exact path='/rider' component={RiderDashboard} />
+      <Route exact path='/suppliers' component={Suppliers}/>
+      {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>
   );
 }

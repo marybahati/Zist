@@ -7,6 +7,7 @@ import { ModalSignUpButton } from './ModalSignUpButton';
 import { LinkingButton } from './LinkingButtons';
 import { LinkingLoginButton } from './LinkingLoginButton';
 import History from '../../History';
+import {HOST_API} from './../../endpoints';
 
 export const SignupModal = (props) => {
 
@@ -20,7 +21,7 @@ export const SignupModal = (props) => {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/register/', {
+    axios.post( HOST_API + 'register/' , {
       // first_name: firstName,
       // last_name: lastName,
       email: email,
@@ -39,14 +40,14 @@ export const SignupModal = (props) => {
             hideProgressBar: true
           })
           props.handleClose()
-          History.push({ 
-            pathname: '/shopping',
-            state: userId
-           })
+          // History.push({ 
+          //   pathname: '/shopping',
+          //   state: userId
+          //  })
         }
       }).catch(error => {
-        setSnackbarOpen(true)
-        toast.error("An error occurred, please check your email and password", {
+        // setSnackbarOpen(true)
+        toast.error(`${error}`, {
           className: 'toast',
           draggable: true,
           position: toast.POSITION.TOP_CENTER,

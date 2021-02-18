@@ -7,7 +7,21 @@ import bananas from './../../Assets/bananas.png'
 import strawberries from './../../Assets/strawberries.png'
 import blueBerries from './../../Assets/blue-berries.png'
 import DatePicker from 'react-date-picker';
+import history from './../../History';
 
+const MainDiv = styled.div`
+    background: #F9F7F1 0% 0% no-repeat padding-box;
+    opacity: 1;
+    padding: 50px 0 !important;
+`;
+const MainGrid = styled(Grid)`
+    width: 80%;
+    margin: 0 auto 100px auto !important;
+`;
+const Icons = styled(Grid.Column)`
+  padding: 0 ;
+  text-align: center;
+`;
 const AddButton = styled(Button)`
    background: inherit !important;
    font-size : 40px !important;
@@ -24,6 +38,16 @@ const EditButton = styled(Button)`
 const CenteredTextColumn = styled(Grid.Column)`
    margin: auto 0 !important;
 `;
+const Buttons = styled(Button)`
+    background: #FEE2D4 0% 0% no-repeat padding-box !important;
+    border: 2px solid #FEE2D4;
+    opacity: 1;
+    height: 80px !important;
+    width: 70%;
+    font-size: 22px !important;
+    color: #050504 !important;
+    margin: 20px 0 40px 0 !important;
+`;
 const Suppliers = () => {
     const [date, setDate] = useState(new Date());
     const [editDate, setEditDate] = useState(false)
@@ -31,91 +55,119 @@ const Suppliers = () => {
     const handleDateEdit = () => {
         setEditDate(true)
     }
+    const handleGoingBack = () => {
+        history.goBack()
+    }
     return (
-        <Grid>
-            <Grid.Row>
-                <Grid.Column width={4}  >
-                    <AddButton >
-                        <Image src={addButton} />
-                    </AddButton>
-                </Grid.Column >
-                <CenteredTextColumn width={6} >
-                    <h2> Add a supplier/View Zist Suppliers </h2>
-                </CenteredTextColumn>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={3}> <h2> Business </h2> </Grid.Column>
-                <CenteredTextColumn width={3}> <h2> Supplier </h2> </CenteredTextColumn>
-                <CenteredTextColumn width={3}> <h2> No of items </h2> </CenteredTextColumn>
-                <CenteredTextColumn width={3}> <h2> Duration/date </h2> </CenteredTextColumn>
-                <CenteredTextColumn width={3}> <h2> Price </h2> </CenteredTextColumn>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={3}>
-                    <Image src={bananas} />
-                </Grid.Column>
-                <CenteredTextColumn width={3}>
-                    <h3> Dave's bananas </h3>
-                </CenteredTextColumn>
-                <CenteredTextColumn width={3}>
-                    <h3> 50 pieces </h3>
-                </CenteredTextColumn>
-                <CenteredTextColumn width={3}>
-                   
-                        <DatePicker
-                            onChange={setDate}
-                            value={date}
-                        />
-                    
-                </CenteredTextColumn>
-                <CenteredTextColumn width={2}> <h3> Kshs.7,000 </h3> </CenteredTextColumn>
-                <CenteredTextColumn width={1}>
-                    <EditButton onClick={handleDateEdit} > Edit </EditButton>
-                </CenteredTextColumn>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={3}>
-                    <Image src={strawberries} />
-                </Grid.Column>
-                <CenteredTextColumn width={3}>
-                    <h3> Lucie's bananas </h3>
-                </CenteredTextColumn>
-                <CenteredTextColumn width={3}>
-                    <h3> 90 pieces </h3>
-                </CenteredTextColumn>
-                <CenteredTextColumn width={3}>
-                    <DatePicker
-                        onChange={setDate}
-                        value={date}
-                    />
-                </CenteredTextColumn>
-                <CenteredTextColumn width={2}> <h3> Kshs.4,000 </h3> </CenteredTextColumn>
-                <CenteredTextColumn width={1}>
-                    <EditButton onClick={handleDateEdit} > Edit </EditButton>
-                </CenteredTextColumn>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column width={3}>
-                    <Image src={blueBerries} />
-                </Grid.Column>
-                <CenteredTextColumn width={3}>
-                    <h3> Thiga's blue berries </h3>
-                </CenteredTextColumn>
-                <CenteredTextColumn width={3}>
-                    <h3> 50 pieces </h3>
-                </CenteredTextColumn>
-                <CenteredTextColumn width={3}>
-                    <DatePicker
-                        onChange={setDate}
-                        value={date}
-                    />
-                </CenteredTextColumn>
-                <CenteredTextColumn width={2}> <h3> Kshs.6,000 </h3> </CenteredTextColumn>
-                <CenteredTextColumn width={1}>
-                    <EditButton onClick={handleDateEdit} > Edit </EditButton>
-                </CenteredTextColumn>
-            </Grid.Row>
-        </Grid>
+        <MainDiv>
+            <Grid>
+                <Grid.Row >
+                    <Grid.Column width={1} />
+                    <Grid.Column>
+                        <Icons width={1}>
+                            <Button style={{ background: 'inherit' }} onClick={handleGoingBack}>  <Icon name='chevron left' size='large' link /> </Button>
+                        </Icons>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+            <MainGrid>
+                <Grid.Row>
+                    <Grid.Column>
+                        <h1 style={{ textAlign: "center", textDecoration: 'underline' }}> Suppliers </h1>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <h2>
+                            Send an invite to your Current suppliers to come into the platform
+                            and make business happen fast and easy.
+                    </h2>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <h2 style={{ textAlign: "center", textDecoration: 'underline' }}> JOIN ZIST SHOPPING AS A SUPPLIER </h2>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column>
+                        <h2 style={{ textAlign: "center", paddingBottom: 40 }}>
+                            Browse through these approved Zist Suppliers.
+                    </h2>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={5}>
+                        <Image src={strawberries} />
+                    </Grid.Column>
+                    <Grid.Column width={11}>
+                        <Grid>
+                            <Grid.Row>
+                                <Grid.Column width={7}>
+                                    <h2> Lucie's Strawberry </h2>
+                                </Grid.Column>
+                                <Grid.Column width={1} />
+                                <Grid.Column width={7}>
+                                    <h2> Kshs. 200/pack </h2>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column width={15}>
+                                    <h2>
+                                        Quality berries from Baba Dogo, able to handle up to 30 packs per day.
+                                        Wholesale price @ 100/pack.
+                                    </h2>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column width={7}>
+                                    <Buttons> Message </Buttons>
+                                </Grid.Column>
+                                <Grid.Column width={1} />
+                                <Grid.Column width={8}>
+                                    <Buttons> Ask for sample </Buttons>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column width={5}>
+                        <Image src={bananas} />
+                    </Grid.Column>
+                    <Grid.Column width={11}>
+                        <Grid>
+                            <Grid.Row>
+                                <Grid.Column width={7}>
+                                    <h2> Daves's Bananas </h2>
+                                </Grid.Column>
+                                <Grid.Column width={1} />
+                                <Grid.Column width={7}>
+                                    <h2> Kshs. 100/pack </h2>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column width={15}>
+                                    <h2>
+                                        Fresh nuts made and packaged at Tigoni Factory in Thika, able to handle any number of orders.
+                                        Wholesale price ; 200 shillings/ pack.
+                                    </h2>
+                                </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column width={7}>
+                                    <Buttons> Message </Buttons>
+                                </Grid.Column>
+                                <Grid.Column width={1} />
+                                <Grid.Column width={8}>
+                                    <Buttons> Ask for sample </Buttons>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Grid.Column>
+                </Grid.Row>
+            </MainGrid>
+        </MainDiv>
     )
 }
 

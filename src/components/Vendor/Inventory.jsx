@@ -1,13 +1,14 @@
 import React from 'react';
 import { Tab, Header, Button, Icon, Grid, Image } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { Shelving } from './Shelving';
+import  Shelving  from './Shelving';
 import shelving from './../../Assets/shelving.png';
 import suppliers from './../../Assets/suppliers.png';
 import requests from './../../Assets/requests.png';
 import Suppliers from './Suppliers';
 import Requests from './Requests';
-
+import history from './../../History';
+import StockManagement from './StockManagement';
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
     opacity: 1;
@@ -37,6 +38,10 @@ const ImageButtons = styled(Button)`
 const Images = styled(Image)`
    margin: 0 0 25px 0 !important;
 `;
+const Icons = styled(Grid.Column)`
+  padding: 0 ;
+  text-align: center;
+`;
 
 const panes = [
     {
@@ -44,21 +49,38 @@ const panes = [
     render: () => <TabPanels attached={false} > <Shelving /> </TabPanels>,
     },
     {
-        menuItem: <ImageButtons><Images src={suppliers} /> SUPPLIERS </ImageButtons>,
-        render: () => <TabPanels attached={false} > <Suppliers/> </TabPanels>,
-    },
-    {
-        menuItem: <ImageButtons><Images src={requests} /> REQUESTS </ImageButtons>,
-        render: () => <TabPanels attached={false} > <Requests/> </TabPanels>,
+        menuItem: <ImageButtons><Images src={suppliers} /> STOCK MANAGEMENT </ImageButtons>,
+        render: () => <TabPanels attached={false} > <StockManagement/> </TabPanels>,
     }
+    // ,
+    // {
+    //     menuItem: <ImageButtons><Images src={requests} /> REQUESTS </ImageButtons>,
+    //     render: () => <TabPanels attached={false} > <Requests/> </TabPanels>,
+    // }
 ]
-export const Inventory = () => {
+export const Inventory = (props) => {
+    const {id} = (props.location && props.location.state) || '';
+    console.log(props.location && props.location.state)
+    const handleGoingBack = () => {
+        history.goBack()
+    }
+
     return (
         <MainDiv>
+            <Grid>
+                <Grid.Row >
+                    <Grid.Column width={1} />
+                    <Grid.Column>
+                        <Icons width={1}>
+                            <Button style={{ background: 'inherit' }} onClick={handleGoingBack}>  <Icon name='chevron left' size='large' link /> </Button>
+                        </Icons>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
             <MainGrid>
                 <Grid.Row>
                     <Columns >
-                        <Tab menu={{ text: true, color: 'orange' }} panes={panes} />
+                        <Tab menu={{ text: true}} panes={panes} />
                     </Columns>
                 </Grid.Row>
             </MainGrid>

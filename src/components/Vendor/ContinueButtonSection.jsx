@@ -6,7 +6,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withCookies } from 'react-cookie';
-
+import {HOST_API} from './../../endpoints';
 
 
 class ContinueButtonSection extends React.Component {
@@ -20,18 +20,20 @@ class ContinueButtonSection extends React.Component {
     }
     this.handleRedirect = this.handleRedirect.bind(this);
   }
-
+ 
   handleSubmit = (props) => {
     const { cookies } = props
-    const token = cookies.get('access-token')
+    const userData = cookies.get('login-res')
+    console.log(userData)
+    const token = userData.access 
     console.log(token)
-      axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/',
+      axios.post(HOST_API +'zist/vendor/',
        { headers: { "Authorization": `Bearer ${token}` } }
        ) 
     .then(res => {
       console.log(res)
         if (res.status === 201) {
-          axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/', {
+          axios.post(HOST_API +'zist/vendor/business/', {
               name: props.name,
               business_type: props.natureOfBusiness,
               bio: props.niche,
@@ -42,18 +44,19 @@ class ContinueButtonSection extends React.Component {
             },
               { headers: { "Authorization": `Bearer ${token}` } }
             ).then( res => {
+              console.log(res)
               if (res.status === 201) {
                 const data = res.data
                 cookies.set('business-info', data, { path: '/' });
                 this.setState({ modalOpen: true })
 
-                toast.success(`You have succesfully registerd your business`, {
-                  className: 'toast',
-                  draggable: true,
-                  position: toast.POSITION.TOP_CENTER,
-                  type: toast.TYPE.SUCCESS,
-                  hideProgressBar: true
-                })
+                // toast.success(`You have succesfully registerd your business`, {
+                //   className: 'toast',
+                //   draggable: true,
+                //   position: toast.POSITION.TOP_CENTER,
+                //   type: toast.TYPE.SUCCESS,
+                //   hideProgressBar: true
+                // })
               }
             }).catch( error => {
               toast.error(`${error}`, {
