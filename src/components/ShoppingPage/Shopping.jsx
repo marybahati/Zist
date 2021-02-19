@@ -71,9 +71,9 @@ const Shopping = (props) => {
   }
   const fetchBusinesses = () => {
     axios.get( HOST_API +'zist/business', 
-    // {
-    //   headers: headers 
-    // }
+    {
+     headers: headers 
+    }
     )
       .then(res => {
         console.log(res.data.results)
