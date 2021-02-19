@@ -69,7 +69,6 @@ const Shopping = (props) => {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Credentials': true,
   }
-  
   const fetchBusinesses = () => {
     axios.get( HOST_API +'zist/business/', {
       headers: headers 
