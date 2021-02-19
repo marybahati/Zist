@@ -70,9 +70,11 @@ const Shopping = (props) => {
     'Access-Control-Allow-Credentials': true,
   }
   const fetchBusinesses = () => {
-    axios.get( HOST_API +'zist/business', {
-      headers: headers 
-    })
+    axios.get( HOST_API +'zist/business', 
+    // {
+    //   headers: headers 
+    // }
+    )
       .then(res => {
         console.log(res.data.results)
         setBusinesses(res.data.results)
