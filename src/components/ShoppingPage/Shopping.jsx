@@ -63,9 +63,15 @@ const Shopping = (props) => {
   // const [business, setBusiness] = useState()
   const [clickedBusiness, setClickedBusiness] = useState([])
   const [businesses, setBusinesses] = useState([])
-
+  let headers = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  }
   const fetchBusinesses = () => {
-    axios.get( HOST_API +'zist/business/')
+    axios.get( HOST_API +'zist/business/', {
+      headers: headers 
+    })
       .then(res => {
         console.log(res.data.results)
         setBusinesses(res.data.results)
