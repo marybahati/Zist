@@ -52,6 +52,7 @@ const AddProduct = (props) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [fileNames, setFileNames] = useState([]);
 
+    
     const handleDrop = acceptedFiles => setFileNames(acceptedFiles.map(file => file.name));
 
     // const handleChange = (e) => {
