@@ -37,8 +37,9 @@ text-align: center;
 const AddProduct = (props) => {
     const { cookies } = props
     const data = cookies.get('login-res')
+    const businessId = cookies.get('business-id')
     const token = data.access
-    const businessId = data.business[0].id
+    // const businessId = data.business[0].id
     console.log(data, token,businessId)
     const [name, setName] = useState()
     const [price, setPrice] = useState('')

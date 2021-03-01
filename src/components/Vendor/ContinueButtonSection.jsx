@@ -27,7 +27,7 @@ class ContinueButtonSection extends React.Component {
     console.log(userData)
     const token = userData.access 
     console.log(token)
-      axios.post(HOST_API +'zist/vendor/',
+      axios.post(HOST_API +'zist/vendor/', '',
        { headers: { "Authorization": `Bearer ${token}` } }
        ) 
     .then(res => {
@@ -44,19 +44,11 @@ class ContinueButtonSection extends React.Component {
             },
               { headers: { "Authorization": `Bearer ${token}` } }
             ).then( res => {
-              console.log(res)
+              console.log(res) 
               if (res.status === 201) {
-                const data = res.data
-                cookies.set('business-info', data, { path: '/' });
+                const id = res.data.id
+                cookies.set('business-id', id, { path: '/' });
                 this.setState({ modalOpen: true })
-
-                // toast.success(`You have succesfully registerd your business`, {
-                //   className: 'toast',
-                //   draggable: true,
-                //   position: toast.POSITION.TOP_CENTER,
-                //   type: toast.TYPE.SUCCESS,
-                //   hideProgressBar: true
-                // })
               }
             }).catch( error => {
               toast.error(`${error}`, {
@@ -72,7 +64,6 @@ class ContinueButtonSection extends React.Component {
 
       }).catch(error => {
         console.log(error)
-        //  this.setState({errorSnackbar:true})
         toast.error(`${error}`, {
           className: 'toast',
           draggable: true,

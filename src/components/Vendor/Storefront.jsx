@@ -51,57 +51,41 @@ const ColumnForm = styled(Grid.Column)`
 const Storefront = (props) => {
     const { cookies } = props
     const userData = cookies.get('login-res')
+    const id = cookies.get('business-id')
     const token = userData.access 
-    console.log(userData,token)
+    console.log(userData,token,id)
     const businessData = userData.business[0]
-    const data = cookies.get('business-info')
-   const id = userData.business[0].id
-
-    // console.log(data)
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [businessInfo, setbusinessInfo] = useState([])
-    const [name, setName] = useState(businessData.name)
-    const [natureOfBusiness, setNatureOfBusiness] = useState(businessData.business_type)
-    const [niche, setNiche] = useState(businessData.bio)
-    const [email, setEmail] = useState(businessData.email)
-    const [tel, setTel] = useState(businessData.tel)
-    const [location, setLocation] = useState(businessData.location)
-
-    console.log(businessInfo,name)
-
-    // useEffect(() => {
-    //     axios.get(`https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/vendor/business/${id}/`, {
-    //         headers: { "Authorization": `Bearer ${token}`,
-    //         responseType: 'json' ,
-    //      }
-    //     })
-    //     .then(response => response.json())
-    //     .then(res => {
-    //         if (res.status === 200) {
-    //             setbusinessInfo(res)
-    //             const businessData = cookies.set('business-data',businessInfo)
-    //         }
-    //     })
-    //   }, []);
 
     useEffect(() => {
-        (async () => {
-            try {
-                const res = await axios.get(HOST_API +`zist/vendor/business/${id}/`,
-                { 
-                  headers: {"Authorization" : `Bearer ${token}`} 
-                }
-                )
-                if ( res.status == 200) {
-                    setbusinessInfo(res.data)
-                    console.log(res.data)
-                }
-              } catch (error) {
-                console.log(error)
-              }
-        } )();
+        axios.get(HOST_API +`zist/vendor/business/${id}/`, {
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    .then((res) => {
+      console.log(res.data)
+      setbusinessInfo(res.data)
+      setName(res.data.name)
+      setNatureOfBusiness(res.data.business_type)
+      setNiche(res.data.bio)
+      setEmail(res.data.email)
+      setTel(res.data.tel)
+      setLocation(res.data.location)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
     }, []);
-   
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [businessInfo, setbusinessInfo] = useState()
+    const [name, setName] = useState( )
+    const [natureOfBusiness, setNatureOfBusiness] = useState()
+    const [niche, setNiche] = useState()
+    const [email, setEmail] = useState()
+    const [tel, setTel] = useState()
+    const [location, setLocation] = useState()
+    console.log(businessInfo)
 
     const handleUpdate = (event) => {
         event.preventDefault();
@@ -223,7 +207,17 @@ const Storefront = (props) => {
                                         style={{ padding: '2rem !important' }}
                                     />
                                 </Form.Field>
-    
+                                <Form.Field>
+                                    <FormLabels> Business Location </FormLabels>
+                                    <FormInput
+                                        placeholder='Business location '
+                                        onChange={e => setLocation(e.target.value)}
+                                        clearable
+                                        search
+                                        value={location}
+                                        style={{ padding: '2rem !important' }}
+                                    />
+                                </Form.Field>
                                 <Form.Field>
                                     <FormLabels>Primary contact information</FormLabels>
                                     <FormInput placeholder='Enter your primary contact (phone number)'
