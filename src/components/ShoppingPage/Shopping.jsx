@@ -55,6 +55,7 @@ const SelectDropdown = styled(Dropdown)`
 const Shopping = (props) => {
   const { cookies } = props
   const userData = cookies.get('login-res')
+  const token = userData.access
   console.log(userData)
 
   const location = (props.location && props.location.state) || '';
@@ -99,11 +100,11 @@ const Shopping = (props) => {
     { text: 'chocaolates', value: 'chocolates', image: { src: card4 } },
     { text: 'flour', value: 'flour', image: { src: card4 } },
   ]
-  // const handleLogOut = () => {
-  //   const logout = cookies.remove('access-token')
-  //   return logout
-  //   window.location.reload(false);
-  // }
+  const handleLogOut = () => {
+    // const logout = cookies.remove('access-token')
+    // return logout
+    // window.location.reload(false);
+  }
   const handleCardClicked = (e, name, type) => {
     const d = { name: name, type: type }
     History.push({
@@ -116,17 +117,12 @@ const Shopping = (props) => {
     <div >
       <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover',height:760,width:'100% !important'}}>
 
-        {/* {token !== undefined ? (
+        {token !== undefined && token !== '' ? (
           <Grid.Row width={16} >
             <Grid.Column >
               <Grid>
                 <Grid.Row>
                   <Grid.Column width={12}>
-                    <List style={{ display: 'inline-block' }}>
-                      <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '80px' }}>
-                        HELP
-                    </List.Item>
-                    </List>
                   </Grid.Column>
                   <Grid.Column width={1} style={{ paddingTop: '65px' }}>
                     <Icon name='user circle' color='black' size='huge' />
@@ -153,7 +149,7 @@ const Shopping = (props) => {
               </Grid>
             </Grid.Column>
           </Grid.Row>
-        ) : ( */}
+        ) : (
         <Grid.Row width={16} >
           <Grid.Column >
             <Grid >
@@ -186,7 +182,7 @@ const Shopping = (props) => {
 
           </Grid.Column>
         </Grid.Row>
-        {/* )} */}
+         )} 
         <Grid.Row width={16} style={{ padding: '0 ' }}>
 
           <Input labelPosition='right' type='search'

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import zist from "./../../Assets/zist.png";
 import shop from "./../../Assets/shop.png";
-import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Form } from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Form, Menu } from "semantic-ui-react";
 import cartImage from "./../../Assets/cart.png";
 import styled from 'styled-components';
 import coffeShop from "./../../Assets/coffeShop.png";
@@ -17,6 +17,7 @@ import history from './../../History';
 import { SignupButtonSection } from "./SignupButtonSection";
 import { LoginButtonSection } from "./LoginButtonSection";
 import { withRouter } from 'react-router-dom';
+import { withCookies, Cookies } from 'react-cookie';
 
 const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'
 
@@ -29,7 +30,7 @@ const MainDiv = styled.div`
     background: #F9F7F1;
 `;
 const NavbarGrid = styled(Grid)`
-    padding: 39px 0 0 0 !important;
+    padding: 10px 0 0 0 !important;
     width:100% !important;
     height: 800px;
     background: url(${heroImg});
@@ -365,7 +366,9 @@ const LandingPage = (props) => {
 
   const [location, setLocation] = useState(null);
   const [activeExploreItem, setActiveExploreItem] = useState('');
-
+  const { cookies } = props
+  const userData = cookies.get('login-res')
+  const token = userData.access
   const handleItemClick = (e, { name }) => setActiveExploreItem({ activeExploreItem: name });
 
   const handleRedirect = () => {
@@ -386,10 +389,40 @@ const LandingPage = (props) => {
     <MainDiv >
       {/* start of the navbar section */}
       <NavbarGrid>
-        <Grid.Row style={{ padding: 0 }}>
-          <NavbarActionsColumn width={16}  >
-            <Grid >
-              <Grid.Row style={{ padding: 0 }}>
+      {token !== undefined && token !== '' ? (
+          <Grid.Row width={16} >
+            <Grid.Column >
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={12}>
+                  </Grid.Column>
+                  <Grid.Column width={1} style={{ paddingTop: '0px' }}>
+                    <Icon name='user circle' color='black' size='huge' />
+                  </Grid.Column>
+                  <Grid.Column width={1} style={{ paddingTop: '13px' }}>
+                    <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
+                      <Menu.Menu >
+                        <Dropdown  text='Account' icon='' >
+                          <Dropdown.Menu>
+                            <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
+                            <Dropdown.Item > Log out </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        </Menu.Menu>
+                    </Menu>
+                  </Grid.Column>
+                    <Grid.Column width={1} style={{ paddingTop: '0px' }}>
+                      <Image
+                        src={cartImage}
+                        style={{ display: "block", margin: '0 auto' }}
+                      />
+                    </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Grid.Column>
+          </Grid.Row>
+        ) : (            
+              <Grid.Row style={{ padding: '10px 0 0 0 ' }}>
                 <Grid.Column width={12} >
                   <SignupButtonSection />
                 </Grid.Column>
@@ -408,6 +441,9 @@ const LandingPage = (props) => {
                 </Grid.Column> */}
 
               </Grid.Row>
+              )}
+              <NavbarActionsColumn width={16}  >
+              <Grid >
               <GridRows style={{ top: '350px' }}>
                 {/* <Grid.Column width={1}></Grid.Column> */}
                 <LocationColumn width={6}>
@@ -443,7 +479,7 @@ const LandingPage = (props) => {
               </GridRows>
             </Grid>
           </NavbarActionsColumn>
-        </Grid.Row>
+        {/* </Grid.Row> */}
       </NavbarGrid>
       {/* end of the navbar section */}
 
@@ -644,4 +680,4 @@ const LandingPage = (props) => {
 }
 
 
-export default withRouter(LandingPage);
+export default withCookies(LandingPage);
