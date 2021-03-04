@@ -370,7 +370,7 @@ const LandingPage = (props) => {
   const { cookies } = props
   const userData = cookies.get('login-res')
   //  setToken(userData.access) 
-  const token = userData.access
+  // const token = userData.access
   const handleItemClick = (e, { name }) => setActiveExploreItem({ activeExploreItem: name });
 
   const handleRedirect = () => {
@@ -391,58 +391,59 @@ const LandingPage = (props) => {
     <MainDiv >
       {/* start of the navbar section */}
       <NavbarGrid>
-      {token !== undefined && token !== '' ? (
-          <Grid.Row width={16} >
-            <Grid.Column >
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column width={12}>
-                  </Grid.Column>
-                  <Grid.Column width={1} style={{ paddingTop: '0px' }}>
-                    <Icon name='user circle' color='black' size='huge' />
-                  </Grid.Column>
-                  <Grid.Column width={1} style={{ paddingTop: '13px' }}>
-                    <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
-                      <Menu.Menu >
-                        <Dropdown  text='Account' icon='' >
-                          <Dropdown.Menu>
-                            <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
-                            <Dropdown.Item > Log out </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                        </Menu.Menu>
-                    </Menu>
-                  </Grid.Column>
-                    <Grid.Column width={1} style={{ paddingTop: '0px' }}>
-                      <Image
-                        src={cartImage}
-                        style={{ display: "block", margin: '0 auto' }}
-                      />
-                    </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
+      { userData.access == undefined && userData.access == '' ? (
+        <Grid.Row style={{ padding: '10px 0 0 0 ' }}>
+        <Grid.Column width={12} >
+          <SignupButtonSection />
+        </Grid.Column>
+
+        <Grid.Column width={2} >
+          <LoginButtonSection />
+        </Grid.Column>
+
+        <Grid.Column width={2} >
+          <Cart
+            src={cartImage}
+          />
+        </Grid.Column>
+        {/* <Grid.Column width={1} >
+
+        </Grid.Column> */}
+
+      </Grid.Row>
+         
         ) : (            
-              <Grid.Row style={{ padding: '10px 0 0 0 ' }}>
-                <Grid.Column width={12} >
-                  <SignupButtonSection />
+          <Grid.Row width={16} >
+          <Grid.Column >
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={12}>
                 </Grid.Column>
-
-                <Grid.Column width={2} >
-                  <LoginButtonSection />
+                <Grid.Column width={1} style={{ paddingTop: '0px' }}>
+                  <Icon name='user circle' color='black' size='huge' />
                 </Grid.Column>
-
-                <Grid.Column width={2} >
-                  <Cart
-                    src={cartImage}
-                  />
+                <Grid.Column width={1} style={{ paddingTop: '13px' }}>
+                  <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
+                    <Menu.Menu >
+                      <Dropdown  text='Account' icon='' >
+                        <Dropdown.Menu>
+                          <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
+                          <Dropdown.Item > Log out </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      </Menu.Menu>
+                  </Menu>
                 </Grid.Column>
-                {/* <Grid.Column width={1} >
-
-                </Grid.Column> */}
-
+                  <Grid.Column width={1} style={{ paddingTop: '0px' }}>
+                    <Image
+                      src={cartImage}
+                      style={{ display: "block", margin: '0 auto' }}
+                    />
+                  </Grid.Column>
               </Grid.Row>
+            </Grid>
+          </Grid.Column>
+        </Grid.Row>
               )}
               <NavbarActionsColumn width={16}  >
               <Grid >
