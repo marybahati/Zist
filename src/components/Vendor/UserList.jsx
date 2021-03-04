@@ -115,7 +115,7 @@ const UserList = (props) => {
     console.log(userData,token)
 
     const cookie = new Cookies()
-    cookie.set('list-id',{path:'/'})
+    
 
     const clickedBusiness = (props.location && props.location.state) || '';
     console.log(props.location && props.location.state)
@@ -156,7 +156,7 @@ const UserList = (props) => {
     const [showCooking, setShowCooking] = useState(false)
     const [cart, setCart] = useState([])
     const [open, setOpen] = useState(false)
-    console.log(products)
+    console.log(searchText)
     console.log(cart)
     useEffect(() => {
         axios.post(HOST_API +'zist/list/', 
@@ -165,8 +165,8 @@ const UserList = (props) => {
             .then((response) => {
                 console.log(response)
                 if (response.status == 201) {
-                    const res = response.data
-                    //   setBusinesses(res)
+                    const id = response.data.id
+                    cookie.set('list-id',id,{path:'/'})
                 } 
             })
             .catch(error => {
@@ -233,31 +233,6 @@ const UserList = (props) => {
             return null
         }
         return (
-
-            // <CardColumn width={7} style={{ margin: '0 30px 80px 0' }}>
-            //     <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
-            //         <Image src={card2} wrapped ui={false} />
-            //         <Card.Content>
-            //             <Card.Header style={{ paddingTop: 20 }}>
-            //                 {product.name}
-            //             </Card.Header>
-            //             <Card.Header style={{ paddingTop: 20 }}>
-            //                 Ksh.{product.price}
-            //             </Card.Header>
-            //         </Card.Content>
-            //     </Card>
-            // </CardColumn>
-            // <ProductRows key={product.name} as='button' onClick={(e) => handleAddProduct(e, product.name, product.price)}>
-            //     <Grid.Column width={5}>
-            //         <ProductImages src={bananas} />
-            //     </Grid.Column>
-            //     <ProductName center width={5} >
-            //         <h3> {product.name} </h3>
-            //     </ProductName>
-            //     <ItemsColumn width={4}>
-            //         <h3> Ksh.{product.price} </h3>
-            //     </ItemsColumn>
-            // </ProductRows>
             <Grid.Row width={16} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
                 <Grid.Column width={1}></Grid.Column>
                 <Grid.Column width={5}>
@@ -289,64 +264,66 @@ const UserList = (props) => {
                                 </Grid.Row>
                             </Grid>
                         </Grid.Row>
-                        {/* <Grid.Row>
-                            <Grid.Column width={6}></Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid.Column width={16}>
-                                <h2> {product.name} </h2>
-                                <List link>
-                                    <List.Item as='a' href=''>See product images</List.Item>
-                                </List>
-                            </Grid.Column>
-                        </Grid.Row> */}
                     </Grid>
                 </Columns>
-                {/* <Columns width={5}>
+            </Grid.Row>
+
+        )
+    }
+    const onSearch = (e) => {
+        setSearchText( e.target.value )
+        console.log(searchText)
+    }
+    // const filteredProducts = products.filter(product => {
+    //     return product.name.toLowerCase().indexOf(searchText) !== -1
+    //     console.log(product.name)
+    // })
+    const productSearch = product => {
+        if (searchText !== '' && product.name.toLowerCase().indexOf(searchText) === -1) {
+            return null
+        }
+        return (
+            <Grid.Row width={16} style={{ margin: '0 30px 80px 0', backgroundColor: 'white !important', border: '1px black' }}>
+                <Grid.Column width={5}>
+                    <Image src={blueberries} wrapped ui={false} />
+                </Grid.Column>
+                <Columns width={11}>
                     <Grid>
-                        <Grid.Row style={{ padding: 0 }}>
-                            <Grid.Column width={10}>
-                            </Grid.Column>
+                        <Grid.Row>
+                            <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
                                 <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
                                     <Icon name='add circle' size='big' color='black' />
                                 </Button>
                             </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row style={{ padding: 0 }}>
-                            <Grid.Column width={16} >
-                                <h2> Ksh.{product.price} </h2>
-                            </Grid.Column>
+                        <Grid.Row>
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column width={1}></Grid.Column>
+                                    <Grid.Column width={7}>
+                                        <h2> {product.name} </h2>
+                                        <List link>
+                                            <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
+                                        </List>
+                                    </Grid.Column >
+                                    <Grid.Column width={8}>
+                                        <h2> Ksh.{product.price} </h2>
+                                    </Grid.Column >
+                                </Grid.Row>
+                            </Grid>
                         </Grid.Row>
                     </Grid>
-                </Columns> */}
+                </Columns>
             </Grid.Row>
 
         )
     }
-    const onSearch = (e) => {
-        setSearchText({ searchText: e.target.value })
-        console.log(searchText)
-    }
-    // const filteredProducts = products.filter(product => {
-    //     return product.name.toLowerCase().includes(searchText)
-    //     console.log(product.name)
-    // })
+
+
+
     const suggestedProducts = products.slice(0, 5).map(product => {
         return (
-            // <CardColumn width={7} style={{ margin: '0 30px 80px 0',background:'white !important',border:'1px black' }} >
-            //     <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070', minHeight: '500px ', color: 'black' }} key={product.name} onClick={(e) => handleAddProduct(e, product.name, product.price)} >
-            //         <Image src={card2} wrapped ui={false} />
-            //         <Card.Content>
-            //             <Card.Header style={{ paddingTop: 20 }}>
-            //                 {product.name}
-            //             </Card.Header>
-            //             <Card.Header style={{ paddingTop: 20 }}>
-            //                 Ksh.{product.price}
-            //             </Card.Header>
-            //         </Card.Content>
-            //     </Card>
-            // </CardColumn>
             <Grid.Row width={16} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
                 <Grid.Column width={1}></Grid.Column>
                 <Grid.Column width={5}>
@@ -571,9 +548,9 @@ const UserList = (props) => {
                         />
                     </SearchInputColumn>
                 </Grid.Row>
-                {/* {products.map(product => {
-                    return renderProducts(product)
-                })} */}
+                {products.map(product => {
+                    return productSearch(product)
+                })}
             </MainGrid>
         </MainDiv>
     )
