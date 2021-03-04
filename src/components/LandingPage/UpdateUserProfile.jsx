@@ -105,7 +105,7 @@ const UpdateUserProfile = (props) => {
                                         onChange={e => setDOB(e.target.value)}
                                     />
                                 </Form.Field>
-                                
+                                <h2> * The D.O.B is also essential in ensuring compliance upon Ordering 18+ content. </h2>
                                 <ButtonGrid width={16} >
                                     <SaveButton type='submit'> SAVE </SaveButton>
                                 </ButtonGrid>

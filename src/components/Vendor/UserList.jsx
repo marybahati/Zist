@@ -228,12 +228,12 @@ const UserList = (props) => {
                         <Grid.Row>
                             <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
-                            <Popup
-                                 style={{backgroundColor:'green'}}
+                                <Popup
+                                    style={{ backgroundColor: 'green' }}
                                     trigger={
                                         <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
-                                        <Icon name='add circle' size='big' color='black' />
-                                    </Button>
+                                            <Icon name='add circle' size='big' color='black' />
+                                        </Button>
                                     }
                                     content={`Succesfully added item ${product.name}`}
                                     on='click'
@@ -285,12 +285,12 @@ const UserList = (props) => {
                         <Grid.Row>
                             <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
-                            <Popup
-                                 style={{backgroundColor:'green'}}
+                                <Popup
+                                    style={{ backgroundColor: 'green' }}
                                     trigger={
                                         <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
-                                        <Icon name='add circle' size='big' color='black' />
-                                    </Button>
+                                            <Icon name='add circle' size='big' color='black' />
+                                        </Button>
                                     }
                                     content={`Succesfully added item ${product.name}`}
                                     on='click'
@@ -336,17 +336,17 @@ const UserList = (props) => {
                             <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
                                 <Popup
-                                 style={{backgroundColor:'green'}}
+                                    style={{ backgroundColor: 'green' }}
                                     trigger={
                                         <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
-                                        <Icon name='add circle' size='big' color='black' />
-                                    </Button>
+                                            <Icon name='add circle' size='big' color='black' />
+                                        </Button>
                                     }
                                     content={`Succesfully added item ${product.name}`}
                                     on='click'
                                     position='bottom left'
                                 />
-                               
+
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -454,12 +454,7 @@ const UserList = (props) => {
                                         </Grid.Column>
                                     </Grid.Row>
                                     {suggestedProducts}
-                                    <Grid.Row style={{ paddingBottom: 30 }}>
-                                        <Grid.Column width={10}></Grid.Column>
-                                        <Grid.Column width={6}>
-                                            {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null}
-                                        </Grid.Column>
-                                    </Grid.Row>
+
                                 </Grid>
                             </Collapsible>
                         </Grid.Column>
@@ -533,6 +528,13 @@ const UserList = (props) => {
                         </Grid.Column>
                     </Grid.Row>
                 ) : null}
+                <Grid.Row style={{ paddingBottom: 30 }}>
+                    <Grid.Column width={5}></Grid.Column>
+                    <Grid.Column width={6}>
+                        {cart.length !== 0 ? <Button  as='a' onClick={handleAddedProduct} style={{backgroundColor:'orange'}}> View List  </Button> : null}
+                    </Grid.Column>
+                    <Grid.Column width={5}></Grid.Column>
+                </Grid.Row>
                 <Grid.Row >
                     {/* <SearchInputColumn width={14}>
                         <SearchInput
