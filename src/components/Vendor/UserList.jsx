@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Image, Button, List, Input, Icon, Card } from "semantic-ui-react";
+import { Grid, Image, Button, List, Input, Icon, Popup } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import store from './../../Assets/store.png';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ import Collapsible from 'react-collapsible';
 import History from '../../History'
 import { ToastContainer, toast } from 'react-toastify';
 import { RatedStars } from './../ShoppingPage/Ratings';
-import {HOST_API} from './../../endpoints';
+import { HOST_API } from './../../endpoints';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -108,14 +108,14 @@ const GreyText = styled.h2`
 color: #707070;
 `
 const UserList = (props) => {
-    const [listId,setListId] = useState()
+    const [listId, setListId] = useState()
     const { cookies } = props
     const userData = cookies.get('login-res')
-    const token = userData.access 
-    console.log(userData,token)
+    const token = userData.access
+    console.log(userData, token)
 
     const cookie = new Cookies()
-    
+
 
     const clickedBusiness = (props.location && props.location.state) || '';
     console.log(props.location && props.location.state)
@@ -159,35 +159,20 @@ const UserList = (props) => {
     console.log(searchText)
     console.log(cart)
     useEffect(() => {
-        axios.post(HOST_API +'zist/list/', 
-        { name:'list'},
-        { headers: { "Authorization": `Bearer ${token}` } })
+        axios.post(HOST_API + 'zist/list/',
+            { name: 'list' },
+            { headers: { "Authorization": `Bearer ${token}` } })
             .then((response) => {
                 console.log(response)
                 if (response.status == 201) {
                     const id = response.data.id
-                    cookie.set('list-id',id,{path:'/'})
-                } 
+                    cookie.set('list-id', id, { path: '/' })
+                }
             })
             .catch(error => {
                 console.log(error)
             })
     }, [])
-
-    // useEffect(() => {
-    //     axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/',
-    //     { headers: {"Authorization" : `Bearer ${token}`} 
-    //     })
-    //       .then((response) => {
-    //         if (response.status == 200) {
-    //           const res = response.data
-    //           setProducts(res)
-    //         }
-    //       })
-    //       .catch(error => {
-    //         console.log(error)
-    //       })
-    //   }, [])
 
     const handleHideAisles = () => {
         setHideAisles(true)
@@ -243,9 +228,17 @@ const UserList = (props) => {
                         <Grid.Row>
                             <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
-                                <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
-                                    <Icon name='add circle' size='big' color='black' />
-                                </Button>
+                            <Popup
+                                 style={{backgroundColor:'green'}}
+                                    trigger={
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
+                                        <Icon name='add circle' size='big' color='black' />
+                                    </Button>
+                                    }
+                                    content={`Succesfully added item ${product.name}`}
+                                    on='click'
+                                    position='bottom left'
+                                />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -271,7 +264,7 @@ const UserList = (props) => {
         )
     }
     const onSearch = (e) => {
-        setSearchText( e.target.value )
+        setSearchText(e.target.value)
         console.log(searchText)
     }
     // const filteredProducts = products.filter(product => {
@@ -292,9 +285,17 @@ const UserList = (props) => {
                         <Grid.Row>
                             <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
-                                <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
-                                    <Icon name='add circle' size='big' color='black' />
-                                </Button>
+                            <Popup
+                                 style={{backgroundColor:'green'}}
+                                    trigger={
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
+                                        <Icon name='add circle' size='big' color='black' />
+                                    </Button>
+                                    }
+                                    content={`Succesfully added item ${product.name}`}
+                                    on='click'
+                                    position='bottom left'
+                                />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -334,9 +335,18 @@ const UserList = (props) => {
                         <Grid.Row>
                             <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
-                                <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
-                                    <Icon name='add circle' size='big' color='black' />
-                                </Button>
+                                <Popup
+                                 style={{backgroundColor:'green'}}
+                                    trigger={
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price)}>
+                                        <Icon name='add circle' size='big' color='black' />
+                                    </Button>
+                                    }
+                                    content={`Succesfully added item ${product.name}`}
+                                    on='click'
+                                    position='bottom left'
+                                />
+                               
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
@@ -376,7 +386,7 @@ const UserList = (props) => {
     }
 
     useEffect(() => {
-        axios.get(HOST_API +'zist/products/', {
+        axios.get(HOST_API + 'zist/products/', {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((response) => {
