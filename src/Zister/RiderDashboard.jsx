@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Icon, Grid, Image, Form, Dropdown } from 'semantic-ui-react';
+import { Button, Icon, Grid, Image, Form, List } from 'semantic-ui-react';
 import styled from 'styled-components';
 import rider from './../../src/Assets/rider-anne.png';
 import badges from './../../src/Assets/z-badges.png';
@@ -32,10 +32,12 @@ const CenteredImage = styled(Image)`
     height: 500px;
 `;
 const ImageColumn = styled(Grid.Column)`
-   padding : 0 50px 0 0 !important;
-   text-align: center;
+   padding : 0 50px 0 0 !important;  
 `;
-
+const Headings = styled.h2`
+text-align: center;
+color: #FFBD59;
+`;
 const RiderDashboard = () => {
 
     const handleRedirect = () => {
@@ -49,39 +51,56 @@ const RiderDashboard = () => {
                     <Grid.Column width={4}>
                         <Image src={rider} />
                     </Grid.Column>
-                    <CenteredColumn width={6}>
+                    <CenteredColumn width={9}>
                         <h2> ANN’S DASHBOARD </h2>
-                        <RatedStars rating={5} />
+                        <h2> “Congrats on becoming a Zister , we appreciate your service!!.” </h2>
                         <h2> 54 Deliveries completed. </h2>
                     </CenteredColumn>
-                    <CenteredColumn width={6}>
-                        <h2> Status : Novice </h2>
-                    </CenteredColumn>
+                    <Grid.Column width={3} style={{ paddingTop: 25 }}>
+                        <h2> Current Rating</h2>
+                        <RatedStars rating={5} />
+                    </Grid.Column>
                 </Grid.Row>
                 <SpacedRows>
-                    <ImageColumn width={5}>
+                    <ImageColumn width={7}>
                         <Image src={deliveries} />
-                        <h2> Make Deliveries </h2>
+                        <Headings > Make Deliveries </Headings>
+                        <h3>
+                            Make deliveries and improve the quality of life of Zist Shoppers.
+                            Thank you for partnering with Zist Shopping; the mission would be unattainable without you,
+                            let’s continue enhancing the best level of service.
+
+                        </h3>
                     </ImageColumn>
-                    <ImageColumn width={5}>
-                    <Image src={history} />
-                        <h2> History </h2>
+                    <ImageColumn width={2} />
+                    <ImageColumn width={7}>
+                        <Image src={history} />
+                        <Headings> History </Headings>
+                        <h3>
+                            All your past orders in one place. Get to see how you’ve been rated , thank customers who tip you
+                            and also dispute Instances where an unfair rating/feedback has been provided.
+                        </h3>
                     </ImageColumn>
-                    <ImageColumn width={5}>
-                    <Image src={badges} />
-                    <h2> Badges </h2>
-                    </ImageColumn>
+
                 </SpacedRows>
                 <SpacedRows>
-                    <ImageColumn width={5}>
-                        <Image src={profile} />
-                        <h2> Profile </h2>
-                    </ImageColumn>
-                    <ImageColumn width={5}>
-                        <Image src={profile} />
-                        <h2> Sign Out </h2>
+                    <ImageColumn width={7}>
+                        <Image src={badges} />
+                        <Headings> Badges </Headings>
+                        <h3>
+                            Stand out from the pack with badges, with every badge You’re awarded you gain more and more reliability
+                            hence more frequent orders.
+                    </h3>
                     </ImageColumn>
                 </SpacedRows>
+                <Grid.Row>
+                    <Grid.Column>
+                        <List style={{textAlign:'center',fontSize:25}}>
+                            <List.Item as='a' style={{color:'#FFBD59'}} >Settings</List.Item>
+                            <List.Item as='a' style={{color:'#FFBD59'}} >Log Out</List.Item>
+                        </List>
+                    </Grid.Column>
+                </Grid.Row>
             </MainGrid>
         </MainDiv>
 

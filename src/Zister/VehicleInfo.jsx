@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import heroImg from './../../src/Assets/zister-personal-info.png';
 import {ContinueButton} from './../components/Vendor/ContinueButton';
 import history from './../History';
-
+import { HOST_API } from './../../src/endpoints';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -54,11 +56,20 @@ const SelectDropdown = styled(Dropdown)`
     margin: 0  !important;
     padding: 20px 20px !important;
 `;
-const options = [
-    { text: 'Dumy data1', value: 'Dumy data1' },
-    { text: 'Dumy data2', value: 'Dumy data2' },
-    { text: 'Dumy data3', value: 'Dumy data3' },
-    { text: 'Dumy data4', value: 'Dumy data4' },
+const color = [
+    { text: 'White', value: 'White' },
+    { text: 'Grey', value: 'Grey' },
+    { text: 'Black', value: 'Black' },
+]
+const car = [
+    { text: 'Benz', value: 'Benz' },
+    { text: 'v8', value: 'v8' },
+    { text: 'Lambo', value: 'Lambo' },
+]
+const year = [
+    { text: '2020', value: '2020' },
+    { text: '2018', value: '2018' },
+    { text: '2010', value: '2010' },
 ]
 const VehicleInfo = () => {
     const [name, setName] = useState('')
@@ -67,10 +78,40 @@ const VehicleInfo = () => {
     const [email, setEmail] = useState('')
     const [residence, setResidence] = useState('')
     const [tel, setTel] = useState('')
-
-    const handleRedirect = () => {
-        history.push('/zister-onboarding/')
+    const redirect = () => {
+        history.push('/rider-dashboard')
     }
+    
+    const handleRiderRegistration = () => {
+        axios.post(HOST_API + 'courier/provider/', {
+          // data to be sent
+          tel: tel ,
+          mode_of_transportation: licenseNumber,
+          area_of_operation: residence,
+          metadata: {
+              name: name,
+              id: id,
+              email: email
+          }
+          })
+          .then(res => {
+            if(res.status === 201){
+              console.log(res.data)
+              history.push('/zister-onboarding/')
+            } 
+       
+           }).catch(error => {
+            //  setSnackbarOpen(true)
+             toast.error(`${error}`,{
+               className:'toast',
+               draggable: true,
+               position: toast.POSITION.TOP_CENTER,
+               type: toast.TYPE.ERROR,
+               hideProgressBar: true
+             })   
+            console.log(error)
+           });
+      }
 
     return (
         <div>
@@ -98,7 +139,7 @@ const VehicleInfo = () => {
                     <Grid.Row width={16}>
                         <Grid.Column width={16}>
                             <h2 style={{ padding: '30px 0' }}> Vehicle Information </h2>
-                            <VendorForm >
+                            <VendorForm onSubmit={redirect} >
                                 <Grid>
                                     <Grid.Row>
                                         <Grid.Column width={8}>
@@ -109,7 +150,7 @@ const VehicleInfo = () => {
                                                     openOnFocus={false}
                                                     fluid
                                                     selection
-                                                    options={options}
+                                                    options={car}
                                                     onChange={(e, { value }) => setResidence({ natureOfBusiness: value })}
                                                     clearable
                                                     search
@@ -126,7 +167,7 @@ const VehicleInfo = () => {
                                                     openOnFocus={false}
                                                     fluid
                                                     selection
-                                                    options={options}
+                                                    options={color}
                                                     onChange={(e, { value }) => setResidence({ natureOfBusiness: value })}
                                                     clearable
                                                     search
@@ -145,7 +186,7 @@ const VehicleInfo = () => {
                                                     openOnFocus={false}
                                                     fluid
                                                     selection
-                                                    options={options}
+                                                    options={car}
                                                     onChange={(e, { value }) => setResidence({ natureOfBusiness: value })}
                                                     clearable
                                                     search
@@ -162,7 +203,7 @@ const VehicleInfo = () => {
                                                     openOnFocus={false}
                                                     fluid
                                                     selection
-                                                    options={options}
+                                                    options={year}
                                                     onChange={(e, { value }) => setResidence({ natureOfBusiness: value })}
                                                     clearable
                                                     search
@@ -199,7 +240,7 @@ const VehicleInfo = () => {
                                 </Grid>
 
                                 <ButtonGrid width={16} >
-                                    <ContinueButton type='submit' handleClick={handleRedirect}/>
+                                    <ContinueButton type='submit' />
                                 </ButtonGrid>
 
                             </VendorForm>

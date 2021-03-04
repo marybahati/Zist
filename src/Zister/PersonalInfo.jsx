@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import heroImg from './../../src/Assets/zister-personal-info.png';
 import {ContinueButton} from './../components/Vendor/ContinueButton';
 import history from './../History';
-
+import { HOST_API } from './../../src/endpoints';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import { withCookies, Cookies } from 'react-cookie';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -60,7 +63,7 @@ const options = [
     { text: 'Thika road', value: 'Thika road' },
     { text: 'Kinoo', value: 'Kinoo' },
 ]
-const PersonalInfo = () => {
+const PersonalInfo = (props) => {
     const [name, setName] = useState('')
     const [id, setId] = useState('')
     const [licenseNumber, setLicenseNumber] = useState('')
@@ -68,10 +71,47 @@ const PersonalInfo = () => {
     const [residence, setResidence] = useState('')
     const [tel, setTel] = useState('')
 
+    const location = Object.values(residence)
+    const areaOfOperation = location.toString();
+    const { cookies } = props
+    const userData = cookies.get('login-res')
+    const token = userData.access
+    console.log(token)
     const handleRedirect = () => {
         history.push('/zister-vehicle-info')
     }
-
+    const handleRiderRegistration = () => {
+        axios.post(HOST_API + 'courier/provider/', {
+          // data to be sent
+          tel: tel ,
+          mode_of_transportation: licenseNumber,
+          area_of_operation: areaOfOperation,
+          metadata: name,
+            //   id: id,
+            //   email: email
+          
+          },
+          { headers: { "Authorization": `Bearer ${token}` } }
+          )
+          .then(res => {
+            history.push('/zister-onboarding/')
+            if(res.status === 201){
+              console.log(res.data)
+            //   history.push('/zister-onboarding/')
+            } 
+       
+           }).catch(error => {
+            //  setSnackbarOpen(true)
+             toast.error(`${error}`,{
+               className:'toast',
+               draggable: true,
+               position: toast.POSITION.TOP_CENTER,
+               type: toast.TYPE.ERROR,
+               hideProgressBar: true
+             })   
+            console.log(error)
+           });
+      }
     return (
         <div>
             <Grid style={{ position: 'relative' }}>
@@ -98,7 +138,7 @@ const PersonalInfo = () => {
                     <Grid.Row width={16}>
                         <Grid.Column width={16}>
                         <h2 style={{padding:'30px 0'}}> Personal Information. </h2>
-                            <VendorForm >
+                            <VendorForm onSubmit={handleRedirect} >
                                 <Form.Field>
                                     <FormLabels>Name </FormLabels>
                                     <FormInput placeholder='Input your Full Name…'
@@ -154,7 +194,7 @@ const PersonalInfo = () => {
                                 </Form.Field>
 
                                 <ButtonGrid width={16} >
-                                    <ContinueButton type='submit' handleClick={handleRedirect} />
+                                    <ContinueButton type='submit' />
                                 </ButtonGrid>
 
                             </VendorForm>
@@ -170,4 +210,4 @@ const PersonalInfo = () => {
     )
 }
 
-export default PersonalInfo
+export default withCookies(PersonalInfo)

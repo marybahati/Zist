@@ -57,7 +57,7 @@ function App() {
       <Route exact path='/zister-personal-info' component={PersonalInfo} />
       <Route exact path='/zister-onboarding' component={Onboarding} />
       <Route exact path='/zister-progress' component={Progress} />
-      <Route exact path='/rider' component={RiderDashboard} />
+      <Route exact path='/rider-dashboard' component={RiderDashboard} />
       <Route exact path='/suppliers' component={Suppliers}/>
       {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>

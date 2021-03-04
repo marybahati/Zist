@@ -386,7 +386,7 @@ const LandingPage = (props) => {
   const orderNowRedirect = () => {
     history.push('/shopping')
   }
-
+console.log(userData.access)
   return (
     <MainDiv >
       {/* start of the navbar section */}
