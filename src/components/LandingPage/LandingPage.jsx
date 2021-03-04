@@ -365,9 +365,11 @@ text-align: center;
 const LandingPage = (props) => {
 
   const [location, setLocation] = useState(null);
+  // const [token, setToken] = useState();
   const [activeExploreItem, setActiveExploreItem] = useState('');
   const { cookies } = props
   const userData = cookies.get('login-res')
+  //  setToken(userData.access) 
   const token = userData.access
   const handleItemClick = (e, { name }) => setActiveExploreItem({ activeExploreItem: name });
 
@@ -516,7 +518,7 @@ const LandingPage = (props) => {
         </Grid.Row>
       </DemoGrid>
 
-      <DemoGrid>
+      {/* <DemoGrid>
         <Grid.Row>
           <Image src={step1} />
         </Grid.Row>
@@ -528,9 +530,23 @@ const LandingPage = (props) => {
             </DemoDescription>
           </DemoTitleColumn>
         </Grid.Row>
-      </DemoGrid>
-
-      <DemoGrid>
+      </DemoGrid> */}
+      <BetaGrid>
+        <BetaImageColumn width={8}> <Image src={step1} /> </BetaImageColumn>
+        <BetaRsvp width={8} textAlign='left'>
+          <Grid>
+            <Grid.Row>
+              <BetaColumnText>
+                <BetaText> 1.  With a myriad of options , select / search for the store 
+                  or item you’d like to purchase and get to have whatever it is
+                  That you’d like from wherever you’d like.
+               </BetaText>
+              </BetaColumnText>
+            </Grid.Row>
+          </Grid>
+        </BetaRsvp>
+      </BetaGrid>
+      {/* <DemoGrid>
         <Grid.Row>
           <Image src={step2} />
         </Grid.Row>
@@ -547,9 +563,25 @@ const LandingPage = (props) => {
             </DemoDescription>
           </DemoTitleColumn>
         </Grid.Row>
-      </DemoGrid>
+      </DemoGrid> */}
+      <BetaGrid>
+        <BetaRsvp width={8} textAlign='left'>
+          <Grid>
+            <Grid.Row>
+              <BetaColumnText>
+                <BetaText>
+                  2.  Get to browse through the different aisles just like you’d do
+                  in a regular store , also quickly search and add items to
+                  your list just like you’d do with a regular list.
+               </BetaText>
+              </BetaColumnText>
+            </Grid.Row>
+          </Grid>
+        </BetaRsvp>
+        <BetaImageColumn width={8}> <Image src={step2} /> </BetaImageColumn>
 
-      <DemoGrid spaced>
+      </BetaGrid>
+      {/* <DemoGrid spaced>
         <Grid.Row>
           <Image src={step3} />
         </Grid.Row>
@@ -569,7 +601,23 @@ const LandingPage = (props) => {
             </DemoDescription>
           </DemoTitleColumn>
         </Grid.Row>
-      </DemoGrid>
+      </DemoGrid> */}
+      <BetaGrid>
+        <BetaImageColumn width={8}> <Image src={step3} /> </BetaImageColumn>
+        <BetaRsvp width={8} textAlign='left'>
+          <Grid>
+            <Grid.Row>
+              <Grid.Column>
+                <BetaText> 3.  With the fastest selection to checkout process you’ll
+                find anywhere , get to focus on yourself and things that
+                matter whilst our dedicated team of Zisters gets your items
+                quickly & efficiently!
+               </BetaText>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </BetaRsvp>
+      </BetaGrid>
       <AppSectionGrid>
         <GridRows>
           <OrderNowColumns spaceVertically width={6} textAlign='center'>

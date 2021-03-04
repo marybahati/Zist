@@ -56,14 +56,15 @@ const Shopping = (props) => {
   const { cookies } = props
   const userData = cookies.get('login-res')
   const token = userData.access
-  console.log(userData)
 
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
   const [loggedIn, setLoggedIn] = useState(false);
-  // const [business, setBusiness] = useState()
+  const [business, setBusiness] = useState('')
   const [clickedBusiness, setClickedBusiness] = useState([])
   const [businesses, setBusinesses] = useState([])
+  console.log(userData,business)
+
   let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -110,6 +111,13 @@ const Shopping = (props) => {
     History.push({
       pathname: '/user-list',
       state: d
+    });
+  }
+  const handleSelectedBusiness = (e, {value}) => {
+   setBusiness({ business: value })
+    History.push({
+      pathname: '/user-list',
+      state: business
     });
   }
 
@@ -214,7 +222,7 @@ const Shopping = (props) => {
               fluid
               selection
               options={optionsResults}
-              // onChange={(e, { value }) => setBusiness({ business: value })}
+              onChange={handleSelectedBusiness}
               clearable
               search
               style={{ padding: '2rem !important' }}

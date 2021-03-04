@@ -108,12 +108,17 @@ const GreyText = styled.h2`
 color: #707070;
 `
 const UserList = (props) => {
+    const [listId,setListId] = useState()
     const { cookies } = props
     const userData = cookies.get('login-res')
     const token = userData.access 
     console.log(userData,token)
-    const clickedBusiness = (props.location && props.location.state) || '';
 
+    const cookie = new Cookies()
+    cookie.set('list-id',{path:'/'})
+
+    const clickedBusiness = (props.location && props.location.state) || '';
+    console.log(props.location && props.location.state)
     const options = [
         {
             key: 'Strawberry',
@@ -153,19 +158,21 @@ const UserList = (props) => {
     const [open, setOpen] = useState(false)
     console.log(products)
     console.log(cart)
-    // useEffect(() => {
-    //     axios.post('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/list/', { headers: { "Authorization": `Bearer ${token}` } })
-    //         .then((response) => {
-    //             console.log(response)
-    //             if (response.status == 200) {
-    //                 const res = response.data
-    //                 //   setBusinesses(res)
-    //             } 
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
-    // }, [])
+    useEffect(() => {
+        axios.post(HOST_API +'zist/list/', 
+        { name:'list'},
+        { headers: { "Authorization": `Bearer ${token}` } })
+            .then((response) => {
+                console.log(response)
+                if (response.status == 201) {
+                    const res = response.data
+                    //   setBusinesses(res)
+                } 
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
 
     // useEffect(() => {
     //     axios.get('https://cors-anywhere.herokuapp.com/http://zist.herokuapp.com/zist/business/',
