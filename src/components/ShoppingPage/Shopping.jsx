@@ -129,13 +129,13 @@ const Shopping = (props) => {
               <Grid.Row style={{ padding: '0' }}>
                 <Grid.Column width={10}>
                 </Grid.Column>
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }}>
+                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }}>
                   <SignupButtonSection />
                 </Grid.Column>
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }} >
+                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }} >
                   <LoginButtonSection />
                 </Grid.Column>
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '60px' }} >
+                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }} >
                   <Image
                     src={cartImage}
                     style={{ display: "block", margin: '0 auto' }}
