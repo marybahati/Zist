@@ -47,15 +47,12 @@ const SelectDropdown = styled(Dropdown)`
     border: none !important;
     box-shadow: none !important;
 `;
-// const Gridcolumn = styled(Grid.Column)`
-//     padding: 0;
-// `;
 
 
 const Shopping = (props) => {
   const { cookies } = props
   const userData = cookies.get('login-res')
-  const token = userData.access
+  const token = userData?.access
 
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
@@ -63,7 +60,7 @@ const Shopping = (props) => {
   const [business, setBusiness] = useState('')
   const [clickedBusiness, setClickedBusiness] = useState([])
   const [businesses, setBusinesses] = useState([])
-  console.log(userData,business)
+  console.log(token,business)
 
   let headers = {
     Accept: 'application/json',
@@ -125,57 +122,16 @@ const Shopping = (props) => {
     <div >
       <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover',height:760,width:'100% !important'}}>
 
-        {token !== undefined && token !== '' ? (
+        {token === undefined || token === '' ? (
           <Grid.Row width={16} >
-            <Grid.Column >
-              <Grid>
-                <Grid.Row>
-                  <Grid.Column width={12}>
-                  </Grid.Column>
-                  <Grid.Column width={1} style={{ paddingTop: '65px' }}>
-                    <Icon name='user circle' color='black' size='huge' />
-                  </Grid.Column>
-                  <Grid.Column width={1} style={{ paddingTop: '80px' }}>
-                    <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
-                      <Menu.Menu >
-                        <Dropdown  text='Account' icon='' >
-                          <Dropdown.Menu>
-                            <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
-                            <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                        </Menu.Menu>
-                    </Menu>
-                  </Grid.Column>
-                    <Grid.Column width={1} style={{ paddingTop: '60px' }}>
-                      <Image
-                        src={cartImage}
-                        style={{ display: "block", margin: '0 auto' }}
-                      />
-                    </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Grid.Column>
-          </Grid.Row>
-        ) : (
-        <Grid.Row width={16} >
           <Grid.Column >
             <Grid >
               <Grid.Row style={{ padding: '0' }}>
                 <Grid.Column width={10}>
-                  {/* <List style={{ display: 'inline-block' }}>
-                        <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '100px' }}>
-                          HELP
-                    </List.Item>
-                      </List> */}
                 </Grid.Column>
-                {/* {userId == null ? ( */}
                 <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }}>
                   <SignupButtonSection />
                 </Grid.Column>
-                {/* ) : null} */}
-
-
                 <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '70px' }} >
                   <LoginButtonSection />
                 </Grid.Column>
@@ -188,6 +144,44 @@ const Shopping = (props) => {
               </Grid.Row>
             </Grid>
 
+          </Grid.Column>
+        </Grid.Row>
+         
+        ) : (
+          <Grid.Row width={16} >
+          <Grid.Column >
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={12}>
+                       <List style={{ display: 'inline-block' }}>
+                      <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '30px' }}>
+                        HELP
+                  </List.Item>
+                    </List>
+                </Grid.Column>
+                <Grid.Column width={1} style={{ paddingTop: '15px' }}>
+                  <Icon name='user circle' color='black' size='huge' />
+                </Grid.Column>
+                <Grid.Column width={1} style={{ paddingTop: '35px' }}>
+                  <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
+                    <Menu.Menu >
+                      <Dropdown  text='Account' icon='' >
+                        <Dropdown.Menu>
+                          <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
+                          <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                      </Menu.Menu>
+                  </Menu>
+                </Grid.Column>
+                  <Grid.Column width={1} style={{ paddingTop: '13px' }}>
+                    <Image
+                      src={cartImage}
+                      style={{ display: "block", margin: '0 auto' }}
+                    />
+                  </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Grid.Column>
         </Grid.Row>
          )} 

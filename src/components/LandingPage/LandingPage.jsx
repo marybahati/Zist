@@ -369,6 +369,7 @@ const LandingPage = (props) => {
   const [activeExploreItem, setActiveExploreItem] = useState('');
   const { cookies } = props
   const userData = cookies.get('login-res')
+  const token = userData?.access
   //  setToken(userData.access) 
   // const token = userData.access
   const handleItemClick = (e, { name }) => setActiveExploreItem({ activeExploreItem: name });
@@ -386,12 +387,13 @@ const LandingPage = (props) => {
   const orderNowRedirect = () => {
     history.push('/shopping')
   }
-console.log(userData.access)
+console.log(token)
+console.log(token !== undefined || token !== '')
   return (
     <MainDiv >
       {/* start of the navbar section */}
       <NavbarGrid>
-      { userData.access == undefined && userData.access == '' ? (
+      { token === undefined || token === '' ? (
         <Grid.Row style={{ padding: '10px 0 0 0 ' }}>
         <Grid.Column width={12} >
           <SignupButtonSection />
@@ -417,7 +419,12 @@ console.log(userData.access)
           <Grid.Column >
             <Grid>
               <Grid.Row>
-                <Grid.Column width={12}>
+              <Grid.Column width={12}>
+                       <List style={{ display: 'inline-block' }}>
+                      <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '13px' }}>
+                        HELP
+                  </List.Item>
+                    </List>
                 </Grid.Column>
                 <Grid.Column width={1} style={{ paddingTop: '0px' }}>
                   <Icon name='user circle' color='black' size='huge' />
