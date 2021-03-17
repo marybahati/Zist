@@ -35,6 +35,7 @@ const LoginModal = (props) => {
             if(res.status === 200 ){
               console.log(res.data)
               cookies.set('login-res', res.data,{ path: '/' })
+              window.location.reload(false);
             //  setSnackbarOpen(true)
              toast.success("You have successfully logged in",{
                className:'toast',
@@ -67,7 +68,7 @@ const LoginModal = (props) => {
         open={props.modalOpen}
         size='tiny'
         closeOnEscape={true}
-        centered={false}
+        centered={true}
         style={{ padding: '40px 15px' }}
       >
         <Header style={{ border: '0' }}>
