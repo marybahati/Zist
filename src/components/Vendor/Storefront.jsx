@@ -8,6 +8,7 @@ import { ContinueButton } from './ContinueButton';
 import { withCookies, Cookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import {HOST_API} from './../../endpoints';
+import Dropzone from "react-dropzone";
 
 const MainDiv = styled.div`
    background: #F9F7F1;
@@ -48,6 +49,17 @@ const Titles = styled.h2`
 const ColumnForm = styled(Grid.Column)`
     padding: 0 !important;
 `
+const DropzoneDiv = styled.div`
+text-align: center;
+  padding: 120px 0 !important;
+  /* border: 3px dashed #eeeeee; */
+  background-color: #f6f6f6;
+  color: #bdbdbd;
+  height:300px;
+//   margin: auto !important;
+
+`;
+
 const Storefront = (props) => {
     const { cookies } = props
     const userData = cookies.get('login-res')
@@ -55,7 +67,10 @@ const Storefront = (props) => {
     const token = userData.access 
     console.log(userData,token,id)
     const businessData = userData.business[0]
+    const [fileNames, setFileNames] = useState([]);
 
+    const handleDrop = acceptedFiles => setFileNames(acceptedFiles.map(file => file.name));
+ 
     useEffect(() => {
         axios.get(HOST_API +`zist/vendor/business/${id}/`, {
       headers: {
@@ -136,7 +151,20 @@ const Storefront = (props) => {
                     </Grid.Row>
                     <Grid.Row>
                         <Card fluid={true} style={{ borderRadius: '8px ', border: '1px solid #707070' }}>
-                            <Image src={card1} wrapped ui={false} />
+                            {/* <Image src={card1} wrapped ui={false} /> */}
+                            <Dropzone
+                                onDrop={handleDrop}
+                                accept="image/*"
+                                minSize={1024}
+                                maxSize={3072000}
+                            >
+                                {({ getRootProps, getInputProps }) => (
+                                    <DropzoneDiv {...getRootProps({ className: "dropzone" })}>
+                                        <input {...getInputProps()} />
+                                        <h3 style={{margin:'auto !important'}}> Add the business profile picture by clicking here </h3>
+                                    </DropzoneDiv>
+                                )}
+                            </Dropzone>
                             <Card.Content>
                                 <Card.Header> {name} <Icon name='check circle' color='yellow' /></Card.Header>
                                 <Grid>
