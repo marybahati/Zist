@@ -4,6 +4,7 @@ import { Button, Icon, Grid, Image, Input,Form } from 'semantic-ui-react';
 import styled from 'styled-components';
 import heroImage from './../../Assets/update-profile.png'
 import { useState } from 'react';
+import History from '../../History';
 const MainDiv = styled.div`
    background: #FFECD2D3 0% 0% no-repeat padding-box;
    opacity: 1;
@@ -52,9 +53,15 @@ const SaveButton = styled(Button)`
     margin: 50px 0 !important;
 `;
 const UpdateUserProfile = (props) => {
+    const cookies = new Cookies()
+
     const [name,setName] =  useState('')
     const [DOB,setDOB] = useState()
     const [tel,setTel] = useState()
+    const handleUpdateProfile = () => {
+        cookies.set('name',name,{path: '/'})
+        History.goBack()
+    }
     return (
         <MainDiv>
             <MainGrid>
@@ -77,7 +84,7 @@ const UpdateUserProfile = (props) => {
                 </Grid.Row>
                 <Grid.Row width={16}>
                         <Grid.Column width={16}>
-                            <VendorForm >
+                            <VendorForm onSubmit={handleUpdateProfile}>
                                 <Form.Field>
                                     <FormLabels>Name</FormLabels>
                                     <FormInput placeholder='Enter your first name for a personalised touch'

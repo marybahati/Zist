@@ -18,7 +18,7 @@ import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
 import { withCookies, Cookies } from 'react-cookie';
 import Cards from './Cards';
 import History from '../../History';
-import {HOST_API} from './../../endpoints';
+import { HOST_API } from './../../endpoints';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
@@ -53,14 +53,17 @@ const Shopping = (props) => {
   const { cookies } = props
   const userData = cookies.get('login-res')
   const token = userData?.access
-
+  const names = cookies.get('name')
+  const splitName = names?.split(' ')
+  const name = splitName[0]
+  console.log(names, name)
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
   const [loggedIn, setLoggedIn] = useState(false);
   const [business, setBusiness] = useState('')
   const [clickedBusiness, setClickedBusiness] = useState([])
   const [businesses, setBusinesses] = useState([])
-  console.log(token,business)
+  console.log(token, business)
 
   let headers = {
     Accept: 'application/json',
@@ -70,10 +73,10 @@ const Shopping = (props) => {
   }
 
   const fetchBusinesses = () => {
-    axios.get( HOST_API +'zist/business/', 
-    {
-     headers: headers 
-    }
+    axios.get(HOST_API + 'zist/business/',
+      {
+        headers: headers
+      }
     )
       .then(res => {
         console.log(res.data.results)
@@ -110,81 +113,103 @@ const Shopping = (props) => {
       state: d
     });
   }
-  const handleSelectedBusiness = (e, {value}) => {
-   setBusiness({ business: value })
-    History.push({
-      pathname: '/user-list',
-      state: business
-    });
+  const handleSelectedBusiness = (e) => {
+    setBusiness(e.target.value)
+    // History.push({
+    //   pathname: '/user-list',
+    //   state: business
+    // });
   }
-
+  console.log(business)
   return (
     <div >
-      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover',height:760,width:'100% !important'}}>
+      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: 760, width: '100% !important' }}>
 
         {token === undefined || token === '' ? (
           <Grid.Row width={16} >
-          <Grid.Column >
-            <Grid >
-              <Grid.Row style={{ padding: '0' }}>
-                <Grid.Column width={10}>
-                </Grid.Column>
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }}>
-                  <SignupButtonSection />
-                </Grid.Column>
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }} >
-                  <LoginButtonSection />
-                </Grid.Column>
-                <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }} >
-                  <Image
-                    src={cartImage}
-                    style={{ display: "block", margin: '0 auto' }}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-
-          </Grid.Column>
-        </Grid.Row>
-         
-        ) : (
-          <Grid.Row width={16} >
-          <Grid.Column >
-            <Grid>
-              <Grid.Row>
-                <Grid.Column width={12}>
-                       <List style={{ display: 'inline-block' }}>
-                      <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '30px' }}>
-                        HELP
-                  </List.Item>
-                    </List>
-                </Grid.Column>
-                <Grid.Column width={1} style={{ paddingTop: '15px' }}>
-                  <Icon name='user circle' color='black' size='huge' />
-                </Grid.Column>
-                <Grid.Column width={1} style={{ paddingTop: '35px' }}>
-                  <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
-                    <Menu.Menu >
-                      <Dropdown  text='Account' icon='' >
-                        <Dropdown.Menu>
-                          <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
-                          <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                      </Menu.Menu>
-                  </Menu>
-                </Grid.Column>
-                  <Grid.Column width={1} style={{ paddingTop: '13px' }}>
+            <Grid.Column >
+              <Grid >
+                <Grid.Row style={{ padding: '0' }}>
+                  <Grid.Column width={10}>
+                  </Grid.Column>
+                  <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }}>
+                    <SignupButtonSection />
+                  </Grid.Column>
+                  <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }} >
+                    <LoginButtonSection />
+                  </Grid.Column>
+                  <Grid.Column width={2} style={{ padding: '15px 0 0 0', marginTop: '20px' }} >
                     <Image
                       src={cartImage}
                       style={{ display: "block", margin: '0 auto' }}
                     />
                   </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Grid.Column>
-        </Grid.Row>
-         )} 
+                </Grid.Row>
+              </Grid>
+
+            </Grid.Column>
+          </Grid.Row>
+
+        ) : (
+            <Grid.Row width={16} >
+              <Grid.Column >
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column width={12}>
+                      <List style={{ display: 'inline-block' }}>
+                        <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '30px' }}>
+                          HELP
+                  </List.Item>
+                      </List>
+                    </Grid.Column>
+                    {name == undefined || name == '' ? (
+                      <Grid.Column width={2}>
+                        <Grid.Row>
+                          <Grid.Column width={1} style={{ paddingTop: '15px' }}>
+                            <Grid>
+                              <Grid.Row>
+                                <Grid.Column width={8}>
+                                  <Icon name='user circle' color='black' size='huge' />
+                                </Grid.Column>
+                                <Grid.Column width={8} style={{ paddingTop: '20px' }}>
+                                  <Menu size='huge' style={{ background: 'inherit', border: 'none', boxShadow: 'none' }} >
+                                    <Menu.Menu >
+                                      <Dropdown text='Account' icon='' >
+                                        <Dropdown.Menu>
+                                          <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
+                                          <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                      </Dropdown>
+                                    </Menu.Menu>
+                                  </Menu> 
+                               </Grid.Column>
+                              </Grid.Row>
+                            </Grid>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid.Column>
+                    ) : (
+                        <Grid.Column width={2} style={{ paddingTop: '27px',textAlign:'center' }} >
+                          <Grid>
+                          <Grid.Row>
+                            <Grid.Column>
+                              <h2> {name} </h2>
+                            </Grid.Column>
+                          </Grid.Row>
+                        </Grid>
+                        </Grid.Column>
+                      )}
+                    <Grid.Column width={1} style={{ paddingTop: '13px' }}>
+                      <Image
+                        src={cartImage}
+                        style={{ display: "block", margin: '0 auto' }}
+                      />
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Grid.Column>
+            </Grid.Row>
+          )}
         <Grid.Row width={16} style={{ padding: '0 ' }}>
 
           <Input labelPosition='right' type='search'
@@ -194,7 +219,8 @@ const Shopping = (props) => {
               width: "50%",
               border: "1px solid #707070",
               fontSize: '20px',
-              height: '90px '
+              height: '90px ',
+              padding: 0,
             }}
             size="small"
             placeholder='SEARCH FOR A PLACE OR ITEM'>
@@ -224,7 +250,18 @@ const Shopping = (props) => {
             {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
           </Input>
           <datalist id="searchOption">
-            <option value="Camaro" />
+            <option value="Camaro" style={{ background: `${card2}` }}>
+              {/* <Grid>
+                <Grid.Row>
+                  <Grid.Column width={6}>
+                        <Image src={card2} />
+                  </Grid.Column>
+                  <Grid.Column width={10}>
+                    <h3> vegetable store </h3>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid> */}
+            </option>
             <option value="Corvette" />
             <option value="Impala" />
             <option value="Colorado" />
@@ -259,14 +296,6 @@ const Shopping = (props) => {
 
         <Grid.Row style={{ padding: '10px 0 15px 0px ' }}>
           <SubHeading>Want a look around ? Here are some suggestions to get you started.</SubHeading> <br />
-          {/* { token !== '' && token !== undefined ? (
-
-<div> meeeeeeeeeeeeeeeeeeeeee</div>
-      ):(
-<div> ussssssssssssssssssssssss </div>
-      )
-      
-      } */}
         </Grid.Row>
 
         <Rows style={{ padding: '20px 0 20px 0px', textAlign: 'center !important ' }} width={16}>
@@ -335,7 +364,7 @@ const Shopping = (props) => {
                       {business.name}
                       <Icon name='check circle' color='yellow' />
                     </Card.Header>
-                    <Card.Header style={{ padding: '10px 0',fontSize:20 }}>
+                    <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
                       {business.bio}
                     </Card.Header>
                     <List bulleted horizontal >
