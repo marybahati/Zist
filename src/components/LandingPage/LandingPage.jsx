@@ -370,8 +370,11 @@ const LandingPage = (props) => {
   const { cookies } = props
   const userData = cookies.get('login-res')
   const token = userData?.access
-  //  setToken(userData.access) 
-  // const token = userData.access
+  const names = cookies.get('name')
+  const splitName = names?.split(' ')
+  const name = splitName[0]
+  console.log(names, name)
+
   const handleItemClick = (e, { name }) => setActiveExploreItem({ activeExploreItem: name });
 
   const handleRedirect = () => {
@@ -426,21 +429,43 @@ console.log(token !== undefined || token !== '')
                   </List.Item>
                     </List>
                 </Grid.Column>
-                <Grid.Column width={1} style={{ paddingTop: '0px' }}>
-                  <Icon name='user circle' color='black' size='huge' />
-                </Grid.Column>
-                <Grid.Column width={1} style={{ paddingTop: '13px' }}>
-                  <Menu size='huge' style={{background:'inherit',border:'none',boxShadow:'none'}} >
-                    <Menu.Menu >
-                      <Dropdown  text='Account' icon='' >
-                        <Dropdown.Menu>
-                          <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
-                          <Dropdown.Item > Log out </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                      </Menu.Menu>
-                  </Menu>
-                </Grid.Column>
+                {name == undefined || name == '' ? (
+                      <Grid.Column width={2}>
+                        <Grid.Row>
+                          <Grid.Column width={1} style={{ paddingTop: '0px' }}>
+                            <Grid>
+                              <Grid.Row>
+                                <Grid.Column width={8}>
+                                  <Icon name='user circle' color='black' size='huge' />
+                                </Grid.Column>
+                                <Grid.Column width={8} style={{ paddingTop: '17px' }}>
+                                  <Menu size='huge' style={{ background: 'inherit', border: 'none', boxShadow: 'none' }} >
+                                    <Menu.Menu >
+                                      <Dropdown text='Account' icon='' >
+                                        <Dropdown.Menu>
+                                          <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
+                                          <Dropdown.Item > Log out </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                      </Dropdown>
+                                    </Menu.Menu>
+                                  </Menu> 
+                               </Grid.Column>
+                              </Grid.Row>
+                            </Grid>
+                          </Grid.Column>
+                        </Grid.Row>
+                      </Grid.Column>
+                    ) : (
+                        <Grid.Column width={2} style={{ paddingTop: '7px',textAlign:'center' }} >
+                          <Grid>
+                          <Grid.Row>
+                            <Grid.Column>
+                              <h2> {name} </h2>
+                            </Grid.Column>
+                          </Grid.Row>
+                        </Grid>
+                        </Grid.Column>
+                      )}
                   <Grid.Column width={1} style={{ paddingTop: '0px' }}>
                     <Image
                       src={cartImage}
