@@ -719,7 +719,7 @@ console.log(token !== undefined || token !== '')
           </FooterGrid>
           <FooterGrid width={5}>
             <FooterTitle>Zister</FooterTitle>
-            <FooterTitle as='a' href='/zister-personal-info'>Become a Zister</FooterTitle>
+            <FooterTitle as='a' href='/welcome'>Become a Zister</FooterTitle>
             <List>
               <FooterTitle as='a'>Zister Help</FooterTitle>
             </List>

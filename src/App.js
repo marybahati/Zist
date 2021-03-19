@@ -29,6 +29,7 @@ import RiderDashboard from './Zister/RiderDashboard';
 import PaymentDetails from './components/Vendor/PaymentDetails';
 import VendorIntro from './components/Vendor/Vendor-Intro';
 import Suppliers from './components/Vendor/Suppliers';
+import WelcomePage from './Zister/WelcomePage';
 function App() {
   return (
     <Router history={history} >
@@ -59,6 +60,7 @@ function App() {
       <Route exact path='/zister-progress' component={Progress} />
       <Route exact path='/rider-dashboard' component={RiderDashboard} />
       <Route exact path='/suppliers' component={Suppliers}/>
+      <Route exact path='/welcome' component={WelcomePage}/>
       {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>
   );

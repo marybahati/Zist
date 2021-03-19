@@ -30,6 +30,11 @@ text-align: center;
 text-decoration: underline;
 color: #FFBD59;
 `;
+const Links = styled(List.Item)`
+color: #FFBD59;
+font-size: 20px;
+padding: 50px 0 !important;
+`
 
 const Dashboard = () => {
     const analyticsRedirect = () => {
@@ -82,51 +87,64 @@ const Dashboard = () => {
                         </Grid>
                     </CenteredColumn>
                 </Grid.Row>
-                <Grid.Row style={{paddingTop:50}}>
+                <Grid.Row style={{ paddingTop: 50 }}>
                     <Grid.Column width={7}>
                         <ImageButtons onClick={storefrontRedirect}>
                             <Image src={storefront} />
                             <Headers> Storefront </Headers>
                         </ImageButtons>
-                        <h3> Just like a physical storefront , the digital storefront is how You introduce your business to 
-                            potential customers. With selection of profile image , small description of Your business and 
-                            classification of items , stand out Just like you’d do with a flashy neon sign.
+                        <h3> Just like a physical storefront , the digital storefront is how You introduce your business to
+                        potential customers. With selection of profile image , small description of Your business and
+                        classification of items , stand out Just like you’d do with a flashy neon sign.
                         </h3>
                     </Grid.Column>
-                    <Grid.Column width={2}/>
+                    <Grid.Column width={2} />
                     <Grid.Column width={7}>
                         <ImageButtons onClick={inventoryRedirect}>
                             <Image src={inventory} />
                             <Headers> Inventory </Headers>
                         </ImageButtons>
                         <h3> The days of managing your inventory by book and pen are over! With Zist Inventory get to put all your
-                             items onto your digital shelf ,arrange them into aisles for easy curation by the customer ; with
-                              opportunities to get Supplies within the platform, business will never be the same again.
+                        items onto your digital shelf ,arrange them into aisles for easy curation by the customer ; with
+                        opportunities to get Supplies within the platform, business will never be the same again.
                         </h3>
                     </Grid.Column>
                 </Grid.Row>
-                <Grid.Row style={{paddingTop:50}}>
+                <Grid.Row style={{ paddingTop: 50 }}>
                     <Grid.Column width={7}>
                         <ImageButtons onClick={serviceRedirect}>
                             <Image src={serviceDesk} />
                             <Headers> Service Desk </Headers>
                         </ImageButtons>
                         <h3> There’s no business without customers, with service desk get to receive feedback
-                             that helps you improve , dispute any wrong ratings / comments , also in 
-                             specialised situations have one/one conversations with customers to suggest what
-                              it is they might need.
+                        that helps you improve , dispute any wrong ratings / comments , also in
+                        specialised situations have one/one conversations with customers to suggest what
+                        it is they might need.
                         </h3>
                     </Grid.Column>
-                    <Grid.Column width={2}/>
+                    <Grid.Column width={2} />
                     <Grid.Column width={7}>
                         <ImageButtons onClick={analyticsRedirect}>
                             <Image src={analytics} />
                             <Headers> Analytics </Headers>
                         </ImageButtons>
-                        <h3> Make informed decisions when it comes to product, see how your items are 
-                            performing within specific time periods. get to align your business with customer
-                             needs, also with patterns see when particular stock will be depleted.
+                        <h3> Make informed decisions when it comes to product, see how your items are
+                        performing within specific time periods. get to align your business with customer
+                        needs, also with patterns see when particular stock will be depleted.
                         </h3>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column style={{textAlign:'center'}}>
+                        <List  link >
+                            <Links as='a' href='vendor-settings' > Settings </Links> 
+                        </List>
+                        <List  link >
+                            <Links as='a' href='' > Share a link to your store </Links> 
+                        </List>
+                        <List  link >
+                            <Links as='a' href='' > Log Out </Links>
+                        </List>
                     </Grid.Column>
                 </Grid.Row>
             </MainGrid>

@@ -118,7 +118,7 @@ const UserList = (props) => {
 
 
     const clickedBusiness = (props.location && props.location.state) || '';
-    console.log(props.location && props.location.state)
+    console.log(props.location && props.location.state,clickedBusiness)
     const options = [
         {
             key: 'Strawberry',

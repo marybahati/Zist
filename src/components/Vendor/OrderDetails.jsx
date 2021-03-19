@@ -83,6 +83,7 @@ const OrderDetails = (props) => {
                     <Collapsible width={16} fluid trigger={<DropdownButtons > Address Details <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                         <Grid width={16}  >
                             <Grid.Row >
+                                <Grid.Column width={1}/>
                                 <Grid.Column width={4} >
                                     <h3> Name: </h3>
                                 </Grid.Column>
@@ -91,6 +92,7 @@ const OrderDetails = (props) => {
                                 </Grid.Column>
                             </Grid.Row>
                             <Grid.Row >
+                                <Grid.Column width={1} />
                                 <Grid.Column width={4} >
                                     <h3>  Address: </h3>
                                 </Grid.Column>

@@ -65,68 +65,20 @@ const TabImages = styled(Image)`
 `;
 const panes = [
     {
-        menuItem: <ImageButtons><TabImages src={Analyse} /> Analytics </ImageButtons>,
+        menuItem: <ImageButtons><TabImages src={transact} /> Transcation </ImageButtons>,
+        render: () => <TabPanels attached={false} ><Transcations/> </TabPanels>,
+    },
+    {
+        menuItem: <ImageButtons><TabImages src={Analyse} /> Product Analytics </ImageButtons>,
         render: () => <TabPanels attached={false}>
             <TabGrid>
-                <TitleRow>
+                {/* <TitleRow>
                     <h2> STORE ANALYSIS </h2>
-                </TitleRow>
+                </TitleRow> */}
                 <SectionDiv>
                     <Grid>
-                        <Grid.Row>
-                            <h2> PRODUCT INTEL </h2>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Columns width={4} >
-                                <h2> Item on flashlight </h2>
-                            </Columns>
-                            <Grid.Column width={3} >
-                                <h2> Avacados </h2>
-                            </Grid.Column>
-                            <Grid.Column width={5} >
-                                <h2> Quantity sourced as <br /> from 10/06/2020 </h2>
-                            </Grid.Column>
-                            <Grid.Column width={4} >
-                                <h2> Quantity sold by <br /> 01/07/2020 </h2>
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Columns width={4} >
-                                <Images src={avocado} />
-                            </Columns>
-                            <ProductColumns width={3} >
-                                <h2> Hass </h2>
-                                <h2> Fuerte </h2>
-                            </ProductColumns>
-                            <ProductColumns width={5} >
-                                <h2> 150 pieces </h2>
-                                <h2> 75 pieces </h2>
-                            </ProductColumns>
-                            <ProductColumns width={4} >
-                                <h2> 130 </h2>
-                                <h2> 45 </h2>
-                            </ProductColumns>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Messages icon >
-
-                                <Message.Content>
-                                    <Message.Header>
-                                        Hass avocados seem to be more marketable than Fuerte ,
-                                        the current ratio of requesting being 2:1 has yielded a 86.7% sales
-                                        rate in sales of Hass avocados as opposed to 60% On the fuerte avocados ,
-                                        we suggest upping the request ratio to 3:1
-                            </Message.Header>
-                                </Message.Content>
-                                <Icon name='exclamation circle ' />
-                            </Messages>
-                        </Grid.Row>
-                    </Grid>
-                </SectionDiv>
-                <SectionDiv>
-                    <Grid>
-                        <Grid.Row>
-                            <h2> Slow moving stock </h2>
+                    <Grid.Row>
+                            <h2 style={{color:'#FFBD59'}}> Slow moving stock </h2>
                         </Grid.Row>
                         <Grid.Row>
                             <Columns width={4} >
@@ -144,7 +96,7 @@ const panes = [
                         </Grid.Row>
                         <Grid.Row>
                             <Columns width={4} >
-                                <Images src={rasberry} />
+                                <Images src={oranges} />
                             </Columns>
                             <ProductColumns width={3} >
                                 <h2> Raspberries </h2>
@@ -161,9 +113,8 @@ const panes = [
 
                                 <Message.Content>
                                     <Message.Header>
-                                        Raspberries have been the commodity with the most surplus , we suggest
-                                        packaging them in an offer , maybe by discounting them or pairing them with
-                                        products that can go hand in hand with them I.e blueberries.
+                                    Raspberries have been the commodity with the most surplus ,
+                                    we suggest maybe discounting them and putting them on offer.
                             </Message.Header>
                                 </Message.Content>
                                 <Icon name='exclamation circle ' />
@@ -174,7 +125,7 @@ const panes = [
                 <SectionDiv>
                     <Grid>
                         <Grid.Row>
-                            <h2> Depleting stock </h2>
+                            <h2 style={{color:'#FFBD59'}}> Depleting stock </h2>
                         </Grid.Row>
                         <Grid.Row>
                             <Columns width={4} >
@@ -208,9 +159,8 @@ const panes = [
                             <Messages icon >
                                 <Message.Content>
                                     <Message.Header>
-                                        On average , over a span of 21 days , 10 oranges have been sold Per day.
-                                        The supply is expected to deplete in 4 days. We suggest Making a request
-                                        for additional supply.
+                                    On average , over a span of 21 days , 10 oranges have been sold Per day. The supply is expected to deplete in 4 days.
+                                     We suggest Making a request for additional supply.
                                     </Message.Header>
                                 </Message.Content>
                                 <Icon name='exclamation circle ' />
@@ -218,7 +168,7 @@ const panes = [
                         </Grid.Row>
                     </Grid>
                 </SectionDiv>
-                <Grid.Row>
+                {/* <Grid.Row>
                     <LineGraph />
                 </Grid.Row>
                 <TargetRow>
@@ -242,14 +192,10 @@ const panes = [
                     <h3> SUGGESTION (KSHS.7,000) </h3>
                 </Grid.Row>
 
-                <Counter/>
+                <Counter/> */}
 
             </TabGrid>
         </TabPanels>,
-    },
-    {
-        menuItem: <ImageButtons><TabImages src={transact} /> Transcation </ImageButtons>,
-        render: () => <TabPanels attached={false} ><Transcations/> </TabPanels>,
     }
 ]
 
@@ -257,11 +203,11 @@ export const Analytics = () => {
     return (
         <MainDiv>
             <MainGrid>
-                <Grid.Row>
+                {/* <Grid.Row>
                     <Image src={introImage} />
-                </Grid.Row>
+                </Grid.Row> */}
                 <Grid.Row >
-                    <Grid.Column style={{ textAlign: 'center' }} >
+                    <Grid.Column style={{ textAlign: 'center',paddingTop:30 }} >
                         <h2 >
                             STAY ON TOP OF THE DAY TO DAY PART OF THE BUSINESS.
                         </h2>

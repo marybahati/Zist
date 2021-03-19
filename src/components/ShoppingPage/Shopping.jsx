@@ -91,7 +91,7 @@ const Shopping = (props) => {
     fetchBusinesses()
   }, [])
 
-  const optionsResults = businesses?.map(x => ({ text: x.name, value: x.id, image: { src: card4 } }))
+  const optionsResults = businesses?.map(x => ({ text: x.name, value: x.name, image: { src: card4 } }))
 
 
   const countryOptions = [
@@ -113,12 +113,12 @@ const Shopping = (props) => {
       state: d
     });
   }
-  const handleSelectedBusiness = (e) => {
-    setBusiness(e.target.value)
-    // History.push({
-    //   pathname: '/user-list',
-    //   state: business
-    // });
+  const handleSelectedBusiness = (e,{value}) => {
+    setBusiness({business:value})
+    History.push({
+      pathname: '/user-list',
+      state: business
+    });
   }
   console.log(business)
   return (
@@ -236,7 +236,7 @@ const Shopping = (props) => {
             />
             <SelectDropdown
               placeholder='SEARCH FOR A PLACE OR AN ITEM'
-              noResultsMessage='Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else'
+              noResultsMessage={`Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else`}
               openOnFocus={false}
               scrolling
               fluid
@@ -245,7 +245,7 @@ const Shopping = (props) => {
               onChange={handleSelectedBusiness}
               clearable
               search
-              style={{ padding: '2rem !important' }}
+              style={{ padding: '2rem !important',width: '100%' }}
             />
             {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
           </Input>
