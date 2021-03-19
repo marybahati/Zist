@@ -130,11 +130,12 @@ const CreateList = (props) => {
             image: { src: blueberries },
         },
     ]
-    const info = (props.location && props.location.state) || '';
+    const [info, setInfo] = useState((props.location && props.location.state) || '')
+    console.log(info, 'iiiiiiii')
     const {clickedBusiness} = (props.location && props.location.state) || '';
-     console.log(props.location && props.location.state)
+    //  console.log(props.location && props.location.state)
     const [hideAisles, setHideAisles] = useState(false)
-    const [inStock, setInStock] = useState()
+    const [inStock, setInStock] = useState(1)
     const [inStock2, setInStock2] = useState(4)
     const [inStock3, setInStock3] = useState(7)
     const [searchText, setSearchText] = useState('')
@@ -148,37 +149,21 @@ const CreateList = (props) => {
         setHideAisles(false)
     }
 
-    const increment = (price) => setInStock(stock => stock + 1);
+    const changeQuantity = (e, index, val) => {
+        e.preventDefault()
+        const curObj = info[index]
+        curObj['quantity'] += val
+        info[index] = curObj
+        setInfo([...info])
+    }
 
-    const decrement = (price) => {
+    const decrement = (e,price) => {
         if (price == 0) {
             setInStock(0)
         } else {
             setInStock(stock => stock - 1)
         }
     }
-    const increment2 = () => setInStock2(stock => stock + 1);
-
-    const decrement2 = () => {
-        if (inStock2 == 0) {
-            setInStock2(0)
-        } else {
-            setInStock2(stock => stock - 1)
-        }
-    }
-    const increment3 = () => setInStock3(stock => stock + 1);
-
-    const decrement3 = () => {
-        if (inStock3 == 0) {
-            setInStock3(0)
-        } else {
-            setInStock3(stock => stock - 1)
-        }
-    }
-    // const calculateCost = () => {
-    //     var ItemCost = inStock*price
-    //     setCost(itemCost)
-    // }
 
     const handleOrderDetailsDisplay = () => {
         history.push({
@@ -187,6 +172,14 @@ const CreateList = (props) => {
     })
     }
 
+    // const save = async(obj) => {
+    //     const res = await decrement()
+    // }
+    // const postInfo = () => {
+    //     info.map(obj => {
+    //         save(obj)
+    //     })
+    // }
 
     return (
         <MainDiv>
@@ -200,26 +193,9 @@ const CreateList = (props) => {
                         <UserName> {clickedBusiness} </UserName>
                     </IntroColumn>
                 </Grid.Row>
-                {/* {hideAisles ? (
-                    <Grid.Row>
-                        <Grid.Column width={3}> <HideAisleButton onClick={handleShowAisles}> Show Aisles </HideAisleButton> </Grid.Column>
-                    </Grid.Row>
-                ) : (
-                        <Grid.Row>
-                            <AisleColumn width={3} >   
-                                <AisleButton> Fruits </AisleButton>
-                            </AisleColumn>
-                            <AisleColumn width={3}> <AisleButton> Greens </AisleButton> </AisleColumn>
-                            <AisleColumn width={3}> <AisleButton> Snacks </AisleButton> </AisleColumn>
-                            <AisleColumn width={3}> <AisleButton> Cooking </AisleButton> </AisleColumn>
-                            <Grid.Column width={3}> <HideAisleButton onClick={handleHideAisles}> Hide Aisles </HideAisleButton> </Grid.Column>
-                        </Grid.Row>
-                    )}
-                <Grid.Row>
-                    <SearchText> Search for what you want and add it just like you’d do with a regular list… </SearchText>
-                </Grid.Row> */}
-                { info ?.map(product => {
-                    console.log(product)
+              
+                { info?.map((product, index) => {
+                    //console.log(product)
                         return (
                 <ProductRows>
                     <Grid.Column width={4}>
@@ -233,11 +209,16 @@ const CreateList = (props) => {
                         <Grid>
                             <Grid.Row>
                                 <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={decrement}> - </ButtonCounters>
+                                    {product.quantity === 1 ? (<>
+                                        <ButtonCounters > x  </ButtonCounters>
+                                    </>) 
+                                    : (<>
+                                    <ButtonCounters onClick={ e => changeQuantity(e,index,-1)}> - </ButtonCounters>
+                                    </>) }
                                 </CenteredTextColumn>
-                                <StockColumn width={9}> <h2> {product.productPrice} </h2> </StockColumn>
+                                <StockColumn width={9}> <h2> {product.quantity} </h2> </StockColumn>
                                 <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={increment}> + </ButtonCounters>
+                                    <ButtonCounters onClick={e => changeQuantity(e,index,1)}> + </ButtonCounters>
                                 </CenteredTextColumn>
                             </Grid.Row>
                         </Grid>
@@ -248,54 +229,7 @@ const CreateList = (props) => {
                 </ProductRows>
                   )
                 })}
-                {/* <ProductRows>
-                    <Grid.Column width={4}>
-                        <ProductImages src={strawberries} />
-                    </Grid.Column>
-                    <ProductName center width={3} >
-                        <h3> Strawberries </h3>
-                    </ProductName>
-                    <ItemsColumn width={5}>
-                        <Grid>
-                            <Grid.Row>
-                                <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={decrement2}> - </ButtonCounters>
-                                </CenteredTextColumn>
-                                <StockColumn width={9}> <h2> {inStock2} </h2> </StockColumn>
-                                <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={increment2}> + </ButtonCounters>
-                                </CenteredTextColumn>
-                            </Grid.Row>
-                        </Grid>
-                    </ItemsColumn>
-                    <ItemsColumn width={3}>
-                        <h3> Kshs. 5000 </h3>
-                    </ItemsColumn>
-                </ProductRows>
-                <ProductRows>
-                    <Grid.Column width={4}>
-                        <ProductImages src={bananas} />
-                    </Grid.Column>
-                    <ProductName center width={3} >
-                        <h3> Banana </h3>
-                    </ProductName>
-                    <ItemsColumn width={5}>
-                        <Grid>
-                            <Grid.Row>
-                                <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={decrement3}> - </ButtonCounters>
-                                </CenteredTextColumn>
-                                <StockColumn width={9}> <h2> {inStock3} </h2> </StockColumn>
-                                <CenteredTextColumn width={3}>
-                                    <ButtonCounters onClick={increment3}> + </ButtonCounters>
-                                </CenteredTextColumn>
-                            </Grid.Row>
-                        </Grid>
-                    </ItemsColumn>
-                    <ItemsColumn width={3}>
-                        <h3> Kshs. 6000 </h3>
-                    </ItemsColumn>
-                </ProductRows> */}
+
                 <Grid.Row >
                     <BusinessColumns center>
                         <Collapsible width={16} fluid trigger={<DropdownButtons > Continue shopping from another store within Mall A <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
