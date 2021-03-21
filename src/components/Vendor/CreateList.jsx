@@ -6,8 +6,8 @@ import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/store.png'
 import Collapsible from 'react-collapsible';
+import deleteIcon from './../../Assets/delete-button.svg';
 import history from './../../History';
-import { Checkbox } from 'semantic-ui-react'
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -189,7 +189,9 @@ const CreateList = (props) => {
                             <Grid.Row>
                                 <CenteredTextColumn width={3}>
                                     {product.quantity === 1 ? (<>
-                                        <ButtonCounters > x  </ButtonCounters>
+                                        <ButtonCounters >   
+                                            <Image src={deleteIcon} />
+                                        </ButtonCounters>
                                     </>) 
                                     : (<>
                                     <ButtonCounters onClick={ e => changeQuantity(e,index,-1)}> - </ButtonCounters>
