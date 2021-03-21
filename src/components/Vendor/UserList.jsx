@@ -231,7 +231,7 @@ const UserList = (props) => {
                                 <Popup
                                     style={{ backgroundColor: 'green' }}
                                     trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1)}>
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1,product.id)}>
                                             <Icon name='add circle' size='big' color='black' />
                                         </Button>
                                     }
@@ -288,7 +288,7 @@ const UserList = (props) => {
                                 <Popup
                                     style={{ backgroundColor: 'green' }}
                                     trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1)}>
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1,product.id)}>
                                             <Icon name='add circle' size='big' color='black' />
                                         </Button>
                                     }
@@ -338,7 +338,7 @@ const UserList = (props) => {
                                 <Popup
                                     style={{ backgroundColor: 'green' }}
                                     trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1)}>
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1,product.id)}>
                                             <Icon name='add circle' size='big' color='black' />
                                         </Button>
                                     }
@@ -377,8 +377,8 @@ const UserList = (props) => {
         });
     }
 
-    const handleAddProduct = (e, productName, productPrice, quantity) => {
-        const d = { productName: productName, productPrice: productPrice, quantity:quantity}
+    const handleAddProduct = (e, productName, productPrice, quantity,id) => {
+        const d = { productName: productName, productPrice: productPrice, quantity:quantity,id:id}
         //    [...cart, d]
         console.log(d)
         setCart([...cart, d])
@@ -514,9 +514,10 @@ const UserList = (props) => {
                                             <UserName > Cooking </UserName>
                                         </Grid.Column>
                                     </Grid.Row>
-                                    {options.map(product => {
+                                    {/* {options.map(product => {
                                         return renderProducts(product)
-                                    })}
+                                    })} */}
+                                    {suggestedProducts}
                                     <Grid.Row style={{ paddingBottom: 30 }}>
                                         <Grid.Column width={10}></Grid.Column>
                                         <Grid.Column width={6}>

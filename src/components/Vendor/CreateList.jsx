@@ -134,20 +134,7 @@ const CreateList = (props) => {
     console.log(info, 'iiiiiiii')
     const {clickedBusiness} = (props.location && props.location.state) || '';
     //  console.log(props.location && props.location.state)
-    const [hideAisles, setHideAisles] = useState(false)
-    const [inStock, setInStock] = useState(1)
-    const [inStock2, setInStock2] = useState(4)
-    const [inStock3, setInStock3] = useState(7)
-    const [searchText, setSearchText] = useState('')
-    // const [price, setPrice] = useState(500)
-    const [cost, setCost] = useState()
     
-    const handleHideAisles = () => {
-        setHideAisles(true)
-    }
-    const handleShowAisles = () => {
-        setHideAisles(false)
-    }
 
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
@@ -155,14 +142,6 @@ const CreateList = (props) => {
         curObj['quantity'] += val
         info[index] = curObj
         setInfo([...info])
-    }
-
-    const decrement = (e,price) => {
-        if (price == 0) {
-            setInStock(0)
-        } else {
-            setInStock(stock => stock - 1)
-        }
     }
 
     const handleOrderDetailsDisplay = () => {
