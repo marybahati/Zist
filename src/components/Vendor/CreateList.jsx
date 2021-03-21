@@ -131,7 +131,7 @@ const CreateList = (props) => {
         },
     ]
     const [info, setInfo] = useState((props.location && props.location.state) || '')
-    console.log(info, 'iiiiiiii')
+    // console.log(info, 'iiiiiiii')
     const {clickedBusiness} = (props.location && props.location.state) || '';
     //  console.log(props.location && props.location.state)
     
@@ -143,6 +143,14 @@ const CreateList = (props) => {
         info[index] = curObj
         setInfo([...info])
     }
+    const deleteProduct = (e,index) => {
+         e.preventDefault()
+         const obj = info[index]
+         info.splice(obj,1)
+         setInfo([...info])
+         console.log(info,obj)
+    }
+    console.log(info)
 
     const handleOrderDetailsDisplay = () => {
         history.push({
@@ -189,7 +197,7 @@ const CreateList = (props) => {
                             <Grid.Row>
                                 <CenteredTextColumn width={3}>
                                     {product.quantity === 1 ? (<>
-                                        <ButtonCounters >   
+                                        <ButtonCounters onClick={e => deleteProduct(e,index) } >   
                                             <Image src={deleteIcon} />
                                         </ButtonCounters>
                                     </>) 
