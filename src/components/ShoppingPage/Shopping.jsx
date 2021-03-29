@@ -55,7 +55,7 @@ const Shopping = (props) => {
   const token = userData?.access
   const names = cookies.get('name')
   const splitName = names?.split(' ')
-  const name = splitName[0] !== undefined ? splitName[0] : null 
+  const name = splitName !== undefined ? splitName[0] : null 
   console.log(names, name)
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
