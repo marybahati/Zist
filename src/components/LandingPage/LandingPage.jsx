@@ -372,7 +372,7 @@ const LandingPage = (props) => {
   const token = userData?.access
   const names = cookies.get('name')
   const splitName = names?.split(' ')
-  const name = splitName[0]
+  const name = splitName !== undefined ? splitName[0] : null 
   console.log(names, name)
 
   const handleItemClick = (e, { name }) => setActiveExploreItem({ activeExploreItem: name });
