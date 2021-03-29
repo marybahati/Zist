@@ -474,7 +474,7 @@ const UserList = (props) => {
                                     <Grid.Row style={{ paddingBottom: 30 }}>
                                         <Grid.Column width={10}></Grid.Column>
                                         <Grid.Column width={6}>
-                                            {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null}
+                                            {/* {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null} */}
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
@@ -496,7 +496,7 @@ const UserList = (props) => {
                                     <Grid.Row style={{ paddingBottom: 30 }}>
                                         <Grid.Column width={10}></Grid.Column>
                                         <Grid.Column width={6}>
-                                            {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null}
+                                            {/* {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null} */}
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
@@ -521,7 +521,7 @@ const UserList = (props) => {
                                     <Grid.Row style={{ paddingBottom: 30 }}>
                                         <Grid.Column width={10}></Grid.Column>
                                         <Grid.Column width={6}>
-                                            {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null}
+                                            {/* {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null} */}
                                         </Grid.Column>
                                     </Grid.Row>
                                 </Grid>
