@@ -64,9 +64,9 @@ const Storefront = (props) => {
     const { cookies } = props
     const userData = cookies.get('login-res')
     const id = cookies.get('business-id')
-    const token = userData.access 
+    const token = userData?.access 
     console.log(userData,token,id)
-    const businessData = userData.business[0]
+    const businessData = userData?.business[0]
     const [fileNames, setFileNames] = useState([]);
 
     const handleDrop = acceptedFiles => setFileNames(acceptedFiles.map(file => file.name));
