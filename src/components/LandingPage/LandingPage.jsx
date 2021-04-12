@@ -479,7 +479,7 @@ console.log(token !== undefined || token !== '')
               )}
               <NavbarActionsColumn width={16}  >
               <Grid >
-              <GridRows style={{ top: '350px' }}>
+              <GridRows style={{ top: '110px' }}>
                 {/* <Grid.Column width={1}></Grid.Column> */}
                 <LocationColumn width={6}>
                   <LocationInput labelPosition='right' type='search'
@@ -500,7 +500,7 @@ console.log(token !== undefined || token !== '')
 
               </GridRows>
 
-              <GridRows style={{ top: '350px' }} >
+              <GridRows style={{ top: '110px' }} >
                 <LocationColumn width={6}>
                   <LocaationDiv >
                     <LocationPickerButton basic fluid >

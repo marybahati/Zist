@@ -141,7 +141,15 @@ export const SignupModal = (props) => {
                     textAlign='center'
                     size='tiny'
                     onChange={e => setPassword(e.target.value)}
-                    placeholder='Password' style={{ borderBottom: '2px solid #FFE5B4' }} />
+                    placeholder='Password' style={{ borderBottom: '2px solid #FFE5B4',margin:'0 0 30px 0' }} />
+                    <Form.Input transparent
+                    name='password'
+                    required={true}
+                    type='password'
+                    textAlign='center'
+                    size='tiny'
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder='Confirm Password' style={{ borderBottom: '2px solid #FFE5B4' }} />
                   <ModalSignUpButton />
                 </Form>
 
