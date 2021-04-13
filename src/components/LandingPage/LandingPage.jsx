@@ -202,15 +202,15 @@ background-color: inherit !important;
 const LocationColumn = styled(Grid.Column)`
 background-color: white !important;
 padding: 0 !important;
-// width: 30% !important;
-margin: 0 auto 0px 90px !important;
+width: 490px !important;
+margin: 0 auto 0px 150px !important;
 border: 1px solid #707070 !important;
 @media only screen and (max-width: 1100px) {
   font-size: 18px !important;
   };
   @media only screen and (max-width: 750px) {
     font-size: 18px !important;
-    width: 70% !important;
+    // width: 70% !important;
     };
 `
 const LocationInput = styled(Input)`
@@ -236,6 +236,7 @@ background: white;
 const SubmitIcon = styled(Icon)`
 font-size: 40px !important;
 padding-top: 12px !important;
+margin-left: 0 !important;
 @media only screen and (max-width: 1100px) {
   font-size: 20px !important;
   };
@@ -481,7 +482,7 @@ console.log(token !== undefined || token !== '')
               <Grid >
               <GridRows style={{ top: '110px' }}>
                 {/* <Grid.Column width={1}></Grid.Column> */}
-                <LocationColumn width={6}>
+                <LocationColumn >
                   <LocationInput labelPosition='right' type='search'
                     size="small"
                     type="text"
@@ -501,7 +502,7 @@ console.log(token !== undefined || token !== '')
               </GridRows>
 
               <GridRows style={{ top: '110px' }} >
-                <LocationColumn width={6}>
+                <LocationColumn >
                   <LocaationDiv >
                     <LocationPickerButton basic fluid >
                       <Button.Content >
