@@ -102,9 +102,8 @@ const Shopping = (props) => {
     { text: 'flour', value: 'flour', image: { src: card4 } },
   ]
   const handleLogOut = () => {
-    // const logout = cookies.remove('access-token')
-    // return logout
-    // window.location.reload(false);
+    cookies.remove('login-res',{path: '/'})
+    window.location.reload(false);
   }
   const handleCardClicked = (e, name, type) => {
     const d = { name: name, type: type }

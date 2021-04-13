@@ -272,7 +272,7 @@ const UserList = (props) => {
     //     console.log(product.name)
     // })
     const productSearch = product => {
-        if (searchText !== '' && product.name.toLowerCase().indexOf(searchText) === -1) {
+        if (searchText == '' && product.name.toLowerCase().indexOf(searchText) === -1) {
             return null
         }
         return (

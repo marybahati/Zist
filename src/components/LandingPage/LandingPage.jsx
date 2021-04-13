@@ -118,7 +118,7 @@ const FooterGrid = styled(Grid.Column)`
 const FooterTitle = styled.h1`
   font-size: 2rem;
   // text-align: left;
-  color: #0B0B0B;
+  color: ${props => props.blue ? "#4083C4" : "#0B0B0B"}; 
 `;
 const FooterLinks = styled(List.Item)`
   font-size: 2rem;
@@ -388,6 +388,10 @@ const LandingPage = (props) => {
       })
     }
   }
+  const handleLogOut = () => {
+    cookies.remove('login-res',{path: '/'})
+    window.location.reload(false);
+  }
   const orderNowRedirect = () => {
     history.push('/shopping')
   }
@@ -445,7 +449,7 @@ console.log(token !== undefined || token !== '')
                                       <Dropdown text='Account' icon='' >
                                         <Dropdown.Menu>
                                           <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
-                                          <Dropdown.Item > Log out </Dropdown.Item>
+                                          <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
                                         </Dropdown.Menu>
                                       </Dropdown>
                                     </Menu.Menu>
@@ -697,16 +701,16 @@ console.log(token !== undefined || token !== '')
           <FooterGrid width={5}>
             <FooterTitle>Zist Shopping</FooterTitle>
             <List >
-              <FooterTitle as='a' href=''>Zist Articles</FooterTitle>
+              <FooterTitle as='a' href='' blue >Zist Articles</FooterTitle>
             </List>
             <List>
-              <FooterTitle as='a' href='' >Zist Recipes</FooterTitle>
+              <FooterTitle as='a' href='' blue >Zist Recipes</FooterTitle>
             </List>
             <List>
-              <FooterTitle as='a' href=''>Zist Careers</FooterTitle>
+              <FooterTitle as='a' href='' blue >Zist Careers</FooterTitle>
             </List>
             <List>
-              <FooterTitle as='a' href=''>Contact</FooterTitle>
+              <FooterTitle as='a' href='' blue>Contact</FooterTitle>
             </List>
 
           </FooterGrid>
@@ -714,15 +718,15 @@ console.log(token !== undefined || token !== '')
           <FooterGrid width={5}>
             <FooterTitle>Vendor</FooterTitle>
             <List>
-              <FooterTitle as='a' href='/vendor-intro' >Sell on Zist Shoppping</FooterTitle>
+              <FooterTitle as='a' href='/vendor-intro' blue >Sell on Zist Shoppping</FooterTitle>
             </List>
-            <FooterTitle as='a' href=''>Vendor Help</FooterTitle>
+            <FooterTitle as='a' href='' blue >Vendor Help</FooterTitle>
           </FooterGrid>
           <FooterGrid width={5}>
             <FooterTitle>Zister</FooterTitle>
-            <FooterTitle as='a' href='/welcome'>Become a Zister</FooterTitle>
+            <FooterTitle as='a' href='/welcome' blue >Become a Zister</FooterTitle>
             <List>
-              <FooterTitle as='a'>Zister Help</FooterTitle>
+              <FooterTitle as='a' blue >Zister Help</FooterTitle>
             </List>
           </FooterGrid>
         </GridRows>
