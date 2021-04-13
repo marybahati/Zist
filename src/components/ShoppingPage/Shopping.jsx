@@ -298,7 +298,7 @@ const Shopping = (props) => {
           <SubHeading>Want a look around ? Here are some suggestions to get you started.</SubHeading> <br />
         </Grid.Row>
 
-        <Rows style={{ padding: '20px 0 20px 0px', textAlign: 'center !important ' }} width={16}>
+        {/* <Rows style={{ padding: '20px 0 20px 0px', textAlign: 'center !important ' }} width={16}>
           <Grid.Column style={{ padding: '0' }} width={2}>
             <Image src={refineImage} />
             <h4 style={{ marginTop: '0' }}>Refine</h4>
@@ -343,7 +343,7 @@ const Shopping = (props) => {
             </Grid>
           </Grid.Column>
 
-        </Rows>
+        </Rows> */}
 
 
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
