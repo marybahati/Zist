@@ -111,14 +111,14 @@ const UserList = (props) => {
     const [listId, setListId] = useState()
     const { cookies } = props
     const userData = cookies.get('login-res')
-    const token = userData.access
+    const token = userData?.access
     console.log(userData, token)
 
     const cookie = new Cookies()
 
 
     const clickedBusiness = (props.location && props.location.state) || '';
-    console.log(props.location && props.location.state,clickedBusiness)
+    console.log(props.location && props.location.state, clickedBusiness)
     const options = [
         {
             key: 'Strawberry',
@@ -231,7 +231,7 @@ const UserList = (props) => {
                                 <Popup
                                     style={{ backgroundColor: 'green' }}
                                     trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1,product.id)}>
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
                                             <Icon name='add circle' size='big' color='black' />
                                         </Button>
                                     }
@@ -272,58 +272,64 @@ const UserList = (props) => {
     //     console.log(product.name)
     // })
     const productSearch = product => {
-        if (searchText == '' && product.name.toLowerCase().indexOf(searchText) === -1) {
-            return null
-        }
+
+        const show = searchText !== '' && product.name.toLowerCase().includes(searchText)
+
         return (
-            <Grid.Row width={16} style={{ margin: '0 30px 80px 0', backgroundColor: 'white !important', border: '1px black' }}>
-                <Grid.Column width={5}>
-                    <Image src={blueberries} wrapped ui={false} />
-                </Grid.Column>
-                <Columns width={11}>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column width={10}> </Grid.Column>
-                            <Grid.Column width={6}>
-                                <Popup
-                                    style={{ backgroundColor: 'green' }}
-                                    trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1,product.id)}>
-                                            <Icon name='add circle' size='big' color='black' />
-                                        </Button>
-                                    }
-                                    content={`Succesfully added item ${product.name}`}
-                                    on='click'
-                                    position='bottom left'
-                                />
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
+            <>
+                { show && (
+
+                    <Grid.Row width={16} style={{ margin: '0 30px 80px 0', backgroundColor: 'white !important', border: '1px black' }}>
+                        <Grid.Column width={5}>
+                            <Image src={blueberries} wrapped ui={false} />
+                        </Grid.Column>
+                        <Columns width={11}>
                             <Grid>
                                 <Grid.Row>
-                                    <Grid.Column width={1}></Grid.Column>
-                                    <Grid.Column width={7}>
-                                        <h2> {product.name} </h2>
-                                        <List link>
-                                            <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
-                                        </List>
-                                    </Grid.Column >
-                                    <Grid.Column width={8}>
-                                        <h2> Ksh.{product.price} </h2>
-                                    </Grid.Column >
+                                    <Grid.Column width={10}> </Grid.Column>
+                                    <Grid.Column width={6}>
+                                        <Popup
+                                            style={{ backgroundColor: 'green' }}
+                                            trigger={
+                                                <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
+                                                    <Icon name='add circle' size='big' color='black' />
+                                                </Button>
+                                            }
+                                            content={`Succesfully added item ${product.name}`}
+                                            on='click'
+                                            position='bottom left'
+                                        />
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid>
+                                        <Grid.Row>
+                                            <Grid.Column width={1}></Grid.Column>
+                                            <Grid.Column width={7}>
+                                                <h2> {product.name} </h2>
+                                                <List link>
+                                                    <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
+                                                </List>
+                                            </Grid.Column >
+                                            <Grid.Column width={8}>
+                                                <h2> Ksh.{product.price} </h2>
+                                            </Grid.Column >
+                                        </Grid.Row>
+                                    </Grid>
                                 </Grid.Row>
                             </Grid>
-                        </Grid.Row>
-                    </Grid>
-                </Columns>
-            </Grid.Row>
+                        </Columns>
+                    </Grid.Row>
+                )}
+            </>
+
 
         )
     }
 
 
 
-    const suggestedProducts = products.slice(0, 5).map(product => {
+    const suggestedProducts = options.slice(0, 5).map(product => {
         return (
             <Grid.Row width={16} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
                 <Grid.Column width={1}></Grid.Column>
@@ -338,7 +344,7 @@ const UserList = (props) => {
                                 <Popup
                                     style={{ backgroundColor: 'green' }}
                                     trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price,1,product.id)}>
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
                                             <Icon name='add circle' size='big' color='black' />
                                         </Button>
                                     }
@@ -377,8 +383,8 @@ const UserList = (props) => {
         });
     }
 
-    const handleAddProduct = (e, productName, productPrice, quantity,id) => {
-        const d = { productName: productName, productPrice: productPrice, quantity:quantity,id:id}
+    const handleAddProduct = (e, productName, productPrice, quantity, id) => {
+        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
         //    [...cart, d]
         console.log(d)
         setCart([...cart, d])
@@ -532,7 +538,7 @@ const UserList = (props) => {
                 <Grid.Row style={{ paddingBottom: 30 }}>
                     <Grid.Column width={5}></Grid.Column>
                     <Grid.Column width={6}>
-                        {cart.length !== 0 ? <Button  as='a' onClick={handleAddedProduct} style={{backgroundColor:'orange'}}> View List  </Button> : null}
+                        {cart.length !== 0 ? <Button as='a' onClick={handleAddedProduct} style={{ backgroundColor: 'orange' }}> View List  </Button> : null}
                     </Grid.Column>
                     <Grid.Column width={5}></Grid.Column>
                 </Grid.Row>
@@ -561,7 +567,7 @@ const UserList = (props) => {
                         />
                     </SearchInputColumn>
                 </Grid.Row>
-                {products.map(product => {
+                {options.map(product => {
                     return productSearch(product)
                 })}
             </MainGrid>

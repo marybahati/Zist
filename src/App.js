@@ -30,6 +30,7 @@ import PaymentDetails from './components/Vendor/PaymentDetails';
 import VendorIntro from './components/Vendor/Vendor-Intro';
 import Suppliers from './components/Vendor/Suppliers';
 import WelcomePage from './Zister/WelcomePage';
+import Step1 from './components/Vendor/Inventory-step1';
 function App() {
   return (
     <Router history={history} >
@@ -61,6 +62,7 @@ function App() {
       <Route exact path='/rider-dashboard' component={RiderDashboard} />
       <Route exact path='/suppliers' component={Suppliers}/>
       <Route exact path='/welcome' component={WelcomePage}/>
+      {/* <Route exact path='/inventory-step1' component={Step1}/> */}
       {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>
   );
