@@ -78,7 +78,6 @@ const VendorRegistration = (props) => {
     const [tel, setTel] = useState('')
     const [location, setLocation] = useState('')
     const [description, setDescription] = useState('')
-    const [snackbarOpen, setSnackbarOpen] = useState(false)
 
     console.log(name, natureOfBusiness, niche, email, tel)
     const bussinessType = Object.values(natureOfBusiness)
@@ -150,12 +149,6 @@ const VendorRegistration = (props) => {
 
                                 <Form.Field>
                                     <FormLabels>Nature of Store/Stall</FormLabels>
-                                    {/* <FormInput
-                                    placeholder='Nature of Store/Stall'
-                                    type='search'
-                                    list="searchOption"
-                                    onChange={e => setNatureOfBusiness(e.target.value)}
-                                /> */}
                                     <SelectDropdown
                                         placeholder='If within a hypermarket , select the parent store.'
                                         openOnFocus={false}

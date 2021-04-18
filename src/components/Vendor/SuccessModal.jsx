@@ -20,7 +20,7 @@ const Signature = styled.h3`
         open={props.modalOpen}
         size='small'
         closeOnEscape={true}
-        centered={false}
+        centered={true}
         style={{ padding: '40px 15px 25px 15px' }}
       >
         <Header style={{ border: '0' }}>
