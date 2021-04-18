@@ -95,14 +95,14 @@ const CreateProduct = (props) => {
     const [name, setName] = useState()
     const [price, setPrice] = useState('')
     const [category, setCategory] = useState(['fruits', 'cakes', 'Oils', 'furniture'])
-    const [selectedCategory, setSelectedCategory] = useState()
     const [description, setDescription] = useState('')
     const [fileNames, setFileNames] = useState()
     const [stock, setStock] = useState()
     const [value, setValue] = React.useState(null);
     const [fetchedCategories, setFetchedCategories] = useState([])
+    const [selectedCategory,setSelectedCategory] = useState(value)
     const { enqueueSnackbar } = useSnackbar();
-
+    console.log(selectedCategory)
     const handleDrop = acceptedFiles => setFileNames(acceptedFiles.map(file => file.name));
 
     // const handleChange = (e) => {
@@ -158,7 +158,11 @@ const CreateProduct = (props) => {
                 {
                     name: name,
                     price: price,
-                    category: 2,
+                    category: {
+                        category: selectedCategory?.category,
+                        description: selectedCategory?.description,
+                        business: selectedCategory?.business,
+                    },
                     description: description,
                     // image: image,
                     metadata: stock,
@@ -270,6 +274,7 @@ const CreateProduct = (props) => {
                                                                 if (typeof newValue === 'string') {
                                                                     console.log(newValue, '=1')
                                                                     setValue(newValue);
+                                                                    setSelectedCategory(newValue)
                                                                 } else {
                                                                     // Create a new value from the user input
                                                                     console.log(newValue)
@@ -278,9 +283,11 @@ const CreateProduct = (props) => {
                                                                     } else {
                                                                         if (newValue && newValue.inputValue) {
                                                                             setValue(newValue);
+                                                                            setSelectedCategory(newValue)
                                                                         } else {
                                                                             console.log(newValue, '=2')
                                                                             setValue(newValue);
+                                                                            setSelectedCategory(newValue)
                                                                         }
 
                                                                     }
