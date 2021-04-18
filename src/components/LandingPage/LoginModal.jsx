@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, Header, Button, Icon, Grid, Form } from 'semantic-ui-react';
-import { ToastContainer, toast } from 'react-toastify';
+import { Modal, Header,  Icon, Grid, Form } from 'semantic-ui-react';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { LinkingButton } from './LinkingButtons';
-import { LinkingLoginButton } from './LinkingLoginButton';
 import { ModalLoginButton } from './ModalLoginButton';
 import { LinkingSignupButton } from './LinkingSignupButton';
 import { withCookies,Cookies } from 'react-cookie';
-import History from '../../History';
 import {HOST_API} from './../../endpoints';
+import { useSnackbar } from 'notistack';
 
 const LoginModal = (props) => {
   
@@ -18,12 +15,10 @@ const LoginModal = (props) => {
     const [loginPassword, setLoginPassword] = useState('');
     const [token, setToken] = useState('')
     const [userData, setUserData] = useState()
-    const [refreshToken, setRefreshToken] = useState('')
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
     cookies.set('access-token',token,{path: '/'})
-    // if(token === '' || token === undefined ){
 
-    // }
+    const { enqueueSnackbar } = useSnackbar();
+
     const handleLogin = (event) => {
         event.preventDefault();
         axios.post(HOST_API + 'token/', {
@@ -36,35 +31,20 @@ const LoginModal = (props) => {
               console.log(res.data)
               cookies.set('login-res', res.data,{ path: '/' })
               window.location.reload(false);
-            //  setSnackbarOpen(true)
-             toast.success("You have successfully logged in",{
-               className:'toast',
-               draggable: true,
-               position: toast.POSITION.TOP_CENTER,
-               type: toast.TYPE.SUCCESS,
-               hideProgressBar: true
-             }) 
-             props.handleClose() 
+              enqueueSnackbar('You have successfully logged in', { variant: 'success' })            
+              props.handleClose() 
             } 
             // res.data.vendor !== null ? History.push('/vendor-dashboard') : History.push('/shopping')
        
            }).catch(error => {
-            //  setSnackbarOpen(true)
-             toast.error(`${error}`,{
-               className:'toast',
-               draggable: true,
-               position: toast.POSITION.TOP_CENTER,
-               type: toast.TYPE.ERROR,
-               hideProgressBar: true
-             })   
+            enqueueSnackbar(`${error}`, { variant: 'error' })
             console.log(error)
            });
       }
 
   return (
     <div>
-      <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
-      <Modal
+     <Modal
         open={props.modalOpen}
         size='tiny'
         closeOnEscape={true}

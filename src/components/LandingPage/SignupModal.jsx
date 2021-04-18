@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Header, Button, Icon, Grid, Form } from 'semantic-ui-react';
-import { ToastContainer, toast } from 'react-toastify';
+import { Modal, Header, Icon, Grid, Form } from 'semantic-ui-react';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { ModalSignUpButton } from './ModalSignUpButton';
@@ -15,7 +14,7 @@ export const SignupModal = (props) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   // console.log(userId)
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSignup = (event) => {
     event.preventDefault();
@@ -40,7 +39,6 @@ export const SignupModal = (props) => {
 
   return (
     <div>
-      <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
       <Modal
         open={props.modalOpen}
         size='small'
