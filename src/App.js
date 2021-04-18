@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
 import LandingPage from './components/LandingPage/LandingPage';
 import Shopping from './components/ShoppingPage/Shopping'
 import history from './History';
@@ -33,7 +34,26 @@ import WelcomePage from './Zister/WelcomePage';
 import Step1 from './components/Vendor/Inventory-step1';
 import Step2 from './components/Vendor/Inventory-step2';
 function App() {
+  const notistackRef = React.createRef()
+  const onClickDismiss = (key) => () => {
+    notistackRef.current.closeSnackbar(key)
+  }
   return (
+    <SnackbarProvider maxSnack={3}
+            // ref={notistackRef}
+            color="inherit"
+            maxSnack={3}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            autoHideDuration={4000}
+            // action={(key) => (
+            //   <IconButton onClick={onClickDismiss(key)}>
+            //     <CloseIcon />
+            //   </IconButton>
+            // )}
+    >
     <Router history={history} >
       <Route exact path='/vendor-intro' component={VendorIntro}/>
       <Route exact path='/' component={LandingPage} />
@@ -67,6 +87,7 @@ function App() {
       <Route exact path='/inventory-step2' component={Step2}/>
       {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>
+    </SnackbarProvider>
   );
 }
 

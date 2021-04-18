@@ -4,56 +4,32 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { ModalSignUpButton } from './ModalSignUpButton';
-import { LinkingButton } from './LinkingButtons';
 import { LinkingLoginButton } from './LinkingLoginButton';
-import History from '../../History';
-import {HOST_API} from './../../endpoints';
+import { HOST_API } from './../../endpoints';
+import { useSnackbar } from 'notistack';
 
 export const SignupModal = (props) => {
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [userId, setUserId] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState('');
   // console.log(userId)
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleSignup = (event) => {
     event.preventDefault();
-    axios.post( HOST_API + 'register/' , {
-      // first_name: firstName,
-      // last_name: lastName,
+    axios.post(HOST_API + 'register/', {
       email: email,
       password: password
     })
       .then(res => {
-
         if (res.status === 201) {
-          setUserId(res.data.id)
-          setSnackbarOpen(true)
-          toast.success("You have successfully signed up", {
-            className: 'toast',
-            draggable: true,
-            position: toast.POSITION.TOP_CENTER,
-            type: toast.TYPE.SUCCES,
-            hideProgressBar: true
-          })
+          enqueueSnackbar('You have successfully signed up', { variant: 'success' })
           props.handleClose()
-          // History.push({ 
-          //   pathname: '/shopping',
-          //   state: userId
-          //  })
         }
       }).catch(error => {
-        // setSnackbarOpen(true)
-        toast.error(`${error}`, {
-          className: 'toast',
-          draggable: true,
-          position: toast.POSITION.TOP_CENTER,
-          type: toast.TYPE.ERROR,
-          hideProgressBar: true
-        })
+        enqueueSnackbar(`${error}`, { variant: 'error' })
       });
   }
 
@@ -65,11 +41,11 @@ export const SignupModal = (props) => {
         size='small'
         closeOnEscape={true}
         // centered={false}
-        style={{ padding: '30px 30px'}}
+        style={{ padding: '30px 30px' }}
       >
         <Header style={{ border: '0' }}>
           <Grid>
-            <Grid.Row style={{ padding: '0'}}>
+            <Grid.Row style={{ padding: '0' }}>
               <Grid.Column width={12} style={{ background: '' }} >
                 <Modal.Actions>
                   <Icon
@@ -87,8 +63,8 @@ export const SignupModal = (props) => {
 
               </Grid.Column> */}
             </Grid.Row>
-            <Grid.Row style={{ padding: '10px 0 0 0 '}}>
-              <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px'}} >
+            <Grid.Row style={{ padding: '10px 0 0 0 ' }}>
+              <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px' }} >
                 <h1> Don’t miss out on your items </h1>
                 <h2> SIGN UP </h2>
                 <h2>Create a new account </h2>
@@ -104,8 +80,8 @@ export const SignupModal = (props) => {
               {/* <Grid.Column width={1} style={
                 { background: '' }} > </Grid.Column> */}
               <Grid.Column width={16} style={{ background: '', textAlign: 'center', fontSize: '18px' }} >
-                
-                <Form onSubmit={handleSignup} style={{width: '80%',margin: '0 auto'}}>
+
+                <Form onSubmit={handleSignup} style={{ width: '80%', margin: '0 auto' }}>
 
                   {/* <Form.Input transparent
                     name='first_name'
@@ -116,7 +92,7 @@ export const SignupModal = (props) => {
                     onChange={e => setFirstName(e.target.value)}
                     placeholder='First Name' style={{ borderBottom: '2px solid #FFE5B4', margin: '20px 0 ' }} /> */}
 
-                      {/* <Form.Input   transparent
+                  {/* <Form.Input   transparent
                     name='last_name'
                     required={true}
                     type='text'
@@ -132,7 +108,7 @@ export const SignupModal = (props) => {
                     textAlign='center'
                     size='tiny'
                     onChange={e => setEmail(e.target.value)}
-                    placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
+                    placeholder='Email' style={{ borderBottom: '2px solid #FFE5B4', margin: '30px 0' }} />
 
                   <Form.Input transparent
                     name='password'
@@ -141,21 +117,21 @@ export const SignupModal = (props) => {
                     textAlign='center'
                     size='tiny'
                     onChange={e => setPassword(e.target.value)}
-                    placeholder='Password' style={{ borderBottom: '2px solid #FFE5B4',margin:'0 0 30px 0' }} />
-                    <Form.Input transparent
+                    placeholder='Password' style={{ borderBottom: '2px solid #FFE5B4', margin: '0 0 30px 0' }} />
+                  <Form.Input transparent
                     name='password'
                     required={true}
                     type='password'
                     textAlign='center'
                     size='tiny'
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={e => setConfirmPassword(e.target.value)}
                     placeholder='Confirm Password' style={{ borderBottom: '2px solid #FFE5B4' }} />
                   <ModalSignUpButton />
                 </Form>
 
-                <p style={{color:'black',paddingTop: '20px',fontSize: '14px'}}>Already have an account ?</p>
+                <p style={{ color: 'black', paddingTop: '20px', fontSize: '14px' }}>Already have an account ?</p>
                 {/* <LinkingLoginButton/> */}
-                <LinkingLoginButton/>
+                <LinkingLoginButton />
 
               </Grid.Column>
             </Grid.Row>
