@@ -32,7 +32,7 @@ import VendorIntro from './components/Vendor/Vendor-Intro';
 import Suppliers from './components/Vendor/Suppliers';
 import WelcomePage from './Zister/WelcomePage';
 import Step1 from './components/Vendor/Inventory-step1';
-import Step2 from './components/Vendor/Inventory-step2';
+import InventoryAddCategory from './components/Vendor/InventoryAddCategory';
 function App() {
   const notistackRef = React.createRef()
   const onClickDismiss = (key) => () => {
@@ -84,7 +84,7 @@ function App() {
       <Route exact path='/suppliers' component={Suppliers}/>
       <Route exact path='/welcome' component={WelcomePage}/>
       <Route exact path='/inventory-step1' component={Step1}/>
-      <Route exact path='/inventory-step2' component={Step2}/>
+      <Route exact path='/inventory-add-category' component={InventoryAddCategory}/>
       {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>
     </SnackbarProvider>

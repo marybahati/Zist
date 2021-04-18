@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Image, Button, Icon, Form, Dropdown } from "semantic-ui-react";
 import styled from 'styled-components';
 import shelving from './../../Assets/shelving.png';
 import history from './../../History';
 import { withCookies } from 'react-cookie';
-import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { HOST_API } from './../../endpoints';
 import Dropzone from "react-dropzone";
+import { useSnackbar } from 'notistack';
+import AutoComplete from './AutoComplete';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -79,6 +83,7 @@ const DoneButton = styled(Button)`
     color: #050504 !important;
     margin: 20px 0 !important;
 `;
+const filter = createFilterOptions();
 
 const Step2 = (props) => {
     const { cookies } = props
@@ -92,12 +97,11 @@ const Step2 = (props) => {
     const [category, setCategory] = useState(['fruits', 'cakes', 'Oils', 'furniture'])
     const [selectedCategory, setSelectedCategory] = useState()
     const [description, setDescription] = useState('')
-    const [image, setImage] = useState()
+    const [fileNames, setFileNames] = useState()
     const [stock, setStock] = useState()
-    const [cancel, setCancel] = useState()
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [fileNames, setFileNames] = useState([]);
-
+    const [value, setValue] = React.useState(null);
+    const [fetchedCategories, setFetchedCategories] = useState([])
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleDrop = acceptedFiles => setFileNames(acceptedFiles.map(file => file.name));
 
@@ -129,7 +133,23 @@ const Step2 = (props) => {
     ]
 
     const categories = category.map(x => ({ text: x.category, value: x.id }))
-    console.log(selectedCategory)
+   
+    useEffect(() => {
+        axios.get(HOST_API + `zist/business/${businessId}/get_categories/`, {
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+            .then((res) => {
+                console.log(res.data)
+                if (res.status === 200) {
+                    setFetchedCategories(res.data)
+                }
+            })
+            .catch((error) => {
+                console.error(error)
+            })
+    }, []);
     const handleSubmit = async () => {
         const categorySelected = Object.values(selectedCategory)
         console.log(categorySelected)
@@ -148,30 +168,17 @@ const Step2 = (props) => {
             )
             if (product_res.status == 201) {
                 console.log(product_res)
-                // setSnackbarOpen(true)
-                toast.success("You have successfully added a new product", {
-                    className: 'toast',
-                    draggable: true,
-                    position: toast.POSITION.TOP_CENTER,
-                    type: toast.TYPE.SUCCESS,
-                    hideProgressBar: true
-                })
+                enqueueSnackbar('You have successfully added a new product', { variant: 'success' })
             }
         } catch (error) {
             console.log(error)
-            toast.error(`${error}`, {
-                className: 'toast',
-                draggable: true,
-                position: toast.POSITION.TOP_CENTER,
-                type: toast.TYPE.ERROR,
-                hideProgressBar: true
-            })
+            enqueueSnackbar(`${error}`, { variant: 'error' })
         }
     }
     const handleGoingBack = () => {
         history.goBack()
     }
-
+    console.log(value, 'autocomplete=val ')
     return (
         <MainDiv>
             <Grid>
@@ -197,11 +204,6 @@ const Step2 = (props) => {
                 </Grid.Row>
                 <Grid.Row>
                     <NoSpaceColumn>
-                        <h2> Step 2 </h2>
-                    </NoSpaceColumn>
-                </Grid.Row>
-                <Grid.Row>
-                    <NoSpaceColumn>
                         <h2> Add your products. </h2>
                     </NoSpaceColumn>
                 </Grid.Row>
@@ -211,7 +213,6 @@ const Step2 = (props) => {
                             <Form.Group>
                                 <Grid>
                                     <Grid.Row>
-                                        <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
                                         <Grid.Column width={5}>
                                             <Dropzone
                                                 onDrop={handleDrop}
@@ -230,15 +231,6 @@ const Step2 = (props) => {
                                         <Grid.Column width={11}>
                                             <Grid>
                                                 <Grid.Row>
-                                                    {/* <Grid.Column width={5}>
-                                        <Form.Input
-                                            placeholder='Add product image'
-                                            name='image'
-                                            type='file'
-                                            accept="image/PNG, image/JPEG, image/JPG"
-                                            onChange={e => setImage(e.target.value)}
-                                        />
-                                    </Grid.Column> */}
 
                                                     <Grid.Column width={8}>
                                                         <Form.Input
@@ -271,7 +263,7 @@ const Step2 = (props) => {
                                                         />
                                                     </Grid.Column>
                                                     <Grid.Column width={8} >
-                                                        < Dropdown
+                                                        {/* < Dropdown
                                                             placeholder='Aisle under'
                                                             openOnFocus={false}
                                                             fluid
@@ -281,6 +273,69 @@ const Step2 = (props) => {
                                                             clearable
                                                             search
                                                             style={{ padding: '2rem !important' }}
+                                                        /> */}
+                                                        <Autocomplete
+                                                            value={value}
+                                                            onChange={(event, newValue) => {
+                                                                console.log(newValue, '==================')
+                                                                if (typeof newValue === 'string') {
+                                                                    console.log(newValue, '=1')
+                                                                    setValue(newValue);
+                                                                } else {
+                                                                    // Create a new value from the user input
+                                                                    console.log(newValue)
+                                                                    if (newValue.category === "Create new category") {
+                                                                        history.push('/inventory-add-category')
+                                                                    } else {
+                                                                        if (newValue && newValue.inputValue) {
+                                                                            setValue(newValue);
+                                                                        } else {
+                                                                            console.log(newValue, '=2')
+                                                                            setValue(newValue);
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                            }}
+
+                                                            filterOptions={(options, params) => {
+                                                                const filtered = filter(options, params);
+
+                                                                // Suggest the creation of a new value
+                                                                // if (params.inputValue !== '') {
+                                                                filtered.push({
+                                                                    inputValue: params.inputValue,
+                                                                    category: 'Create new category',
+                                                                    // title: `Create category ${params.inputValue}`,
+                                                                });
+                                                                // }
+
+                                                                return filtered;
+                                                            }}
+
+                                                            autoComplete
+                                                            clearOnBlur
+                                                            handleHomeEndKeys
+                                                            id="category"
+                                                            options={fetchedCategories}
+                                                            getOptionLabel={(option) => {
+                                                                // Value selected with enter, right from the input
+                                                                if (typeof option === 'string') {
+                                                                    return option;
+                                                                }
+                                                                // Add "xxx" option created dynamically
+                                                                if (option.inputValue) {
+                                                                    return option.inputValue;
+                                                                }
+
+                                                                // Regular option
+                                                                return option.category;
+                                                            }}
+                                                            renderOption={(option) => option.category}
+                                                            style={{ width: '100%' }}
+                                                            renderInput={(params) => (
+                                                                <TextField {...params} label="Select Category" />
+                                                            )}
                                                         />
                                                     </Grid.Column>
                                                 </Grid.Row>
