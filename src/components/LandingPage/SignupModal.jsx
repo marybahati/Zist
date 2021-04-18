@@ -19,18 +19,23 @@ export const SignupModal = (props) => {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    axios.post(HOST_API + 'register/', {
-      email: email,
-      password: password
-    })
-      .then(res => {
-        if (res.status === 201) {
-          enqueueSnackbar('You have successfully signed up', { variant: 'success' })
-          props.handleClose()
-        }
-      }).catch(error => {
-        enqueueSnackbar(`${error}`, { variant: 'error' })
-      });
+    if(password !== confirmPassword){
+      enqueueSnackbar(`Your passwords do not match`, { variant: 'warning' })
+    } else {
+      axios.post(HOST_API + 'register/', {
+        email: email,
+        password: password
+      })
+        .then(res => {
+          if (res.status === 201) {
+            enqueueSnackbar('You have successfully signed up', { variant: 'success' })
+            props.handleClose()
+          }
+        }).catch(error => {
+          enqueueSnackbar(`${error}`, { variant: 'error' })
+        });
+    }
+   
   }
 
   return (
