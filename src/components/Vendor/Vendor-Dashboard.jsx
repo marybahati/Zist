@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Grid, Image, Button, Icon, List } from "semantic-ui-react";
+import React, { useState,useEffect } from 'react'
+import { Grid, Image, Button, List } from "semantic-ui-react";
 import styled from 'styled-components';
 import { RatedStars } from '../ShoppingPage/Ratings';
 import business from './../../Assets/user-list-business.png';
@@ -8,7 +8,9 @@ import inventory from './../../Assets/d2.png';
 import serviceDesk from './../../Assets/d3.png';
 import analytics from './../../Assets/d4.png';
 import history from './../../History';
-
+import { withCookies } from 'react-cookie';
+import {HOST_API} from './../../endpoints';
+import axios from 'axios';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -36,7 +38,26 @@ font-size: 20px;
 padding: 50px 0 !important;
 `
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+    const { cookies } = props
+    const userData = cookies.get('login-res')
+    const id = cookies.get('business-id')
+    const token = userData?.access 
+    const [info,setInfo] = useState()
+    console.log(info)
+    useEffect(() => {
+        axios.get(HOST_API +`zist/vendor/business/${id}/`, {
+      headers: {
+        "Authorization" : `Bearer ${token}`
+      }
+    })
+    .then((res) => {
+      setInfo(res.data)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+    }, []);
     const analyticsRedirect = () => {
         history.push('/vendor-analytics')
     }
@@ -66,12 +87,11 @@ const Dashboard = () => {
                         <Grid>
                             <Grid.Row>
                                 <Grid.Column width={8}>
-                                    <h1> Mary’s Apothecary </h1>
-                                    <h2> Aesthetically pleasing </h2>
+                                    <h1> {info?.name} </h1>
+                                    <h2>{info?.bio} </h2>
                                     <List bulleted horizontal >
                                         <List.Item ></List.Item>
-                                        <List.Item style={{ fontSize: 20 }}>Greens</List.Item>
-                                        <List.Item style={{ fontSize: 20 }}>Fruits</List.Item>
+                                        <List.Item style={{ fontSize: 20 }}> {info?.business_type} </List.Item>
                                     </List>
                                 </Grid.Column>
                                 <Grid.Column width={8}>
@@ -151,4 +171,4 @@ const Dashboard = () => {
         </MainDiv>
     )
 }
-export default Dashboard
+export default withCookies(Dashboard)

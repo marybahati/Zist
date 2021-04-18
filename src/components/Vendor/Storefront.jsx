@@ -1,11 +1,10 @@
 import React, { useState,useEffect } from 'react';
-import { Grid, Popup, Image, Icon, Input, Button, Form, List, Card } from "semantic-ui-react";
+import { Grid, Popup,  Icon, Form, List, Card } from "semantic-ui-react";
 import styled from 'styled-components';
 import axios from 'axios';
 import { RatedStars } from './../ShoppingPage/Ratings';
-import card1 from './../../Assets/1.jpg';
 import { ContinueButton } from './ContinueButton';
-import { withCookies, Cookies } from 'react-cookie';
+import { withCookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import {HOST_API} from './../../endpoints';
 import Dropzone from "react-dropzone";
