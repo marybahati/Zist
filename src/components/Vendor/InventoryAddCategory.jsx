@@ -103,6 +103,7 @@ const AddCategory = (props) => {
             if (product_res.status == 201) {
                 console.log(product_res)
                 enqueueSnackbar(`You have successfully created category ${category}`, { variant: 'success' }) 
+                history.push('/inventory-create-product')
             }
         } catch (error) {
             console.log(error)

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Grid, Image, Button, Icon, Form, Dropdown } from "semantic-ui-react";
 import styled from 'styled-components';
 import shelving from './../../Assets/shelving.png';
-import history from './../../History';
+import history from '../../History';
 import { withCookies } from 'react-cookie';
 import axios from 'axios';
-import { HOST_API } from './../../endpoints';
+import { HOST_API } from '../../endpoints';
 import Dropzone from "react-dropzone";
 import { useSnackbar } from 'notistack';
 import AutoComplete from './AutoComplete';
@@ -85,7 +85,7 @@ const DoneButton = styled(Button)`
 `;
 const filter = createFilterOptions();
 
-const Step2 = (props) => {
+const CreateProduct = (props) => {
     const { cookies } = props
     const data = cookies.get('login-res')
     const businessId = cookies.get('business-id')
@@ -263,17 +263,6 @@ const Step2 = (props) => {
                                                         />
                                                     </Grid.Column>
                                                     <Grid.Column width={8} >
-                                                        {/* < Dropdown
-                                                            placeholder='Aisle under'
-                                                            openOnFocus={false}
-                                                            fluid
-                                                            selection
-                                                            options={options}
-                                                            onChange={(e, { value }) => setSelectedCategory({ SelectedCategory: value })}
-                                                            clearable
-                                                            search
-                                                            style={{ padding: '2rem !important' }}
-                                                        /> */}
                                                         <Autocomplete
                                                             value={value}
                                                             onChange={(event, newValue) => {
@@ -368,4 +357,4 @@ const Step2 = (props) => {
         </MainDiv>
     )
 }
-export default withCookies(Step2)
+export default withCookies(CreateProduct)

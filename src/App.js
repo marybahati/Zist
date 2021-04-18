@@ -31,7 +31,7 @@ import PaymentDetails from './components/Vendor/PaymentDetails';
 import VendorIntro from './components/Vendor/Vendor-Intro';
 import Suppliers from './components/Vendor/Suppliers';
 import WelcomePage from './Zister/WelcomePage';
-import Step1 from './components/Vendor/Inventory-step1';
+import CreateProduct from './components/Vendor/InventoryAddProduct';
 import InventoryAddCategory from './components/Vendor/InventoryAddCategory';
 function App() {
   const notistackRef = React.createRef()
@@ -83,7 +83,7 @@ function App() {
       <Route exact path='/rider-dashboard' component={RiderDashboard} />
       <Route exact path='/suppliers' component={Suppliers}/>
       <Route exact path='/welcome' component={WelcomePage}/>
-      <Route exact path='/inventory-step1' component={Step1}/>
+      <Route exact path='/inventory-create-product' component={CreateProduct}/>
       <Route exact path='/inventory-add-category' component={InventoryAddCategory}/>
       {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>

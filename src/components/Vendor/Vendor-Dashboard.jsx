@@ -65,7 +65,7 @@ const Dashboard = (props) => {
         history.push('/vendor-service-desk')
     }
     const inventoryRedirect = () => {
-        history.push('/inventory-step1')
+        history.push('/inventory-create-product')
     }
     const settingsRedirect = () => {
         history.push('/vendor-settings')
