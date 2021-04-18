@@ -2,12 +2,13 @@ import React, { useState,useEffect } from 'react';
 import { Grid, Popup,  Icon, Form, List, Card } from "semantic-ui-react";
 import styled from 'styled-components';
 import axios from 'axios';
+import history from './../../History'
 import { RatedStars } from './../ShoppingPage/Ratings';
 import { ContinueButton } from './ContinueButton';
 import { withCookies } from 'react-cookie';
-import { ToastContainer, toast } from 'react-toastify';
 import {HOST_API} from './../../endpoints';
 import Dropzone from "react-dropzone";
+import { useSnackbar } from 'notistack';
 
 const MainDiv = styled.div`
    background: #F9F7F1;
@@ -16,10 +17,6 @@ const MainGrid = styled(Grid)`
    width: 50%;
    margin : 0 auto !important;
    padding: 60px 0 !important;
-`;
-const CardRow = styled(Grid.Row)`
-   width: 100% !important;
-   margin : 0 auto !important;
 `;
 const FormLabels = styled.label`
     font-size: 25px !important;
@@ -37,13 +34,6 @@ const FormInput = styled.input`
         padding: 20px 20px !important;
         font-size: 20px !important;
     }
-`;
-const warningText = styled.h2`
-    margin: 20px 0 !important;
-    font-size: 20px !important;
-`;
-const Titles = styled.h2`
-    padding: 0 !important;
 `;
 const ColumnForm = styled(Grid.Column)`
     padding: 0 !important;
@@ -68,6 +58,8 @@ const Storefront = (props) => {
     const businessData = userData?.business[0]
     const [fileNames, setFileNames] = useState([]);
 
+    const { enqueueSnackbar } = useSnackbar();
+
     const handleDrop = acceptedFiles => setFileNames(acceptedFiles.map(file => file.name));
  
     useEffect(() => {
@@ -91,7 +83,6 @@ const Storefront = (props) => {
     })
     }, []);
 
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [businessInfo, setbusinessInfo] = useState()
     const [name, setName] = useState( )
     const [natureOfBusiness, setNatureOfBusiness] = useState()
@@ -116,31 +107,17 @@ const Storefront = (props) => {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data)
-                    // setSnackbarOpen(true)
-                    toast.success("You have successfully updated the business profile", {
-                        className: 'toast',
-                        draggable: true,
-                        position: toast.POSITION.TOP_CENTER,
-                        type: toast.TYPE.SUCCES,
-                        hideProgressBar: true
-                    })
+                    enqueueSnackbar('You have successfully updated the business profile', { variant: 'success' }) 
+                    history.push('/vendor-dashboard')           
                 }
 
             }).catch(error => {
-                // setSnackbarOpen(true)
-                toast.error("An error occurred, please try again", {
-                    className: 'toast',
-                    draggable: true,
-                    position: toast.POSITION.TOP_CENTER,
-                    type: toast.TYPE.ERROR,
-                    hideProgressBar: true
-                })
+                enqueueSnackbar(`${error}`, { variant: 'error' })            
             });
     }
 
     return (
         <MainDiv>
-            <ToastContainer autoClose={4000} onOpen={snackbarOpen} />
                     <MainGrid>
                     <Grid.Row>
                         <h2> {name}’ Storefront. </h2>
