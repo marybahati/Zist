@@ -70,23 +70,7 @@ const SearchInputColumn = styled(Grid.Column)`
     margin: 0  !important;
     padding: 30px 25px !important;
 `;
-const SearchColumn = styled(Grid.Column)`
-  margin: 0 auto !important;
-  background:pink;
-`;
-const ProductName = styled(Grid.Column)`
-   margin: auto 0 auto 15px !important;
-`;
-const ProductImages = styled(Image)`
-   width: 80% !important;
-   margin: 0 auto 0 0 !important;
-`;
-const ItemsColumn = styled(Grid.Column)`
-   margin: auto 0 !important;
-`;
-const ProductRows = styled(Grid.Row)`
-   margin : ${props => props.spaced ? "0 0 20px 0 !important" : " 0 0 40px 0 !important "};
-`;
+
 const DropdownButtons = styled(Button)`
     background: #F9F7F1 !important;
     border: 0 ;
@@ -95,18 +79,28 @@ const DropdownButtons = styled(Button)`
     padding: 0 !important;
     color: black !important;
 `;
-const CardColumn = styled(Grid.Column)`
-    margin-bottom: 100px;
-    padding: 0 0 0 30px !important;
-`;
 const Columns = styled(Grid.Column)`
-    margin: auto 0 !important;
+    margin: ${props => props.center ? " 0 auto !important" : " auto 0 !important"};
     padding: 0 !important;
     // border-bottom: 1px solid black;
 `;
 const GreyText = styled.h2`
 color: #707070;
-`
+`;
+const ButtonCounters = styled(Button)`
+   background: inherit !important;
+   font-size : 40px !important;
+   padding : 0 !important;
+   color : black !important;
+   margin: 0 8px !important;
+   text-align: center !important;
+`;
+const StockColumn = styled(Grid.Column)`
+   margin: auto 0 !important;
+   background: #FFF !important;
+   padding: 18px 30px !important;
+   text-align: center !important;
+`;
 const UserList = (props) => {
     const [listId, setListId] = useState()
     const { cookies } = props
@@ -158,6 +152,22 @@ const UserList = (props) => {
     const [open, setOpen] = useState(false)
     console.log(searchText)
     console.log(cart)
+
+    const changeQuantity = (e, index, val) => {
+        e.preventDefault()
+        const curObj = cart[index]
+        curObj['quantity'] += val
+        cart[index] = curObj
+        setCart([...cart])
+    }
+    const deleteProduct = (e, index) => {
+        e.preventDefault()
+        const obj = cart[index]
+        cart.splice(obj, 1)
+        setCart([...cart])
+        console.log(cart, obj)
+    }
+
     useEffect(() => {
         axios.post(HOST_API + 'zist/list/',
             { name: 'list' },
@@ -422,11 +432,6 @@ const UserList = (props) => {
                         <UserName> Shopping List </UserName>
                         <BusinessImage src={store} />
                         <UserName> {clickedBusiness.name}   <Icon name='check circle' color='yellow' /> </UserName>
-                        {/* <RatedStars rating={5} /> */}
-                        {/* <List bulleted horizontal >
-                            <List.Item ></List.Item>
-                            <List.Item style={{ fontSize: 20, paddingBottom: 13 }}  >{clickedBusiness.type} </List.Item>
-                        </List> */}
                     </IntroColumn>
                 </Grid.Row>
                 <Grid.Row>
@@ -535,29 +540,65 @@ const UserList = (props) => {
                         </Grid.Column>
                     </Grid.Row>
                 ) : null}
-                <Grid.Row style={{ paddingBottom: 30 }}>
+     
+                {cart.length !== 0 ? (
+                    //  <h2> Products in your basket </h2>
+                    cart?.map(product => {
+                        return (
+                            <Grid.Row width={16}>
+                                <Grid.Column width={1}>
+                                    <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
+                                        <Icon name='close' size='large' color='orange' />
+                                    </Button>
+                                </Grid.Column>
+                                <Grid.Column width={4}>
+                                    <Image src={blueberries} wrapped ui={false} />
+                                </Grid.Column>
+                                <Grid.Column width={1}/>
+                                <Columns width={10}>
+                                    <Grid>
+                                        <Grid.Row>
+                                            <Columns width={5}>
+                                                <h2>{product.productName} </h2>
+                                                <List link>
+                                                    <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
+                                                </List>
+                                            </Columns >
+                                            <Columns width={8}>
+                                                <Grid>
+                                                    <Grid.Row>
+                                                        <Columns width={2} />
+                                                        <Columns width={3}>
+                                                            <ButtonCounters > - </ButtonCounters>
+                                                        </Columns>
+                                                        <Columns width={6}>
+                                                            <StockColumn width={15}> <h2> {product.quantity} </h2> </StockColumn>
+                                                        </Columns>
+                                                        <Columns width={2} />
+                                                        <Columns width={3}>
+                                                            <ButtonCounters > + </ButtonCounters>
+                                                        </Columns>
+                                                    </Grid.Row>
+                                                </Grid>
+                                            </Columns>
+                                            <Columns width={3}>
+                                                <h2>Ksh.{product.productPrice} </h2>
+                                            </Columns >
+                                        </Grid.Row>
+                                    </Grid>
+                                </Columns>
+                            </Grid.Row>
+                        )
+                    })
+                ) : null}
+                <Grid.Row style={{ padding: '40px 20px' }}>
                     <Grid.Column width={5}></Grid.Column>
-                    <Grid.Column width={6}>
-                        {cart.length !== 0 ? <Button as='a' onClick={handleAddedProduct} style={{ backgroundColor: 'orange' }}> View List  </Button> : null}
+                    <Grid.Column width={4}>
+                        {cart.length !== 0 ? <Button as='a' onClick={handleAddedProduct} style={{ backgroundColor: 'orange', width:'100%',padding:'15px 20px',fontSize:'20px'}}> View List  </Button> : null}
                     </Grid.Column>
                     <Grid.Column width={5}></Grid.Column>
                 </Grid.Row>
                 <Grid.Row >
-                    {/* <SearchInputColumn width={14}>
-                        <SearchInput
-                        width={16}
-                            placeholder='Search for what you want and add it just like you’d do with a regular list…'
-                            fluid
-                            // selection
-                            scrolling
-                            options={options}
-                            // clearable
-                            search
-                            onChange={(e, { value }) => setSelectedOption({ selectedOption: value })}
-                            noResultsMessage='Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else'
-                        >
-                        </SearchInput>
-                    </SearchInputColumn> */}
                     <Grid.Column width={16}>
                         <GreyText> Search for what you want and add it just like you’d do with a regular list… </GreyText>
                     </Grid.Column>

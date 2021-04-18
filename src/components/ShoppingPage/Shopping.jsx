@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import bgImage from './../../Assets/shopping-hero-img.png'
-import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Card, Menu } from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button, Label, List,  Card, Menu } from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
 import store from './../../Assets/store.png';
@@ -15,8 +15,7 @@ import axios from 'axios';
 import { RatedStars } from './Ratings';
 import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
 import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
-import { withCookies, Cookies } from 'react-cookie';
-import Cards from './Cards';
+import { withCookies } from 'react-cookie';
 import History from '../../History';
 import { HOST_API } from './../../endpoints';
 
