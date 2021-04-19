@@ -81,7 +81,7 @@ const Dashboard = (props) => {
             <MainGrid>
                 <Grid.Row>
                     <Grid.Column width={4}>
-                        <Image src={business} />
+                        <Image src='https://semantic-ui.com/images/wireframe/square-image.png' circular />
                     </Grid.Column>
                     <CenteredColumn width={12}>
                         <Grid>
