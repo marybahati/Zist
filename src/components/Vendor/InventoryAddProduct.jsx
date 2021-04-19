@@ -8,7 +8,6 @@ import axios from 'axios';
 import { HOST_API } from '../../endpoints';
 import Dropzone from "react-dropzone";
 import { useSnackbar } from 'notistack';
-import AutoComplete from './AutoComplete';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 
@@ -56,11 +55,11 @@ const Buttonx = styled(Button)`
     border: 2px solid #FEE2D4 !important;
     border-radius: 24px !important;
     opacity: 1;
-    height: 90px !important;
+    height: 66px !important;
     width: 100%;
     font-size: 26px !important;
     color: #050504 !important;
-    margin: 50px 0 !important;
+    margin: 0 0 50px 0 !important;
 `;
 const Icons = styled(Grid.Column)`
   padding: 0 0 0 30px ;
@@ -158,11 +157,7 @@ const CreateProduct = (props) => {
                 {
                     name: name,
                     price: price,
-                    category: {
-                        category: selectedCategory?.category,
-                        description: selectedCategory?.description,
-                        business: selectedCategory?.business,
-                    },
+                    category: selectedCategory?.category,
                     description: description,
                     // image: image,
                     metadata: stock,
@@ -173,6 +168,11 @@ const CreateProduct = (props) => {
             if (product_res.status == 201) {
                 console.log(product_res)
                 enqueueSnackbar('You have successfully added a new product', { variant: 'success' })
+                setName('')
+                setPrice('')
+                setSelectedCategory('')
+                setDescription('')
+                setStock('')
             }
         } catch (error) {
             console.log(error)
@@ -181,6 +181,9 @@ const CreateProduct = (props) => {
     }
     const handleGoingBack = () => {
         history.goBack()
+    }
+    const handleViewProducts = () => {
+        history.push('/vendor-products')
     }
     console.log(value, 'autocomplete=val ')
     return (
@@ -268,6 +271,7 @@ const CreateProduct = (props) => {
                                                     </Grid.Column>
                                                     <Grid.Column width={8} >
                                                         <Autocomplete
+                                                            // style={{border:'0px !important'}}
                                                             value={value}
                                                             onChange={(event, newValue) => {
                                                                 console.log(newValue, '==================')
@@ -328,9 +332,9 @@ const CreateProduct = (props) => {
                                                                 return option.category;
                                                             }}
                                                             renderOption={(option) => option.category}
-                                                            style={{ width: '100%' }}
+                                                            style={{ width: '100%',border:'0px !important' }}
                                                             renderInput={(params) => (
-                                                                <TextField {...params} label="Select Category" />
+                                                                <TextField {...params} placeholder="Select Category" style={{background:'white',width:'100%'}} />
                                                             )}
                                                         />
                                                     </Grid.Column>
@@ -351,8 +355,13 @@ const CreateProduct = (props) => {
 
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <CenteredColumn width={7}>
-                                            <ActionButton onClick={handleSubmit} type='submit' > ADD NEW ITEM </ActionButton>
+                                        <CenteredColumn width={6}>
+                                            <ActionButton onClick={handleSubmit} type='submit' > Add new item </ActionButton>
+                                        </CenteredColumn>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <CenteredColumn width={6}>
+                                            <Buttonx onClick={handleViewProducts}  > View Products </Buttonx>
                                         </CenteredColumn>
                                     </Grid.Row>
                                 </Grid>

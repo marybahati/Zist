@@ -4,7 +4,6 @@ import { SnackbarProvider } from 'notistack';
 import LandingPage from './components/LandingPage/LandingPage';
 import Shopping from './components/ShoppingPage/Shopping'
 import history from './History';
-import Cards from './components/ShoppingPage/Cards';
 import  VendorRegistration  from './components/Vendor/VendorRegistration';
 import  VendorDashboard  from './components/Vendor/Vendor-Dashboard';
 import { Analytics } from './components/Vendor/Analytics';
@@ -33,6 +32,9 @@ import Suppliers from './components/Vendor/Suppliers';
 import WelcomePage from './Zister/WelcomePage';
 import CreateProduct from './components/Vendor/InventoryAddProduct';
 import InventoryAddCategory from './components/Vendor/InventoryAddCategory';
+import VendorProducts from './components/Vendor/VendorProducts';
+
+
 function App() {
   const notistackRef = React.createRef()
   const onClickDismiss = (key) => () => {
@@ -85,6 +87,7 @@ function App() {
       <Route exact path='/welcome' component={WelcomePage}/>
       <Route exact path='/inventory-create-product' component={CreateProduct}/>
       <Route exact path='/inventory-add-category' component={InventoryAddCategory}/>
+      <Route exact path='/vendor-products' component={VendorProducts}/>
       {/* <VendorIntroduction exact path='/vendor-introduction/' component={VendorIntroduction} /> */}
     </Router>
     </SnackbarProvider>
