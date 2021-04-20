@@ -157,7 +157,7 @@ const CreateProduct = (props) => {
                 {
                     name: name,
                     price: price,
-                    category: selectedCategory?.category,
+                    category: selectedCategory?.id,
                     description: description,
                     // image: image,
                     metadata: stock,
