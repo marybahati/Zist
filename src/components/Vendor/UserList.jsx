@@ -543,11 +543,11 @@ const UserList = (props) => {
      
                 {cart.length !== 0 ? (
                     //  <h2> Products in your basket </h2>
-                    cart?.map(product => {
+                    cart?.map((product, index) => {
                         return (
                             <Grid.Row width={16}>
                                 <Grid.Column width={1}>
-                                    <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
+                                    <Button onClick={e => deleteProduct(e,index)} basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
                                         <Icon name='close' size='large' color='orange' />
                                     </Button>
                                 </Grid.Column>
@@ -569,14 +569,14 @@ const UserList = (props) => {
                                                     <Grid.Row>
                                                         <Columns width={2} />
                                                         <Columns width={3}>
-                                                            <ButtonCounters > - </ButtonCounters>
+                                                            <ButtonCounters onClick={ e => changeQuantity(e,index,-1)} > - </ButtonCounters>
                                                         </Columns>
                                                         <Columns width={6}>
                                                             <StockColumn width={15}> <h2> {product.quantity} </h2> </StockColumn>
                                                         </Columns>
                                                         <Columns width={2} />
                                                         <Columns width={3}>
-                                                            <ButtonCounters > + </ButtonCounters>
+                                                            <ButtonCounters onClick={ e => changeQuantity(e,index,1)} > + </ButtonCounters>
                                                         </Columns>
                                                     </Grid.Row>
                                                 </Grid>
