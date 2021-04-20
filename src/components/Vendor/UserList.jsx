@@ -339,7 +339,7 @@ const UserList = (props) => {
 
 
 
-    const suggestedProducts = options.slice(0, 5).map(product => {
+    const suggestedProducts = products.slice(0, 5).map(product => {
         return (
             <Grid.Row width={16} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
                 <Grid.Column width={1}></Grid.Column>
@@ -608,7 +608,7 @@ const UserList = (props) => {
                         />
                     </SearchInputColumn>
                 </Grid.Row>
-                {options.map(product => {
+                {products.map(product => {
                     return productSearch(product)
                 })}
             </MainGrid>
