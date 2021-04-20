@@ -569,7 +569,13 @@ const UserList = (props) => {
                                                     <Grid.Row>
                                                         <Columns width={2} />
                                                         <Columns width={3}>
-                                                            <ButtonCounters onClick={ e => changeQuantity(e,index,-1)} > - </ButtonCounters>
+                                                            <ButtonCounters onClick={ e => {
+                                                                if(product.quantity === 1){
+                                                                    changeQuantity(e,index,0)
+                                                                } else {
+                                                                    changeQuantity(e,index,-1)
+                                                                }
+                                                            }} > - </ButtonCounters>
                                                         </Columns>
                                                         <Columns width={6}>
                                                             <StockColumn width={15}> <h2> {product.quantity} </h2> </StockColumn>
