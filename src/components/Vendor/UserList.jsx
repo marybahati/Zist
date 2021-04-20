@@ -101,6 +101,25 @@ const StockColumn = styled(Grid.Column)`
    padding: 18px 30px !important;
    text-align: center !important;
 `;
+const BusinessColumns = styled(Grid.Column)`
+   text-align : ${props => props.center ? "center !important" : " left !important "};
+   margin: auto 0 !important;
+`;
+const OrderNowColumn = styled(Grid.Column)`
+   width: 50% !important;
+   margin: 0 auto !important;
+`;
+const OrderNowButton = styled(Button)`
+   width: 100% !important;
+   background: #FFBD59 0% 0% no-repeat padding-box !important;
+   border: 2px solid #FEE2D4 !important;
+   border-radius: 24px !important;
+   opacity: 1;
+   color: black !important;
+   height: 90px !important;
+   font-size: 22px !important;
+`;
+
 const UserList = (props) => {
     const [listId, setListId] = useState()
     const { cookies } = props
@@ -597,13 +616,13 @@ const UserList = (props) => {
                         )
                     })
                 ) : null}
-                <Grid.Row style={{ padding: '40px 20px' }}>
+                {/* <Grid.Row style={{ padding: '40px 20px' }}>
                     <Grid.Column width={5}></Grid.Column>
                     <Grid.Column width={4}>
                         {cart.length !== 0 ? <Button as='a' onClick={handleAddedProduct} style={{ backgroundColor: 'orange', width:'100%',padding:'15px 20px',fontSize:'20px'}}> View List  </Button> : null}
                     </Grid.Column>
                     <Grid.Column width={5}></Grid.Column>
-                </Grid.Row>
+                </Grid.Row> */}
                 <Grid.Row >
                     <Grid.Column width={16}>
                         <GreyText> Search for what you want and add it just like you’d do with a regular list… </GreyText>
@@ -617,6 +636,49 @@ const UserList = (props) => {
                 {products.map(product => {
                     return productSearch(product)
                 })}
+                 <Grid.Row >
+                    <BusinessColumns center>
+                        <Collapsible width={16} fluid trigger={<DropdownButtons > Continue shopping from another store within Mall A <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
+                            <Grid width={16}  >
+                                <Grid.Row >
+                                    <Grid.Column width={5} style={{paddingLeft:40}} >
+                                        <Image src={BusinessPic} />
+                                    </Grid.Column>
+                                    <BusinessColumns width={10}  >
+                                        <h2> Thiga’s Field Fresh Vegetables <Icon name='check circle' color='yellow' /> </h2>
+                                        <List bulleted horizontal >
+                                            <List.Item ></List.Item>
+                                            <List.Item > beauty </List.Item>
+                                            <List.Item > health </List.Item>
+                                        </List>
+                                    </BusinessColumns>
+                                </Grid.Row>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.Row>
+                                    <Grid.Column width={5}  >
+                                        <Image src={BusinessPic} style={{paddingLeft:40}} />
+                                    </Grid.Column>
+                                    <BusinessColumns width={10} style={{ textAlign: 'center' }} >
+                                        <h2> Mary’s Apothecary <Icon name='check circle' color='yellow' /> </h2>
+                                        <List bulleted horizontal >
+                                            <List.Item ></List.Item>
+                                            <List.Item > groceries </List.Item>
+                                            <List.Item > healthy snacks </List.Item>
+                                        </List>
+                                    </BusinessColumns>
+                                </Grid.Row>
+                            </Grid>
+
+                        </Collapsible>
+                    </BusinessColumns>
+                </Grid.Row>
+                <Grid.Row>
+                    <OrderNowColumn>
+                        <OrderNowButton > Order Now </OrderNowButton>
+                    </OrderNowColumn>
+                </Grid.Row>
             </MainGrid>
         </MainDiv>
     )
