@@ -115,7 +115,7 @@ const Shopping = (props) => {
     setBusiness({business:value})
     History.push({
       pathname: '/user-list',
-      state: business
+      state: {name: value}
     });
   }
   console.log(business)
