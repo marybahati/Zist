@@ -10,7 +10,7 @@ import Dropzone from "react-dropzone";
 import { useSnackbar } from 'notistack';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-
+import { makeStyles, withStyles} from '@material-ui/core/styles'
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -104,6 +104,20 @@ const CreateProduct = (props) => {
     console.log(selectedCategory)
     const handleDrop = acceptedFiles => setFileNames(acceptedFiles.map(file => file.name));
 
+    const AutoComplete = withStyles({
+        input:{
+          fontSize: '12px',
+          minWidth: '7rem',
+          '&::placeholder': {
+            color: 'red',
+            opacity: 1
+          },
+          '& ..MuiAutocomplete-input': {
+            padding: '15px 10px !important',
+        }
+        },
+       
+      })(Autocomplete)
     // const handleChange = (e) => {
     //     const { name, value } = e.target
     //     setFormData((prevState) => ({ ...prevState, [name]: value }))
@@ -149,7 +163,8 @@ const CreateProduct = (props) => {
                 console.error(error)
             })
     }, []);
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         const categorySelected = Object.values(selectedCategory)
         console.log(categorySelected)
         try {
@@ -173,6 +188,7 @@ const CreateProduct = (props) => {
                 setSelectedCategory('')
                 setDescription('')
                 setStock('')
+                setValue('')
             }
         } catch (error) {
             console.log(error)
@@ -216,7 +232,7 @@ const CreateProduct = (props) => {
                 </Grid.Row>
                 <Grid.Row>
                     <Columns width={16}>
-                        <Form size='large'>
+                        <Form size='large' onSubmit={handleSubmit}>
                             <Form.Group>
                                 <Grid>
                                     <Grid.Row>
@@ -250,6 +266,7 @@ const CreateProduct = (props) => {
                                                     </Grid.Column>
                                                     <Grid.Column width={8} >
                                                         <Form.Input
+                                                            value={price}
                                                             required
                                                             placeholder=' Item price '
                                                             name='price'
@@ -262,6 +279,7 @@ const CreateProduct = (props) => {
                                                 <Grid.Row>
                                                     <Grid.Column width={8}>
                                                         <Form.Input
+                                                            value={stock}
                                                             required
                                                             placeholder='Add how many Items are in stock'
                                                             name='stock'
@@ -271,8 +289,8 @@ const CreateProduct = (props) => {
                                                         />
                                                     </Grid.Column>
                                                     <Grid.Column width={8} >
-                                                        <Autocomplete
-                                                            // style={{border:'0px !important'}}
+                                                        <div>
+                                                        <AutoComplete
                                                             value={value}
                                                             onChange={(event, newValue) => {
                                                                 console.log(newValue, '==================')
@@ -314,9 +332,10 @@ const CreateProduct = (props) => {
                                                                 return filtered;
                                                             }}
 
-                                                            autoComplete
-                                                            clearOnBlur
-                                                            handleHomeEndKeys
+                                                            // autoComplete
+                                                            // clearOnBlur
+                                                            // handleHomeEndKeys
+                                                            selectOnFocus
                                                             id="category"
                                                             options={fetchedCategories}
                                                             getOptionLabel={(option) => {
@@ -333,16 +352,23 @@ const CreateProduct = (props) => {
                                                                 return option.category;
                                                             }}
                                                             renderOption={(option) => option.category}
-                                                            style={{ width: '100%',border:'0px !important' }}
+                                                            freeSolo
                                                             renderInput={(params) => (
-                                                                <TextField {...params} placeholder="Select Category" style={{background:'white',width:'100%'}} />
+                                                                <TextField
+                                                                {...params}
+                                                                placeholder="Select Category"
+                                                                InputProps={{...params.InputProps, disableUnderline: true}}
+                                                                fullWidth
+                                                              />
                                                             )}
                                                         />
+                                                        </div>
                                                     </Grid.Column>
                                                 </Grid.Row>
                                                 <Grid.Row>
                                                     <Grid.Column width={16}>
                                                         <Form.TextArea
+                                                            value={description}
                                                             required
                                                             placeholder='Add the item Ingredients '
                                                             name='description'
@@ -357,7 +383,7 @@ const CreateProduct = (props) => {
                                     </Grid.Row>
                                     <Grid.Row>
                                         <CenteredColumn width={6}>
-                                            <ActionButton onClick={handleSubmit} type='submit' > Add new item </ActionButton>
+                                            <ActionButton  type='submit' > Add new item </ActionButton>
                                         </CenteredColumn>
                                     </Grid.Row>
                                     <Grid.Row>
