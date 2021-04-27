@@ -170,7 +170,7 @@ const VendorRegistration = (props) => {
                                         onChange={e => setDescription(e.target.value)}
                                     />
                                 </Form.Field>
-                                <Form.Field>
+                                {/* <Form.Field>
                                     <FormLabels>Niche of business</FormLabels>
                                     <SelectDropdown
                                         placeholder='Niche of business'
@@ -183,7 +183,7 @@ const VendorRegistration = (props) => {
                                         search
                                         style={{ padding: '2rem !important' }}
                                     />
-                                </Form.Field>
+                                </Form.Field> */}
                                 <Form.Field>
                                     <FormLabels>Business Categories</FormLabels>
                                     <FormInput placeholder='Input which type of products your business specifically deals in.'
@@ -210,7 +210,7 @@ const VendorRegistration = (props) => {
                                  </h2>
                                 <ButtonGrid width={16} >
                                     <ContinueButtonSection type='submit' name={name} natureOfBusiness={businessInfo}
-                                        niche={businessBio} tel={tel} email={email} location={location} />
+                                        niche={description} tel={tel} email={email} location={location} />
                                 </ButtonGrid>
 
                             </VendorForm>

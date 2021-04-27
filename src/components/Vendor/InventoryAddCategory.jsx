@@ -90,7 +90,8 @@ const AddCategory = (props) => {
  
     const { enqueueSnackbar } = useSnackbar();
   
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         try {
             const product_res = await axios.post(HOST_API + `zist/categories/`,
                 {
@@ -103,7 +104,9 @@ const AddCategory = (props) => {
             if (product_res.status == 201) {
                 console.log(product_res)
                 enqueueSnackbar(`You have successfully created category ${category}`, { variant: 'success' }) 
-                history.push('/inventory-create-product')
+                setCategory('')
+                setDescription('')
+                // history.push('/inventory-create-product')
             }
         } catch (error) {
             console.log(error)
@@ -146,6 +149,7 @@ const AddCategory = (props) => {
                                     <Grid.Row>
                                         <Grid.Column width={16}>
                                             <Form.Input
+                                                value={category}
                                                 required
                                                 placeholder='Category'
                                                 name='name'
@@ -156,6 +160,7 @@ const AddCategory = (props) => {
                                     <Grid.Row>
                                         <Grid.Column width={16}>
                                             <Form.Input
+                                                value={description}
                                                 required
                                                 placeholder='Description'
                                                 name='name'

@@ -201,7 +201,7 @@ const Storefront = (props) => {
     
     
                                 <Form.Field>
-                                    <FormLabels> Business Niche </FormLabels>
+                                    <FormLabels> Business Description </FormLabels>
                                     <FormInput
                                         placeholder='Business niche '
                                         onChange={e => setNiche(e.target.value)}
@@ -241,7 +241,13 @@ const Storefront = (props) => {
                                 </Form.Field>
     
                                 <ButtonGrid width={16} >
-                                    <ContinueButton type='submit' handleClick={handleUpdate} />
+                                    <Grid.Row>
+                                        <Grid.Column width={3}></Grid.Column>
+                                        <Grid.Column width={10}>
+                                         <ContinueButton type='submit' handleClick={handleUpdate} />
+                                        </Grid.Column>
+                                        <Grid.Column width={3}></Grid.Column>
+                                    </Grid.Row>
                                 </ButtonGrid>
     
                             </Form>

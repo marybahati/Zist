@@ -241,6 +241,7 @@ const CreateProduct = (props) => {
 
                                                     <Grid.Column width={8}>
                                                         <Form.Input
+                                                            value={name}
                                                             required
                                                             placeholder='Item name'
                                                             name='name'
