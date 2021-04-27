@@ -5,18 +5,16 @@ import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Form, Menu } f
 import cartImage from "./../../Assets/cart.png";
 import styled from 'styled-components';
 import coffeShop from "./../../Assets/coffeShop.png";
-import heroImg from "./../../Assets/homepage-hero-img.png"
+// import heroImg from "./../../Assets/homepage-hero-img.png"
+import heroImg from "./../../Assets/L-P.jpeg"
 import step1 from "./../../Assets/step1.png";
 import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
-import zistApp from "./../../Assets/order-now-img.png";
-import explore from "./../../Assets/explore.png";
 import "./styles.css";
 import { GoogleComponent } from 'react-google-location';
 import history from './../../History';
 import { SignupButtonSection } from "./SignupButtonSection";
 import { LoginButtonSection } from "./LoginButtonSection";
-import { withRouter } from 'react-router-dom';
 import { withCookies, Cookies } from 'react-cookie';
 
 const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'
@@ -30,9 +28,9 @@ const MainDiv = styled.div`
     background: #F9F7F1;
 `;
 const NavbarGrid = styled(Grid)`
-    padding: 10px 0 0 0 !important;
+    padding: 0 0 0 0 !important;
     width:100% !important;
-    height: 800px;
+    height: 600px;
     background: url(${heroImg});
     background-size:cover;
     background-repeat: no-repeat;
@@ -43,42 +41,9 @@ const NavbarGrid = styled(Grid)`
     
 `;
 
-const MenuGrid = styled.div`
-    width: 30%;
-    margin: 0 auto 100px 200px ;
-    // padding: 0 !important;
-    // height: 145px;
-    @media only screen and (max-width: 750px) {
-      font-size: 18px !important;
-      width: 70% !important;
-      };
-`
-const TabDiv = styled.div`
-    width: 100%;
-    padding: 26px 0px;
-    text-align: center;
-`
 const IntroGrid = styled(Grid)`
     background: #F9F7F1  0% 0% no-repeat padding-box;
     opacity: 1;
-`
-const IntroColumn = styled(Grid.Column)`
-    // border: 1px solid #707070;
-    padding: auto !important;
-    margin: 0 auto !important;
-`
-const BetaButton = styled.button`
-    width: 100%;
-    height: 109px;
-    background-color: inherit;
-    color: #050504;
-    font-size: 28px;
-    border: 1px solid #707070;
-    font-weight: bold;
-    @media only screen and (max-width: 450px) {
-      height: 60px;
-      font-size: 14px;
-      };
 `
 const DemoGrid = styled(Grid)`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -89,11 +54,6 @@ const AppSectionGrid = styled(Grid)`
     background: #F9F7F1 0% 0% no-repeat padding-box;
     opacity: 1;
     margin-top: 100px;
-`;
-const AppSectionColumn = styled(Grid.Column)`
-    border-left: 1px solid #707070 !important;
-    margin: ${props => props.spaceVertically ? "auto 0 !important" : " 0 auto !important"};
-    text-align: ${props => props.centered ? "center" : " left"};
 `;
 const AppLinkButton = styled(Button)`
     background: #FFBD59 0% 0% no-repeat padding-box !important;
@@ -126,19 +86,6 @@ const FooterLinks = styled(List.Item)`
   color: #707070;
   line-height: 60px;
 `;
-const SocialMediaLinks = styled(List.Item)`
-  font-size: 2rem;
-  text-align: left;
-  color: #0B0B0B;
-  line-height: 60px;
-  font-weight: bold;
-`;
-const ExploreLinks = styled(List.Item)`
-  font-size: 20px;
-  color: #0B0B0B;
-  font-weight: bold;
-  padding: 0 0 0 30px !important;
-`;
 const OrderNowColumns = styled(Grid.Column)`
   margin: ${props => props.spaceVertically ? "auto 0 !important" : " 0 auto !important"};
   text-align: ${props => props.centered ? "center" : " left"};
@@ -152,34 +99,9 @@ const Title = styled.h1`
     font-size: 20px !important;
     };
 `;
-const MenuDropdown = styled(Dropdown)`
-  font-size: 18px;
-  color: #050504;
-`;
-const DropdownColumn = styled(Grid.Column)`
-  padding: 0 !important;
-  background: white !important;
-`;
 const NavbarActionsColumn = styled(Grid.Column)`
   display: inline-block !important;
   padding: 0  !important;
-`;
-const Columns = styled(Grid.Column)`
-  padding:  0 !important;
-`;
-const ButtonColumns = styled(Grid.Column)`
-  padding: ${props => props.morePadding ? "16px 0 0 0 !important" : " 5px 0 0 0 !important"};
-`;
-const HelpLink = styled(List.Item)`
-  font-size: 30px !important;
-  font-weight: bold !important;
-  padding-right: 30px !important;
-  font-size: 20px !important;
-  color: #050504 !important;
-  text-decoration: underline; 
-  @media only screen and (max-width: 1100px) {
-    font-size: 16px !important;
-    };
 `;
 const Cart = styled(Image)`
   display: inline-block !important;
@@ -205,11 +127,29 @@ padding: 0 !important;
 width: 490px !important;
 margin: 0 auto 0px 150px !important;
 border: 1px solid #707070 !important;
-@media only screen and (max-width: 1100px) {
+@media only screen and (min-width: 1100px) {
   font-size: 18px !important;
+  margin: 0 auto 0px 150px !important;
   };
   @media only screen and (max-width: 750px) {
     font-size: 18px !important;
+    // width: 70% !important;
+    margin: 0 auto 0px 0 !important;
+    };
+`;
+const IntroColumnText = styled(Grid.Column)`
+background-color: inherit !important;
+padding: 0 !important;
+width: 490px !important;
+margin: 0 auto 0px 150px !important;
+text-align: left;
+@media only screen and (min-width: 1100px) {
+  font-size: 35px !important;
+  margin: 0 auto 0px 150px !important;
+  };
+  @media only screen and (max-width: 750px) {
+    font-size: 18px !important;
+    margin: 0 auto 0px 0 !important;
     // width: 70% !important;
     };
 `
@@ -243,7 +183,7 @@ margin-left: 0 !important;
 
 `;
 const LocaationDiv = styled.div`
-border: 1px solid #707070 !important;
+// border: 1px solid #707070 !important;
 // height: 77px !important;
 background-color: #fff !important;
 `;
@@ -366,8 +306,6 @@ text-align: center;
 const LandingPage = (props) => {
 
   const [location, setLocation] = useState(null);
-  // const [token, setToken] = useState();
-  const [activeExploreItem, setActiveExploreItem] = useState('');
   const { cookies } = props
   const userData = cookies.get('login-res')
   const token = userData?.access
@@ -375,8 +313,6 @@ const LandingPage = (props) => {
   const splitName = names?.split(' ')
   const name = splitName !== undefined ? splitName[0] : null 
   console.log(names, name)
-
-  const handleItemClick = (e, { name }) => setActiveExploreItem({ activeExploreItem: name });
 
   const handleRedirect = () => {
     if (location == null) {
@@ -484,7 +420,13 @@ console.log(token !== undefined || token !== '')
               )}
               <NavbarActionsColumn width={16}  >
               <Grid >
-              <GridRows style={{ top: '110px' }}>
+                <GridRows>
+                  <IntroColumnText>
+                    <h1> SHOPPING REINVENTED. </h1>
+                    <h1> YOUR SHOPPING? WE'RE BUILT FOR THAT. </h1>
+                  </IntroColumnText>
+                </GridRows>
+              <GridRows style={{ top: '20px' }}>
                 {/* <Grid.Column width={1}></Grid.Column> */}
                 <LocationColumn >
                   <LocationInput labelPosition='right' type='search'
@@ -505,7 +447,7 @@ console.log(token !== undefined || token !== '')
 
               </GridRows>
 
-              <GridRows style={{ top: '110px' }} >
+              <GridRows style={{ top: '20px' }} >
                 <LocationColumn >
                   <LocaationDiv >
                     <LocationPickerButton basic fluid >

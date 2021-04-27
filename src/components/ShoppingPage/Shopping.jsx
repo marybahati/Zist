@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import bgImage from './../../Assets/shopping-hero-img.png'
+// import bgImage from './../../Assets/shopping-hero-img.png'
+import bgImage from './../../Assets/shopping1.png'
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List,  Card, Menu } from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
@@ -121,7 +122,7 @@ const Shopping = (props) => {
   console.log(business)
   return (
     <div >
-      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: 760, width: '100% !important' }}>
+      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:'center',height: 650, width: '100% !important'}}>
 
         {token === undefined || token === '' ? (
           <Grid.Row width={16} >
@@ -208,7 +209,7 @@ const Shopping = (props) => {
               </Grid.Column>
             </Grid.Row>
           )}
-        <Grid.Row width={16} style={{ padding: '0 ' }}>
+        <Grid.Row width={16} style={{ padding: '0 ',margin:'auto 0 !important' }}>
 
           <Input labelPosition='right' type='search'
             style={{
@@ -219,6 +220,7 @@ const Shopping = (props) => {
               fontSize: '20px',
               height: '90px ',
               padding: 0,
+              top: '-70px',
             }}
             size="small"
             placeholder='SEARCH FOR A PLACE OR ITEM'>
