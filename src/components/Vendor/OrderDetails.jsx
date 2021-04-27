@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Grid, Image, Button, Icon, List, Form, TextArea } from "semantic-ui-react";
 import styled from 'styled-components';
 import bananas from './../../Assets/bananas.png';
-import blueberries from './../../Assets/blue-berries.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
 import Collapsible from 'react-collapsible';
 import { Checkbox } from 'semantic-ui-react'
+import store from './../../Assets/store.png';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -25,12 +25,16 @@ const DropdownButtons = styled(Button)`
     padding: 0 !important;
     color: black !important;
 `;
-const UserName = styled.h2`
-    text-decoration: underline !important;
-`;
+// const UserName = styled.h2`
+//     text-decoration: underline !important;
+// `;
 const Columns = styled(Grid.Column)`
      padding: ${props => props.spaced ? '30px 0 0 0 !important' : '10px 0 0 0 !important'};
      margin: auto 0 0 0 !important;
+`;
+const Rows = styled(Grid.Row)`
+     padding:  0 !important;
+     margin: 0 !important;
 `;
 const EditLink = styled(List.Item)`
      color: #FFBD59 !important;
@@ -38,6 +42,7 @@ const EditLink = styled(List.Item)`
 `;
 const ProductName = styled(Grid.Column)`
    margin: auto 0 auto 15px !important;
+   text-align: ${props => props.center ? 'center !important' : 'left !important'};
 `;
 const ProductImages = styled(Image)`
    width: 80% !important;
@@ -51,7 +56,7 @@ const ItemsColumn = styled(Grid.Column)`
    margin: auto 0 !important;
 `;
 const OrderNowColumn = styled(Grid.Column)`
-   width: 50% !important;
+   width: 35% !important;
    margin: 0 auto !important;
 `;
 const OrderNowButton = styled(Button)`
@@ -61,14 +66,49 @@ const OrderNowButton = styled(Button)`
    border-radius: 24px !important;
    opacity: 1;
    color: black !important;
-   height: 90px !important;
+   height: 70px !important;
    font-size: 22px !important;
+`;
+const IntroColumn = styled(Grid.Column)`
+    width: 60% !important;
+    margin: 0 auto !important;
+    text-align: center  !important;
+`;
+const UserName = styled.h2`
+    text-decoration: underline !important;
+    padding: 0 0 15px 0 !important;
+`;
+const BusinessImage = styled(Image)`
+    margin: 0 auto !important;
+`;
+const ButtonCounters = styled(Button)`
+   background: inherit !important;
+   font-size : ${props => props.linkbutton ? "20px !important" : " 40px !important "};
+   padding : 0 !important;
+   color :  ${props => props.orange ? "orange !important" : " black !important"};
+//    margin: 0 8px !important;
+   text-align: center !important;
 `;
 
 const OrderDetails = (props) => {
-    const [total,setTotal] = useState()
-    const [n,setN] = useState([])
+
     const info = (props.location && props.location.state) || '';
+    const [cart, setCart] = useState(info.cart)
+    const [n, setN] = useState([])
+    const changeQuantity = (e, index, val) => {
+        e.preventDefault()
+        const curObj = cart[index]
+        curObj['quantity'] += val
+        cart[index] = curObj
+        setCart([...cart])
+    }
+    const deleteProduct = (e, index) => {
+        e.preventDefault()
+        const obj = cart[index]
+        cart.splice(obj, 1)
+        setCart([...cart])
+        console.log(cart, obj)
+    }
     // info.map( no => {
     //     const numbers = no.productPrice 
     //     // console.log(numbers)
@@ -80,141 +120,121 @@ const OrderDetails = (props) => {
         <MainDiv>
             <MainGrid>
                 <Grid.Row>
-                    <Collapsible width={16} fluid trigger={<DropdownButtons > Address Details <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
-                        <Grid width={16}  >
-                            <Grid.Row >
-                                <Grid.Column width={1}/>
-                                <Grid.Column width={4} >
-                                    <h3> Name: </h3>
-                                </Grid.Column>
-                                <Grid.Column width={6}>
-                                    <h3>  Brian </h3>
-                                </Grid.Column>
-                            </Grid.Row>
-                            <Grid.Row >
-                                <Grid.Column width={1} />
-                                <Grid.Column width={4} >
-                                    <h3>  Address: </h3>
-                                </Grid.Column>
-                                <Grid.Column width={6}>
-                                    <h3>  Ngong road  </h3>
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-                    </Collapsible>
-                </Grid.Row>
-                <Grid.Row>
-                    <Columns>
+                    <IntroColumn>
                         <UserName> ORDER DETAILS </UserName>
-                    </Columns>
+                    </IntroColumn>
                 </Grid.Row>
-                <Grid.Row>
-                    <Columns spaced width={6} >
-                        <UserName> Bryan’s Shopping List </UserName>
-                    </Columns>
-                    <Columns width={6} >
-                        <List>
-                            <EditLink as='a' href='/edit-shopping-list'> Edit </EditLink>
-                        </List>
-                    </Columns>
-                </Grid.Row>
-               {info ?.map( res => {
-                   return(
-                    <ProductRows>
-                    <Grid.Column width={5}>
-                        <ProductImages src={strawberries} />
-                    </Grid.Column>
-                    <ProductName center width={5} >
-                        <h3> {res.productName} </h3>
-                    </ProductName>
-                    <ItemsColumn width={3}>
-                        <h3> Kshs.{res.productPrice} </h3>
-                    </ItemsColumn>
-                </ProductRows>
-                   )
-               })}
-                {/* <ProductRows>
-                    <Grid.Column width={5}>
-                        <ProductImages src={bananas} />
-                    </Grid.Column>
-                    <ProductName center width={5} >
-                        <h3> Banana </h3>
-                    </ProductName>
-                    <ItemsColumn width={3}>
-                        <h3> Kshs. 4000 </h3>
-                    </ItemsColumn>
-                </ProductRows> */}
-                {/* <ProductRows>
-                    <Grid.Column width={5}>
-                        <ProductImages src={strawberries} />
-                    </Grid.Column>
-                    <ProductName center width={5} >
-                        <h3> Strawberries </h3>
-                    </ProductName>
-                    <ItemsColumn width={3}>
-                        <h3> Kshs. 7000 </h3>
-                    </ItemsColumn>
-                </ProductRows> */}
-                {/* <ProductRows>
-                    <Grid.Column width={5}>
-                        {/* <Icon name='fire' color='black' size='huge'/> */}
-                    {/* </Grid.Column>
-                    <ProductName center width={5} >
-                        <h3> Delivery fee </h3>
-                    </ProductName>
-                    <ItemsColumn width={3}>
-                        <h3> Kshs. 200 </h3>
-                    </ItemsColumn>
-                </ProductRows>  */}
+                <Rows>
+                    <IntroColumn>
+                        <UserName> Shopping List </UserName>
+                        <BusinessImage src={BusinessPic} />
+                        <UserName> {info.clickedBusiness.name}   <Icon name='check circle' color='yellow' /> </UserName>
+                    </IntroColumn>
+                </Rows>
+
+
+                {info.cart?.map((res, index) => {
+                    return (
+                        <ProductRows>
+                            <Grid.Column width={4}>
+                                <ProductImages src={strawberries} />
+                            </Grid.Column>
+                            <ProductName width={6} >
+                                <h3> {res.productName} </h3>
+                                <List link>
+                                    <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
+                                </List>
+                                <h3> Item order instructions </h3>
+                                <Form.Input
+                                    required
+                                    placeholder='Add in the product instructions'
+                                    name='name'
+                                    style={{ width: '100%' }}
+                                // onChange={e => setCategory(e.target.value)}
+                                />
+                            </ProductName>
+                            <Grid.Column width={3}>
+                                <Grid>
+                                    <Grid.Row>
+                                        <ItemsColumn width={5}>
+                                            <ButtonCounters onClick={e => {
+                                                if (res.quantity === 1) {
+                                                    changeQuantity(e, index, 0)
+                                                } else {
+                                                    changeQuantity(e, index, -1)
+                                                }
+                                            }} > - </ButtonCounters>
+                                        </ItemsColumn>
+                                        <ItemsColumn width={6}>
+                                            <h2> {res.quantity} </h2>
+                                        </ItemsColumn>
+                                        <ItemsColumn width={5}>
+                                            <ButtonCounters onClick={e => changeQuantity(e, index, 1)} > + </ButtonCounters>
+                                        </ItemsColumn>
+                                    </Grid.Row>
+                                </Grid>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <h3> Kshs.{res.productPrice} </h3>
+                                <ButtonCounters orange linkbutton onClick={deleteProduct}> Remove </ButtonCounters>
+                            </Grid.Column>
+                        </ProductRows>
+                    )
+                })}
+
                 <ProductRows>
-                    <Grid.Column width={5}>
+                    <Grid.Column width={8}>
                         {/* <Icon name='fire' color='black' size='huge'/> */}
                     </Grid.Column>
-                    <ProductName center width={5} >
-                        <h3> Total </h3>
+                    <ProductName center width={3} >
+                        <h2> Delivery fee </h2>
+                        <h2> Service Fee </h2>
+                        <h2> Total </h2>
                     </ProductName>
-                    <ItemsColumn width={3}>
-                        <h3> Kshs. 2460 </h3>
-                    </ItemsColumn>
+                    <ProductName center width={4}>
+                        <h2> Kshs. 200 </h2>
+                        <h2> Kshs. 100 </h2>
+                        <h2> Kshs. 2460 </h2>
+                    </ProductName>
                 </ProductRows>
                 <ProductRows>
                     <Grid.Column>
                         <h2> Delivery Notes </h2>
                         <Form>
-                            <TextArea placeholder='Please include specifics if you have any' />
+                            <TextArea placeholder='Please include specifics if you have any' style={{ width: '80%' }} />
                         </Form>
                     </Grid.Column>
                 </ProductRows>
                 <ProductRows>
                     <Grid.Column>
-                        <Checkbox label='Contactless Delivery' style={{fontSize:25}} />
+                        <List as='a' href='' style={{ fontSize: 25, color: 'black' }} > Address & Contact Details </List>
                     </Grid.Column>
                 </ProductRows>
                 <ProductRows>
                     <Grid.Column>
-                        <List as='a' href='/payment-details' style={{fontSize:25,color:'black'}} > Payment Details </List>
+                        <List as='a' href='/payment-details' style={{ fontSize: 25, color: 'black' }} > Payment Details </List>
                     </Grid.Column>
                 </ProductRows>
                 <ProductRows>
-                <Grid.Column>
-                <Collapsible width={16} fluid trigger={<DropdownButtons > Covid-19 Announcement <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
-                        <Grid width={16}  >
-                            <Grid.Row >
-                                <Grid.Column width={16} >
-                                    <h3> A dog is a type of domesticated animal. Known for its loyalty and faithfulness, 
-                                        it can be found as a welcome guest in many households across the world.Name: 
-                                        A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome
-                                         guest in many households across the world.
-                                        </h3>
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-                    </Collapsible>
-                </Grid.Column>
+                    <Grid.Column>
+                        <h2> Add Promo Code </h2>
+                        <Form size='massive'>
+                            <Form.Field
+                            style={{width:'50%'}}
+                                control='input'
+                            />
+                        </Form>
+                    </Grid.Column>
+                </ProductRows>
+                <ProductRows>
+                    <Grid.Column>
+                        <UserName> Delivery Announcement </UserName>
+                            <h2> Your items are picked & handled with the highest degree of hygiene. </h2>
+                    </Grid.Column>
                 </ProductRows>
                 <Grid.Row>
                     <OrderNowColumn>
-                        <OrderNowButton > Order Now </OrderNowButton>
+                        <OrderNowButton > COMPLETE </OrderNowButton>
                     </OrderNowColumn>
                 </Grid.Row>
             </MainGrid>

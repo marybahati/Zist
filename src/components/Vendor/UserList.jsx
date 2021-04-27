@@ -186,7 +186,12 @@ const UserList = (props) => {
         setCart([...cart])
         console.log(cart, obj)
     }
-
+    const handleOrderDetailsDisplay = () => {
+        History.push({
+            pathname:'/order-details',
+            state: {cart, clickedBusiness} 
+    })
+    }
     useEffect(() => {
         axios.post(HOST_API + 'zist/list/',
             { name: 'list' },
@@ -676,7 +681,7 @@ const UserList = (props) => {
                 </Grid.Row>
                 <Grid.Row>
                     <OrderNowColumn>
-                        <OrderNowButton > Order Now </OrderNowButton>
+                        <OrderNowButton onClick={handleOrderDetailsDisplay} > Order Now </OrderNowButton>
                     </OrderNowColumn>
                 </Grid.Row>
             </MainGrid>
