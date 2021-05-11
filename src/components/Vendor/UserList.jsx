@@ -167,6 +167,7 @@ const UserList = (props) => {
     const [showSnacks, setShowSnacks] = useState(false)
     const [showCooking, setShowCooking] = useState(false)
     const [cart, setCart] = useState([])
+    const [countProducts,setCountProducts] = useState()
     const [open, setOpen] = useState(false)
     console.log(searchText)
     console.log(cart)
@@ -191,21 +192,21 @@ const UserList = (props) => {
             state: {cart, clickedBusiness} 
     })
     }
-    useEffect(() => {
-        axios.post(HOST_API + 'zist/list/',
-            { name: 'list' },
-            { headers: { "Authorization": `Bearer ${token}` } })
-            .then((response) => {
-                console.log(response)
-                if (response.status == 201) {
-                    const id = response.data.id
-                    cookie.set('list-id', id, { path: '/' })
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }, [])
+    // useEffect(() => {
+    //     axios.post(HOST_API + 'zist/list/',
+    //         { name: 'list' },
+    //         { headers: { "Authorization": `Bearer ${token}` } })
+    //         .then((response) => {
+    //             console.log(response)
+    //             if (response.status == 201) {
+    //                 const id = response.data.id
+    //                 cookie.set('list-id', id, { path: '/' })
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         })
+    // }, [])
 
     const handleHideAisles = () => {
         setHideAisles(true)
@@ -418,20 +419,20 @@ const UserList = (props) => {
 
     const handleAddProduct = (e, productName, productPrice, quantity, id,productTotal) => {
         const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id, productTotal: productTotal }
-        //    [...cart, d]
         console.log(d)
         setCart([...cart, d])
         console.log(cart, d)
     }
 
     useEffect(() => {
-        axios.get(HOST_API + 'zist/products/', {
-        // axios.get(HOST_API + `zist/business/${businessId}/product_list/`, {
+        // axios.get(HOST_API + 'zist/products/', {
+        axios.get(HOST_API + `zist/business/${businessId}/product_list/`, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((response) => {
                 if (response.status == 200) {
                     setProducts(response.data.results);
+                    setCountProducts(response.data.count)
                 }
 
             })
@@ -628,6 +629,13 @@ const UserList = (props) => {
                             onChange={onSearch}
                         />
                     </SearchInputColumn>
+                </Grid.Row>
+                <Grid.Row>
+                <BusinessColumns center>
+                    { countProducts === 0 ? (
+                        <h2> This store has no products,please select another store </h2>
+                        ) : null }
+                </BusinessColumns>
                 </Grid.Row>
                 {products.map(product => {
                     return productSearch(product)

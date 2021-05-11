@@ -14,12 +14,12 @@
 }
 @media only screen and (max-width: 3000px) and (min-width: 1024px) {
     .react-multiple-carousel__arrow {
-        margin: 0 0 100px 0 !important;
+        margin: 0 0 270px 0 !important;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .react-multiple-carousel__arrow {
-        margin: 0 0 250px 0 !important;
+        margin: 0 0 300px 0 !important;
     }
 }
 @media only screen and (min-width: 464px) and (max-width: 768px) {

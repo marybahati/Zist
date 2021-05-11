@@ -18,6 +18,8 @@ import { HOST_API } from './../../endpoints';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./multicarousel.css";
+import Skeleton from '@material-ui/lab/Skeleton';
+import MuiGrid from '@material-ui/core/Grid';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
@@ -69,7 +71,7 @@ const Shopping = (props) => {
   }
 
   const fetchBusinesses = () => {
-    axios.get(HOST_API + 'zist/business/',
+    axios.get(HOST_API + 'zist/business/?limit=100&offset=70',
       {
         headers: headers
       }
@@ -358,13 +360,34 @@ const Shopping = (props) => {
 
         </Rows> */}
 
-<Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+        <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
             <CardHeading>All under one roof</CardHeading>
             <CardSubHeading>Shop from your fave outlets within these malls.You need it, they got it!</CardSubHeading>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
+        {businesses.length === 0 ? (
+            <div>
+              <MuiGrid container spacing={3}>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+              </MuiGrid>
+            </div>
+          ) : (
           <Carousel
             ssr
             partialVisbile
@@ -375,9 +398,9 @@ const Shopping = (props) => {
             {businesses?.map(business => {
               return (
                 <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
-                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none', height: 545 }} >
                     {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
@@ -397,6 +420,7 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
+          )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
@@ -405,6 +429,27 @@ const Shopping = (props) => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
+        {businesses.length === 0 ? (
+            <div>
+              <MuiGrid container spacing={3}>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+              </MuiGrid>
+            </div>
+          ) : (
           <Carousel
             ssr
             partialVisbile
@@ -415,9 +460,9 @@ const Shopping = (props) => {
             {businesses?.map(business => {
               return (
                 <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
-                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none', height: 545 }} >
                     {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
@@ -437,6 +482,7 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
+          )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
@@ -444,6 +490,27 @@ const Shopping = (props) => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
+        {businesses.length === 0 ? (
+            <div>
+              <MuiGrid container spacing={3}>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+              </MuiGrid>
+            </div>
+          ) : (
           <Carousel
             ssr
             partialVisbile
@@ -454,9 +521,9 @@ const Shopping = (props) => {
             {businesses?.map(business => {
               return (
                 <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
-                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none', height: 545 }} >
                     {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
@@ -476,6 +543,7 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
+          )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
@@ -484,6 +552,27 @@ const Shopping = (props) => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
+        {businesses.length === 0 ? (
+            <div>
+              <MuiGrid container spacing={3}>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+              </MuiGrid>
+            </div>
+          ) : (
           <Carousel
             ssr
             partialVisbile
@@ -494,9 +583,9 @@ const Shopping = (props) => {
             {businesses?.map(business => {
               return (
                 <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
-                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none', height: 545 }} >
                     {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
@@ -516,6 +605,7 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
+          )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
@@ -524,6 +614,27 @@ const Shopping = (props) => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
+        {businesses.length === 0 ? (
+            <div>
+              <MuiGrid container spacing={3}>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+              </MuiGrid>
+            </div>
+          ) : (
           <Carousel
             ssr
             partialVisbile
@@ -534,9 +645,9 @@ const Shopping = (props) => {
             {businesses?.map(business => {
               return (
                 <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
-                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none', height: 545 }} >
                     {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
@@ -556,6 +667,7 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
+          )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
@@ -564,38 +676,60 @@ const Shopping = (props) => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Carousel
-            ssr
-            partialVisbile
-            // deviceType={props.deviceType}
-            itemClass="image-item"
-            responsive={responsive}
-          >
-            {businesses?.map(business => {
-              return (
-                <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
-                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
-                    {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
-                    <Card.Content>
-                      <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
-                        {business.name}
-                        <Icon name='check circle' color='yellow' />
-                      </Card.Header>
-                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
-                        {business.bio}
-                      </Card.Header>
-                      <List bulleted horizontal >
-                        <List.Item ></List.Item>
-                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
-                      </List>
-                    </Card.Content>
+          {businesses.length === 0 ? (
+            <div>
+              <MuiGrid container spacing={3}>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+                <MuiGrid item xs={4}>
+                  <Skeleton variant="rect" width='100%' height={400} />
+                  <Skeleton width="60%" />
+                  <Skeleton />
+                </MuiGrid>
+              </MuiGrid>
+            </div>
+          ) : (
+              <Carousel
+                ssr
+                partialVisbile
+                // deviceType={props.deviceType}
+                itemClass="image-item"
+                responsive={responsive}
+              >
+                {businesses?.map(business => {
+                  return (
+                    <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
+                      <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none', height: 545 }} >
+                        {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                        <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
+                        <Card.Content>
+                          <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                            {business.name}
+                            <Icon name='check circle' color='yellow' />
+                          </Card.Header>
+                          <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                            {business.bio}
+                          </Card.Header>
+                          <List bulleted horizontal >
+                            <List.Item ></List.Item>
+                            <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                          </List>
+                        </Card.Content>
 
-                  </Card>
-                </CardColumn>
-              )
-            })}
-          </Carousel>
+                      </Card>
+                    </CardColumn>
+                  )
+                })}
+              </Carousel>
+            )}
         </Grid.Row>
       </Grid>
     </div>
