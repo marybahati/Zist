@@ -23,6 +23,7 @@
     "react-google-charts": "^3.0.15",
     "react-google-location": "^1.2.2",
     "react-images-upload": "^1.2.8",
+    "react-multi-carousel": "^2.6.2",
     "react-rating-stars-component": "^1.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",

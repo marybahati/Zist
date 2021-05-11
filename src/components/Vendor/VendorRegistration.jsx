@@ -18,6 +18,16 @@ const IntroRows = styled(Grid.Row)`
    width:70%;
    margin: 0 auto;
    text-align: center;
+   width: 60% !important;
+   @media only screen and (max-width: 768px) {
+        font-size: 18px !important;
+        width: 80% !important;
+    }
+`;
+const IntroTextHeading = styled.h1`
+@media only screen and (max-width: 768px) {
+    font-size: 24px !important;
+}
 `;
 const Icons = styled(Grid.Column)`
   padding: 0 ;
@@ -26,6 +36,10 @@ const Icons = styled(Grid.Column)`
 const MainGrid = styled(Grid)`
     width: 60% !important;
     margin: 0 auto !important;
+    @media only screen and (max-width: 768px) {
+        // font-size: 18px !important;
+        width: 80% !important;
+    }
 `;
 const MainDiv = styled.div`
     background: #FEE2D4 0% 0% no-repeat padding-box;
@@ -63,6 +77,8 @@ const SelectDropdown = styled(Dropdown)`
 
 
 const options = [
+    // { text: 'Independent store', value: 'Independent store' },
+    // { text: 'Under a mall', value: 'Under a mall' },
     { text: 'Groceries', value: 'Groceries' },
     { text: 'Cosmetics', value: 'Cosmetics' },
     { text: 'Bakery', value: 'Bakery' },
@@ -99,11 +115,11 @@ const VendorRegistration = (props) => {
                     </Icons>
                 </Grid.Row>
                 <IntroRows>
-                    <h1> BECOME A VENDOR ON ZIST SHOPPING </h1>
+                    <IntroTextHeading> BECOME A VENDOR ON ZIST SHOPPING </IntroTextHeading>
                 </IntroRows>
                 <IntroRows>
-                    <h1> Get with the times and create an online presence. <br />
-                     Register and start selling on Zist Shopping bila stress.</h1>
+                    <IntroTextHeading> Get with the times and create an online presence. <br />
+                     Register and start selling on Zist Shopping bila stress.</IntroTextHeading>
                 </IntroRows>
                 <IntroRows>
                     <Image src={vendor} />

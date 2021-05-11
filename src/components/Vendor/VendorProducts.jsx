@@ -153,7 +153,7 @@ const VendorProducts = (props) => {
                         <h3> INGREDIENTS </h3>
                     </Grid.Column>
                     <Grid.Column width={3}>
-                        <h3 style={{ textAlign: 'center' }}> AISLE UNDER </h3>
+                        <h3 style={{ textAlign: 'center' }}> CATEGORY </h3>
                     </Grid.Column>
                 </ProductRows>
                 {products?.map(product => {

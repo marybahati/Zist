@@ -11,8 +11,6 @@ import axios from 'axios'
 import { withCookies, Cookies } from 'react-cookie';
 import Collapsible from 'react-collapsible';
 import History from '../../History'
-import { ToastContainer, toast } from 'react-toastify';
-import { RatedStars } from './../ShoppingPage/Ratings';
 import { HOST_API } from './../../endpoints';
 
 const MainDiv = styled.div`
@@ -132,6 +130,7 @@ const UserList = (props) => {
 
     const clickedBusiness = (props.location && props.location.state) || '';
     console.log(props.location && props.location.state, clickedBusiness)
+    const businessId = clickedBusiness?.id
     const options = [
         {
             key: 'Strawberry',
@@ -265,7 +264,7 @@ const UserList = (props) => {
                                 <Popup
                                     style={{ backgroundColor: 'green' }}
                                     trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id,product.price)}>
                                             <Icon name='add circle' size='big' color='black' />
                                         </Button>
                                     }
@@ -325,7 +324,7 @@ const UserList = (props) => {
                                         <Popup
                                             style={{ backgroundColor: 'green' }}
                                             trigger={
-                                                <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
+                                                <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id,product.price)}>
                                                     <Icon name='add circle' size='big' color='black' />
                                                 </Button>
                                             }
@@ -378,7 +377,7 @@ const UserList = (props) => {
                                 <Popup
                                     style={{ backgroundColor: 'green' }}
                                     trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
+                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id, product.price)}>
                                             <Icon name='add circle' size='big' color='black' />
                                         </Button>
                                     }
@@ -417,8 +416,8 @@ const UserList = (props) => {
         });
     }
 
-    const handleAddProduct = (e, productName, productPrice, quantity, id) => {
-        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
+    const handleAddProduct = (e, productName, productPrice, quantity, id,productTotal) => {
+        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id, productTotal: productTotal }
         //    [...cart, d]
         console.log(d)
         setCart([...cart, d])
@@ -427,6 +426,7 @@ const UserList = (props) => {
 
     useEffect(() => {
         axios.get(HOST_API + 'zist/products/', {
+        // axios.get(HOST_API + `zist/business/${businessId}/product_list/`, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((response) => {
@@ -436,20 +436,11 @@ const UserList = (props) => {
 
             })
             .catch(error => {
-                console.log(error)
-                // setOpen(true)
-                // toast.error("Please login to start shopping ",{
-                //     className:'toast',
-                //     draggable: true,
-                //     position: toast.POSITION.TOP_CENTER,
-                //     type: toast.TYPE.ERROR,
-                //     hideProgressBar: true
-                //   })   
+                console.log(error)   
             })
     }, [])
     return (
         <MainDiv>
-            <ToastContainer autoClose={4000} onOpen={open} />
             <MainGrid>
                 <Grid.Row>
                     <IntroColumn>

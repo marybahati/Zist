@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from 'react'
 // import bgImage from './../../Assets/shopping-hero-img.png'
 import bgImage from './../../Assets/shopping1.png'
-import { Grid, Dropdown, Image, Icon, Input, Button, Label, List,  Card, Menu } from "semantic-ui-react";
+import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Card, Menu } from "semantic-ui-react";
 import styled from 'styled-components';
 import cartImage from "./../../Assets/cart.png";
 import store from './../../Assets/store.png';
 import card2 from './../../Assets/2.jpg';
 import card4 from './../../Assets/4.jpg';
-import refineImage from './../../Assets/sort.svg'
 import locationImage from './../../Assets/location.svg'
-import scheduleImage from './../../Assets/schedule.svg'
-import categoryImage from './../../Assets/category.svg'
 import cart from "./../../Assets/searchCart.png";
 import axios from 'axios';
-import { RatedStars } from './Ratings';
 import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
 import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
 import { withCookies } from 'react-cookie';
 import History from '../../History';
 import { HOST_API } from './../../endpoints';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import "./multicarousel.css";
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
-    padding: 0 !important;
-`;
-const Rows = styled(Grid.Row)`
     padding: 0 !important;
 `;
 const CardHeading = styled.h2`
@@ -55,7 +51,7 @@ const Shopping = (props) => {
   const token = userData?.access
   const names = cookies.get('name')
   const splitName = names?.split(' ')
-  const name = splitName !== undefined ? splitName[0] : null 
+  const name = splitName !== undefined ? splitName[0] : null
   console.log(names, name)
   const location = (props.location && props.location.state) || '';
   const [address, setAddress] = useState(location);
@@ -93,7 +89,24 @@ const Shopping = (props) => {
 
   const optionsResults = businesses?.map(x => ({ text: x.name, value: x.name, image: { src: card4 } }))
 
-
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 768 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 768, min: 0 },
+      items: 1
+    }
+  };
   const countryOptions = [
     { text: 'fruits', value: 'fruits', image: { src: card4 } },
     { text: 'vegetables', value: 'vegetables', image: { src: card4 } },
@@ -102,27 +115,27 @@ const Shopping = (props) => {
     { text: 'flour', value: 'flour', image: { src: card4 } },
   ]
   const handleLogOut = () => {
-    cookies.remove('login-res',{path: '/'})
+    cookies.remove('login-res', { path: '/' })
     window.location.reload(false);
   }
-  const handleCardClicked = (e, name, type) => {
-    const d = { name: name, type: type }
+  const handleCardClicked = (e, name, type, id) => {
+    const d = { name: name, type: type, id: id }
     History.push({
       pathname: '/user-list',
       state: d
     });
   }
-  const handleSelectedBusiness = (e,{value}) => {
-    setBusiness({business:value})
+  const handleSelectedBusiness = (e, { value }) => {
+    setBusiness({ business: value })
     History.push({
       pathname: '/user-list',
-      state: {name: value}
+      state: { name: value }
     });
   }
   console.log(business)
   return (
     <div >
-      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition:'center',height: 650, width: '100% !important'}}>
+      <Grid mobile={16} tablet={16} computer={16} style={{ textAlign: 'right', backgroundImage: `url(${bgImage})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center', height: 650, width: '100% !important' }}>
 
         {token === undefined || token === '' ? (
           <Grid.Row width={16} >
@@ -180,22 +193,22 @@ const Shopping = (props) => {
                                         </Dropdown.Menu>
                                       </Dropdown>
                                     </Menu.Menu>
-                                  </Menu> 
-                               </Grid.Column>
+                                  </Menu>
+                                </Grid.Column>
                               </Grid.Row>
                             </Grid>
                           </Grid.Column>
                         </Grid.Row>
                       </Grid.Column>
                     ) : (
-                        <Grid.Column width={2} style={{ paddingTop: '27px',textAlign:'center' }} >
+                        <Grid.Column width={2} style={{ paddingTop: '27px', textAlign: 'center' }} >
                           <Grid>
-                          <Grid.Row>
-                            <Grid.Column>
-                              <h2> {name} </h2>
-                            </Grid.Column>
-                          </Grid.Row>
-                        </Grid>
+                            <Grid.Row>
+                              <Grid.Column>
+                                <h2> {name} </h2>
+                              </Grid.Column>
+                            </Grid.Row>
+                          </Grid>
                         </Grid.Column>
                       )}
                     <Grid.Column width={1} style={{ paddingTop: '13px' }}>
@@ -209,7 +222,7 @@ const Shopping = (props) => {
               </Grid.Column>
             </Grid.Row>
           )}
-        <Grid.Row width={16} style={{ padding: '0 ',margin:'auto 0 !important' }}>
+        <Grid.Row width={16} style={{ padding: '0 ', margin: 'auto 0 !important' }}>
 
           <Input labelPosition='right' type='search'
             style={{
@@ -245,7 +258,7 @@ const Shopping = (props) => {
               onChange={handleSelectedBusiness}
               clearable
               search
-              style={{ padding: '2rem !important',width: '100%' }}
+              style={{ padding: '2rem !important', width: '100%' }}
             />
             {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
           </Input>
@@ -345,7 +358,46 @@ const Shopping = (props) => {
 
         </Rows> */}
 
+<Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+            <CardHeading>All under one roof</CardHeading>
+            <CardSubHeading>Shop from your fave outlets within these malls.You need it, they got it!</CardSubHeading>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Carousel
+            ssr
+            partialVisbile
+            // deviceType={props.deviceType}
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                    {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Card.Content>
+                      <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                        {business.name}
+                        <Icon name='check circle' color='yellow' />
+                      </Card.Header>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                        {business.bio}
+                      </Card.Header>
+                      <List bulleted horizontal >
+                        <List.Item ></List.Item>
+                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                      </List>
+                    </Card.Content>
 
+                  </Card>
+                </CardColumn>
+              )
+            })}
+          </Carousel>
+        </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
             <CardHeading>Zist karibu</CardHeading>
@@ -353,34 +405,198 @@ const Shopping = (props) => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          {businesses?.map(business => {
-            return (
-              <CardColumn width={5} style={{ margin: '0 23px 80px 0' }}>
-                <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type)} fluid={true} style={{ color: 'black', boxShadow: 'none' }} >
-                  {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
-                  <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px' }} />
-                  <Card.Content>
-                    <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
-                      {business.name}
-                      <Icon name='check circle' color='yellow' />
-                    </Card.Header>
-                    <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
-                      {business.bio}
-                    </Card.Header>
-                    <List bulleted horizontal >
-                      <List.Item ></List.Item>
-                      <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
-                    </List>
-                  </Card.Content>
+          <Carousel
+            ssr
+            partialVisbile
+            // deviceType={props.deviceType}
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                    {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Card.Content>
+                      <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                        {business.name}
+                        <Icon name='check circle' color='yellow' />
+                      </Card.Header>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                        {business.bio}
+                      </Card.Header>
+                      <List bulleted horizontal >
+                        <List.Item ></List.Item>
+                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                      </List>
+                    </Card.Content>
 
-                </Card>
-              </CardColumn>
-            )
-          })}
+                  </Card>
+                </CardColumn>
+              )
+            })}
+          </Carousel>
         </Grid.Row>
+        <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+            <CardHeading>Convenience Store</CardHeading>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Carousel
+            ssr
+            partialVisbile
+            // deviceType={props.deviceType}
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                    {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Card.Content>
+                      <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                        {business.name}
+                        <Icon name='check circle' color='yellow' />
+                      </Card.Header>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                        {business.bio}
+                      </Card.Header>
+                      <List bulleted horizontal >
+                        <List.Item ></List.Item>
+                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                      </List>
+                    </Card.Content>
 
+                  </Card>
+                </CardColumn>
+              )
+            })}
+          </Carousel>
+        </Grid.Row>
+        <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+            <CardHeading>Go green with these green grocers</CardHeading>
+            <CardSubHeading>Fresh quality produce delivered to you</CardSubHeading>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Carousel
+            ssr
+            partialVisbile
+            // deviceType={props.deviceType}
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                    {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Card.Content>
+                      <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                        {business.name}
+                        <Icon name='check circle' color='yellow' />
+                      </Card.Header>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                        {business.bio}
+                      </Card.Header>
+                      <List bulleted horizontal >
+                        <List.Item ></List.Item>
+                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                      </List>
+                    </Card.Content>
 
+                  </Card>
+                </CardColumn>
+              )
+            })}
+          </Carousel>
+        </Grid.Row>
+        <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+            <CardHeading>Health starts with you</CardHeading>
+            <CardSubHeading>Shops to get you living the right way</CardSubHeading>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Carousel
+            ssr
+            partialVisbile
+            // deviceType={props.deviceType}
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                    {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Card.Content>
+                      <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                        {business.name}
+                        <Icon name='check circle' color='yellow' />
+                      </Card.Header>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                        {business.bio}
+                      </Card.Header>
+                      <List bulleted horizontal >
+                        <List.Item ></List.Item>
+                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                      </List>
+                    </Card.Content>
 
+                  </Card>
+                </CardColumn>
+              )
+            })}
+          </Carousel>
+        </Grid.Row>
+        <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+            <CardHeading>Local shujaas</CardHeading>
+            <CardSubHeading>Be a local hero by supporting our local shujaas</CardSubHeading>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Carousel
+            ssr
+            partialVisbile
+            // deviceType={props.deviceType}
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <CardColumn width={4} style={{ margin: '0 23px 80px 0' }}>
+                  <Card key={business.id} onClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)} fluid={true} style={{ color: 'black', boxShadow: 'none',height:500 }} >
+                    {/* { business.photo == null ? <Image src={card2} wrapped ui={false} /> : <Image src={business.photo} wrapped ui={false} /> } */}
+                    <Image src={store} wrapped ui={false} style={{ bordeRadius: '8px'}} />
+                    <Card.Content>
+                      <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
+                        {business.name}
+                        <Icon name='check circle' color='yellow' />
+                      </Card.Header>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                        {business.bio}
+                      </Card.Header>
+                      <List bulleted horizontal >
+                        <List.Item ></List.Item>
+                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                      </List>
+                    </Card.Content>
+
+                  </Card>
+                </CardColumn>
+              )
+            })}
+          </Carousel>
+        </Grid.Row>
       </Grid>
     </div>
   )

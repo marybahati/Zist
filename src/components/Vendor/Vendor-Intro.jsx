@@ -31,6 +31,10 @@ const Buttonx = styled(Button)`
     font-size: 26px !important;
     color: #050504 !important;
     margin: 50px 0 !important;
+    @media only screen and (max-width: 768px) {
+        font-size: 18px !important;
+        height: 66px !important;
+    }
 `;
 const Icons = styled(Grid.Column)`
   padding: 0 0 0 30px ;

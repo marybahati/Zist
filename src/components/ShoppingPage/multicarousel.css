@@ -1,0 +1,43 @@
+.react-multiple-carousel__arrow {
+    position: absolute;
+    outline: 0;
+    transition: all .5s;
+    border-radius: 45px;
+    z-index: 1000;
+    border: 0;
+    background: rgba(0,0,0,0.5);
+    min-width: 60px;
+    min-height: 60px;
+    opacity: 1;
+    cursor: pointer;
+    
+}
+@media only screen and (max-width: 3000px) and (min-width: 1024px) {
+    .react-multiple-carousel__arrow {
+        margin: 0 0 100px 0 !important;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .react-multiple-carousel__arrow {
+        margin: 0 0 250px 0 !important;
+    }
+}
+@media only screen and (min-width: 464px) and (max-width: 768px) {
+    .react-multiple-carousel__arrow {
+        margin: 0 0 200px 0 !important;
+    }
+}
+@media only screen and (min-width: 0px) and (max-width: 464px) {
+    .react-multiple-carousel__arrow {
+        margin: auto 0 !important;
+    }
+}
+*, *:before, *:after {
+    box-sizing: content-box;
+  }
+.react-multiple-carousel__arrow--right {
+    right: calc(0%);
+}
+.react-multiple-carousel__arrow--left {
+    left: calc(0% );
+}
