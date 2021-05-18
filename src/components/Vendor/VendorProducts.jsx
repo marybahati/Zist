@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Image, Button, List, Icon, Form } from "semantic-ui-react";
 import styled from 'styled-components';
 import blueberries from './../../Assets/blue-berries.png';
-import EditProducts from './EditProducts';
 import { withCookies, Cookies } from 'react-cookie';
 import axios from 'axios';
 import { HOST_API } from './../../endpoints';
@@ -78,11 +77,23 @@ const CenteredColumn = styled(Grid.Column)`
 const Columns = styled(Grid.Column)`
    margin: auto 0 !important;
 `;
+const Buttonx = styled(Button)`
+    background: #FFBD59 0% 0% no-repeat padding-box !important;
+    border: 2px solid #FEE2D4 !important;
+    border-radius: 24px !important;
+    opacity: 1;
+    height: 66px !important;
+    width: 100%;
+    font-size: 18px !important;
+    color: #050504 !important;
+    margin: 40px 0 0 0 !important;
+`;
 const VendorProducts = (props) => {
     const { cookies } = props
     const data = cookies.get('login-res')
     const token = data?.access
     const [products, setProducts] = useState([])
+    const [productCount, setProductCount] = useState()
     console.log(products)
     const handleAddProduct = () => {
         history.push('inventory-create-product')
@@ -99,6 +110,7 @@ const VendorProducts = (props) => {
             )
             if (result.status == 200) {
                 setProducts(result.data.results)
+                setProductCount(result.data.count)
             }
             console.log(result)
         } catch (error) {
@@ -125,83 +137,112 @@ const VendorProducts = (props) => {
                     </CenteredColumn>
                 </Grid.Row>
                 <Grid.Row>
-                    <Grid.Column style={{ paddingBottom: 50 }}>
+                    <Grid.Column style={{ paddingBottom: 50, margin: '0 auto' }}>
                         <h1> Welcome to Shelving where putting up your wares is all within a button’s reach. </h1>
                     </Grid.Column>
                 </Grid.Row>
-                <ProductRows>
-                    <IntroColumn>
-                        <List>
-                            <EditButton name='pencil' > EDIT PRODUCTS  <EditIcon name='pencil' size='small' /> </EditButton>
-                        </List>
-                    </IntroColumn>
-                </ProductRows>
-                <ProductRows >
-                    <Grid.Column width={3}>
-                        <h3> PRODUCT IMAGES </h3>
-                    </Grid.Column>
-                    <ProductName width={3}>
-                        <h3> PRODUCT NAME </h3>
-                    </ProductName>
-                    <Grid.Column width={2}>
-                        <h3> PRICE/UNIT </h3>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <h3> IN STOCK </h3>
-                    </Grid.Column>
-                    <Grid.Column width={2}>
-                        <h3> INGREDIENTS </h3>
-                    </Grid.Column>
-                    <Grid.Column width={3}>
-                        <h3 style={{ textAlign: 'center' }}> CATEGORY </h3>
-                    </Grid.Column>
-                </ProductRows>
-                {products?.map(product => {
-                    return (
-                        <ProductRows>
-                            <Grid.Column width={3}>
-                                <ProductImages src={blueberries} />
-                            </Grid.Column>
-                            <ProductName center width={3} >
-                                <h3> {product.name} </h3>
-                            </ProductName>
-                            <ItemsColumn width={2}>
-                                <h3> Kshs. {product.price} </h3>
-                            </ItemsColumn>
-                            <ItemsColumn width={2}>
-                                <h3> {product.metadata} </h3>
-                            </ItemsColumn>
-                            <ItemsColumn width={2}>
-                                <h3> {product.description} </h3>
-                            </ItemsColumn>
-                            <ItemsColumn width={3}>
-                                <OffersButton> Grocery </OffersButton>
-                            </ItemsColumn>
-                        </ProductRows>
-                    )
-                })}
-                <ProductRows>
-                    <ImageColumn width={7}>
-                        <Grid>
-                            <Grid.Row>
-                                <Grid.Column width={6}>
-                                    <AddButton onClick={handleAddProduct}>
-                                        <Image src={addButton} /> 
-                                    </AddButton>
-                                </Grid.Column>
-                                <Columns width={8}>
-                                    <AddButton onClick={handleAddProduct}>
-                                        <h3> Add new product </h3> 
-                                    </AddButton>
-                                </Columns>
+                {productCount === 0 ? (
+                    <ProductRows>
+                        <CenteredColumn width={8}>
+                            <h2> You have no products yet, please create new products</h2>
+                        </CenteredColumn>
+                        <ImageColumn width={16}>
+                            <Grid>
+                                <Grid.Row>
+                                    <CenteredColumn width={4}>
+                                        <Buttonx type='submit' > Add new item </Buttonx>
+                                    </CenteredColumn>
+                                </Grid.Row>
+                                {/* <Grid.Row>
+                               <Grid.Column width={6}>
+                                   <AddButton onClick={handleAddProduct}>
+                                       <Image src={addButton} /> 
+                                   </AddButton>
+                               </Grid.Column>
+                               <Columns width={8}>
+                                   <AddButton onClick={handleAddProduct}>
+                                       <h3> Add new product </h3> 
+                                   </AddButton>
+                               </Columns>
 
-                            </Grid.Row>
-                        </Grid>
-                        {/* <AddButton onClick={handleAddProduct}>
-                            <Image src={addButton} /> Add new product
-                        </AddButton> */}
-                    </ImageColumn>
-                </ProductRows>
+                           </Grid.Row> */}
+                            </Grid>
+                        </ImageColumn>
+                    </ProductRows>
+                ) : (
+                    <>
+                        <ProductRows>
+                            <IntroColumn>
+                                <List>
+                                    <EditButton name='pencil' > EDIT PRODUCTS  <EditIcon name='pencil' size='small' /> </EditButton>
+                                </List>
+                            </IntroColumn>
+                        </ProductRows>
+                        <ProductRows >
+                            <Grid.Column width={3}>
+                                <h3> PRODUCT IMAGES </h3>
+                            </Grid.Column>
+                            <ProductName width={3}>
+                                <h3> PRODUCT NAME </h3>
+                            </ProductName>
+                            <Grid.Column width={2}>
+                                <h3> PRICE/UNIT </h3>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <h3> IN STOCK </h3>
+                            </Grid.Column>
+                            <Grid.Column width={2}>
+                                <h3> INGREDIENTS </h3>
+                            </Grid.Column>
+                            <Grid.Column width={3}>
+                                <h3 style={{ textAlign: 'center' }}> CATEGORY </h3>
+                            </Grid.Column>
+                        </ProductRows>
+                        {products?.map(product => {
+                            return (
+                                <ProductRows>
+                                    <Grid.Column width={3}>
+                                        <ProductImages src={blueberries} />
+                                    </Grid.Column>
+                                    <ProductName center width={3} >
+                                        <h3> {product.name} </h3>
+                                    </ProductName>
+                                    <ItemsColumn width={2}>
+                                        <h3> Kshs. {product.price} </h3>
+                                    </ItemsColumn>
+                                    <ItemsColumn width={2}>
+                                        <h3> {product.metadata} </h3>
+                                    </ItemsColumn>
+                                    <ItemsColumn width={2}>
+                                        <h3> {product.description} </h3>
+                                    </ItemsColumn>
+                                    <ItemsColumn width={3}>
+                                        <OffersButton> Grocery </OffersButton>
+                                    </ItemsColumn>
+                                </ProductRows>
+                            )
+                        })}
+                        <ProductRows>
+                            <ImageColumn width={7}>
+                                <Grid>
+                                    <Grid.Row>
+                                        <Grid.Column width={6}>
+                                            <AddButton onClick={handleAddProduct}>
+                                                <Image src={addButton} />
+                                            </AddButton>
+                                        </Grid.Column>
+                                        <Columns width={8}>
+                                            <AddButton onClick={handleAddProduct}>
+                                                <h3> Add new product </h3>
+                                            </AddButton>
+                                        </Columns>
+
+                                    </Grid.Row>
+                                </Grid>
+                            </ImageColumn>
+                        </ProductRows>
+                    </>
+                )}
             </MainGrid>
         </MainDiv>
     )
