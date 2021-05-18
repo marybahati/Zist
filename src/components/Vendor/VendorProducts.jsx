@@ -153,19 +153,6 @@ const VendorProducts = (props) => {
                                         <Buttonx type='submit' > Add new item </Buttonx>
                                     </CenteredColumn>
                                 </Grid.Row>
-                                {/* <Grid.Row>
-                               <Grid.Column width={6}>
-                                   <AddButton onClick={handleAddProduct}>
-                                       <Image src={addButton} /> 
-                                   </AddButton>
-                               </Grid.Column>
-                               <Columns width={8}>
-                                   <AddButton onClick={handleAddProduct}>
-                                       <h3> Add new product </h3> 
-                                   </AddButton>
-                               </Columns>
-
-                           </Grid.Row> */}
                             </Grid>
                         </ImageColumn>
                     </ProductRows>
@@ -223,21 +210,13 @@ const VendorProducts = (props) => {
                             )
                         })}
                         <ProductRows>
-                            <ImageColumn width={7}>
+                            <ImageColumn width={16}>
                                 <Grid>
-                                    <Grid.Row>
-                                        <Grid.Column width={6}>
-                                            <AddButton onClick={handleAddProduct}>
-                                                <Image src={addButton} />
-                                            </AddButton>
-                                        </Grid.Column>
-                                        <Columns width={8}>
-                                            <AddButton onClick={handleAddProduct}>
-                                                <h3> Add new product </h3>
-                                            </AddButton>
-                                        </Columns>
-
-                                    </Grid.Row>
+                                <Grid.Row>
+                                    <CenteredColumn width={4}>
+                                        <Buttonx type='submit' > Add new item </Buttonx>
+                                    </CenteredColumn>
+                                </Grid.Row>
                                 </Grid>
                             </ImageColumn>
                         </ProductRows>
