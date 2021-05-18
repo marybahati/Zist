@@ -161,7 +161,6 @@ const AddCategory = (props) => {
                                         <Grid.Column width={16}>
                                             <Form.Input
                                                 value={description}
-                                                required
                                                 placeholder='Description'
                                                 name='name'
                                                 onChange={e => setDescription(e.target.value)}

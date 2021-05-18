@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Image, Button, List, Icon, Form } from "semantic-ui-react";
+import { Grid, Image, Button, List, Icon } from "semantic-ui-react";
 import styled from 'styled-components';
 import blueberries from './../../Assets/blue-berries.png';
 import { withCookies, Cookies } from 'react-cookie';
@@ -7,7 +7,7 @@ import axios from 'axios';
 import { HOST_API } from './../../endpoints';
 import history from '../../History';
 import shelving from './../../Assets/shelving.png';
-import addButton from './../../Assets/add-button.png';
+import Link from '@material-ui/core/Link';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -95,8 +95,11 @@ const VendorProducts = (props) => {
     const [products, setProducts] = useState([])
     const [productCount, setProductCount] = useState()
     console.log(products)
-    const handleAddProduct = () => {
-        history.push('inventory-create-product')
+    const handleEditProduct = (e,id) => {
+        history.push({
+            state: id,
+            pathname: '/vendor-product/edit'
+        })
     }
     const handleGoingBack = () => {
         history.goBack()
@@ -136,11 +139,11 @@ const VendorProducts = (props) => {
                         <h2 style={{ color: 'orange', textAlign: 'center' }}> SHELVING </h2>
                     </CenteredColumn>
                 </Grid.Row>
-                <Grid.Row>
+                {/* <Grid.Row>
                     <Grid.Column style={{ paddingBottom: 50, margin: '0 auto' }}>
                         <h1> Welcome to Shelving where putting up your wares is all within a button’s reach. </h1>
                     </Grid.Column>
-                </Grid.Row>
+                </Grid.Row> */}
                 {productCount === 0 ? (
                     <ProductRows>
                         <CenteredColumn width={8}>
@@ -192,7 +195,9 @@ const VendorProducts = (props) => {
                                         <ProductImages src={blueberries} />
                                     </Grid.Column>
                                     <ProductName center width={3} >
-                                        <h3> {product.name} </h3>
+                                        <Link component='a' onClick={ (e) => handleEditProduct(e,product.id)} >
+                                            {product.name}
+                                        </Link>
                                     </ProductName>
                                     <ItemsColumn width={2}>
                                         <h3> Kshs. {product.price} </h3>
@@ -204,7 +209,7 @@ const VendorProducts = (props) => {
                                         <h3> {product.description} </h3>
                                     </ItemsColumn>
                                     <ItemsColumn width={3}>
-                                        <OffersButton> Grocery </OffersButton>
+                                        <OffersButton> {product.category.category} </OffersButton>
                                     </ItemsColumn>
                                 </ProductRows>
                             )
@@ -212,11 +217,11 @@ const VendorProducts = (props) => {
                         <ProductRows>
                             <ImageColumn width={16}>
                                 <Grid>
-                                <Grid.Row>
-                                    <CenteredColumn width={4}>
-                                        <Buttonx type='submit' > Add new item </Buttonx>
-                                    </CenteredColumn>
-                                </Grid.Row>
+                                    <Grid.Row>
+                                        <CenteredColumn width={4}>
+                                            <Buttonx type='submit' > Add new item </Buttonx>
+                                        </CenteredColumn>
+                                    </Grid.Row>
                                 </Grid>
                             </ImageColumn>
                         </ProductRows>
