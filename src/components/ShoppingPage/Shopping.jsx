@@ -71,7 +71,7 @@ const Shopping = (props) => {
   }
 
   const fetchBusinesses = () => {
-    axios.get(HOST_API + 'zist/business/?limit=100&offset=70',
+    axios.get(HOST_API + 'zist/business/',
       {
         headers: headers
       }
@@ -94,10 +94,18 @@ const Shopping = (props) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
+      items: 6
+    },
+    mediumLargeDesktop: {
+      breakpoint: { max: 300, min: 1920 },
       items: 5
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 1920, min: 1500 },
+      items: 4
+    },
+    mediumDesktop: {
+      breakpoint: { max: 1500, min: 1024 },
       items: 3
     },
     tablet: {

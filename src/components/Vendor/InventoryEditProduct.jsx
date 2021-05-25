@@ -137,7 +137,7 @@ const CreateProduct = (props) => {
             .catch((error) => {
                 console.error(error)
             })
-    }, []);
+    }, [id]);
     useEffect(() => {
         axios.get(HOST_API + `zist/business/${businessId}/get_categories/`, {
             headers: {
@@ -156,8 +156,8 @@ const CreateProduct = (props) => {
     }, []);
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const categorySelected = Object.values(selectedCategory)
-        console.log(categorySelected)
+        // const categorySelected = Object.values(selectedCategory)
+        // console.log(selectedCategory)
         try {
             const product_res = await axios.put(HOST_API + `zist/vendor/products/${id}/`,
                 {

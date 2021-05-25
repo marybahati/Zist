@@ -8,6 +8,11 @@ import { HOST_API } from './../../endpoints';
 import history from '../../History';
 import shelving from './../../Assets/shelving.png';
 import Link from '@material-ui/core/Link';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { useSnackbar } from 'notistack';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -51,11 +56,11 @@ const EditIcon = styled(Icon)`
     margin-left: 12px !important;
 `;
 const OffersButton = styled(Button)`
-    width: 180px !important;
+    width: 100% !important;
     background: #0A0806 0% 0% no-repeat padding-box !important;
     border: 1px solid #C19A6B !important;
     border-radius: 5px !important;
-    height: 70px !important;
+    height: 60px !important;
     color: white !important;
     font-size: 20px !important;
     opacity: 1;
@@ -94,8 +99,29 @@ const VendorProducts = (props) => {
     const token = data?.access
     const [products, setProducts] = useState([])
     const [productCount, setProductCount] = useState()
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [currentId, setCurrentId] = React.useState(null);
+    console.log(currentId, '-------------------===')
+    const open = Boolean(anchorEl);
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleClick = (event) => {
+        // console.log(event.currentTarget, 'event====')
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleHamburgerClick = (e, id) => {
+        console.log(id,'990000werd=======')
+        e.preventDefault()
+        setCurrentId(id);
+        handleClick(e)
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     console.log(products)
-    const handleEditProduct = (e,id) => {
+    const handleEditProduct = (e, id) => {
         history.push({
             state: id,
             pathname: '/vendor-product/edit'
@@ -104,23 +130,56 @@ const VendorProducts = (props) => {
     const handleGoingBack = () => {
         history.goBack()
     }
-    useEffect(async () => {
-        try {
-            const result = await axios.get(HOST_API + `zist/vendor/products/`,
-                {
-                    headers: { "Authorization": `Bearer ${token}` }
-                }
-            )
-            if (result.status == 200) {
-                setProducts(result.data.results)
-                setProductCount(result.data.count)
+    const handleAddProduct = () => {
+        history.push('inventory-create-product')
+    }
+    const fetchProducts = () => {
+        axios.get(HOST_API + `zist/vendor/products/`, {
+            headers: { "Authorization": `Bearer ${token}` } 
+          })
+          .then((res) => {
+            if (res.status == 200) {
+                setProducts(res.data.results)
+                setProductCount(res.data.count)
             }
-            console.log(result)
-        } catch (error) {
+          }, (error) => {
             console.log(error)
-        }
-
-    }, []);
+          });
+    }
+    useEffect(
+        // async () => {
+        // try {
+        //     const result = await axios.get(HOST_API + `zist/vendor/products/`,
+        //         {
+        //             headers: { "Authorization": `Bearer ${token}` }
+        //         }
+        //     )
+        //     if (result.status == 200) {
+        //         setProducts(result.data.results)
+        //         setProductCount(result.data.count)
+        //     }
+        //     console.log(result)
+        // } catch (error) {
+        //     console.log(error)
+        // }} 
+        fetchProducts
+        , [ products ]);
+    const handleDeleteProduct = (e,id) => {
+        e.preventDefault()
+        console.log(id)
+        axios.delete(HOST_API + `zist/vendor/products/${id}/`, {
+            headers: { "Authorization": `Bearer ${token}` } 
+          })
+          .then((res) => {
+            if (res.status == 204) {
+                enqueueSnackbar(`You have successfully deleted the product`, { variant: 'success' })
+                handleClose()
+            }
+          }, (error) => {
+            enqueueSnackbar(`${error}`, { variant: 'error' })
+            handleClose()
+          });
+    }
     return (
         <MainDiv>
             <Grid>
@@ -139,21 +198,21 @@ const VendorProducts = (props) => {
                         <h2 style={{ color: 'orange', textAlign: 'center' }}> SHELVING </h2>
                     </CenteredColumn>
                 </Grid.Row>
-                {/* <Grid.Row>
+                <Grid.Row>
                     <Grid.Column style={{ paddingBottom: 50, margin: '0 auto' }}>
                         <h1> Welcome to Shelving where putting up your wares is all within a button’s reach. </h1>
                     </Grid.Column>
-                </Grid.Row> */}
+                </Grid.Row>
                 {productCount === 0 ? (
                     <ProductRows>
-                        <CenteredColumn width={8}>
+                        <CenteredColumn width={10}>
                             <h2> You have no products yet, please create new products</h2>
                         </CenteredColumn>
                         <ImageColumn width={16}>
                             <Grid>
                                 <Grid.Row>
                                     <CenteredColumn width={4}>
-                                        <Buttonx type='submit' > Add new item </Buttonx>
+                                        <Buttonx type='submit' onClick={handleAddProduct} > Add new item </Buttonx>
                                     </CenteredColumn>
                                 </Grid.Row>
                             </Grid>
@@ -161,13 +220,13 @@ const VendorProducts = (props) => {
                     </ProductRows>
                 ) : (
                     <>
-                        <ProductRows>
+                        {/* <ProductRows>
                             <IntroColumn>
                                 <List>
                                     <EditButton name='pencil' > EDIT PRODUCTS  <EditIcon name='pencil' size='small' /> </EditButton>
                                 </List>
                             </IntroColumn>
-                        </ProductRows>
+                        </ProductRows> */}
                         <ProductRows >
                             <Grid.Column width={3}>
                                 <h3> PRODUCT IMAGES </h3>
@@ -185,17 +244,18 @@ const VendorProducts = (props) => {
                                 <h3> INGREDIENTS </h3>
                             </Grid.Column>
                             <Grid.Column width={3}>
-                                <h3 style={{ textAlign: 'center' }}> CATEGORY </h3>
+                                <h3 style={{ textAlign: '' }}> CATEGORY </h3>
                             </Grid.Column>
                         </ProductRows>
                         {products?.map(product => {
+                            console.log(product, '=====')
                             return (
                                 <ProductRows>
                                     <Grid.Column width={3}>
                                         <ProductImages src={blueberries} />
                                     </Grid.Column>
                                     <ProductName center width={3} >
-                                        <Link component='a' onClick={ (e) => handleEditProduct(e,product.id)} >
+                                        <Link component='a' href='' onClick={(e) => handleEditProduct(e, product.id)} style={{ fontSize: 22 }} >
                                             {product.name}
                                         </Link>
                                     </ProductName>
@@ -208,8 +268,38 @@ const VendorProducts = (props) => {
                                     <ItemsColumn width={2}>
                                         <h3> {product.description} </h3>
                                     </ItemsColumn>
-                                    <ItemsColumn width={3}>
+                                    <ItemsColumn width={2}>
                                         <OffersButton> {product.category.category} </OffersButton>
+                                    </ItemsColumn>
+                                    <ItemsColumn width={1}>
+                                        <div>
+                                            <IconButton
+                                                aria-label="more"
+                                                aria-controls="long-menu"
+                                                aria-haspopup="true"
+                                                style={{padding: '0 auto !important'}}
+                                                onClick={e => handleHamburgerClick(e, product.id)}
+                                                >
+                                                <MoreVertIcon style={{margin: '0 auto !important'}}/>
+                                            </IconButton>
+                                            <Menu
+                                                // onClick={handleClick}
+                                                id="long-menu"
+                                                anchorEl={anchorEl}
+                                                keepMounted
+                                                open={open}
+                                                onClose={handleClose}
+                                                PaperProps={{
+                                                    style: {
+                                                        width: '70px',
+                                                    },
+                                                }}
+                                            >
+                                                <MenuItem onClick={ e => handleDeleteProduct(e,currentId)}>
+                                                    Delete
+                                                </MenuItem>
+                                            </Menu>
+                                        </div>
                                     </ItemsColumn>
                                 </ProductRows>
                             )
@@ -219,7 +309,7 @@ const VendorProducts = (props) => {
                                 <Grid>
                                     <Grid.Row>
                                         <CenteredColumn width={4}>
-                                            <Buttonx type='submit' > Add new item </Buttonx>
+                                            <Buttonx type='submit' onClick={handleAddProduct} > Add new item </Buttonx>
                                         </CenteredColumn>
                                     </Grid.Row>
                                 </Grid>
