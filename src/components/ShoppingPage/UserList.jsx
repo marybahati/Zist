@@ -10,8 +10,8 @@ import BusinessPic from './../../Assets/user-list-business.png'
 import axios from 'axios'
 import { withCookies, Cookies } from 'react-cookie';
 import Collapsible from 'react-collapsible';
-import History from '../../History'
-import { HOST_API } from './../../endpoints';
+import history from '../../History'
+import { HOST_API } from '../../endpoints';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -104,7 +104,7 @@ const BusinessColumns = styled(Grid.Column)`
    margin: auto 0 !important;
 `;
 const OrderNowColumn = styled(Grid.Column)`
-   width: 50% !important;
+   width: 40% !important;
    margin: 0 auto !important;
 `;
 const OrderNowButton = styled(Button)`
@@ -131,44 +131,12 @@ const UserList = (props) => {
     const clickedBusiness = (props.location && props.location.state) || '';
     console.log(props.location && props.location.state, clickedBusiness)
     const businessId = clickedBusiness?.id
-    const options = [
-        {
-            key: 'Strawberry',
-            name: 'Strawberry',
-            price: '900',
-            image: { src: strawberries },
-        },
-        {
-            key: 'Banana',
-            name: 'Banana',
-            price: '700',
-            image: { src: bananas },
-        },
-        {
-            key: 'Blueberry',
-            name: 'Blueberry',
-            price: '300',
-            image: { src: blueberries },
-        },
-        {
-            key: 'Onions',
-            name: 'Onions',
-            price: '120',
-            image: { src: blueberries },
-        },
-    ]
 
     const [selectedOption, setSelectedOption] = useState('')
     const [products, setProducts] = useState([])
-    const [hideAisles, setHideAisles] = useState(false)
     const [searchText, setSearchText] = useState('')
-    const [showFruits, setShowFruits] = useState(false)
-    const [showGreens, setShowGreens] = useState(false)
-    const [showSnacks, setShowSnacks] = useState(false)
-    const [showCooking, setShowCooking] = useState(false)
     const [cart, setCart] = useState([])
     const [countProducts,setCountProducts] = useState()
-    const [open, setOpen] = useState(false)
     console.log(searchText)
     console.log(cart)
 
@@ -187,7 +155,7 @@ const UserList = (props) => {
         console.log(cart, obj)
     }
     const handleOrderDetailsDisplay = () => {
-        History.push({
+        history.push({
             pathname:'/order-details',
             state: {cart, clickedBusiness} 
     })
@@ -208,43 +176,11 @@ const UserList = (props) => {
     //         })
     // }, [])
 
-    const handleHideAisles = () => {
-        setHideAisles(true)
-        setShowFruits(false)
-        setShowGreens(false)
-        setShowSnacks(false)
-        setShowCooking(false)
-    }
-    const handleShowAisles = () => {
-        setHideAisles(false)
-        setShowFruits(false)
-        setShowGreens(false)
-        setShowSnacks(false)
-        setShowCooking(false)
-    }
-    const handleShowFruits = () => {
-        setShowFruits(true)
-        setShowCooking(false)
-        setShowGreens(false)
-        setShowSnacks(false)
-    }
-    const handleShowGreens = () => {
-        setShowGreens(true)
-        setShowFruits(false)
-        setShowCooking(false)
-        setShowSnacks(false)
-    }
-    const handleShowSnacks = () => {
-        setShowSnacks(true)
-        setShowFruits(false)
-        setShowCooking(false)
-        setShowGreens(false)
-    }
-    const handleShowCooking = () => {
-        setShowCooking(true)
-        setShowFruits(false)
-        setShowGreens(false)
-        setShowSnacks(false)
+    const handleRedirect = () => {
+        history.push({
+            pathname:'/shopping/categories',
+            state: clickedBusiness
+    })
     }
 
     const renderProducts = (product) => {
@@ -455,108 +391,18 @@ const UserList = (props) => {
                         <GreyText> Take a detour within the store by browsing through the aisles, just like you’d do in a physical store…</GreyText>
                     </Grid.Column>
                 </Grid.Row>
-                {hideAisles ? (
-                    <Grid.Row>
-                        <Grid.Column width={3}> <HideAisleButton onClick={handleShowAisles}> Show Aisles </HideAisleButton> </Grid.Column>
-                    </Grid.Row>
-                ) : (
+   
                         <Grid.Row>
                             <AisleColumn width={4} >
-                                <AisleButton onClick={handleShowFruits} > Fruits </AisleButton>
+                                <AisleButton onClick={handleRedirect} > Fruits </AisleButton>
                             </AisleColumn>
-                            <AisleColumn width={4}> <AisleButton onClick={handleShowGreens} > Greens </AisleButton> </AisleColumn>
-                            <AisleColumn width={4}> <AisleButton onClick={handleShowSnacks} > Snacks </AisleButton> </AisleColumn>
-                            <AisleColumn width={4}> <AisleButton onClick={handleShowCooking} > Cooking </AisleButton> </AisleColumn>
-                            <Grid.Column width={16} style={{ textAlign: 'center', paddingTop: 15 }}> <HideAisleButton onClick={handleHideAisles}> Hide Aisles </HideAisleButton> </Grid.Column>
+                            <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Greens </AisleButton> </AisleColumn>
+                            <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Snacks </AisleButton> </AisleColumn>
+                            <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Cooking </AisleButton> </AisleColumn>
+                            <Grid.Column width={16} style={{ textAlign: 'center', paddingTop: 15 }}> <HideAisleButton onClick={handleRedirect}> show more </HideAisleButton> </Grid.Column>
                         </Grid.Row>
-                    )}
-                {showFruits ? (
-                    <Grid.Row >
-                        <Grid.Column>
-                            <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
-                                <Grid width={16} style={{ background: '#fff', border: '2px solid black' }}>
-                                    <Grid.Row>
-                                        <Grid.Column style={{ textAlign: 'center', padding: '20px 0 10px 0' }}>
-                                            <UserName > Fruits </UserName>
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                    {suggestedProducts}
 
-                                </Grid>
-                            </Collapsible>
-                        </Grid.Column>
-                    </Grid.Row>
-                ) : null}
-                {showGreens ? (
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
-                                <Grid width={16} style={{ background: '#fff', border: '2px solid black' }} >
-                                    <Grid.Row>
-                                        <Grid.Column style={{ textAlign: 'center', padding: '20px 0 10px 0' }}>
-                                            <UserName > Greens </UserName>
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                    {suggestedProducts}
-                                    <Grid.Row style={{ paddingBottom: 30 }}>
-                                        <Grid.Column width={10}></Grid.Column>
-                                        <Grid.Column width={6}>
-                                            {/* {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null} */}
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Collapsible>
-                        </Grid.Column>
-                    </Grid.Row>
-                ) : null}
-                {showSnacks ? (
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
-                                <Grid width={16} style={{ background: '#fff', border: '2px solid black' }} >
-                                    <Grid.Row>
-                                        <Grid.Column style={{ textAlign: 'center', padding: '20px 0 10px 0' }}>
-                                            <UserName > Snacks </UserName>
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                    {suggestedProducts}
-                                    <Grid.Row style={{ paddingBottom: 30 }}>
-                                        <Grid.Column width={10}></Grid.Column>
-                                        <Grid.Column width={6}>
-                                            {/* {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null} */}
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Collapsible>
-                        </Grid.Column>
-                    </Grid.Row>
-                ) : null}
-                {showCooking ? (
-                    <Grid.Row>
-                        <Grid.Column>
-                            <Collapsible width={16} open={true} fluid trigger={<DropdownButtons > Suggestions <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
-                                <Grid width={16} style={{ background: '#fff', border: '2px solid black' }} >
-                                    <Grid.Row>
-                                        <Grid.Column style={{ textAlign: 'center', paddingTop: 30 }}>
-                                            <UserName > Cooking </UserName>
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                    {/* {options.map(product => {
-                                        return renderProducts(product)
-                                    })} */}
-                                    {suggestedProducts}
-                                    <Grid.Row style={{ paddingBottom: 30 }}>
-                                        <Grid.Column width={10}></Grid.Column>
-                                        <Grid.Column width={6}>
-                                            {/* {cart.length !== 0 ? <Button basic as='a' onClick={handleAddedProduct}> View List  </Button> : null} */}
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Collapsible>
-                        </Grid.Column>
-                    </Grid.Row>
-                ) : null}
-     
+ 
                 {cart.length !== 0 ? (
                     //  <h2> Products in your basket </h2>
                     cart?.map((product, index) => {
@@ -613,13 +459,7 @@ const UserList = (props) => {
                         )
                     })
                 ) : null}
-                {/* <Grid.Row style={{ padding: '40px 20px' }}>
-                    <Grid.Column width={5}></Grid.Column>
-                    <Grid.Column width={4}>
-                        {cart.length !== 0 ? <Button as='a' onClick={handleAddedProduct} style={{ backgroundColor: 'orange', width:'100%',padding:'15px 20px',fontSize:'20px'}}> View List  </Button> : null}
-                    </Grid.Column>
-                    <Grid.Column width={5}></Grid.Column>
-                </Grid.Row> */}
+
                 <Grid.Row >
                     <Grid.Column width={16}>
                         <GreyText> Search for what you want and add it just like you’d do with a regular list… </GreyText>

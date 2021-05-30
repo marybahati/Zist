@@ -117,13 +117,7 @@ const Shopping = (props) => {
       items: 1
     }
   };
-  const countryOptions = [
-    { text: 'fruits', value: 'fruits', image: { src: card4 } },
-    { text: 'vegetables', value: 'vegetables', image: { src: card4 } },
-    { text: 'cakes', value: 'cakes', image: { src: card4 } },
-    { text: 'chocaolates', value: 'chocolates', image: { src: card4 } },
-    { text: 'flour', value: 'flour', image: { src: card4 } },
-  ]
+  
   const handleLogOut = () => {
     cookies.remove('login-res', { path: '/' })
     window.location.reload(false);
@@ -317,7 +311,7 @@ const Shopping = (props) => {
         </Grid.Row>
         {/* </div> */}
 
-        <Grid.Row style={{ padding: '10px 0 15px 0px ' }}>
+        <Grid.Row style={{ padding: '10px 0 15px 13px ' }}>
           <SubHeading>Want a look around ? Here are some suggestions to get you started.</SubHeading> <br />
         </Grid.Row>
 
@@ -369,7 +363,7 @@ const Shopping = (props) => {
         </Rows> */}
 
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
-          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+          <Grid.Column style={{ padding: '30px 0 0 13px' }} width={14} >
             <CardHeading>All under one roof</CardHeading>
             <CardSubHeading>Shop from your fave outlets within these malls.You need it, they got it!</CardSubHeading>
           </Grid.Column>
@@ -431,7 +425,7 @@ const Shopping = (props) => {
           )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
-          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+          <Grid.Column style={{ padding: '30px 0 0 13px' }} width={14} >
             <CardHeading>Zist karibu</CardHeading>
             <CardSubHeading>Get fast from these outlets near you</CardSubHeading>
           </Grid.Column>
@@ -493,7 +487,7 @@ const Shopping = (props) => {
           )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
-          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+          <Grid.Column style={{ padding: '30px 0 0 13px' }} width={14} >
             <CardHeading>Convenience Store</CardHeading>
           </Grid.Column>
         </Grid.Row>
@@ -554,7 +548,7 @@ const Shopping = (props) => {
           )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
-          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+          <Grid.Column style={{ padding: '30px 0 0 13px' }} width={14} >
             <CardHeading>Go green with these green grocers</CardHeading>
             <CardSubHeading>Fresh quality produce delivered to you</CardSubHeading>
           </Grid.Column>
@@ -616,7 +610,7 @@ const Shopping = (props) => {
           )}
         </Grid.Row>
         <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
-          <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
+          <Grid.Column style={{ padding: '30px 0 0 13px' }} width={14} >
             <CardHeading>Health starts with you</CardHeading>
             <CardSubHeading>Shops to get you living the right way</CardSubHeading>
           </Grid.Column>
@@ -677,7 +671,7 @@ const Shopping = (props) => {
           </Carousel>
           )}
         </Grid.Row>
-        <Grid.Row style={{ padding: '0 0 10px 0px ' }}>
+        <Grid.Row style={{ padding: '0 0 10px 13px ' }}>
           <Grid.Column style={{ padding: '30px 0 0 0' }} width={14} >
             <CardHeading>Local shujaas</CardHeading>
             <CardSubHeading>Be a local hero by supporting our local shujaas</CardSubHeading>

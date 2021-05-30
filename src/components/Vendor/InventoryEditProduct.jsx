@@ -89,8 +89,9 @@ const filter = createFilterOptions();
 
 const CreateProduct = (props) => {
     const { cookies } = props
-    const id = props.location && props.location.state || ''
-    console.log(((props.location && props.location.state) || ''),id)
+    const d = props.location && props.location.state || ''
+    const id = d.id
+    console.log(((props.location && props.location.state) || ''))
     const data = cookies.get('login-res')
     const token = data?.access
     const businessId = cookies.get('business-id')
@@ -118,26 +119,31 @@ const CreateProduct = (props) => {
     const classes = useStyles();
 
     useEffect(() => {
-        axios.get(HOST_API + `zist/vendor/products/${id}/`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-            .then((res) => {
-                console.log(res.data.results)
-                if (res.status === 200) {
-                    setFetchedProduct(res.data)
-                    setName( res.data.name )
-                    setStock(res.data.metadata)
-                    setPrice(res.data.price)
-                    setDescription(res.data.description)
-                    setValue(res.data.category)
-                }
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }, [id]);
+        // axios.get(HOST_API + `zist/vendor/products/${id}/`, {
+        //     headers: {
+        //         "Authorization": `Bearer ${token}`
+        //     }
+        // })
+        //     .then((res) => {
+        //         console.log(res.data.results)
+        //         if (res.status === 200) {
+        //             setFetchedProduct(res.data)
+        //             setName( res.data.name )
+        //             setStock(res.data.metadata)
+        //             setPrice(res.data.price)
+        //             setDescription(res.data.description)
+        //             setValue(res.data.category)
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.error(error)
+        //     })
+                    setName( d.name)
+                    setStock(d.stock)
+                    setPrice(d.price)
+                    setDescription(d.description)
+                    setValue(d.category)
+    }, []);
     useEffect(() => {
         axios.get(HOST_API + `zist/business/${businessId}/get_categories/`, {
             headers: {
@@ -224,7 +230,10 @@ const CreateProduct = (props) => {
                                             <DropzoneDiv {...getRootProps({ className: "dropzone" })}>
                                                 <input {...getInputProps()} />
                                                 {files.length === 0 ? (
-                                                    <p style={{ padding: '120px 0 !important',margin:'0',fontSize:20 }}> Add the business profile picture by clicking here </p>
+                                                    <div >
+                                                    <Icon name='upload' size='huge' />
+                                                    <p> Upload image </p>
+                                                </div>  
                                                 ) : (
                                                         files.map(file => {
                                                             return (

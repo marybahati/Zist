@@ -13,7 +13,7 @@ import { Settings } from './components/Vendor/Settings';
 import { Announcements } from './components/Vendor/Announcements';
 import { Transcations } from './components/Vendor/Transcations'
 import SearchBar from './components/ShoppingPage/SearchBar';
-import UserList from './components/Vendor/UserList';
+import UserList from './components/ShoppingPage/UserList';
 import CreateList from './components/Vendor/CreateList';
 import OrderDetails from './components/Vendor/OrderDetails';
 import UpdateUserProfile from './components/LandingPage/UpdateUserProfile';
@@ -24,6 +24,7 @@ import CreateProduct from './components/Vendor/InventoryAddProduct';
 import InventoryAddCategory from './components/Vendor/InventoryAddCategory';
 import VendorProducts from './components/Vendor/VendorProducts';
 import InventoryEditProduct from './components/Vendor/InventoryEditProduct';
+import Aisles from './components/ShoppingPage/Aisles';
 
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
       <Route exact path='/inventory-add-category' component={InventoryAddCategory}/>
       <Route exact path='/vendor-products' component={VendorProducts}/>
       <Route exact path='/vendor-product/edit' component={InventoryEditProduct}/>
+      <Route exact path='/shopping/categories' component={Aisles}/>
     </Router>
     </SnackbarProvider>
   );

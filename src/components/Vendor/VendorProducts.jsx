@@ -62,7 +62,7 @@ const OffersButton = styled(Button)`
     border-radius: 5px !important;
     height: 60px !important;
     color: white !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     opacity: 1;
 `;
 const AddButton = styled(Button)`
@@ -111,7 +111,7 @@ const VendorProducts = (props) => {
     };
 
     const handleHamburgerClick = (e, id) => {
-        console.log(id,'990000werd=======')
+        console.log(id, '990000werd=======')
         e.preventDefault()
         setCurrentId(id);
         handleClick(e)
@@ -121,9 +121,11 @@ const VendorProducts = (props) => {
         setAnchorEl(null);
     };
     console.log(products)
-    const handleEditProduct = (e, id) => {
+    const handleEditProduct = (e, id,name,price,stock,description,category) => {
+        const data = {id: id, name: name,price: price, stock: stock, description: description, category: category}
+        console.log(data)
         history.push({
-            state: id,
+            state: data,
             pathname: '/vendor-product/edit'
         })
     }
@@ -135,50 +137,35 @@ const VendorProducts = (props) => {
     }
     const fetchProducts = () => {
         axios.get(HOST_API + `zist/vendor/products/`, {
-            headers: { "Authorization": `Bearer ${token}` } 
-          })
-          .then((res) => {
-            if (res.status == 200) {
-                setProducts(res.data.results)
-                setProductCount(res.data.count)
-            }
-          }, (error) => {
-            console.log(error)
-          });
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+            .then((res) => {
+                if (res.status == 200) {
+                    setProducts(res.data.results)
+                    setProductCount(res.data.count)
+                }
+            }, (error) => {
+                console.log(error)
+            });
     }
     useEffect(
-        // async () => {
-        // try {
-        //     const result = await axios.get(HOST_API + `zist/vendor/products/`,
-        //         {
-        //             headers: { "Authorization": `Bearer ${token}` }
-        //         }
-        //     )
-        //     if (result.status == 200) {
-        //         setProducts(result.data.results)
-        //         setProductCount(result.data.count)
-        //     }
-        //     console.log(result)
-        // } catch (error) {
-        //     console.log(error)
-        // }} 
         fetchProducts
-        , [ products ]);
-    const handleDeleteProduct = (e,id) => {
+        , [products]);
+    const handleDeleteProduct = (e, id) => {
         e.preventDefault()
         console.log(id)
         axios.delete(HOST_API + `zist/vendor/products/${id}/`, {
-            headers: { "Authorization": `Bearer ${token}` } 
-          })
-          .then((res) => {
-            if (res.status == 204) {
-                enqueueSnackbar(`You have successfully deleted the product`, { variant: 'success' })
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+            .then((res) => {
+                if (res.status == 204) {
+                    enqueueSnackbar(`You have successfully deleted the product`, { variant: 'success' })
+                    handleClose()
+                }
+            }, (error) => {
+                enqueueSnackbar(`${error}`, { variant: 'error' })
                 handleClose()
-            }
-          }, (error) => {
-            enqueueSnackbar(`${error}`, { variant: 'error' })
-            handleClose()
-          });
+            });
     }
     return (
         <MainDiv>
@@ -254,10 +241,9 @@ const VendorProducts = (props) => {
                                     <Grid.Column width={3}>
                                         <ProductImages src={blueberries} />
                                     </Grid.Column>
+
                                     <ProductName center width={3} >
-                                        <Link component='a' href='' onClick={(e) => handleEditProduct(e, product.id)} style={{ fontSize: 22 }} >
-                                            {product.name}
-                                        </Link>
+                                        <h3> {product.name} </h3>
                                     </ProductName>
                                     <ItemsColumn width={2}>
                                         <h3> Kshs. {product.price} </h3>
@@ -277,10 +263,10 @@ const VendorProducts = (props) => {
                                                 aria-label="more"
                                                 aria-controls="long-menu"
                                                 aria-haspopup="true"
-                                                style={{padding: '0 auto !important'}}
+                                                style={{ padding: '0 auto !important' }}
                                                 onClick={e => handleHamburgerClick(e, product.id)}
-                                                >
-                                                <MoreVertIcon style={{margin: '0 auto !important'}}/>
+                                            >
+                                                <MoreVertIcon style={{ margin: '0 auto !important' }} />
                                             </IconButton>
                                             <Menu
                                                 // onClick={handleClick}
@@ -295,7 +281,10 @@ const VendorProducts = (props) => {
                                                     },
                                                 }}
                                             >
-                                                <MenuItem onClick={ e => handleDeleteProduct(e,currentId)}>
+                                                <MenuItem onClick={e => handleEditProduct(e, currentId,product.name,product.price,product.metadata,product.description,product.category.category)}>
+                                                    Edit
+                                                </MenuItem>
+                                                <MenuItem onClick={e => handleDeleteProduct(e, currentId)}>
                                                     Delete
                                                 </MenuItem>
                                             </Menu>

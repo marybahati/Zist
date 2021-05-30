@@ -39,7 +39,6 @@ text-align: center;
   color: #bdbdbd;
   height:230px;
   margin: auto 0 !important;
-
 `;
 const CenteredColumn = styled(Grid.Column)`
     margin: 0 auto !important;
@@ -104,6 +103,8 @@ const CreateProduct = (props) => {
     const [selectedCategory, setSelectedCategory] = useState(value)
     const { enqueueSnackbar } = useSnackbar();
     const [files, setFiles] = useState([]);
+    const file = files[0]?.path
+    console.log(file)
 
     const { getRootProps, getInputProps } = useDropzone({
         accept: '.jpg, .png, .jpeg',
@@ -120,28 +121,6 @@ const CreateProduct = (props) => {
     //     const { name, value } = e.target
     //     setFormData((prevState) => ({ ...prevState, [name]: value }))
     // }
-    const options = [
-        {
-            key: 'Cakes',
-            text: 'Cakes',
-            value: 'Cakes',
-        },
-        {
-            key: 'Cosmetics',
-            text: 'Cosmetics',
-            value: 'Cosmetics',
-        },
-        {
-            key: 'Vegetables',
-            text: 'Vegetables',
-            value: 'Vegetables',
-        },
-        {
-            key: 'Fruits',
-            text: 'Fruits',
-            value: 'Fruits',
-        }
-    ]
 
     const categories = category.map(x => ({ text: x.category, value: x.id }))
 
@@ -172,7 +151,7 @@ const CreateProduct = (props) => {
                     price: price,
                     category: selectedCategory?.id,
                     description: description,
-                    // image: image,
+                    // image: file,
                     metadata: stock,
                     business: businessId
                 },
@@ -187,6 +166,7 @@ const CreateProduct = (props) => {
                 setDescription('')
                 setStock('')
                 setValue('')
+                setFiles('')
             }
         } catch (error) {
             console.log(error)
@@ -238,7 +218,10 @@ const CreateProduct = (props) => {
                                             <DropzoneDiv {...getRootProps({ className: "dropzone" })}>
                                                 <input {...getInputProps()} />
                                                 {files.length === 0 ? (
-                                                    <p style={{ padding: '120px 0 !important',margin:'0',fontSize:20 }}> Add the business profile picture by clicking here </p>
+                                                    <div >
+                                                        <Icon name='upload' size='huge' />
+                                                        <p> Upload image </p>
+                                                    </div>                
                                                 ) : (
                                                         files.map(file => {
                                                             return (
