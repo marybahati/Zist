@@ -93,7 +93,7 @@ const ButtonCounters = styled(Button)`
 const OrderDetails = (props) => {
 
     const info = (props.location && props.location.state) || '';
-    const [cart, setCart] = useState(info.cart)
+    const [cart, setCart] = useState(info.productsInBasket)
     const [n, setN] = useState([])
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
@@ -133,7 +133,7 @@ const OrderDetails = (props) => {
                 </Rows>
 
 
-                {info.cart?.map((res, index) => {
+                {info.productsInBasket?.map((res, index) => {
                     return (
                         <ProductRows>
                             <Grid.Column width={4}>

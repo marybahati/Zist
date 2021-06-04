@@ -20,10 +20,17 @@ import "react-multi-carousel/lib/styles.css";
 import "./multicarousel.css";
 import Skeleton from '@material-ui/lab/Skeleton';
 import MuiGrid from '@material-ui/core/Grid';
+import SearchComponent from './AutoComplete';
 
 const CardColumn = styled(Grid.Column)`
     margin-bottom: 100px;
     padding: 0 !important;
+`;
+const SearchColumn = styled(Grid.Column)`
+    width: 50% !important;
+    margin: 0 auto 0 auto !important;
+    padding: 0 !important;
+    // background: red !important;
 `;
 const CardHeading = styled.h2`
     font-size: 20px !important ;
@@ -226,9 +233,12 @@ const Shopping = (props) => {
               </Grid.Column>
             </Grid.Row>
           )}
-        <Grid.Row width={16} style={{ padding: '0 ', margin: 'auto 0 !important' }}>
+        <Grid.Row width={16} >
+            <SearchColumn style={{margin:'0 auto !important', top: '-200px !important'}}>
+              <SearchComponent/>
+            </SearchColumn>
 
-          <Input labelPosition='right' type='search'
+          {/* <Input labelPosition='right' type='search'
             style={{
               backgroundColor: "white",
               margin: "0 auto 0px auto",
@@ -264,11 +274,11 @@ const Shopping = (props) => {
               search
               style={{ padding: '2rem !important', width: '100%' }}
             />
-            {/* <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" /> */}
+            <input type='search' style={{ border: '0', paddingRight: '8px' }} name="searchOption" list="searchOption" />
           </Input>
           <datalist id="searchOption">
             <option value="Camaro" style={{ background: `${card2}` }}>
-              {/* <Grid>
+              <Grid>
                 <Grid.Row>
                   <Grid.Column width={6}>
                         <Image src={card2} />
@@ -277,12 +287,12 @@ const Shopping = (props) => {
                     <h3> vegetable store </h3>
                   </Grid.Column>
                 </Grid.Row>
-              </Grid> */}
+              </Grid>
             </option>
             <option value="Corvette" />
             <option value="Impala" />
             <option value="Colorado" />
-          </datalist>
+          </datalist> */}
         </Grid.Row>
 
       </Grid>
@@ -406,14 +416,14 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' />
                       </Card.Header>
-                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
                       </Card.Header>
                       <List bulleted horizontal >
                         <List.Item ></List.Item>
-                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                        <List.Item style={{ fontSize: 16 }}>{business.business_type}</List.Item>
                       </List>
                     </Card.Content>
 
@@ -468,14 +478,14 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' />
                       </Card.Header>
-                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
                       </Card.Header>
                       <List bulleted horizontal >
                         <List.Item ></List.Item>
-                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                        <List.Item style={{ fontSize: 16 }}>{business.business_type}</List.Item>
                       </List>
                     </Card.Content>
 
@@ -529,14 +539,14 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' />
                       </Card.Header>
-                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
                       </Card.Header>
                       <List bulleted horizontal >
                         <List.Item ></List.Item>
-                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                        <List.Item style={{ fontSize: 16 }}>{business.business_type}</List.Item>
                       </List>
                     </Card.Content>
 
@@ -591,14 +601,14 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' />
                       </Card.Header>
-                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
                       </Card.Header>
                       <List bulleted horizontal >
                         <List.Item ></List.Item>
-                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                        <List.Item style={{ fontSize: 16 }}>{business.business_type}</List.Item>
                       </List>
                     </Card.Content>
 
@@ -653,14 +663,14 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' />
                       </Card.Header>
-                      <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                      <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
                       </Card.Header>
                       <List bulleted horizontal >
                         <List.Item ></List.Item>
-                        <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                        <List.Item style={{ fontSize: 16 }}>{business.business_type}</List.Item>
                       </List>
                     </Card.Content>
 
@@ -715,14 +725,14 @@ const Shopping = (props) => {
                         <Card.Content>
                           <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                             {business.name}
-                            <Icon name='check circle' color='yellow' />
+                            <Icon name='check circle outline' color='yellow' />
                           </Card.Header>
-                          <Card.Header style={{ padding: '10px 0', fontSize: 20 }}>
+                          <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                             {business.bio}
                           </Card.Header>
                           <List bulleted horizontal >
                             <List.Item ></List.Item>
-                            <List.Item style={{ fontSize: 20 }}>{business.business_type}</List.Item>
+                            <List.Item style={{ fontSize: 16 }}>{business.business_type}</List.Item>
                           </List>
                         </Card.Content>
 

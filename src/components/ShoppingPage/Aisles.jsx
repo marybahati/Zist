@@ -3,7 +3,7 @@ import { Grid, Image, Button, List, Icon, Popup } from "semantic-ui-react";
 import styled from 'styled-components';
 import blueberries from './../../Assets/blue-berries.png';
 import axios from 'axios'
-import { withCookies} from 'react-cookie';
+import { Cookies, withCookies} from 'react-cookie';
 import history from '../../History'
 import { HOST_API } from '../../endpoints';
 
@@ -51,6 +51,20 @@ const OrderNowButton = styled(Button)`
    height: 90px !important;
    font-size: 22px !important;
 `;
+const ButtonCounters = styled(Button)`
+   background: inherit !important;
+   font-size : 40px !important;
+   padding : 0 !important;
+   color : black !important;
+   margin: 0 8px !important;
+   text-align: center !important;
+`;
+const StockColumn = styled(Grid.Column)`
+   margin: auto 0 !important;
+   background: #FFF !important;
+   padding: 18px 30px !important;
+   text-align: center !important;
+`;
 
 const Aisles = (props) => {
     const [products, setProducts] = useState([])
@@ -59,6 +73,7 @@ const Aisles = (props) => {
     const [showSnacks, setShowSnacks] = useState(false)
     const [showCooking, setShowCooking] = useState(false)
     const [cart, setCart] = useState([])
+    const [show,setShow] = useState([])
     const [countProducts, setCountProducts] = useState()
 
     const { cookies } = props
@@ -66,6 +81,15 @@ const Aisles = (props) => {
     const token = userData?.access
     const clickedBusiness = (props.location && props.location.state) || '';
     const businessId = clickedBusiness?.id
+    const cookie = new Cookies()
+
+    const handleAddItemsToCart = () => {
+        cookie.set('cart', cart, { path: '/' })
+        history.push({
+            pathname: '/user-list',
+            state:clickedBusiness
+        })
+    }
 
     const handleShowFruits = () => {
         setShowFruits(true)
@@ -91,10 +115,31 @@ const Aisles = (props) => {
         setShowGreens(false)
         setShowSnacks(false)
     }
-    const handleAddProduct = (e, productName, productPrice, quantity, id) => {
-        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
-        setCart([...cart, d])
+    const handleAddProduct = ( name, price, quantity,id) => {
+        const d = { productName: name, productPrice: price, quantity: quantity, id: id }
+        setCart(prev =>[...prev, d])
         console.log(cart, d)
+        setShow([...show,id])
+    }
+    const changeQuantity = (e, product_id, val) => {
+        e.preventDefault()
+        const curIndx = cart.findIndex(product => product_id === product.id)
+        if(curIndx === -1) return     
+
+        const curObj = cart[curIndx]
+        curObj['quantity'] += val
+        cart[curIndx] = curObj
+        setCart([...cart])
+    }
+    const getProductQty =  (product_id)=>{
+        const product = cart.find(prd =>prd.id === product_id)
+        console.log(product)
+        return product?.quantity
+    }
+    const CalculateProductPrice =  (product_id)=>{
+        const product = cart.find(prd =>prd.id === product_id)
+        console.log(product)
+        return product?.quantity*product?.price
     }
     const handleGoingBackToList = () => {
         history.push({
@@ -117,9 +162,9 @@ const Aisles = (props) => {
                 console.log(error)
             })
     }, [])
-    const suggestedProducts = products.slice(0, 5).map(product => {
+    const suggestedProducts = products.slice(0, 5).map((product,index) => {
         return (
-            <Grid.Row width={16} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
+            <Grid.Row width={16} key={index} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
                 <Grid.Column width={1}></Grid.Column>
                 <Grid.Column width={5}>
                     <Image src={blueberries} wrapped ui={false} />
@@ -129,17 +174,35 @@ const Aisles = (props) => {
                         <Grid.Row>
                             <Grid.Column width={10}> </Grid.Column>
                             <Grid.Column width={6}>
-                                <Popup
-                                    style={{ backgroundColor: 'green' }}
-                                    trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
-                                            <Icon name='add circle' size='big' color='black' />
-                                        </Button>
-                                    }
-                                    content={`Succesfully added item ${product.name}`}
-                                    on='click'
-                                    position='bottom left'
-                                />
+                                { !show.includes(product.id) ? (
+                                    
+                                    <Button basic id={product.id} style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={() => handleAddProduct(product.name,product.price,1,product.id)}>
+                                    <Icon name='add circle' size='big' color='black' />
+                                    </Button>
+                                ) : (
+                                    <Grid>
+                                    <Grid.Row>
+                                        <Columns width={2} />
+                                        <Columns width={3}>
+                                            <ButtonCounters onClick={ e => {
+                                                if(getProductQty(product.id) === 1){
+                                                    changeQuantity(e,product.id,0)
+                                                } else {
+                                                    changeQuantity(e,product.id,-1)
+                                                }
+                                            }} > - </ButtonCounters>
+                                        </Columns>
+                                        <Columns width={6}>
+                                            <StockColumn width={15}> <h2> {getProductQty(product.id)} </h2> </StockColumn>
+                                        </Columns>
+                                        <Columns width={2} />
+                                        <Columns width={3}>
+                                            <ButtonCounters onClick={ e => changeQuantity(e,product.id,1)} > + </ButtonCounters>
+                                        </Columns>
+                                    </Grid.Row>
+                                </Grid>
+                                ) }
+                                   
 
                             </Grid.Column>
                         </Grid.Row>
@@ -234,13 +297,13 @@ const Aisles = (props) => {
                     </Grid.Row>
                 ) : null}
 
-                {/* {cart.length === 0 ? ( */}
+                {/* {!cart.length === 0 ? ( */}
                     <Grid.Row>
                     <OrderNowColumn>
-                        <OrderNowButton onClick={handleGoingBackToList} > Go to basket </OrderNowButton>
+                        <OrderNowButton onClick={handleAddItemsToCart} > Go to basket </OrderNowButton>
                     </OrderNowColumn>
                 </Grid.Row>
-                {/* ) : null } */}
+                 {/* ) : null }  */}
             </MainGrid>
         </MainDiv>
     )

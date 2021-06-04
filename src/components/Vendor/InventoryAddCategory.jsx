@@ -26,7 +26,7 @@ const ActionButton = styled(Button)`
     width: 100%;
     font-size: 26px !important;
     color: #050504 !important;
-    margin: 50px 0 !important;
+    margin: 30px 0 !important;
 `;
 const DropzoneDiv = styled.div`
 text-align: center;
@@ -63,6 +63,7 @@ const Icons = styled(Grid.Column)`
 `;
 const Columns = styled(Grid.Column)`
    margin: 0 auto !important;
+//    width: 50% !important,;
 `;
 const NoSpaceColumn = styled(Grid.Column)`
    padding: 0 !important;
@@ -86,7 +87,7 @@ const AddCategory = (props) => {
     const token = data?.access
     console.log(data, token, businessId)
     const [category, setCategory] = useState('')
-    const [description, setDescription] = useState('')
+    // const [description, setDescription] = useState('')
  
     const { enqueueSnackbar } = useSnackbar();
   
@@ -96,7 +97,7 @@ const AddCategory = (props) => {
             const product_res = await axios.post(HOST_API + `zist/categories/`,
                 {
                     category: category,
-                    description: description,
+                    // description: description,
                     business: businessId
                 },
                 { headers: { "Authorization": `Bearer ${token}` } }
@@ -105,7 +106,7 @@ const AddCategory = (props) => {
                 console.log(product_res)
                 enqueueSnackbar(`You have successfully created category ${category}`, { variant: 'success' }) 
                 setCategory('')
-                setDescription('')
+                // setDescription('')
                 // history.push('/inventory-create-product')
             }
         } catch (error) {
@@ -141,7 +142,7 @@ const AddCategory = (props) => {
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
-                    <Columns width={9}>
+                    <Columns width={8}>
                     <h2 style={{paddingRight:'0px'}}> Add Category </h2>
                         <Form size='large' onSubmit={handleSubmit}>
                             <Form.Group>
@@ -157,7 +158,7 @@ const AddCategory = (props) => {
                                             />
                                         </Grid.Column>
                                     </Grid.Row>
-                                    <Grid.Row>
+                                    {/* <Grid.Row>
                                         <Grid.Column width={16}>
                                             <Form.Input
                                                 value={description}
@@ -166,7 +167,7 @@ const AddCategory = (props) => {
                                                 onChange={e => setDescription(e.target.value)}
                                             />
                                         </Grid.Column>
-                                    </Grid.Row>
+                                    </Grid.Row> */}
                                     <Grid.Row>
                                         <CenteredColumn width={9}>
                                             <ActionButton type='submit' > SAVE </ActionButton>

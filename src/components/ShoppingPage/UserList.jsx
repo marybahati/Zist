@@ -100,7 +100,7 @@ const StockColumn = styled(Grid.Column)`
    text-align: center !important;
 `;
 const BusinessColumns = styled(Grid.Column)`
-   text-align : ${props => props.center ? "center !important" : " left !important "};
+   text-align : ${props => props.centered ? "center !important" : " left !important "};
    margin: auto 0 !important;
 `;
 const OrderNowColumn = styled(Grid.Column)`
@@ -123,29 +123,29 @@ const UserList = (props) => {
     const { cookies } = props
     const userData = cookies.get('login-res')
     const token = userData?.access
-    console.log(userData, token)
 
     const cookie = new Cookies()
-
 
     const clickedBusiness = (props.location && props.location.state) || '';
     console.log(props.location && props.location.state, clickedBusiness)
     const businessId = clickedBusiness?.id
-
+    const [cart, setCart] = useState([])
+    const [showQty, setShowQty] = useState([])
     const [selectedOption, setSelectedOption] = useState('')
     const [products, setProducts] = useState([])
     const [searchText, setSearchText] = useState('')
-    const [cart, setCart] = useState([])
-    const [countProducts,setCountProducts] = useState()
-    console.log(searchText)
+    const [countProducts, setCountProducts] = useState()
+    const storedItems = cookies.get('cart')
+    let productsInBasket = [...storedItems, ...cart]
+    console.log(storedItems, productsInBasket)
     console.log(cart)
 
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
-        const curObj = cart[index]
-        curObj['quantity'] += val
-        cart[index] = curObj
-        setCart([...cart])
+        // const curObj = productsInBasket[index]
+        // curObj['quantity'] += val
+        // productsInBasket[index] = curObj
+        // setProductsInBasket([...productsInBasket])
     }
     const deleteProduct = (e, index) => {
         e.preventDefault()
@@ -154,12 +154,28 @@ const UserList = (props) => {
         setCart([...cart])
         console.log(cart, obj)
     }
+    const changeQuantityToggle = (e, product_id, val) => {
+        e.preventDefault()
+        const curIndx = cart.findIndex(product => product_id === product.id)
+        if (curIndx === -1) return
+
+        const curObj = cart[curIndx]
+        curObj['quantity'] += val
+        cart[curIndx] = curObj
+        setCart([...cart])
+    }
+    const getProductQty = (product_id) => {
+        const product = cart.find(prd => prd.id === product_id)
+        console.log(product)
+        return product?.quantity
+    }
     const handleOrderDetailsDisplay = () => {
         history.push({
-            pathname:'/order-details',
-            state: {cart, clickedBusiness} 
-    })
+            pathname: '/order-details',
+            state: { productsInBasket, clickedBusiness }
+        })
     }
+
     // useEffect(() => {
     //     axios.post(HOST_API + 'zist/list/',
     //         { name: 'list' },
@@ -178,73 +194,20 @@ const UserList = (props) => {
 
     const handleRedirect = () => {
         history.push({
-            pathname:'/shopping/categories',
+            pathname: '/shopping/categories',
             state: clickedBusiness
-    })
+        })
     }
 
-    const renderProducts = (product) => {
-        if (searchText !== '' && product.name.toLowerCase().indexOf(searchText) === -1) {
-            return null
-        }
-        return (
-            <Grid.Row width={16} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
-                <Grid.Column width={1}></Grid.Column>
-                <Grid.Column width={5}>
-                    <Image src={blueberries} wrapped ui={false} />
-                </Grid.Column>
-                <Columns width={10}>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column width={10}> </Grid.Column>
-                            <Grid.Column width={6}>
-                                <Popup
-                                    style={{ backgroundColor: 'green' }}
-                                    trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id,product.price)}>
-                                            <Icon name='add circle' size='big' color='black' />
-                                        </Button>
-                                    }
-                                    content={`Succesfully added item ${product.name}`}
-                                    on='click'
-                                    position='bottom left'
-                                />
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid>
-                                <Grid.Row>
-                                    <Grid.Column width={1}></Grid.Column>
-                                    <Grid.Column width={7}>
-                                        <h2> {product.name} </h2>
-                                        <List link>
-                                            <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
-                                        </List>
-                                    </Grid.Column >
-                                    <Grid.Column width={8}>
-                                        <h2> Ksh.{product.price} </h2>
-                                    </Grid.Column >
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Row>
-                    </Grid>
-                </Columns>
-            </Grid.Row>
 
-        )
-    }
     const onSearch = (e) => {
         setSearchText(e.target.value)
         console.log(searchText)
     }
-    // const filteredProducts = products.filter(product => {
-    //     return product.name.toLowerCase().indexOf(searchText) !== -1
-    //     console.log(product.name)
-    // })
-    const productSearch = product => {
+
+    const productSearch = (product) => {
 
         const show = searchText !== '' && product.name.toLowerCase().includes(searchText)
-
         return (
             <>
                 { show && (
@@ -258,17 +221,33 @@ const UserList = (props) => {
                                 <Grid.Row>
                                     <Grid.Column width={10}> </Grid.Column>
                                     <Grid.Column width={6}>
-                                        <Popup
-                                            style={{ backgroundColor: 'green' }}
-                                            trigger={
-                                                <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id,product.price)}>
-                                                    <Icon name='add circle' size='big' color='black' />
-                                                </Button>
-                                            }
-                                            content={`Succesfully added item ${product.name}`}
-                                            on='click'
-                                            position='bottom left'
-                                        />
+                                        {!showQty.includes(product.id) ? (
+                                            <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)}>
+                                                <Icon name='add circle' size='big' color='black' />
+                                            </Button>
+                                        ) : (
+                                            <Grid>
+                                                <Grid.Row>
+                                                    <Columns width={2} />
+                                                    <Columns width={3}>
+                                                        <ButtonCounters onClick={e => {
+                                                            if (getProductQty(product.id) === 1) {
+                                                                changeQuantityToggle(e, product.id, 0)
+                                                            } else {
+                                                                changeQuantityToggle(e, product.id, -1)
+                                                            }
+                                                        }} > - </ButtonCounters>
+                                                    </Columns>
+                                                    <Columns width={6}>
+                                                        <StockColumn width={15}> <h2> {getProductQty(product.id)} </h2> </StockColumn>
+                                                    </Columns>
+                                                    <Columns width={2} />
+                                                    <Columns width={3}>
+                                                        <ButtonCounters onClick={e => changeQuantityToggle(e, product.id, 1)} > + </ButtonCounters>
+                                                    </Columns>
+                                                </Grid.Row>
+                                            </Grid>
+                                        )}
                                     </Grid.Column>
                                 </Grid.Row>
                                 <Grid.Row>
@@ -298,66 +277,11 @@ const UserList = (props) => {
     }
 
 
-
-    const suggestedProducts = products.slice(0, 5).map(product => {
-        return (
-            <Grid.Row width={16} style={{ margin: '0 30px 80px 0', background: 'white !important', border: '1px black' }}>
-                <Grid.Column width={1}></Grid.Column>
-                <Grid.Column width={5}>
-                    <Image src={blueberries} wrapped ui={false} />
-                </Grid.Column>
-                <Columns width={10}>
-                    <Grid>
-                        <Grid.Row>
-                            <Grid.Column width={10}> </Grid.Column>
-                            <Grid.Column width={6}>
-                                <Popup
-                                    style={{ backgroundColor: 'green' }}
-                                    trigger={
-                                        <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id, product.price)}>
-                                            <Icon name='add circle' size='big' color='black' />
-                                        </Button>
-                                    }
-                                    content={`Succesfully added item ${product.name}`}
-                                    on='click'
-                                    position='bottom left'
-                                />
-
-                            </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row>
-                            <Grid>
-                                <Grid.Row>
-                                    <Grid.Column width={1}></Grid.Column>
-                                    <Grid.Column width={7}>
-                                        <h2> {product.name} </h2>
-                                        <List link>
-                                            <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
-                                        </List>
-                                    </Grid.Column >
-                                    <Grid.Column width={8}>
-                                        <h2> Ksh.{product.price} </h2>
-                                    </Grid.Column >
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Row>
-                    </Grid>
-                </Columns>
-            </Grid.Row>
-        )
-    })
-    const handleAddedProduct = () => {
-        History.push({
-            pathname: '/create-list',
-            state: cart
-        });
-    }
-
-    const handleAddProduct = (e, productName, productPrice, quantity, id,productTotal) => {
-        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id, productTotal: productTotal }
+    const handleAddProduct = (e, productName, productPrice, quantity, id,) => {
+        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
         console.log(d)
         setCart([...cart, d])
-        console.log(cart, d)
+        setShowQty([...showQty, id])
     }
 
     useEffect(() => {
@@ -373,7 +297,7 @@ const UserList = (props) => {
 
             })
             .catch(error => {
-                console.log(error)   
+                console.log(error)
             })
     }, [])
     return (
@@ -391,32 +315,32 @@ const UserList = (props) => {
                         <GreyText> Take a detour within the store by browsing through the aisles, just like you’d do in a physical store…</GreyText>
                     </Grid.Column>
                 </Grid.Row>
-   
-                        <Grid.Row>
-                            <AisleColumn width={4} >
-                                <AisleButton onClick={handleRedirect} > Fruits </AisleButton>
-                            </AisleColumn>
-                            <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Greens </AisleButton> </AisleColumn>
-                            <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Snacks </AisleButton> </AisleColumn>
-                            <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Cooking </AisleButton> </AisleColumn>
-                            <Grid.Column width={16} style={{ textAlign: 'center', paddingTop: 15 }}> <HideAisleButton onClick={handleRedirect}> show more </HideAisleButton> </Grid.Column>
-                        </Grid.Row>
 
- 
-                {cart.length !== 0 ? (
+                <Grid.Row>
+                    <AisleColumn width={4} >
+                        <AisleButton onClick={handleRedirect} > Fruits </AisleButton>
+                    </AisleColumn>
+                    <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Greens </AisleButton> </AisleColumn>
+                    <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Snacks </AisleButton> </AisleColumn>
+                    <AisleColumn width={4}> <AisleButton onClick={handleRedirect} > Cooking </AisleButton> </AisleColumn>
+                    <Grid.Column width={16} style={{ textAlign: 'center', paddingTop: 15 }}> <HideAisleButton onClick={handleRedirect}> show more </HideAisleButton> </Grid.Column>
+                </Grid.Row>
+
+
+                {productsInBasket.length !== 0 ? (
                     //  <h2> Products in your basket </h2>
-                    cart?.map((product, index) => {
+                    productsInBasket?.map((product, index) => {
                         return (
                             <Grid.Row width={16}>
                                 <Grid.Column width={1}>
-                                    <Button onClick={e => deleteProduct(e,index)} basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
+                                    <Button onClick={e => deleteProduct(e, index)} basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
                                         <Icon name='close' size='large' color='orange' />
                                     </Button>
                                 </Grid.Column>
                                 <Grid.Column width={4}>
                                     <Image src={blueberries} wrapped ui={false} />
                                 </Grid.Column>
-                                <Grid.Column width={1}/>
+                                <Grid.Column width={1} />
                                 <Columns width={10}>
                                     <Grid>
                                         <Grid.Row>
@@ -431,11 +355,11 @@ const UserList = (props) => {
                                                     <Grid.Row>
                                                         <Columns width={2} />
                                                         <Columns width={3}>
-                                                            <ButtonCounters onClick={ e => {
-                                                                if(product.quantity === 1){
-                                                                    changeQuantity(e,index,0)
+                                                            <ButtonCounters onClick={e => {
+                                                                if (product.quantity === 1) {
+                                                                    changeQuantity(e, index, 0)
                                                                 } else {
-                                                                    changeQuantity(e,index,-1)
+                                                                    changeQuantity(e, index, -1)
                                                                 }
                                                             }} > - </ButtonCounters>
                                                         </Columns>
@@ -444,7 +368,7 @@ const UserList = (props) => {
                                                         </Columns>
                                                         <Columns width={2} />
                                                         <Columns width={3}>
-                                                            <ButtonCounters onClick={ e => changeQuantity(e,index,1)} > + </ButtonCounters>
+                                                            <ButtonCounters onClick={e => changeQuantity(e, index, 1)} > + </ButtonCounters>
                                                         </Columns>
                                                     </Grid.Row>
                                                 </Grid>
@@ -471,21 +395,21 @@ const UserList = (props) => {
                     </SearchInputColumn>
                 </Grid.Row>
                 <Grid.Row>
-                <BusinessColumns center>
-                    { countProducts === 0 ? (
-                        <h2> This store has no products,please select another store </h2>
-                        ) : null }
-                </BusinessColumns>
+                    <BusinessColumns centered>
+                        {countProducts === 0 ? (
+                            <h2> This store has no products,please select another store </h2>
+                        ) : null}
+                    </BusinessColumns>
                 </Grid.Row>
                 {products.map(product => {
                     return productSearch(product)
                 })}
-                 <Grid.Row >
-                    <BusinessColumns center>
+                <Grid.Row >
+                    <BusinessColumns centered>
                         <Collapsible width={16} fluid trigger={<DropdownButtons > Continue shopping from another store within Mall A <Icon name='dropdown' style={{ marginLeft: 30 }} /></DropdownButtons>} triggerTagName='h3' link >
                             <Grid width={16}  >
                                 <Grid.Row >
-                                    <Grid.Column width={5} style={{paddingLeft:40}} >
+                                    <Grid.Column width={5} style={{ paddingLeft: 40 }} >
                                         <Image src={BusinessPic} />
                                     </Grid.Column>
                                     <BusinessColumns width={10}  >
@@ -502,7 +426,7 @@ const UserList = (props) => {
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={5}  >
-                                        <Image src={BusinessPic} style={{paddingLeft:40}} />
+                                        <Image src={BusinessPic} style={{ paddingLeft: 40 }} />
                                     </Grid.Column>
                                     <BusinessColumns width={10} style={{ textAlign: 'center' }} >
                                         <h2> Mary’s Apothecary <Icon name='check circle' color='yellow' /> </h2>
