@@ -9,18 +9,18 @@ import axios from 'axios';
 import History from '../../History';
 import { HOST_API } from './../../endpoints';
 import { withStyles } from '@material-ui/core/styles'
-import {  Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import { withCookies } from 'react-cookie';
 
 const AutoComplete = withStyles({
-  root:{
-    background:'white !important',
+  root: {
+    background: 'white !important',
     padding: '3px 0 0 0 !important',
     margin: '0 !important',
   },
-  input:{
+  input: {
     fontSize: '18px',
-    border:'none !important',
+    border: 'none !important',
     '&::placeholder': {
       opacity: 1
     }
@@ -28,16 +28,16 @@ const AutoComplete = withStyles({
 })(Autocomplete)
 function SearchComponent(props) {
   const { cookies } = props
-    const userData = cookies.get('login-res')
-    const token = userData?.access
+  const userData = cookies.get('login-res')
+  const token = userData?.access
   const [showItems, setShowItems] = useState(false)
-  const [value, setValue] = useState()
+  const [selectedOption, setSelectedOption] = useState()
   const [businesses, setBusinesses] = useState([])
   const [products, setProducts] = useState([])
   const collection = showItems ? products : businesses
   console.log(products)
   const handleSelectedBusiness = (e, { value }) => {
-    setValue(value)
+    setSelectedOption(value)
     // History.push({
     //   pathname: '/user-list',
     //   state: { name: value }
@@ -69,31 +69,31 @@ function SearchComponent(props) {
       })
   }
   useEffect(() => {
-    if(!businesses.length){
+    if (!businesses.length) {
       fetchBusinesses()
     }
   }, [businesses])
   useEffect(() => {
-    if(!products.length){
+    if (!products.length) {
       fetchProducts()
     }
   }, [products])
 
   const [openStatus, setOpenStatus] = useState(false)
   const [closeOnBlur, setCloseOnBlur] = useState(true)
-  
-  const handleTabChange = (e,status) => {
+
+  const handleTabChange = (e, status) => {
     e.preventDefault()
     // setOpenStatus(true)
     // setCloseOnBlur(false)
     setShowItems(status)
   }
-  console.log(closeOnBlur,'000000=====kkk', openStatus, '===q===open', showItems)
+  console.log(closeOnBlur, '000000=====kkk', openStatus, '===q===open', showItems)
   const PaperC = (props) => {
     return (
       <Paper>
-        <Button color='inherit' style={{borderBottom:!showItems?'2px orange solid': ''}} onClick={e  => handleTabChange(e, false)}> Stores </Button>
-        <Button color='inherit' style={{borderBottom:showItems?'2px orange solid' :''}} onClick={e => handleTabChange(e, true)} > Products </Button>
+        <Button color='inherit' style={{ borderBottom: !showItems ? '2px orange solid' : '' }} onClick={e => handleTabChange(e, false)}> Stores </Button>
+        <Button color='inherit' style={{ borderBottom: showItems ? '2px orange solid' : '' }} onClick={e => handleTabChange(e, true)} > Products </Button>
         {props?.children}
       </Paper>
     )
@@ -115,7 +115,7 @@ function SearchComponent(props) {
     )
   }
   // console.log(collection, showItems)
-  
+
   return (
     <div style={{ width: '100% !important' }}>
       <AutoComplete
@@ -137,35 +137,47 @@ function SearchComponent(props) {
         // disableCloseOnSelect
         noOptionsText=" `Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else"
         // options={collection.map((option) => option.title)}
-        value={value}
-        getOptionLabel={(option) => showItems? option.name :option?.name}
+        value={selectedOption}
+        getOptionLabel={(option) => showItems ? option.name : option?.name}
         options={collection}
-        // onChange={handleSelectedBusiness}
+        onChange={(e, newValue) => {
+          if (showItems) {
+            setSelectedOption(newValue)
+          } else {
+            const d = { name: newValue?.name, type: newValue?.business_type, id: newValue?.id }
+            History.push({
+              pathname: '/user-list',
+              state: d
+            });
+            setSelectedOption(newValue)
+          }
+
+        }}
         renderOption={(option) => (
           !showItems ? (
             <div>
               {/* <MenuItem disableGutters dense style={{padding:'0 !important',margin:'0 !important'}} > */}
-                <List key={option.id}>
-                  <ListItem >
-                    <ListItemAvatar>
-                      <Avatar variant="rounded" src={store} />
-                    </ListItemAvatar>
-                    <ListItemText primary={option?.name} secondary={option?.business_type} /> <Icon name='check circle outline' size='large' color='yellow' style={{paddingBottom:50}} /> 
-                    {/* <ListItemText secondary={option?.business_type} /> */}
-                  </ListItem>
-                </List>
+              <List key={option.id}>
+                <ListItem >
+                  <ListItemAvatar>
+                    <Avatar variant="rounded" src={store} />
+                  </ListItemAvatar>
+                  <ListItemText primary={option?.name} secondary={option?.business_type} /> <Icon name='check circle outline' size='large' color='yellow' style={{ paddingBottom: 50 }} />
+                  {/* <ListItemText secondary={option?.business_type} /> */}
+                </ListItem>
+              </List>
               {/* </MenuItem> */}
             </div>
           ) : (
             <List key={option.id}>
-            <ListItem >
-              <ListItemAvatar>
-                <Avatar variant="rounded" src={store} />
-              </ListItemAvatar>
-              <ListItemText primary={option?.name} secondary={`Ksh. ${option?.price}`} />
-              {/* <ListItemText secondary={option?.business_type} /> */}
-            </ListItem>
-          </List>
+              <ListItem >
+                <ListItemAvatar>
+                  <Avatar variant="rounded" src={store} />
+                </ListItemAvatar>
+                <ListItemText primary={option?.name} secondary={`Ksh. ${option?.price}`} />
+                {/* <ListItemText secondary={option?.business_type} /> */}
+              </ListItem>
+            </List>
           )
         )}
         renderInput={(params) => (

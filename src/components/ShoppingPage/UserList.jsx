@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Image, Button, List, Input, Icon, Popup } from "semantic-ui-react";
+import { Grid, Image, Button, List, Input, Icon } from "semantic-ui-react";
 import card2 from './../../Assets/2.jpg';
 import store from './../../Assets/store.png';
 import styled from 'styled-components';
@@ -12,6 +12,14 @@ import { withCookies, Cookies } from 'react-cookie';
 import Collapsible from 'react-collapsible';
 import history from '../../History'
 import { HOST_API } from '../../endpoints';
+import cartImage from "./../../Assets/searchCart.png";
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import MuiButton from '@material-ui/core/Button';
+import MuiGrid from '@material-ui/core/Grid';
+import { Avatar } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
@@ -87,7 +95,7 @@ color: #707070;
 `;
 const ButtonCounters = styled(Button)`
    background: inherit !important;
-   font-size : 40px !important;
+   font-size : 18px !important;
    padding : 0 !important;
    color : black !important;
    margin: 0 8px !important;
@@ -137,6 +145,109 @@ const UserList = (props) => {
     const [countProducts, setCountProducts] = useState()
     const storedItems = cookies.get('cart')
     let productsInBasket = [...storedItems, ...cart]
+    const [open, setOpen] = React.useState(false);
+
+    const toggleDrawer = (status) => (event) => {
+        // event.preventDefault()
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setOpen(status);
+    };
+
+    const list = () => (
+        <div
+            role="presentation"
+            onClick={toggleDrawer( false)}
+            onKeyDown={toggleDrawer(false)}
+            style={{width:'50% !important',padding:'20px !important'}}
+        >
+                  {/* <Grid container spacing={3}>
+        <Grid item xs>
+          <Paper className={classes.paper}>xs</Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper >xs=6</Paper>
+        </Grid>
+        <Grid item xs>
+          <Paper >xs</Paper>
+        </Grid>
+      </Grid> */}
+
+            {productsInBasket.length !== 0 ? (
+                    //  <h2> Products in your basket </h2>
+                    productsInBasket?.map((product, index) => {
+                        return (
+                            <MuiGrid key={index} container spacing={1} style={{width:450,padding:20}}>
+                                 <MuiGrid container item xs={12}>
+                                 {/* <Typography gutterBottom variant="subtitle1"> Products in your Cart </Typography> */}
+                                {/* <MuiGrid item xs={12} >
+                                    <Button onClick={e => deleteProduct(e, index)} basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
+                                        <Icon name='close' size='large' color='orange' />
+                                    </Button>
+                                </MuiGrid> */}
+                                </MuiGrid>
+                                {/* // <Grid.Column width={1}>
+                                //     <Button onClick={e => deleteProduct(e, index)} basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
+                                //         <Icon name='close' size='large' color='orange' />
+                                //     </Button>
+                                // </Grid.Column> */}
+                                <MuiGrid container item xs={2}>
+                                <MuiGrid item xs={12} >
+                                    {/* <Image src={blueberries} wrapped ui={false} style={{width:'100% !important'}} /> */}
+                                    <Avatar src={blueberries} variant="rounded"/> 
+                                </MuiGrid>
+                                </MuiGrid>
+                                {/* <MuiGrid container item xs={9} /> */}
+                                {/* <Columns width={10}> */}
+                                    {/* <MuiGrid > */}
+                                        {/* <Grid.Row> */}
+                                            <MuiGrid item xs={3} style={{margin:'auto 0 !important'}}>
+
+                                                <Typography gutterBottom variant="subtitle1">{product.productName} </Typography>
+                                                {/* <List link>
+                                                    <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
+                                                </List> */}
+                                            </MuiGrid >
+                                            {/* <MuiGrid item xs={7} > */}
+                                                {/* <MuiGrid container> */}
+                                                    {/* <Grid.Row> */}
+                                                        {/* <Columns width={2} /> */}
+                                                        <MuiGrid item xs={1} style={{margin:'auto 0 !important'}} >
+                                                            <ButtonCounters onClick={e => {
+                                                                if (product.quantity === 1) {
+                                                                    changeQuantity(e, index, 0)
+                                                                } else {
+                                                                    changeQuantity(e, index, -1)
+                                                                }
+                                                            }} > - </ButtonCounters>
+                                                        </MuiGrid>
+                                                        {/* <MuiGrid item xs={1} /> */}
+                                                        <MuiGrid item xs={1} style={{margin:'auto 0 !important'}}>
+                                                            <Typography gutterBottom variant="subtitle1"> {product.quantity} </Typography> 
+                                                        </MuiGrid>
+                                                        {/* <MuiGrid item xs={1} /> */}
+                                                        <MuiGrid item xs={1} style={{margin:'auto 0 !important'}}>
+                                                            <ButtonCounters onClick={e => changeQuantity(e, index, 1)} > + </ButtonCounters>
+                                                        </MuiGrid>
+                                                        <MuiGrid item xs={1} />
+                                                    {/* </Grid.Row> */}
+                                                {/* </MuiGrid> */}
+                                            {/* </MuiGrid> */}
+                                            <MuiGrid item xs={2} style={{margin:'auto 0 !important'}} >
+                                                
+                                                <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice} </Typography>
+                                            </MuiGrid >
+                                        {/* </Grid.Row> */}
+                                    {/* </MuiGrid> */}
+                                {/* </Columns> */}
+                            </MuiGrid>
+                        )
+                    })
+                ) : <h3 style={{paddingTop:50}}> You have no items in your cart</h3> }
+        </div>
+    );
     console.log(storedItems, productsInBasket)
     console.log(cart)
 
@@ -311,8 +422,20 @@ const UserList = (props) => {
                     </IntroColumn>
                 </Grid.Row>
                 <Grid.Row>
-                    <Grid.Column>
+                    <Grid.Column width={13}>
                         <GreyText> Take a detour within the store by browsing through the aisles, just like you’d do in a physical store…</GreyText>
+                    </Grid.Column>
+                    <Grid.Column width={3}>
+                        <React.Fragment >
+                            <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={toggleDrawer( true)}>
+                                <Image src={cartImage} style={{ width: 100, height: 100 }} />
+                                <span style={{ position: 'relative', top: '-85px', left: '6px' }}> {productsInBasket.length} </span>
+                            </Button>
+                            <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{width:'50% !important'}} >
+                                {list()}
+                            </Drawer>
+                        </React.Fragment>
+
                     </Grid.Column>
                 </Grid.Row>
 
@@ -327,62 +450,7 @@ const UserList = (props) => {
                 </Grid.Row>
 
 
-                {productsInBasket.length !== 0 ? (
-                    //  <h2> Products in your basket </h2>
-                    productsInBasket?.map((product, index) => {
-                        return (
-                            <Grid.Row width={16}>
-                                <Grid.Column width={1}>
-                                    <Button onClick={e => deleteProduct(e, index)} basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} >
-                                        <Icon name='close' size='large' color='orange' />
-                                    </Button>
-                                </Grid.Column>
-                                <Grid.Column width={4}>
-                                    <Image src={blueberries} wrapped ui={false} />
-                                </Grid.Column>
-                                <Grid.Column width={1} />
-                                <Columns width={10}>
-                                    <Grid>
-                                        <Grid.Row>
-                                            <Columns width={5}>
-                                                <h2>{product.productName} </h2>
-                                                <List link>
-                                                    <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
-                                                </List>
-                                            </Columns >
-                                            <Columns width={8}>
-                                                <Grid>
-                                                    <Grid.Row>
-                                                        <Columns width={2} />
-                                                        <Columns width={3}>
-                                                            <ButtonCounters onClick={e => {
-                                                                if (product.quantity === 1) {
-                                                                    changeQuantity(e, index, 0)
-                                                                } else {
-                                                                    changeQuantity(e, index, -1)
-                                                                }
-                                                            }} > - </ButtonCounters>
-                                                        </Columns>
-                                                        <Columns width={6}>
-                                                            <StockColumn width={15}> <h2> {product.quantity} </h2> </StockColumn>
-                                                        </Columns>
-                                                        <Columns width={2} />
-                                                        <Columns width={3}>
-                                                            <ButtonCounters onClick={e => changeQuantity(e, index, 1)} > + </ButtonCounters>
-                                                        </Columns>
-                                                    </Grid.Row>
-                                                </Grid>
-                                            </Columns>
-                                            <Columns width={3}>
-                                                <h2>Ksh.{product.productPrice} </h2>
-                                            </Columns >
-                                        </Grid.Row>
-                                    </Grid>
-                                </Columns>
-                            </Grid.Row>
-                        )
-                    })
-                ) : null}
+                
 
                 <Grid.Row >
                     <Grid.Column width={16}>
