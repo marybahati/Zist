@@ -10,6 +10,7 @@ import History from '../../History';
 import { HOST_API } from './../../endpoints';
 import { withStyles } from '@material-ui/core/styles'
 import {  Icon } from "semantic-ui-react";
+import { withCookies } from 'react-cookie';
 
 const AutoComplete = withStyles({
   root:{
@@ -25,37 +26,46 @@ const AutoComplete = withStyles({
     }
   },
 })(Autocomplete)
-export default function SearchComponent() {
+function SearchComponent(props) {
+  const { cookies } = props
+    const userData = cookies.get('login-res')
+    const token = userData?.access
   const [showItems, setShowItems] = useState(false)
   const [value, setValue] = useState()
   const [businesses, setBusinesses] = useState([])
-
-  const collection = showItems ? top100Films : businesses
-  const handleShowProducts = () => {
-    setShowItems(true)
-    console.log(showItems)
-  }
-  const handleShowStores = () => {
-    setShowItems(false)
-    console.log(showItems)
-  }
+  const [products, setProducts] = useState([])
+  const collection = showItems ? products : businesses
+  console.log(products)
   const handleSelectedBusiness = (e, { value }) => {
     setValue(value)
     // History.push({
     //   pathname: '/user-list',
     //   state: { name: value }
     // });
-    console.log(value)
+    // console.log(value)
   }
   const fetchBusinesses = () => {
     axios.get(HOST_API + 'zist/business/')
       .then(res => {
-        console.log(res.data.results)
+        // console.log(res.data.results)
         setBusinesses(res.data.results)
       })
       .catch(error => {
         return []
-        console.log(error)
+        // console.log(error)
+      })
+  }
+  const fetchProducts = () => {
+    axios.get(HOST_API + 'zist/products/', {
+      headers: { "Authorization": `Bearer ${token}` }
+    })
+      .then(res => {
+        // console.log(res.data.results)
+        setProducts(res.data.results)
+      })
+      .catch(error => {
+        return []
+        // console.log(error)
       })
   }
   useEffect(() => {
@@ -63,11 +73,27 @@ export default function SearchComponent() {
       fetchBusinesses()
     }
   }, [businesses])
+  useEffect(() => {
+    if(!products.length){
+      fetchProducts()
+    }
+  }, [products])
+
+  const [openStatus, setOpenStatus] = useState(false)
+  const [closeOnBlur, setCloseOnBlur] = useState(true)
+  
+  const handleTabChange = (e,status) => {
+    e.preventDefault()
+    // setOpenStatus(true)
+    // setCloseOnBlur(false)
+    setShowItems(status)
+  }
+  console.log(closeOnBlur,'000000=====kkk', openStatus, '===q===open', showItems)
   const PaperC = (props) => {
     return (
       <Paper>
-        <Button color='inherit' onClick={handleShowStores}> Stores </Button>
-        <Button color='inherit' onClick={handleShowProducts} > Products </Button>
+        <Button color='inherit' style={{borderBottom:!showItems?'2px orange solid': ''}} onClick={e  => handleTabChange(e, false)}> Stores </Button>
+        <Button color='inherit' style={{borderBottom:showItems?'2px orange solid' :''}} onClick={e => handleTabChange(e, true)} > Products </Button>
         {props?.children}
       </Paper>
     )
@@ -88,35 +114,59 @@ export default function SearchComponent() {
       </MenuItem>
     )
   }
-  console.log(collection, showItems)
+  // console.log(collection, showItems)
+  
   return (
     <div style={{ width: '100% !important' }}>
       <AutoComplete
+        open={openStatus}
+        onFocus={() => setOpenStatus(true)}
+        // onBlur={() => {
+        //   if (closeOnBlur){
+        //     setOpenStatus(false)
+        //   }
+        // }}
+        // onClose={() =>  {
+        //     if (closeOnBlur){
+        //       setOpenStatus(false)
+        //     }
+        //   }}        
+        onOpen={() => setOpenStatus(!openStatus)}
         freeSolo
         id="search-bar"
         // disableCloseOnSelect
         noOptionsText=" `Oops ! Looks like our search came back empty… We suggest checking the spelling or searching for something else"
         // options={collection.map((option) => option.title)}
         value={value}
-        getOptionLabel={(option) => showItems? option.title :option?.name}
+        getOptionLabel={(option) => showItems? option.name :option?.name}
         options={collection}
         // onChange={handleSelectedBusiness}
         renderOption={(option) => (
           !showItems ? (
             <div>
               {/* <MenuItem disableGutters dense style={{padding:'0 !important',margin:'0 !important'}} > */}
-                <List >
+                <List key={option.id}>
                   <ListItem >
                     <ListItemAvatar>
                       <Avatar variant="rounded" src={store} />
                     </ListItemAvatar>
-                    <ListItemText primary={option?.name} secondary={option?.business_type} /> <Icon name='check circle outline' size='large' color='yellow' style={{paddingBottom:40}} /> 
+                    <ListItemText primary={option?.name} secondary={option?.business_type} /> <Icon name='check circle outline' size='large' color='yellow' style={{paddingBottom:50}} /> 
                     {/* <ListItemText secondary={option?.business_type} /> */}
                   </ListItem>
                 </List>
               {/* </MenuItem> */}
             </div>
-          ) : <span> {option.title} </span>
+          ) : (
+            <List key={option.id}>
+            <ListItem >
+              <ListItemAvatar>
+                <Avatar variant="rounded" src={store} />
+              </ListItemAvatar>
+              <ListItemText primary={option?.name} secondary={`Ksh. ${option?.price}`} />
+              {/* <ListItemText secondary={option?.business_type} /> */}
+            </ListItem>
+          </List>
+          )
         )}
         renderInput={(params) => (
           <TextField
@@ -131,7 +181,7 @@ export default function SearchComponent() {
     </div>
   );
 }
-
+export default withCookies(SearchComponent)
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
   { title: 'The Shawshank Redemption', year: 1994 },

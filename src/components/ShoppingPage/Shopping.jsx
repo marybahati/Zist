@@ -416,7 +416,7 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle outline' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' style={{padding: '0 0 0 12px  ',position:'relative',top:'-8px'}}/>
                       </Card.Header>
                       <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
@@ -478,7 +478,7 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle outline' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' style={{padding: '0 0 0 12px  ',position:'relative',top:'-8px'}}/>
                       </Card.Header>
                       <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
@@ -539,7 +539,7 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle outline' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' style={{padding: '0 0 0 12px  ',position:'relative',top:'-8px'}} />
                       </Card.Header>
                       <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
@@ -601,7 +601,7 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle outline' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' style={{padding: '0 0 0 12px  ',position:'relative',top:'-8px'}} />
                       </Card.Header>
                       <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
@@ -663,7 +663,7 @@ const Shopping = (props) => {
                     <Card.Content>
                       <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                         {business.name}
-                        <Icon name='check circle outline' color='yellow' />
+                        <Icon name='check circle outline' color='yellow' style={{padding: '0 0 0 12px  ',position:'relative',top:'-8px'}} />
                       </Card.Header>
                       <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                         {business.bio}
@@ -725,7 +725,7 @@ const Shopping = (props) => {
                         <Card.Content>
                           <Card.Header style={{ paddingTop: 20, fontSize: 22 }}>
                             {business.name}
-                            <Icon name='check circle outline' color='yellow' />
+                            <Icon name='check circle outline' color='yellow' style={{padding: '0 0 0 12px  ',position:'relative',top:'-8px'}} />
                           </Card.Header>
                           <Card.Header style={{ padding: '10px 0', fontSize: 15 }}>
                             {business.bio}
