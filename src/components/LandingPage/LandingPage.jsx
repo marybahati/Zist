@@ -11,13 +11,18 @@ import step1 from "./../../Assets/step1.png";
 import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
 import "./styles.css";
+import axios from 'axios'
 import { GoogleComponent } from 'react-google-location';
 import history from './../../History';
 import { SignupButtonSection } from "./SignupButtonSection";
 import { LoginButtonSection } from "./LoginButtonSection";
 import { withCookies, Cookies } from 'react-cookie';
+import LocationSearchInput from "./LocationComponet";
 
 const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'
+const KEY_API = 'pk.a61a3c163ecfc56e0c91f17180ba92b9'
+
+
 
 const MainDiv = styled.div`
     position: absolute;
@@ -331,6 +336,9 @@ const LandingPage = (props) => {
   const orderNowRedirect = () => {
     history.push('/shopping')
   }
+  const handleGetLocation = (locationValue) => {
+    axios.get(`https://api.locationiq.com/v1/autocomplete.php?key=${KEY_API}&q=${locationValue}`)
+  }
 console.log(token)
 console.log(token !== undefined || token !== '')
   return (
@@ -428,12 +436,15 @@ console.log(token !== undefined || token !== '')
                 </GridRows>
               <GridRows style={{ top: '20px' }}>
                 {/* <Grid.Column width={1}></Grid.Column> */}
-                <LocationColumn >
+        <LocationColumn>
+
+                  {/* <LocationSearchInput/> */}
                   <LocationInput labelPosition='right' type='search'
                     size="small"
                     type="text"
                     value={location}
                     style={{ padding: '0 !importat' }}
+                    onChange={ (e,{value}) => handleGetLocation(value)}
                   >
                     <LocationIconLabel basic >
                       <Icon color='black' name="map marker alternate" link />
