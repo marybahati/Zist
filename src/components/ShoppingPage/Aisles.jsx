@@ -134,14 +134,12 @@ const Aisles = (props) => {
     console.log(cart)
     const getProductQty =  (product_id)=>{
         const product = cart.find(prd =>prd.id === product_id)
-        // console.log(product)
         return product?.quantity
     }
     const CalculateProductPrice =  (product_id,product_price)=>{
         const product = cart.find(prd => prd.id === product_id)
         const price = product ?  product.productPrice * product.quantity : product_price
         return price
-        console.log(price,product)
     }
     const handleGoingBackToList = () => {
         history.push({

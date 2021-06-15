@@ -125,7 +125,18 @@ const OrderNowButton = styled(Button)`
    height: 90px !important;
    font-size: 22px !important;
 `;
-
+const Circle = styled.div`
+height: 25px;
+width: 25px;
+background-color: #bbb;
+border-radius: 50%;
+display: inline-block;
+top: -92px;
+left: 6px;
+text-align: center;
+position: relative;
+padding: 4px 0 0 0 !important
+`;
 const UserList = (props) => {
     const [listId, setListId] = useState()
     const { cookies } = props
@@ -163,17 +174,6 @@ const UserList = (props) => {
             onKeyDown={toggleDrawer(false)}
             style={{width:'50% !important',padding:'20px !important'}}
         >
-                  {/* <Grid container spacing={3}>
-        <Grid item xs>
-          <Paper className={classes.paper}>xs</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper >xs=6</Paper>
-        </Grid>
-        <Grid item xs>
-          <Paper >xs</Paper>
-        </Grid>
-      </Grid> */}
 
             {productsInBasket.length !== 0 ? (
                     //  <h2> Products in your basket </h2>
@@ -224,7 +224,7 @@ const UserList = (props) => {
                                                             }} > - </ButtonCounters>
                                                         </MuiGrid>
                                                         {/* <MuiGrid item xs={1} /> */}
-                                                        <MuiGrid item xs={1} style={{margin:'auto 0 !important'}}>
+                                                        <MuiGrid item xs={1} style={{margin:'auto 0 !important',textAlign:'center'}}>
                                                             <Typography gutterBottom variant="subtitle1"> {product.quantity} </Typography> 
                                                         </MuiGrid>
                                                         {/* <MuiGrid item xs={1} /> */}
@@ -237,7 +237,7 @@ const UserList = (props) => {
                                             {/* </MuiGrid> */}
                                             <MuiGrid item xs={2} style={{margin:'auto 0 !important'}} >
                                                 
-                                                <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice} </Typography>
+                                                <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
                                             </MuiGrid >
                                         {/* </Grid.Row> */}
                                     {/* </MuiGrid> */}
@@ -279,6 +279,12 @@ const UserList = (props) => {
         const product = cart.find(prd => prd.id === product_id)
         console.log(product)
         return product?.quantity
+    }
+    const CalculateProductPrice =  (product_id,product_price)=>{
+        const product = cart.find(prd => prd.id === product_id)
+        const price = product ?  product.productPrice * product.quantity : product_price
+        return price
+        console.log(price,product)
     }
     const handleOrderDetailsDisplay = () => {
         history.push({
@@ -371,9 +377,16 @@ const UserList = (props) => {
                                                     <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
                                                 </List>
                                             </Grid.Column >
-                                            <Grid.Column width={8}>
-                                                <h2> Ksh.{product.price} </h2>
-                                            </Grid.Column >
+                                            { cart.length == 0 ? (
+                                        <Grid.Column width={8}>
+                                        <h2> Ksh.{product.price} </h2>
+                                    </Grid.Column >
+                                    ) : (
+                                        <Grid.Column width={8}>
+                                            <h2> Ksh.{CalculateProductPrice(product.id,product.price)} </h2>
+                                        </Grid.Column >
+                                    )}
+                                    
                                         </Grid.Row>
                                     </Grid>
                                 </Grid.Row>
@@ -414,6 +427,20 @@ const UserList = (props) => {
     return (
         <MainDiv>
             <MainGrid>
+                {/* <Grid.Row>
+                <Grid.Column width={13}/>
+                    <Grid.Column width={3}>
+                    <React.Fragment >
+                            <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none',textAlign:'center' }} onClick={toggleDrawer( true)}>
+                                <Image src={cartImage} style={{ width: 100, height: 100 }} />
+                                <Circle style={{ position: 'absolute', top: '-85px', left: '6px',textAlign:'center !important' }}> {productsInBasket.length} </Circle>
+                            </Button>
+                            <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{width:'50% !important'}} >
+                                {list()}
+                            </Drawer>
+                        </React.Fragment>
+                    </Grid.Column>
+                </Grid.Row> */}
                 <Grid.Row>
                     <IntroColumn>
                         <UserName> Shopping List </UserName>
@@ -429,13 +456,12 @@ const UserList = (props) => {
                         <React.Fragment >
                             <Button basic style={{ boxShadow: 'none', background: 'inherit', border: 'none' }} onClick={toggleDrawer( true)}>
                                 <Image src={cartImage} style={{ width: 100, height: 100 }} />
-                                <span style={{ position: 'relative', top: '-85px', left: '6px' }}> {productsInBasket.length} </span>
+                                <Circle style={{ position: 'relative', top: '', left: '',textAlign:'center !important' }}> {productsInBasket.length} </Circle>
                             </Button>
                             <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{width:'50% !important'}} >
                                 {list()}
                             </Drawer>
                         </React.Fragment>
-
                     </Grid.Column>
                 </Grid.Row>
 
