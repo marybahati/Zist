@@ -155,7 +155,10 @@ const UserList = (props) => {
     const [searchText, setSearchText] = useState('')
     const [countProducts, setCountProducts] = useState()
     const storedItems = cookies.get('cart')
-    let productsInBasket = [...storedItems, ...cart]
+    const productsInBasket = []
+    if(storedItems){
+        productsInBasket.push(...storedItems, ...cart)
+    }
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (status) => (event) => {

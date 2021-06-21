@@ -151,7 +151,7 @@ const CreateProduct = (props) => {
                     price: price,
                     category: selectedCategory?.id,
                     description: description,
-                    // image: file,
+                    image: file,
                     metadata: stock,
                     business: businessId
                 },
@@ -210,7 +210,7 @@ const CreateProduct = (props) => {
                 </Grid.Row>
                 <Grid.Row>
                     <Columns width={16}>
-                        <Form size='large' onSubmit={handleSubmit}>
+                        <Form size='large' onSubmit={handleSubmit} enctype='multipart/form-data' >
                             <Form.Group>
                                 <Grid>
                                     <Grid.Row>
