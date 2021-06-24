@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Header, Button, Icon, Grid, Image, Link, List } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { RatedStars } from './../ShoppingPage/Ratings';
+import { RatedStars } from '../ShoppingPage/Ratings';
 import user1 from './../../Assets/user1.png';
 import user2 from './../../Assets/user2.png';
 import user3 from './../../Assets/user3.png';

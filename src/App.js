@@ -1,30 +1,30 @@
-import React from 'react';
-import { Router, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
+import React from 'react';
+import { Route, Router } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage';
-import Shopping from './components/ShoppingPage/Shopping'
-import history from './History';
-import  VendorRegistration  from './components/Vendor/VendorRegistration';
-import  VendorDashboard  from './components/Vendor/Vendor-Dashboard';
+import UpdateUserProfile from './components/LandingPage/UpdateUserProfile';
+import Aisles from './components/ShoppingPage/Aisles';
+import SearchBar from './components/ShoppingPage/SearchBar';
+import Shopping from './components/ShoppingPage/Shopping';
+import UserList from './components/ShoppingPage/UserList';
 import { Analytics } from './components/Vendor/Analytics';
-import  Storefront  from './components/Vendor/Storefront';
+import { Announcements } from './components/Vendor/Announcements';
+import CreateList from './components/Vendor/CreateList';
+import InventoryAddCategory from './components/Vendor/InventoryAddCategory';
+import CreateProduct from './components/Vendor/InventoryAddProduct';
+import InventoryEditProduct from './components/Vendor/InventoryEditProduct';
+import OrderDetails from './components/Vendor/OrderDetails';
+import PaymentDetails from './components/Vendor/PaymentDetails';
 import { ServiceDesk } from './components/Vendor/ServiceDesk';
 import { Settings } from './components/Vendor/Settings';
-import { Announcements } from './components/Vendor/Announcements';
-import { Transcations } from './components/Vendor/Transcations'
-import SearchBar from './components/ShoppingPage/SearchBar';
-import UserList from './components/ShoppingPage/UserList';
-import CreateList from './components/Vendor/CreateList';
-import OrderDetails from './components/Vendor/OrderDetails';
-import UpdateUserProfile from './components/LandingPage/UpdateUserProfile';
-import PaymentDetails from './components/Vendor/PaymentDetails';
-import VendorIntro from './components/Vendor/Vendor-Intro';
+import Storefront from './components/Vendor/Storefront';
 import Suppliers from './components/Vendor/Suppliers';
-import CreateProduct from './components/Vendor/InventoryAddProduct';
-import InventoryAddCategory from './components/Vendor/InventoryAddCategory';
+import { Transcations } from './components/Vendor/Transcations';
+import VendorDashboard from './components/Vendor/Vendor-Dashboard';
+import VendorIntro from './components/Vendor/Vendor-Intro';
 import VendorProducts from './components/Vendor/VendorProducts';
-import InventoryEditProduct from './components/Vendor/InventoryEditProduct';
-import Aisles from './components/ShoppingPage/Aisles';
+import VendorRegistration from './components/Vendor/VendorRegistration';
+import history from './History';
 
 
 function App() {

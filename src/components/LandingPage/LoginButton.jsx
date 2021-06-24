@@ -1,7 +1,20 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import  Button  from '@material-ui/core/Button';
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(() => ({
+  root: {
+    background:  '0% 0% no-repeat padding-box !important',
+    border: '3px solid #080808',
+    opacity: 1,  
+    borderRadius: '20px !important',
+    marginRight: '20px',
+    color: '#030303',
+    width: '100px',
+    height: '38px',
+  }
+}))
 const LoginButtonX = styled(Button)`
         
         background:  0% 0% no-repeat padding-box !important;
@@ -38,6 +51,7 @@ const LoginButtonX = styled(Button)`
         };
 `;
 export const LoginButton = (props) => {
-   return <LoginButtonX basic  onClick={props.handleClick} >LOGIN</LoginButtonX>
+    const classes = useStyles();
+   return <Button basic className={classes.root}  onClick={props.handleClick} >LOGIN</Button>
 }
     

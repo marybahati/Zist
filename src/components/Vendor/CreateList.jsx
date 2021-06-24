@@ -7,7 +7,7 @@ import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/store.png'
 import Collapsible from 'react-collapsible';
 import deleteIcon from './../../Assets/delete-button.svg';
-import history from './../../History';
+import history from '../../History';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;

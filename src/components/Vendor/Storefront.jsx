@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Popup, Icon, Form, List, Card } from "semantic-ui-react";
 import styled from 'styled-components';
 import axios from 'axios';
-import history from './../../History'
-import { RatedStars } from './../ShoppingPage/Ratings';
+import history from '../../History'
+import { RatedStars } from '../ShoppingPage/Ratings';
 import { ContinueButton } from './ContinueButton';
 import { withCookies } from 'react-cookie';
-import { HOST_API } from './../../endpoints';
+import { HOST_API } from '../../endpoints';
 import { useDropzone } from "react-dropzone";
 import { useSnackbar } from 'notistack';
 

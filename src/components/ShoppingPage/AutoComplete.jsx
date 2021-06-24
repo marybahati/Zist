@@ -7,7 +7,7 @@ import { Button, MenuItem, Grid, Avatar, Typography, List, ListItem, ListItemAva
 import store from './../../Assets/store.png';
 import axios from 'axios';
 import History from '../../History';
-import { HOST_API } from './../../endpoints';
+import { HOST_API } from '../../endpoints';
 import { withStyles } from '@material-ui/core/styles'
 import { Icon } from "semantic-ui-react";
 import { withCookies } from 'react-cookie';

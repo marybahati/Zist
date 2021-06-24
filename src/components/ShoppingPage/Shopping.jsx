@@ -14,7 +14,7 @@ import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
 import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
 import { withCookies } from 'react-cookie';
 import History from '../../History';
-import { HOST_API } from './../../endpoints';
+import { HOST_API } from '../../endpoints';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./multicarousel.css";

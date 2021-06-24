@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { ModalSignUpButton } from './ModalSignUpButton';
 import { LinkingLoginButton } from './LinkingLoginButton';
-import { HOST_API } from './../../endpoints';
+import { HOST_API } from '../../endpoints';
 import { useSnackbar } from 'notistack';
 
 export const SignupModal = (props) => {

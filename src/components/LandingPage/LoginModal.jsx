@@ -5,7 +5,7 @@ import axios from 'axios';
 import { ModalLoginButton } from './ModalLoginButton';
 import { LinkingSignupButton } from './LinkingSignupButton';
 import { withCookies,Cookies } from 'react-cookie';
-import {HOST_API} from './../../endpoints';
+import {HOST_API} from '../../endpoints';
 import { useSnackbar } from 'notistack';
 
 const LoginModal = (props) => {

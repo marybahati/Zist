@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Select } from "semantic-ui-react";
 import styled from 'styled-components';
-import history from './../../History';
+import history from '../../History';
 import vendor from './../../Assets/vendor-img.png';
 import ContinueButtonSection from './ContinueButtonSection';
 import { ToastContainer, toast } from 'react-toastify';

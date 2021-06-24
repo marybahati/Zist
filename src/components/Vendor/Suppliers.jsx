@@ -7,7 +7,7 @@ import bananas from './../../Assets/bananas.png'
 import strawberries from './../../Assets/strawberries.png'
 import blueBerries from './../../Assets/blue-berries.png'
 import DatePicker from 'react-date-picker';
-import history from './../../History';
+import history from '../../History';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;

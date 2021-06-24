@@ -7,9 +7,9 @@ import storefront from './../../Assets/d1.png';
 import inventory from './../../Assets/d2.png';
 import serviceDesk from './../../Assets/d3.png';
 import analytics from './../../Assets/d4.png';
-import history from './../../History';
+import history from '../../History';
 import { withCookies } from 'react-cookie';
-import {HOST_API} from './../../endpoints';
+import {HOST_API} from '../../endpoints';
 import axios from 'axios';
 
 const MainDiv = styled.div`

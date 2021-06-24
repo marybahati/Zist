@@ -1,12 +1,12 @@
 import React from 'react'
 import { SuccessModal } from './SuccessModal';
 import { ContinueButton } from './ContinueButton';
-import history from './../../History';
+import history from '../../History';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withCookies } from 'react-cookie';
-import {HOST_API} from './../../endpoints';
+import {HOST_API} from '../../endpoints';
 
 
 class ContinueButtonSection extends React.Component {

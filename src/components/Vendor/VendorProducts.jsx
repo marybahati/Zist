@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import blueberries from './../../Assets/blue-berries.png';
 import { withCookies, Cookies } from 'react-cookie';
 import axios from 'axios';
-import { HOST_API } from './../../endpoints';
+import { HOST_API } from '../../endpoints';
 import history from '../../History';
 import shelving from './../../Assets/shelving.png';
 import Link from '@material-ui/core/Link';

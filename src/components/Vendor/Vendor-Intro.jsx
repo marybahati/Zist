@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { Grid, Image, Button, Icon } from "semantic-ui-react";
 import styled from 'styled-components';
 import vendor from './../../Assets/vendor-img.png';
-import history from './../../History';
+import history from '../../History';
 
 const MainDiv = styled.div`
     background: #F9F7F1 0% 0% no-repeat padding-box;
