@@ -5,22 +5,16 @@ import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Form, Menu } f
 import cartImage from "./../../Assets/cart.png";
 import styled from 'styled-components';
 import coffeShop from "./../../Assets/coffeShop.png";
-// import heroImg from "./../../Assets/homepage-hero-img.png"
 import heroImg from "./../../Assets/L-P.jpeg"
 import step1 from "./../../Assets/step1.png";
 import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
 import "./styles.css";
 import axios from 'axios'
-import { GoogleComponent } from 'react-google-location';
 import history from './../../History';
 import { SignupButtonSection } from "./SignupButtonSection";
 import { LoginButtonSection } from "./LoginButtonSection";
 import { withCookies, Cookies } from 'react-cookie';
-import LocationSearchInput from "./LocationComponet";
-
-const API_KEY = 'AIzaSyB8dwrSJiQel6cCeOtBVThnu_ZcBKT3LM4'
-const KEY_API = 'pk.a61a3c163ecfc56e0c91f17180ba92b9'
 
 
 
@@ -337,7 +331,7 @@ const LandingPage = (props) => {
     history.push('/shopping')
   }
   const handleGetLocation = (locationValue) => {
-    axios.get(`https://api.locationiq.com/v1/autocomplete.php?key=${KEY_API}&q=${locationValue}`)
+    // axios.get(`https://api.locationiq.com/v1/autocomplete.php?key=${KEY_API}&q=${locationValue}`)
   }
 console.log(token)
 console.log(token !== undefined || token !== '')
