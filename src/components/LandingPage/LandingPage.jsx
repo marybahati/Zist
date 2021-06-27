@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import zist from "./../../Assets/zist.png";
 import shop from "./../../Assets/shop.png";
 import {
-  Grid, Icon, Input, Button, List, FormControl, Menu, Paper, InputBase, Divider, Typography,
-  IconButton,TextField
+  Grid, Icon, Input, Button, List, FormControl, Menu, Paper, InputBase, Link, Typography,
+  IconButton, TextField
 } from "@material-ui/core";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -15,6 +15,9 @@ import heroImg from "./../../Assets/L-P.jpeg"
 import step1 from "./../../Assets/step1.png";
 import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
+import InstagramIcon from '@material-ui/icons/Instagram';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
 import "./styles.css";
 import axios from 'axios'
 import history from '../../History';
@@ -89,17 +92,20 @@ const useStyles = makeStyles((theme) => ({
   },
   newsletterGrid: {
     background: '#F9F7F1',
-    textAlign: 'center',
-    width: '500px',
+    width: '550px',
     margin: '0 auto'
   },
   subcribeButton: {
-    color: '#050504', 
-    fontSize: 20, 
-    background: '#FFBD59 0% 0% no-repeat padding-box', 
-    borderRadius: '24px', 
+    color: '#050504',
+    fontSize: 20,
+    background: '#FFBD59 0% 0% no-repeat padding-box',
+    borderRadius: '24px',
     width: '90%',
+    marginTop: '5px',
   },
+  footerLinks: {
+    fontSize: 20,
+  }
 }))
 
 const LandingPage = (props) => {
@@ -268,7 +274,7 @@ const LandingPage = (props) => {
         </Grid>
       </Grid>
       <Grid className={classes.descriptionGrid} container xs={12} >
-        <Grid item xs={12} >
+        <Grid item xs={12} style={{paddingLeft:15}} >
           <Typography variant='h3' className={classes.boldFont}>   Here’s how it works! </Typography>
         </Grid>
       </Grid>
@@ -313,116 +319,96 @@ const LandingPage = (props) => {
         </Grid>
       </Grid>
 
-      <div style={{background: '#F9F7F1'}}>
-      <Grid className={classes.descriptionGrid} container xs={12} >
-        <Grid item xs={5} style={{ padding: '0 0 0 40px', margin: 'auto 0' }}>
-          <Typography variant='h4' className={classes.fontBold}>
-            Get whatever it is that you <br />
-            want at the tap of a button.
-          </Typography>
-          <Button className={classes.appLinkButton}> Get the App </Button>
+      <div style={{ background: '#F9F7F1', paddingBottom: 30 }}>
+        <Grid className={classes.descriptionGrid} container xs={12} >
+          <Grid item xs={5} style={{ padding: '0 0 0 40px', margin: 'auto 0' }}>
+            <Typography variant='h4' className={classes.fontBold}>
+              Get whatever it is that you <br />
+              want at the tap of a button.
+            </Typography>
+            <Button className={classes.appLinkButton}> Get the App </Button>
+          </Grid>
+          <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
+            <img src={shop} style={{ width: '100%' }} />
+          </Grid>
         </Grid>
-        <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
-          <img src={shop} style={{ width: '100%' }} />
-        </Grid>
-      </Grid>
 
-      <Grid className={classes.newsletterGrid} container xs={12} >
-        <Grid item xs={12} >
-          <img src={zist} style={{ width: '100%' }} />
+        <Grid className={classes.newsletterGrid} container xs={12} >
+          <Grid item xs={12} >
+            <img src={zist} style={{ width: '100%' }} />
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Grid className={classes.newsletterGrid} container xs={12} >
-        <Grid item xs={12} >
-          <Typography variant='h5' className={classes.fontBold}>
-            Zist Shopping <br />
-            Offers , discounts and updates. <br />
-            Subscribe to our updates.
-          </Typography>
+        <Grid className={classes.newsletterGrid} container xs={12} >
+          <Grid item xs={12} style={{ textAlign: 'center' }}>
+            <Typography variant='h5' className={classes.fontBold}>
+              Zist Shopping <br />
+              Offers , discounts and updates. <br />
+              Subscribe to our updates.
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Grid className={classes.newsletterGrid} container xs={12} >
-        <form autoComplete='off' xs={12} >
-        <Grid item xs={12} >
-        <TextField
-          style={{background:'white',padding: '5px 0 0 0',width:'100%'}}
-          required
-          id="news-email"
-          placeholder="email"
-          type="email"
-          variant="outlined"
-        />
+        <Grid className={classes.newsletterGrid} container  >
+          <Grid container component='form' item xs={12} spacing={3}>
+            <Grid item xs={8} >
+              <TextField
+                style={{ background: 'white', padding: '5px 0 0 0', width: '100%' }}
+                required
+                id="news-email"
+                placeholder="Email"
+                type="email"
+                variant="outlined"
+              />
+            </Grid>
+            <Grid item xs={4} >
+              <Button type='submit' className={classes.subcribeButton}> I'm in! </Button>
+            </Grid>
+          </Grid>
         </Grid>
-        <Grid item xs={12} >
-          <Button className={classes.subcribeButton}> I'm in! </Button>
-        </Grid>
-        </form>
-      </Grid>
       </div>
-      {/* <BetaGrid>
-        
-
-      <Grid style={{ background: '#F9F7F1 0% 0% no-repeat padding-box',paddingBottom:50 }}>
-        <Grid>
-          <Grid width={8} style={{ margin: '0 auto', textAlign: 'center' }}>
-            <Image src={zist} />
-            <h1> Zist Shopping </h1>
-            <h1> Offers , discounts and updates. </h1>
-            <h1>  Subscribe to our updates. </h1>
+      <div style={{ background: '#FEE2D4', padding: '70px 0' }}>
+        <Grid container style={{ width: '80%', margin: '0 auto' }} >
+          <Grid container item xs={12} spacing={3}>
+            <Grid item xs={4} >
+              <Typography variant='h5'> Zist shopping </Typography>
+              <Link className={classes.footerLinks} href="#" > Zist Articles </Link> <br />
+              <Link className={classes.footerLinks} href="#" > Zist Recipes </Link> <br />
+              <Link className={classes.footerLinks} href="#" > Zist Careers </Link> <br />
+              <Link className={classes.footerLinks} href="#" > Contact </Link>
+            </Grid>
+            <Grid item xs={4} >
+              <Typography variant='h5'> Vendor </Typography>
+              <Link className={classes.footerLinks} href="/vendor-intro" > Sell on Zist Shoppping </Link> <br />
+              <Link className={classes.footerLinks} href="#" > Vendor Help </Link>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} style={{ fontSize: 25, padding: '40px 0 0 0' }}>
+            <Grid item xs={6} >
+              <Typography variant='a' href='' > Terms & Policy </Typography>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} style={{ padding: '40px 0 0 0' }}>
+            <Grid item xs={1} >
+            <a href='https://instagram.com/zistshopping?igshid=gnx5fg8h7zeo'> <InstagramIcon fontSize='large' color='primary' /> </a>
+            </Grid>
+            <Grid item xs={1} >
+            <a href='https://twitter.com/zistshopping'> <TwitterIcon fontSize='large' color='primary' /> </a>
+            </Grid>
+            <Grid item xs={1} >
+              <a href='' > <FacebookIcon fontSize='large' color='primary' /> </a>
+            </Grid>
+          </Grid>
+          <Grid container item xs={12} style={{ textAlign: 'center', padding: '20px 0' }}>
+            <Grid item xs={12} >
+              <Typography variant='h6' href=''>  @2021 Zist Shopping Inc.</Typography>
+            </Grid>
           </Grid>
         </Grid>
-        <Grid>
-          <Grid width={6} style={{ margin: '0 auto', textAlign: 'center' }}>
-            <Form size='huge' >
-              <Form.Group widths='equal'>
-                <Form.Field
-                  control='input'
-                  placeholder='Email Address …'
-                />
-                <Button type='submit' style={{ color: '#050504', fontSize: 20, background: '#FFBD59 0% 0% no-repeat padding-box', borderRadius: '24px', width: '250px' }}>I’m in!</Button>
-              </Form.Group>
-            </Form>
-          </Grid>
-        </Grid>
-      </Grid> */}
+      </div>
       {/* <IntroGrid style={{background:'#FEE2D4',paddingTop:100}}>
 
-        <GridRows width={16} >
-          <FooterGrid width={1}></FooterGrid>
-          <FooterGrid width={5}>
-            <FooterTitle>Zist Shopping</FooterTitle>
-            <List >
-              <FooterTitle as='a' href='' blue >Zist Articles</FooterTitle>
-            </List>
-            <List>
-              <FooterTitle as='a' href='' blue >Zist Recipes</FooterTitle>
-            </List>
-            <List>
-              <FooterTitle as='a' href='' blue >Zist Careers</FooterTitle>
-            </List>
-            <List>
-              <FooterTitle as='a' href='' blue>Contact</FooterTitle>
-            </List>
-
-          </FooterGrid>
-
-          <FooterGrid width={5}>
-            <FooterTitle>Vendor</FooterTitle>
-            <List>
-              <FooterTitle as='a' href='/vendor-intro' blue >Sell on Zist Shoppping</FooterTitle>
-            </List>
-            <FooterTitle as='a' href='' blue >Vendor Help</FooterTitle>
-          </FooterGrid>
-          <FooterGrid width={5}>
-            <FooterTitle>Zister</FooterTitle>
-            <FooterTitle as='a' href='/welcome' blue >Become a Zister</FooterTitle>
-            <List>
-              <FooterTitle as='a' blue >Zister Help</FooterTitle>
-            </List>
-          </FooterGrid>
-        </GridRows>
+    
         <GridRows>
           <FooterGrid width={1}></FooterGrid>
           <FooterGrid width={7} style={{ paddingTop: 50 }}>
