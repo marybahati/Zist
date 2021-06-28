@@ -120,14 +120,10 @@ const LandingPage = (props) => {
   console.log(names, name)
 
   const handleRedirect = () => {
-    if (location == null) {
-      alert('please fill in your location to continue')
-    } else {
       history.push({
         pathname: '/shopping',
         state: location
       })
-    }
   }
   const handleLogOut = () => {
     cookies.remove('login-res', { path: '/' })
@@ -164,39 +160,33 @@ const LandingPage = (props) => {
             <Grid >
               <Grid>
                 <Grid>
-                  <Grid width={12}>
-                    <List style={{ display: 'inline-block' }}>
-                      <List.Item as='a' href='' style={{ paddingRight: '20px', fontSize: '20px', color: '#050504', textDecoration: 'underline', paddingTop: '13px' }}>
-                        HELP
-                      </List.Item>
-                    </List>
-                  </Grid>
                   {name == undefined || name == '' ? (
-                    <Grid width={2}>
-                      <Grid>
-                        <Grid width={1} style={{ paddingTop: '0px' }}>
-                          <Grid>
-                            <Grid>
-                              <Grid width={8}>
-                                <Icon name='user circle' color='black' size='huge' />
-                              </Grid>
-                              <Grid width={8} style={{ paddingTop: '17px' }}>
-                                <Menu size='huge' style={{ background: 'inherit', border: 'none', boxShadow: 'none' }} >
-                                  <Menu.Menu >
-                                    {/* <Dropdown text='Account' icon='' >
-                                        <Dropdown.Menu>
-                                          <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
-                                          <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
-                                        </Dropdown.Menu>
-                                      </Dropdown> */}
-                                  </Menu.Menu>
-                                </Menu>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
+                    <h2> logged in </h2>
+                    // <Grid width={2}>
+                    //   <Grid>
+                    //     <Grid width={1} style={{ paddingTop: '0px' }}>
+                    //       <Grid>
+                    //         <Grid>
+                    //           <Grid width={8}>
+                    //             <Icon name='user circle' color='black' size='huge' />
+                    //           </Grid>
+                    //           <Grid width={8} style={{ paddingTop: '17px' }}>
+                    //             <Menu size='huge' style={{ background: 'inherit', border: 'none', boxShadow: 'none' }} >
+                    //               <Menu.Menu >
+                    //                 <Dropdown text='Account' icon='' >
+                    //                     <Dropdown.Menu>
+                    //                       <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
+                    //                       <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
+                    //                     </Dropdown.Menu>
+                    //                   </Dropdown>
+                    //               </Menu.Menu>
+                    //             </Menu>
+                    //           </Grid>
+                    //         </Grid>
+                    //       </Grid>
+                    //     </Grid>
+                    //   </Grid>
+                    // </Grid>
                   ) : (
                     <Grid width={2} style={{ paddingTop: '7px', textAlign: 'center' }} >
                       <Grid>
@@ -223,7 +213,7 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
         <Grid container className={classes.locationColumn} >
-          <Grid container component='form' autocomplete='off' item xs={12} >
+          <Grid container component='form' onSubmit={handleRedirect} autocomplete='off' item xs={12} >
             <Grid item xs={2} >
               <IconButton className={classes.iconButton} >
                 <LocationOnIcon fontSize='large' />
@@ -236,6 +226,7 @@ const LandingPage = (props) => {
                 className={classes.input}
                 placeholder="Enter your address"
                 inputProps={{ 'aria-label': 'Enter your address' }}
+                onChange={ (e) => handleGetLocation(e.target.value)}
               />
             </Grid>
             <Grid item xs={2} style={{ textAlign: 'center', borderLeft: '1px solid #707070' }}>
@@ -319,7 +310,7 @@ const LandingPage = (props) => {
         </Grid>
       </Grid>
 
-      <div style={{ background: '#F9F7F1', paddingBottom: 30 }}>
+      <div style={{ background: '#F9F7F1', paddingBottom: 70 }}>
         <Grid className={classes.descriptionGrid} container xs={12} >
           <Grid item xs={5} style={{ padding: '0 0 0 40px', margin: 'auto 0' }}>
             <Typography variant='h4' className={classes.fontBold}>

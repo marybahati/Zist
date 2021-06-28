@@ -1,24 +1,43 @@
 import React, { useState } from 'react';
-import { Modal, Header, Icon, Grid, Form } from 'semantic-ui-react';
-import 'react-toastify/dist/ReactToastify.css';
+import { Modal, Grid, IconButton, Typography, TextField, } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
 import { ModalSignUpButton } from './ModalSignUpButton';
 import { LinkingLoginButton } from './LinkingLoginButton';
 import { HOST_API } from '../../endpoints';
 import { useSnackbar } from 'notistack';
 
-export const SignupModal = (props) => {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  textfields: {
+    width: '100%',
+    marginBottom: 30,
+    '& .MuiInput-underline:before ': {
+      borderBottom: '2px solid #FFE5B4',
+    },
+    '& .MuiInput-underline:after ': {
+      borderBottom: '2px solid #FFE5B4',
+    },
+  },
 
+}));
+
+export const SignupModal = (props) => {
+  const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
-  // console.log(userId)
   const { enqueueSnackbar } = useSnackbar();
 
   const handleSignup = (event) => {
     event.preventDefault();
-    if(password !== confirmPassword){
+    if (password !== confirmPassword) {
       enqueueSnackbar(`Your passwords do not match`, { variant: 'warning' })
     } else {
       axios.post(HOST_API + 'register/', {
@@ -34,113 +53,73 @@ export const SignupModal = (props) => {
           enqueueSnackbar(`${error}`, { variant: 'error' })
         });
     }
-   
+
   }
 
   return (
     <div>
       <Modal
         open={props.modalOpen}
-        size='small'
-        closeOnEscape={true}
-        // centered={false}
-        style={{ padding: '30px 30px' }}
+        onClose={props.handleClose}
+        disableBackdropClick={true}
       >
-        <Header style={{ border: '0' }}>
-          <Grid>
-            <Grid.Row style={{ padding: '0' }}>
-              <Grid.Column width={12} style={{ background: '' }} >
-                <Modal.Actions>
-                  <Icon
-                    type='button'
-                    name='remove'
-                    color='orange'
-                    size='large'
-                    link
-                    onClick={props.handleClose}
-                  />
-                </Modal.Actions>
-              </Grid.Column>
-              {/* <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px'}} >
-                <h2> SIGN UP </h2>
-
-              </Grid.Column> */}
-            </Grid.Row>
-            <Grid.Row style={{ padding: '10px 0 0 0 ' }}>
-              <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px' }} >
-                <h1> Don’t miss out on your items </h1>
-                <h2> SIGN UP </h2>
-                <h2>Create a new account </h2>
-              </Grid.Column>
-            </Grid.Row>
+        <Grid className={classes.paper}   container style={{ width: '45%', margin: '40px auto 0 auto' }} >
+          <form onSubmit={handleSignup} >
+          <Grid container item xs={12} spacing={3}>
+            <Grid item xs={2} >
+              <IconButton onClick={props.handleClose} >
+                <CloseIcon fontSize="large" style={{ color: 'orange' }} />
+              </IconButton>
+            </Grid>
           </Grid>
-        </Header>
-
-
-        <Modal.Content>
-          <Grid>
-            <Grid.Row>
-              {/* <Grid.Column width={1} style={
-                { background: '' }} > </Grid.Column> */}
-              <Grid.Column width={16} style={{ background: '', textAlign: 'center', fontSize: '18px' }} >
-
-                <Form onSubmit={handleSignup} style={{ width: '80%', margin: '0 auto' }}>
-
-                  {/* <Form.Input transparent
-                    name='first_name'
-                    required={true}
-                    type='text'
-                    textAlign='center'
-                    size='tiny'
-                    onChange={e => setFirstName(e.target.value)}
-                    placeholder='First Name' style={{ borderBottom: '2px solid #FFE5B4', margin: '20px 0 ' }} /> */}
-
-                  {/* <Form.Input   transparent
-                    name='last_name'
-                    required={true}
-                    type='text'
-                    textAlign='center'
-                    size='tiny'
-                    onChange = { e => setLastName(e.target.value)}
-                    placeholder='Last Name' style={{borderBottom:'2px solid #FFE5B4',marginBottom:'20px'}} /> */}
-
-                  <Form.Input transparent
-                    name='email'
-                    required={true}
-                    type='email'
-                    textAlign='center'
-                    size='tiny'
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder='Email' style={{ borderBottom: '2px solid #FFE5B4', margin: '30px 0' }} />
-
-                  <Form.Input transparent
-                    name='password'
-                    required={true}
-                    type='password'
-                    textAlign='center'
-                    size='tiny'
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder='Password' style={{ borderBottom: '2px solid #FFE5B4', margin: '0 0 30px 0' }} />
-                  <Form.Input transparent
-                    name='password'
-                    required={true}
-                    type='password'
-                    textAlign='center'
-                    size='tiny'
-                    onChange={e => setConfirmPassword(e.target.value)}
-                    placeholder='Confirm Password' style={{ borderBottom: '2px solid #FFE5B4' }} />
-                  <ModalSignUpButton />
-                </Form>
-
+          <Grid container item xs={12} style={{ textAlign: 'center' }}>
+            <Grid item xs={12} >
+              <Typography variant='h5' > Don’t miss out on your items </Typography>
+              <Typography variant='h6' > SIGN UP </Typography>
+              <Typography variant='h6' >Create a new account </Typography>
+            </Grid>
+          </Grid>
+          <div style={{ padding: '30px 0 0 0', width: '90%', margin: '0 auto' }}>
+            <Grid container component='form' autocomplete='off' item xs={12} >
+              <Grid item xs={12} >
+                <TextField
+                  required
+                  name="email"
+                  placeholder="Email"
+                  type="email"
+                  className={classes.textfields}
+                  onChange={e => setEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} >
+                <TextField
+                  required
+                  name="password"
+                  placeholder="Password"
+                  type="password"
+                  className={classes.textfields}
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} >
+                <TextField
+                  required
+                  name="password"
+                  placeholder="Confirm Password"
+                  type="password"
+                  className={classes.textfields}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} style={{textAlign:'center', justifyContent:'center'}} >
+                <ModalSignUpButton/>
                 <p style={{ color: 'black', paddingTop: '20px', fontSize: '14px' }}>Already have an account ?</p>
-                {/* <LinkingLoginButton/> */}
                 <LinkingLoginButton />
-
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Modal.Content>
-
+              </Grid>
+            </Grid>
+          </div>
+          </form>
+        </Grid>
       </Modal>
     </div>
   )

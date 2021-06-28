@@ -1,5 +1,4 @@
 import React from 'react'
-import MyModal, { SignupModal } from './SignupModal';
 import { LinkingButton } from './LinkingButtons';
 import  LoginModal  from './LoginModal';
 
