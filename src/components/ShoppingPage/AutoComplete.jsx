@@ -69,12 +69,12 @@ function SearchComponent(props) {
       })
   }
   useEffect(() => {
-    if (!businesses.length) {
+    if (!businesses?.length) {
       fetchBusinesses()
     }
   }, [businesses])
   useEffect(() => {
-    if (!products.length) {
+    if (!products?.length) {
       fetchProducts()
     }
   }, [products])

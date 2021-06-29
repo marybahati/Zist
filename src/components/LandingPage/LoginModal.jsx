@@ -106,7 +106,7 @@ const LoginModal = (props) => {
                 />
               </Grid>
               <Grid item xs={12} style={{textAlign:'center', justifyContent:'center'}} >
-              <ModalLoginButton />
+              <ModalLoginButton /> <br/>
               <a href='' style={{color:'black',textDecoration: 'underline',fontSize:'14px'}}>Can't Sign in?</a> <br/>
                 <p style={{color:'black',fontSize:'14px',margin:'20px 0 0 0'}}>New to Zist Shopping ?</p> <br/>
                 <LinkingSignupButton/>

@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import zist from "./../../Assets/zist.png";
 import shop from "./../../Assets/shop.png";
-import {
-  Grid, Icon, Input, Button, List, FormControl, Menu, Paper, InputBase, Link, Typography,
-  IconButton, TextField
-} from "@material-ui/core";
+import { Grid, Button, Menu, InputBase, Link, Typography, IconButton, TextField } from "@material-ui/core";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Image from 'material-ui-image'
 import coffeShop from "./../../Assets/coffeShop.png";
 import heroImg from "./../../Assets/L-P.jpeg"
 import step1 from "./../../Assets/step1.png";
@@ -156,52 +152,21 @@ const LandingPage = (props) => {
           </Grid>
 
         ) : (
-          <Grid width={16} >
-            <Grid >
-              <Grid>
-                <Grid>
-                  {name == undefined || name == '' ? (
-                    <h2> logged in </h2>
-                    // <Grid width={2}>
-                    //   <Grid>
-                    //     <Grid width={1} style={{ paddingTop: '0px' }}>
-                    //       <Grid>
-                    //         <Grid>
-                    //           <Grid width={8}>
-                    //             <Icon name='user circle' color='black' size='huge' />
-                    //           </Grid>
-                    //           <Grid width={8} style={{ paddingTop: '17px' }}>
-                    //             <Menu size='huge' style={{ background: 'inherit', border: 'none', boxShadow: 'none' }} >
-                    //               <Menu.Menu >
-                    //                 <Dropdown text='Account' icon='' >
-                    //                     <Dropdown.Menu>
-                    //                       <Dropdown.Item as='a' href='/update-profile'> Update Profile </Dropdown.Item>
-                    //                       <Dropdown.Item onClick={handleLogOut}> Log out </Dropdown.Item>
-                    //                     </Dropdown.Menu>
-                    //                   </Dropdown>
-                    //               </Menu.Menu>
-                    //             </Menu>
-                    //           </Grid>
-                    //         </Grid>
-                    //       </Grid>
-                    //     </Grid>
-                    //   </Grid>
-                    // </Grid>
-                  ) : (
-                    <Grid width={2} style={{ paddingTop: '7px', textAlign: 'center' }} >
-                      <Grid>
-                        <Grid>
-                          <Grid>
-                            <h2> {name} </h2>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  )}
-                  <Grid width={1} style={{ paddingTop: '0px' }}>
-                    <ShoppingCartIcon />
-                  </Grid>
-                </Grid>
+          <Grid item container xs={12} >
+            <Grid container  >
+              <Grid item xs={8} />
+              <Grid item xs={1} style={{ textAlign: 'center' }}>
+                <Typography variant='span' > help </Typography>
+              </Grid>
+              <Grid item xs={2} style={{ textAlign: 'center' }}>
+                {name == undefined || name == '' ? (
+                  <Typography variant='h6' >update profile </Typography>
+                ) : (
+                  <Typography variant='h6' > {name} </Typography>
+                )}
+              </Grid>
+              <Grid item xs={1} style={{ textAlign: 'center' }}>
+                <ShoppingCartIcon fontSize='large' />
               </Grid>
             </Grid>
           </Grid>
@@ -223,8 +188,9 @@ const LandingPage = (props) => {
               <InputBase
                 inputComponent='input'
                 required
+                value={location}
                 className={classes.input}
-                placeholder="Enter your address"
+                placeholder='Enter your address …'
                 inputProps={{ 'aria-label': 'Enter your address' }}
                 onChange={ (e) => handleGetLocation(e.target.value)}
               />

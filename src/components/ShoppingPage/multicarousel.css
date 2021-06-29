@@ -2,7 +2,7 @@
     position: absolute;
     outline: 0;
     transition: all .5s;
-    border-radius: 45px;
+    border-radius: 40px;
     z-index: 1000;
     border: 0;
     background: rgba(0,0,0,0.5);
@@ -14,17 +14,17 @@
 }
 @media only screen and (max-width: 3000px) and (min-width: 1024px) {
     .react-multiple-carousel__arrow {
-        margin: 0 0 270px 0 !important;
+        margin: 0 0 35px 0 !important;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .react-multiple-carousel__arrow {
-        margin: 0 0 300px 0 !important;
+        margin: 0 0 30px 0 !important;
     }
 }
 @media only screen and (min-width: 464px) and (max-width: 768px) {
     .react-multiple-carousel__arrow {
-        margin: 0 0 200px 0 !important;
+        margin: 0 0 10px 0 !important;
     }
 }
 @media only screen and (min-width: 0px) and (max-width: 464px) {
