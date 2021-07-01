@@ -363,39 +363,6 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
       </div>
-      {/* <IntroGrid style={{background:'#FEE2D4',paddingTop:100}}>
-
-    
-        <GridRows>
-          <FooterGrid width={1}></FooterGrid>
-          <FooterGrid width={7} style={{ paddingTop: 50 }}>
-            <List link >
-              <FooterTitle as='a' href=''>Terms & Policy</FooterTitle>
-            </List>
-          </FooterGrid>
-        </GridRows>
-        <SocialMediaRow>
-          <Grid width={1}>
-            <a href='https://instagram.com/zistshopping?igshid=gnx5fg8h7zeo'>
-              <Icon color='blue' size='big' as='i' name="instagram" />
-            </a>
-          </Grid>
-          <Grid width={1}>
-            <a href='https://twitter.com/zistshopping'>
-              <Icon color='blue' size='big' as='i' name="twitter" />
-            </a>
-          </Grid>
-          <Grid width={1}>
-            <a href=''>
-              <Icon color='blue' size='big' as='i' name="facebook" />
-            </a>
-          </Grid>
-        </SocialMediaRow>
-        <Grid textAlign='center'>
-          <FooterColumn>
-            <FooterTitle> @2021 Zist Shopping Inc.</FooterTitle>
-          </FooterColumn>
-        </Grid> */}
 
     </div>
   )

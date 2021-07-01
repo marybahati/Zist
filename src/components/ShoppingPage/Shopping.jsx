@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import bgImage from './../../Assets/shopping1.png'
-import { SGrid, Dropdown, Image, Icon, Input, Label, List, Menu } from "semantic-ui-react";
-import {
-  Grid, Button, InputBase, Link, Typography, IconButton, TextField, Card, CardActionArea, CardActions,
-  CardContent, CardMedia
-} from "@material-ui/core";
+import { Grid, Button, Typography, TextField, Card, CardActionArea, CardContent, CardMedia
+  } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import styled from 'styled-components';
@@ -145,10 +142,12 @@ const Shopping = (props) => {
       })
   }
   useEffect(() => {
-    fetchBusinesses()
-  }, [])
+    if (!businesses?.length) {
+      fetchBusinesses()
+    }
+  }, [businesses])
 
-  const optionsResults = businesses?.map(x => ({ text: x.name, value: x.name, image: { src: card4 } }))
+  // const optionsResults = businesses?.map(x => ({ text: x.name, value: x.name, image: { src: store } }))
 
   const responsive = {
     superLargeDesktop: {

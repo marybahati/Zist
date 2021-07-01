@@ -1,79 +1,104 @@
 import React, { useState } from 'react';
-import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Select } from "semantic-ui-react";
+// import { Grid, Dropdown, Image, Icon, Input, Button, Label, List, Header, Modal, Form, Search, Select } from "semantic-ui-react";
+import { Grid, Button, Menu, InputBase, MenuItem, Typography, IconButton, TextField } from "@material-ui/core";
 import styled from 'styled-components';
 import history from '../../History';
 import vendor from './../../Assets/vendor-img.png';
 import ContinueButtonSection from './ContinueButtonSection';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+    introGrid: {
+        background: ' #FEE2D4 0% 0% no-repeat padding-box',
+        opacity: 1,
+        padding: '30px 0 30px 0 !important',
+    },
+    mainDiv: {
+        background: '#F9F7F1 0% 0% no-repeat padding-box',
+        opacity: 1,
+        padding: '30px 0 !important',
+    },
+    mainGrid: {
+        width: '60% !important',
+        margin: '0 auto !important',
+    },
+    boldFont: {
+        fontWeight: 'bold !important',
+        textDecoration: 'underline',
+    },
+    continueButton: {
+        width: '200px',
+        margin: '0 auto !important',
+    },
+}))
 
-const Intro = styled(Grid)`
-   background: #FEE2D4;
-   padding : 40px 0 0 0 !important;
-   margin: 0 auto !important;
-`;
-const IntroRows = styled(Grid.Row)`
-   padding : 0;
-   width:70%;
-   margin: 0 auto;
-   text-align: center;
-   width: 60% !important;
-   @media only screen and (max-width: 768px) {
-        font-size: 18px !important;
-        width: 80% !important;
-    }
-`;
-const IntroTextHeading = styled.h1`
-@media only screen and (max-width: 768px) {
-    font-size: 24px !important;
-}
-`;
-const Icons = styled(Grid.Column)`
-  padding: 0 ;
-  text-align: center;
-`;
-const MainGrid = styled(Grid)`
-    width: 60% !important;
-    margin: 0 auto !important;
-    @media only screen and (max-width: 768px) {
-        // font-size: 18px !important;
-        width: 80% !important;
-    }
-`;
-const MainDiv = styled.div`
-    background: #FEE2D4 0% 0% no-repeat padding-box;
-    // border: 1px solid #707070;
-    opacity: 1;
-    padding: 80px 0 80px 0 !important;
-`;
-const FormInput = styled.input`
-    padding: 20px !important;
-    font-size: 18px !important;
-    width: 100%;
-    margin: 20px 0 !important;
-    @media only screen and (min-width: 1400px) {
-        padding: 20px 20px !important;
-        font-size: 20px !important;
-    }
-`;
-const FormTitle = styled.h1`
-    padding: 0;
-`;
-const FormLabels = styled.label`
-    font-size: 25px !important;
-`;
-const ButtonGrid = styled(Grid)`
-    width: 50%;
-    margin: 0 auto !important;
-`;
-const VendorForm = styled(Form)`
-    width: 100% !important;
-`;
-const SelectDropdown = styled(Dropdown)`
-    margin: 20px 0 40px 0 !important;
-    padding: 20px 20px !important;
-`;
+// const Intro = styled(Grid)`
+//    background: #FEE2D4;
+//    padding : 40px 0 0 0 !important;
+//    margin: 0 auto !important;
+// `;
+// const IntroRows = styled(Grid.Row)`
+//    padding : 0;
+//    width:70%;
+//    margin: 0 auto;
+//    text-align: center;
+//    width: 60% !important;
+//    @media only screen and (max-width: 768px) {
+//         font-size: 18px !important;
+//         width: 80% !important;
+//     }
+// `;
+// const IntroTextHeading = styled.h1`
+// @media only screen and (max-width: 768px) {
+//     font-size: 24px !important;
+// }
+// `;
+// const Icons = styled(Grid.Column)`
+//   padding: 0 ;
+//   text-align: center;
+// `;
+// const MainGrid = styled(Grid)`
+//     width: 60% !important;
+//     margin: 0 auto !important;
+//     @media only screen and (max-width: 768px) {
+//         // font-size: 18px !important;
+//         width: 80% !important;
+//     }
+// `;
+// const MainDiv = styled.div`
+//     background: #FEE2D4 0% 0% no-repeat padding-box;
+//     // border: 1px solid #707070;
+//     opacity: 1;
+//     padding: 80px 0 80px 0 !important;
+// `;
+// const FormInput = styled.input`
+//     padding: 20px !important;
+//     font-size: 18px !important;
+//     width: 100%;
+//     margin: 20px 0 !important;
+//     @media only screen and (min-width: 1400px) {
+//         padding: 20px 20px !important;
+//         font-size: 20px !important;
+//     }
+// `;
+// const FormTitle = styled.h1`
+//     padding: 0;
+// `;
+// const FormLabels = styled.label`
+//     font-size: 25px !important;
+// `;
+// const ButtonGrid = styled(Grid)`
+//     width: 50%;
+//     margin: 0 auto !important;
+// `;
+// const VendorForm = styled(Form)`
+//     width: 100% !important;
+// `;
+// const SelectDropdown = styled(Dropdown)`
+//     margin: 20px 0 40px 0 !important;
+//     padding: 20px 20px !important;
+// `;
 
 
 const options = [
@@ -87,6 +112,7 @@ const options = [
 ]
 
 const VendorRegistration = (props) => {
+    const classes = useStyles();
     const [name, setName] = useState('')
     const [natureOfBusiness, setNatureOfBusiness] = useState('')
     const [niche, setNiche] = useState('')
@@ -108,24 +134,139 @@ const VendorRegistration = (props) => {
 
     return (
         <div>
-            <Intro width={16}>
-                <Grid.Row >
-                    <Icons width={1}>
-                        <Button style={{ background: 'inherit' }} onClick={handleGoingBack}>  <Icon name='chevron left' size='large' link /> </Button>
-                    </Icons>
-                </Grid.Row>
-                <IntroRows>
-                    <IntroTextHeading> BECOME A VENDOR ON ZIST SHOPPING </IntroTextHeading>
-                </IntroRows>
-                <IntroRows>
-                    <IntroTextHeading> Get with the times and create an online presence. <br />
-                     Register and start selling on Zist Shopping bila stress.</IntroTextHeading>
-                </IntroRows>
-                <IntroRows>
-                    <Image src={vendor} />
-                </IntroRows>
-                <ToastContainer />
-            </Intro>
+            <div className={classes.introGrid} >
+                <Grid container  >
+                    <Grid item xs={1} >
+                        <IconButton >
+                            <ArrowBackIosIcon onClick={handleGoingBack} />
+                        </IconButton>
+                    </Grid>
+                </Grid>
+                <Grid container  >
+                    <Grid item xs={12} style={{ textAlign: 'center' }} >
+                        <Typography variant='h4' > BECOME A VENDOR ON ZIST SHOPPING </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container  >
+                    <Grid item xs={12} style={{ textAlign: 'center', paddingTop: 15 }} >
+                        <Typography variant='h5' >Get with the times and create an online presence. <br />
+                            Register and start selling on Zist Shopping bila stress. </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container  >
+                    <Grid item xs={5} style={{ margin: '0 auto' }} >
+                        <img src={vendor} style={{ width: 'auto', height: '300px' }} />
+                    </Grid>
+                </Grid>
+            </div>
+            <div className={classes.mainDiv} >
+                <Grid component='form' className={classes.mainGrid} >
+                    <Grid container style={{ padding: '10px 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <Typography variant='h4' > Enter your business information. </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ padding: '0 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <TextField
+                                fullWidth
+                                placeholder="Name of business"
+                                variant="outlined"
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ padding: '0 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <TextField
+                                fullWidth
+                                placeholder="Location of business"
+                                variant="outlined"
+                                value={location}
+                                onChange={e => setLocation(e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ padding: '0 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <TextField
+                                select
+                                placeholder="Select"
+                                value={natureOfBusiness}
+                                onChange={(e, { value }) => setNatureOfBusiness({ natureOfBusiness: value })}
+                                helperText="Please select the nature of store/stall"
+                                variant="outlined"
+                                fullWidth
+                            >
+                                {options.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.text}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ padding: '0 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <TextField
+                                fullWidth
+                                placeholder="Business description"
+                                variant="outlined"
+                                value={description}
+                                onChange={e => setDescription(e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ padding: '0 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <TextField
+                                fullWidth
+                                placeholder="Business categories"
+                                variant="outlined"
+                                value={location}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ padding: '0 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <TextField
+                                fullWidth
+                                type='tel'
+                                placeholder="Primary contact (phone number)"
+                                variant="outlined"
+                                value={description}
+                                onChange={e => setTel(e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container style={{ padding: '0 0 20px 0' }} >
+                        <Grid item xs={12} >
+                            <TextField
+                                fullWidth
+                                placeholder="Secondary contact (email)"
+                                variant="outlined"
+                                value={location}
+                                onChange={e => setEmail(e.target.value)}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid container  >
+                        <Grid item xs={12}  >
+                            <Typography variant='h6' > *Your contact is important in reaching you and getting you verified as a Zist Vendor. Contact should be made within 24 hrs post application.</Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container className={classes.continueButton} >
+                        <Grid item xs={12}  >
+                            <ContinueButtonSection
+                                type='submit' name={name} natureOfBusiness={businessInfo}
+                                niche={description} tel={tel} email={email} location={location}
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </div>
+            {/* 
             <MainDiv>
                 <MainGrid >
                     <Grid.Row>
@@ -186,27 +327,12 @@ const VendorRegistration = (props) => {
                                         onChange={e => setDescription(e.target.value)}
                                     />
                                 </Form.Field>
-                                {/* <Form.Field>
-                                    <FormLabels>Niche of business</FormLabels>
-                                    <SelectDropdown
-                                        placeholder='Niche of business'
-                                        openOnFocus={false}
-                                        fluid
-                                        selection
-                                        options={options}
-                                        onChange={(e, { value }) => setNiche({ niche: value })}
-                                        clearable
-                                        search
-                                        style={{ padding: '2rem !important' }}
-                                    />
-                                </Form.Field> */}
                                 <Form.Field>
                                     <FormLabels>Business Categories</FormLabels>
                                     <FormInput placeholder='Input which type of products your business specifically deals in.'
                                         fluid
                                         type='text'
                                         required
-                                    // onChange={e => setLocation(e.target.value)}
                                     />
                                 </Form.Field>
                                 <Form.Field>
@@ -235,7 +361,7 @@ const VendorRegistration = (props) => {
 
 
                 </MainGrid>
-            </MainDiv>
+            </MainDiv> */}
         </div>
     )
 }
