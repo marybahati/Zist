@@ -1,44 +1,54 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal, Header, Icon, Grid } from 'semantic-ui-react';
+// import { Modal, Header, Icon, Grid } from 'semantic-ui-react';
+import { Modal, Grid, IconButton, Typography, TextField, } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(2, 4, 3),
+    width: '45%', 
+    margin: '40px auto 0 auto',
+  },
 
+}));
 export const SuccessModal = (props) => {
-
-const Description = styled.h3`
-  text-align: left !important;
-  line-height : 40px;
-`;
-const Signature = styled.h3`
-  text-align: left !important;
-  margin-top: 140px !important;
-`;
-
+  const classes = useStyles();
   return (
-    <div>
+   
       <Modal
         open={props.modalOpen}
-        size='small'
-        closeOnEscape={true}
-        centered={true}
-        style={{ padding: '40px 15px 25px 15px' }}
+        onClose={props.handleClose}
+        disableBackdropClick={true}
       >
-        <Header style={{ border: '0' }}>
-          <Grid>
-            <Grid.Row style={{ padding: '0'}}>
-              <Grid.Column width={1} >
-                <Modal.Actions>
-                  <Icon
-                    type='button'
-                    name='remove'
-                    color='orange'
-                    size='large'
-                    link
-                    onClick={props.handleClose}
-                  />
-                </Modal.Actions>
-              </Grid.Column>
-              <Grid.Column width={14} >
+         <div className={classes.paper}   container >
+        <Grid container item xs={12} >
+          <Grid item xs={2} >
+            <IconButton onClick={props.handleClose} >
+              <CloseIcon fontSize="large" style={{ color: 'orange' }} />
+            </IconButton>
+          </Grid>
+        </Grid>
+        <Grid container item xs={12} >
+          <Grid item xs={2} style={{margin:'0 auto'}} >
+            <CheckCircleOutlineIcon style={{fontSize:'150px'}} />
+          </Grid>
+        </Grid>
+        <Grid container item xs={12} >
+          <Grid item xs={12} >
+            <Typography variant='body1'>
+              Congrats on knocking the first step out of the woods , You’re officially on your way to being a
+              fully-fledged veon Zist Shopping. We’ll contact you with the guidelines and relevant
+              information on the same.
+            </Typography>
+            <Typography variant='h6' style={{paddingTop:30}}>  The Zist Team </Typography>
+          </Grid>
+        </Grid>
+        </div>
+        {/* <Grid.Column width={14} >
                 <Modal.Content  style={{textAlign: 'center'}} >
                 <Icon name='check circle outline' size='massive'/>
                 <Description >
@@ -49,13 +59,9 @@ const Signature = styled.h3`
                 <Signature> The Zist Team,</Signature>
                 </Modal.Content>
                 
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Header>
-
+              </Grid.Column> */}
       </Modal>
-    </div>
+    // </div>
   )
 }
 

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withCookies } from 'react-cookie';
 import {HOST_API} from '../../endpoints';
-
+import { useSnackbar } from 'notistack';
 
 class ContinueButtonSection extends React.Component {
 
@@ -24,6 +24,7 @@ class ContinueButtonSection extends React.Component {
   handleSubmit = (props) => {
     const { cookies } = props
     const userData = cookies.get('login-res')
+    const { enqueueSnackbar } = useSnackbar()
     console.log(userData)
     const token = userData.access 
     console.log(token)
@@ -51,26 +52,28 @@ class ContinueButtonSection extends React.Component {
                 this.setState({ modalOpen: true })
               }
             }).catch( error => {
-              toast.error(`${error}`, {
-                className: 'toast',
-                draggable: true,
-                position: toast.POSITION.TOP_CENTER,
-                type: toast.TYPE.ERROR,
-                hideProgressBar: true
-              })
+              enqueueSnackbar(`${error}`, { variant: 'error' })
+              // toast.error(`${error}`, {
+              //   className: 'toast',
+              //   draggable: true,
+              //   position: toast.POSITION.TOP_CENTER,
+              //   type: toast.TYPE.ERROR,
+              //   hideProgressBar: true
+              // })
             })
          
         }
 
       }).catch(error => {
-        console.log(error)
-        toast.error(`${error}`, {
-          className: 'toast',
-          draggable: true,
-          position: toast.POSITION.TOP_CENTER,
-          type: toast.TYPE.ERROR,
-          hideProgressBar: true
-        })
+        enqueueSnackbar(`${error}`, { variant: 'error' })
+        // console.log(error)
+        // toast.error(`${error}`, {
+        //   className: 'toast',
+        //   draggable: true,
+        //   position: toast.POSITION.TOP_CENTER,
+        //   type: toast.TYPE.ERROR,
+        //   hideProgressBar: true
+        // })
       });
   }
   handleVendorBusiness = (props) => {

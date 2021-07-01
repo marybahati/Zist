@@ -137,8 +137,8 @@ const VendorRegistration = (props) => {
             <div className={classes.introGrid} >
                 <Grid container  >
                     <Grid item xs={1} >
-                        <IconButton >
-                            <ArrowBackIosIcon onClick={handleGoingBack} />
+                        <IconButton onClick={handleGoingBack} >
+                            <ArrowBackIosIcon  />
                         </IconButton>
                     </Grid>
                 </Grid>
@@ -160,7 +160,7 @@ const VendorRegistration = (props) => {
                 </Grid>
             </div>
             <div className={classes.mainDiv} >
-                <Grid component='form' className={classes.mainGrid} >
+                <form className={classes.mainGrid} >
                     <Grid container style={{ padding: '10px 0 20px 0' }} >
                         <Grid item xs={12} >
                             <Typography variant='h4' > Enter your business information. </Typography>
@@ -170,6 +170,7 @@ const VendorRegistration = (props) => {
                         <Grid item xs={12} >
                             <TextField
                                 fullWidth
+                                required
                                 placeholder="Name of business"
                                 variant="outlined"
                                 value={name}
@@ -181,6 +182,7 @@ const VendorRegistration = (props) => {
                         <Grid item xs={12} >
                             <TextField
                                 fullWidth
+                                required
                                 placeholder="Location of business"
                                 variant="outlined"
                                 value={location}
@@ -192,9 +194,10 @@ const VendorRegistration = (props) => {
                         <Grid item xs={12} >
                             <TextField
                                 select
+                                required
                                 placeholder="Select"
                                 value={natureOfBusiness}
-                                onChange={(e, { value }) => setNatureOfBusiness({ natureOfBusiness: value })}
+                                onChange={(e) => setNatureOfBusiness(e.target.value)}
                                 helperText="Please select the nature of store/stall"
                                 variant="outlined"
                                 fullWidth
@@ -211,6 +214,7 @@ const VendorRegistration = (props) => {
                         <Grid item xs={12} >
                             <TextField
                                 fullWidth
+                                required
                                 placeholder="Business description"
                                 variant="outlined"
                                 value={description}
@@ -222,9 +226,9 @@ const VendorRegistration = (props) => {
                         <Grid item xs={12} >
                             <TextField
                                 fullWidth
+                                required
                                 placeholder="Business categories"
                                 variant="outlined"
-                                value={location}
                             />
                         </Grid>
                     </Grid>
@@ -232,10 +236,11 @@ const VendorRegistration = (props) => {
                         <Grid item xs={12} >
                             <TextField
                                 fullWidth
+                                required
                                 type='tel'
                                 placeholder="Primary contact (phone number)"
                                 variant="outlined"
-                                value={description}
+                                value={tel}
                                 onChange={e => setTel(e.target.value)}
                             />
                         </Grid>
@@ -244,9 +249,11 @@ const VendorRegistration = (props) => {
                         <Grid item xs={12} >
                             <TextField
                                 fullWidth
+                                required
                                 placeholder="Secondary contact (email)"
                                 variant="outlined"
-                                value={location}
+                                type='email'
+                                value={email}
                                 onChange={e => setEmail(e.target.value)}
                             />
                         </Grid>
@@ -259,12 +266,12 @@ const VendorRegistration = (props) => {
                     <Grid container className={classes.continueButton} >
                         <Grid item xs={12}  >
                             <ContinueButtonSection
-                                type='submit' name={name} natureOfBusiness={businessInfo}
+                                name={name} natureOfBusiness={businessInfo}
                                 niche={description} tel={tel} email={email} location={location}
                             />
                         </Grid>
                     </Grid>
-                </Grid>
+                </form>
             </div>
             {/* 
             <MainDiv>
