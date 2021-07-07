@@ -217,7 +217,7 @@ const Shopping = (props) => {
             <Grid container  >
               <Grid item xs={8} />
               <Grid item xs={1} style={{ textAlign: 'center' }}>
-                <Typography variant='span' > help </Typography>
+                <Typography > help </Typography>
               </Grid>
               <Grid item xs={2} style={{ textAlign: 'center' }}>
                 {name == undefined || name == '' ? (

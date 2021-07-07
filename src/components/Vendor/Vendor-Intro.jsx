@@ -50,8 +50,8 @@ const VendorIntro = (props) => {
             <div className={classes.mainGrid} >
                 <Grid container  >
                     <Grid item xs={1} >
-                        <IconButton >
-                            <ArrowBackIosIcon onClick={handleGoingBack} />
+                        <IconButton onClick={handleGoingBack}  >
+                            <ArrowBackIosIcon />
                         </IconButton>
                     </Grid>
                 </Grid>

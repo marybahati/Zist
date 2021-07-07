@@ -24,7 +24,7 @@ export const SuccessModal = (props) => {
         onClose={props.handleClose}
         disableBackdropClick={true}
       >
-         <div className={classes.paper}   container >
+         <div className={classes.paper} >
         <Grid container item xs={12} >
           <Grid item xs={2} >
             <IconButton onClick={props.handleClose} >
@@ -48,18 +48,6 @@ export const SuccessModal = (props) => {
           </Grid>
         </Grid>
         </div>
-        {/* <Grid.Column width={14} >
-                <Modal.Content  style={{textAlign: 'center'}} >
-                <Icon name='check circle outline' size='massive'/>
-                <Description >
-                Congrats on knocking the first step out of the woods , You’re officially on your way to being a 
-                fully-fledged veon Zist Shopping. We’ll contact you with the guidelines and relevant
-                 information on the same.
-                </Description>
-                <Signature> The Zist Team,</Signature>
-                </Modal.Content>
-                
-              </Grid.Column> */}
       </Modal>
     // </div>
   )

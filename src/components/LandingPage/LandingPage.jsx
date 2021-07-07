@@ -156,7 +156,7 @@ const LandingPage = (props) => {
             <Grid container  >
               <Grid item xs={8} />
               <Grid item xs={1} style={{ textAlign: 'center' }}>
-                <Typography variant='span' > help </Typography>
+                <Typography > help </Typography>
               </Grid>
               <Grid item xs={2} style={{ textAlign: 'center' }}>
                 {name == undefined || name == '' ? (
@@ -171,7 +171,7 @@ const LandingPage = (props) => {
             </Grid>
           </Grid>
         )}
-        <Grid container className={classes.centeredLocationColumn} xs={12} >
+        <Grid container className={classes.centeredLocationColumn} >
           <Grid item >
             <Typography variant='h5' className={classes.boldFont} > SHOPPING REINVENTED. </Typography>
             <Typography variant='h5' className={classes.boldFont} > YOUR SHOPPING? WE'RE BUILT FOR THAT. </Typography>

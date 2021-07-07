@@ -31,7 +31,7 @@ const Buttonx = styled(Button)`
 
 export const ContinueButton = (props) => {
     const classes = useStyles()
-    return  <Button type='submit' className={classes.root} onSubmit={props.handleClick} > CONTINUE </Button>
+    return  <Button type='submit' className={classes.root}  > CONTINUE </Button>
 }
 
 
