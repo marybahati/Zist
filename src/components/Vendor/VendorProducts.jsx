@@ -190,29 +190,14 @@ const VendorProducts = (props) => {
                     </Grid>
                 ) : (
                     <>
-                        {/* <Grid container item xs={12} >
-                            <Grid item xs={2} className={classes.boldFont} >
-                                <Typography variant='h5'>  Image </Typography>
+                        <Grid container item xs={12} style={{padding:'15px 0 20px 0'}} >
+                            <Grid item xs={12} className={classes.boldFont} >
+                                <Typography variant='h5'>  Products list </Typography>
                             </Grid>
-                            <Grid item xs={2} className={classes.boldFont} >
-                                <Typography variant='h5'>  Name </Typography>
-                            </Grid>
-                            <Grid item xs={1} className={classes.boldFont} >
-                                <Typography variant='h5'>  Price </Typography>
-                            </Grid>
-                            <Grid item xs={1} className={classes.boldFont} >
-                                <Typography variant='h5'>  Stock </Typography>
-                            </Grid>
-                            <Grid item xs={3} className={classes.boldFont} >
-                                <Typography variant='h5'>  Ingredients </Typography>
-                            </Grid>
-                            <Grid item xs={2} className={classes.boldFont} >
-                                <Typography variant='h5'>  Category </Typography>
-                            </Grid>
-                        </Grid> */}
+                        </Grid>
                         {products?.map(product => {
                             return (
-                                <Grid container item xs={12} spacing={3} >
+                                <Grid container item xs={12} spacing={3} style={{paddingBottom:15}} >
                                     <Grid item xs={3} >
                                         <img src={blueberries} />
                                     </Grid>
@@ -220,12 +205,12 @@ const VendorProducts = (props) => {
                                     <Grid item xs={7} >
                                         <Grid container spacing={3} >
                                             <Grid item xs={5} >
-                                                <Typography variant='h5'>   Name: &nbsp;&nbsp;{product.name} </Typography>
-                                                <Typography variant='h5'>   Stock: &nbsp;&nbsp;{product.metadata} </Typography>
+                                                <Typography variant='h6'>   Name: &nbsp;&nbsp;{product.name} </Typography>
+                                                <Typography variant='h6'>   Stock: &nbsp;&nbsp;{product.metadata} </Typography>
                                             </Grid>
                                             <Grid item xs={5} >
-                                                <Typography variant='h5'>   Price: &nbsp;&nbsp; Ksh.{product.price} </Typography>
-                                                <Typography variant='h5'>   Category: &nbsp;&nbsp;{product.category.category} </Typography>
+                                                <Typography variant='h6'>   Price: &nbsp;&nbsp; Ksh.{product.price} </Typography>
+                                                <Typography variant='h6'>   Category: &nbsp;&nbsp;{product.category.category} </Typography>
                                             </Grid>
                                             <Grid item xs={1} />
                                             <Grid item xs={1} >
@@ -260,8 +245,8 @@ const VendorProducts = (props) => {
                                                 </Menu>
                                             </Grid>
                                             <Grid item xs={12} >
-                                                <Typography variant='h5'>   Ingredients:  </Typography>
-                                                <Typography variant='h5'>   {product.description} </Typography>
+                                                <Typography variant='h6'>   Ingredients:  </Typography>
+                                                <Typography variant='h6'>   {product.description} </Typography>
                                             </Grid>
                                         </Grid>
                                     </Grid>
