@@ -53,10 +53,9 @@ const VendorRegistration = (props) => {
     const [location, setLocation] = useState('')
     const [description, setDescription] = useState('')
     const [openModal, setOpenModal] = useState(false)
-    const [x, setx] = useState(false)
-    // console.log(name, natureOfBusiness, niche, email, tel)
     const bussinessType = Object.values(natureOfBusiness)
     const businessInfo = bussinessType.toString();
+    // console.log(natureOfBusiness,bussinessType,businessInfo)
     const bio = Object.values(niche)
     const businessBio = bio.toString();
     // console.log(businessInfo, businessBio)
@@ -116,7 +115,7 @@ const VendorRegistration = (props) => {
                     </Grid>
                 </Grid>
 
-                <form className={classes.mainGrid} onSubmit={ e => handleSubmit(e,name,businessInfo, description, tel, email, location)}>
+                <form className={classes.mainGrid} onSubmit={ e => handleSubmit(e,name,natureOfBusiness, description, tel, email, location)}>
                     <Grid container  >
                         <Grid item xs={12} >
                             <Typography variant='h4' > BECOME A VENDOR ON ZIST SHOPPING </Typography>
