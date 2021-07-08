@@ -185,7 +185,7 @@ const VendorProducts = (props) => {
                             <Typography variant='h5' style={{ textAlign: 'center' }}>  You have no products yet, please create new products </Typography>
                         </Grid>
                         <Grid item className={classes.centeredButtonColumns} >
-                            <Button type='submit' className={classes.createItemButton} > Create </Button>
+                            <Button onClick={handleAddProduct} className={classes.createItemButton} > Create </Button>
                         </Grid>
                     </Grid>
                 ) : (
@@ -224,7 +224,7 @@ const VendorProducts = (props) => {
                                                 <Typography variant='h5'>   Stock: &nbsp;&nbsp;{product.metadata} </Typography>
                                             </Grid>
                                             <Grid item xs={5} >
-                                                <Typography variant='h5'>   Price: &nbsp;&nbsp;{product.price} </Typography>
+                                                <Typography variant='h5'>   Price: &nbsp;&nbsp; Ksh.{product.price} </Typography>
                                                 <Typography variant='h5'>   Category: &nbsp;&nbsp;{product.category.category} </Typography>
                                             </Grid>
                                             <Grid item xs={1} />

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import { Grid, Image, Button, Icon, Form } from "semantic-ui-react";
 import { Grid, Typography, IconButton, TextField, Button } from "@material-ui/core";
 import shelving from './../../Assets/shelving.png';
 import history from '../../History';
@@ -10,77 +9,6 @@ import { useSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
-// const MainDiv = styled.div`
-//     background: #F9F7F1 0% 0% no-repeat padding-box;
-//     opacity: 1;
-//     padding: 50px 0 !important;
-// `;
-// const MainGrid = styled(Grid)`
-//     width: 80%;
-//     margin: 0 auto 100px auto !important;
-// `;
-// const ActionButton = styled(Button)`
-//     background: #FEE2D4 0% 0% no-repeat padding-box !important;
-//     border: 2px solid #FEE2D4 !important;
-//     border-radius: 24px !important;
-//     opacity: 1;
-//     height: 66px !important;
-//     width: 100%;
-//     font-size: 26px !important;
-//     color: #050504 !important;
-//     margin: 30px 0 !important;
-// `;
-// const DropzoneDiv = styled.div`
-// text-align: center;
-//   padding: 20px;
-//   /* border: 3px dashed #eeeeee; */
-//   background-color: #fff;
-//   color: #bdbdbd;
-//   height:230px;
-//   margin: auto 0 !important;
-
-// `;
-// const IntroColumn = styled(Grid.Column)`
-//     width: 60% !important;
-//     margin: 0 auto !important;
-//     text-align: center  !important;
-// `;
-// const CenteredColumn = styled(Grid.Column)`
-//     margin: 0 auto !important;
-// `;
-// const Buttonx = styled(Button)`
-//     background: #FFBD59 0% 0% no-repeat padding-box !important;
-//     border: 2px solid #FEE2D4 !important;
-//     border-radius: 24px !important;
-//     opacity: 1;
-//     height: 90px !important;
-//     width: 100%;
-//     font-size: 26px !important;
-//     color: #050504 !important;
-//     margin: 50px 0 !important;
-// `;
-// const Icons = styled(Grid.Column)`
-//   padding: 0 0 0 30px ;
-//   text-align: center;
-// `;
-// const Columns = styled(Grid.Column)`
-//    margin: 0 auto !important;
-// //    width: 50% !important,;
-// `;
-// const NoSpaceColumn = styled(Grid.Column)`
-//    padding: 0 !important;
-// `;
-// const DoneButton = styled(Button)`
-//     background: #FFBD59 0% 0% no-repeat padding-box !important;
-//     border: 2px solid #FEE2D4 !important;
-//     border-radius: 24px !important;
-//     opacity: 1;
-//     height: 66px !important;
-//     width: 100%;
-//     font-size: 26px !important;
-//     color: #050504 !important;
-//     margin: 20px 0 !important;
-// `;
 
 const useStyles = makeStyles({
     autocomplete: {
@@ -123,7 +51,7 @@ const useStyles = makeStyles({
         border: '2px solid #FEE2D4 !important',
         borderRadius: '24px !important',
         opacity: 1,
-        height: '40px !important',
+        height: '50px !important',
         width: '100%',
         fontSize: '18px !important',
         color: '#050504 !important',
