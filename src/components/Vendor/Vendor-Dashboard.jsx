@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Link, Typography, IconButton, TextField } from "@material-ui/core";
+import { Grid, Link, Typography, IconButton } from "@material-ui/core";
 import { RatedStars } from '../ShoppingPage/Ratings';
 import storefront from './../../Assets/d1.png';
 import inventory from './../../Assets/d2.png';
@@ -11,16 +11,6 @@ import { HOST_API } from '../../endpoints';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
-// const Headers = styled.h1`
-// text-align: center;
-// text-decoration: underline;
-// color: #FFBD59;
-// `;
-// const Links = styled(List.Item)`
-// color: #FFBD59;
-// font-size: 20px;
-// padding: 50px 0 !important;
-// `
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
         background: ' #F9F7F1 0% 0% no-repeat padding-box',
@@ -99,7 +89,7 @@ const Dashboard = (props) => {
                 <Grid item xs={4} style={{ margin: 'auto 0' }}>
                     <Typography variant='h4' >  {info?.name} </Typography>
                     <Typography variant='h6'> {info?.bio} </Typography>
-                    <Typography variant='h6'> {info?.business_type} </Typography>
+                    <Typography variant='h6' style={{display: 'list-item', listStylePosition: 'inside',  }}> {info?.business_type} </Typography>
                 </Grid>
                 <Grid item xs={1} />
                 <Grid item xs={3} style={{ margin: '39px 0 0 0' }}>
