@@ -1,100 +1,87 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Image, Button, List, Icon } from "semantic-ui-react";
-import styled from 'styled-components';
+import { Grid, Typography, IconButton, Link, Button, Menu, MenuItem, List, ListItem, ListItemText } from "@material-ui/core";
 import blueberries from './../../Assets/blue-berries.png';
 import { withCookies, Cookies } from 'react-cookie';
 import axios from 'axios';
 import { HOST_API } from '../../endpoints';
 import history from '../../History';
 import shelving from './../../Assets/shelving.png';
-import Link from '@material-ui/core/Link';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useSnackbar } from 'notistack';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { makeStyles } from '@material-ui/core/styles'
 
-const MainDiv = styled.div`
-    background: #F9F7F1 0% 0% no-repeat padding-box;
-    opacity: 1;
-    padding: 50px 0 !important;
-`;
-const MainGrid = styled(Grid)`
-    width: 80%;
-    margin: 0 auto 100px auto !important;
-`;
-const ImageColumn = styled(Grid.Column)`
-   padding : 0 40px 0 0 !important;
-   text-align: center;
-`;
-const ProductRows = styled(Grid.Row)`
-   margin : ${props => props.spaced ? "0 0 20px 0 !important" : " 0 0 40px 0 !important "};
-`;
-const IntroColumn = styled(Grid.Column)`
-   margin : 30px 0  !important;
-   text-align: center;
-`;
-const ItemsColumn = styled(Grid.Column)`
-   margin: auto 0 !important;
-`;
-const ProductName = styled(Grid.Column)`
-   margin: auto 0 auto 15px !important;
-`;
-const ProductImages = styled(Image)`
-   width: 80% !important;
-   margin: 0 auto 0 0 !important;
-`;
-const EditButton = styled(Button)`
-   color: black !important;
-   font-size: 22px !important;
-   text-decoration: underline;
-   background: inherit !important;
+const useStyles = makeStyles({
+    autocomplete: {
+        minWidth: '10rem',
+        background: 'white !important',
+        border: '1px #DEDEDF solid',
+        borderRadius: '3px'
+    },
+    mainDiv: {
+        background: '#F9F7F1 0% 0% no-repeat padding-box',
+        opacity: 1,
+        padding: '50px 0 !important',
+    },
+    mainGrid: {
+        width: '80%',
+        margin: '0 auto 100px auto !important',
+    },
+    headers: {
+        textAlign: 'center',
+        color: '#FFBD59',
+    },
+    boldFont: {
+        fontWeight: 'bold !important',
+        paddintBottom: 20,
+    },
+    dropzoneDiv: {
+        textAlign: 'center',
+        backgroundColor: '#fff',
+        color: '#bdbdbd',
+        height: '230px',
+        margin: 'auto 0 !important',
+        width: '100%',
+    },
+    textfields: {
+        background: 'white',
+        padding: '5px 0 0 0',
+        margin: '0  0 10px 0',
+        ' & .MuiOutlinedInput-input': {
+            padding: '10px 14px'
+        },
+    },
+    centeredButtonColumns: {
+        width: '180px',
+        margin: '0 auto'
+    },
+    createItemButton: {
+        background: '#FFBD59 0% 0% no-repeat padding-box !important',
+        border: '2px solid #FEE2D4 !important',
+        borderRadius: '24px !important',
+        opacity: 1,
+        height: '50px !important',
+        width: '100%',
+        fontSize: '18px !important',
+        color: '#050504 !important',
+        margin: '40px 0 0 0 !important',
+    },
+    viewItemsButton: {
+        background: 'background: #FEE2D4 0% 0% no-repeat padding-box !important',
+        border: '2px solid #FEE2D4 !important',
+        borderRadius: '24px !important',
+        opacity: 1,
+        height: '40px !important',
+        width: '100%',
+        fontSize: '18px !important',
+        color: '#050504 !important',
+        margin: '40px 0 0 0 !important',
+    },
+});
 
-`;
-const EditIcon = styled(Icon)`
-   font-size: 22px !important;
-    margin-left: 12px !important;
-`;
-const OffersButton = styled(Button)`
-    width: 100% !important;
-    background: #0A0806 0% 0% no-repeat padding-box !important;
-    border: 1px solid #C19A6B !important;
-    border-radius: 5px !important;
-    height: 60px !important;
-    color: white !important;
-    font-size: 18px !important;
-    opacity: 1;
-`;
-const AddButton = styled(Button)`
-   background: inherit !important;
-   font-size : 40px !important;
-   padding : 0 !important;
-   color : black !important;
-   margin: 0 8px !important;
-`;
-const Icons = styled(Grid.Column)`
-  padding: 0 0 0 30px ;
-  text-align: center;
-`;
-const CenteredColumn = styled(Grid.Column)`
-    margin: 0 auto !important;
-`;
-const Columns = styled(Grid.Column)`
-   margin: auto 0 !important;
-`;
-const Buttonx = styled(Button)`
-    background: #FFBD59 0% 0% no-repeat padding-box !important;
-    border: 2px solid #FEE2D4 !important;
-    border-radius: 24px !important;
-    opacity: 1;
-    height: 66px !important;
-    width: 100%;
-    font-size: 18px !important;
-    color: #050504 !important;
-    margin: 40px 0 0 0 !important;
-`;
 const VendorProducts = (props) => {
     const { cookies } = props
+    const classes = useStyles();
     const data = cookies.get('login-res')
     const token = data?.access
     const [products, setProducts] = useState([])
@@ -121,8 +108,8 @@ const VendorProducts = (props) => {
         setAnchorEl(null);
     };
     console.log(products)
-    const handleEditProduct = (e, id,name,price,stock,description,category) => {
-        const data = {id: id, name: name,price: price, stock: stock, description: description, category: category}
+    const handleEditProduct = (e, id, name, price, stock, description, category) => {
+        const data = { id: id, name: name, price: price, stock: stock, description: description, category: category }
         console.log(data)
         history.push({
             state: data,
@@ -168,146 +155,128 @@ const VendorProducts = (props) => {
             });
     }
     return (
-        <MainDiv>
-            <Grid>
-                <Grid.Row >
-                    <Grid.Column width={2}>
-                        <Icons width={1}>
-                            <Button style={{ background: 'inherit' }} onClick={handleGoingBack}>  <Icon name='chevron left' size='large' link color='black' /> </Button>
-                        </Icons>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-            <MainGrid>
-                <Grid.Row>
-                    <CenteredColumn width={6}>
-                        <Image src={shelving} />
-                        <h2 style={{ color: 'orange', textAlign: 'center' }}> SHELVING </h2>
-                    </CenteredColumn>
-                </Grid.Row>
-                <Grid.Row>
-                    <Grid.Column style={{ paddingBottom: 50, margin: '0 auto' }}>
-                        <h1> Welcome to Shelving where putting up your wares is all within a button’s reach. </h1>
-                    </Grid.Column>
-                </Grid.Row>
+        <div className={classes.mainDiv} >
+            <div className={classes.mainGrid} >
+                <Grid container >
+                    <Grid item xs={1} >
+                        <IconButton onClick={handleGoingBack} >
+                            <ArrowBackIosIcon />
+                        </IconButton>
+                    </Grid>
+                </Grid>
+                <Grid container  >
+                    <Grid item style={{ width: '455px', margin: '20px auto' }} >
+                        <img src={shelving} />
+                    </Grid>
+                </Grid>
+                <Grid container  >
+                    <Grid item xs={12} style={{ margin: '20px auto' }} >
+                        <Typography variant='h5' className={classes.headers} > SHELVING </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container  >
+                    <Grid item xs={12} style={{ margin: '20px auto' }} >
+                        <Typography variant='h5' className={classes.boldFont} >  Welcome to Shelving where putting up your wares is all within a button’s reach.  </Typography>
+                    </Grid>
+                </Grid>
                 {productCount === 0 ? (
-                    <ProductRows>
-                        <CenteredColumn width={10}>
-                            <h2> You have no products yet, please create new products</h2>
-                        </CenteredColumn>
-                        <ImageColumn width={16}>
-                            <Grid>
-                                <Grid.Row>
-                                    <CenteredColumn width={4}>
-                                        <Buttonx type='submit' onClick={handleAddProduct} > Add new item </Buttonx>
-                                    </CenteredColumn>
-                                </Grid.Row>
-                            </Grid>
-                        </ImageColumn>
-                    </ProductRows>
+                    <Grid container item xs={12} >
+                        <Grid item xs={12} className={classes.boldFont} >
+                            <Typography variant='h5' style={{ textAlign: 'center' }}>  You have no products yet, please create new products </Typography>
+                        </Grid>
+                        <Grid item className={classes.centeredButtonColumns} >
+                            <Button type='submit' className={classes.createItemButton} > Create </Button>
+                        </Grid>
+                    </Grid>
                 ) : (
                     <>
-                        {/* <ProductRows>
-                            <IntroColumn>
-                                <List>
-                                    <EditButton name='pencil' > EDIT PRODUCTS  <EditIcon name='pencil' size='small' /> </EditButton>
-                                </List>
-                            </IntroColumn>
-                        </ProductRows> */}
-                        <ProductRows >
-                            <Grid.Column width={3}>
-                                <h3> PRODUCT IMAGES </h3>
-                            </Grid.Column>
-                            <ProductName width={3}>
-                                <h3> PRODUCT NAME </h3>
-                            </ProductName>
-                            <Grid.Column width={2}>
-                                <h3> PRICE/UNIT </h3>
-                            </Grid.Column>
-                            <Grid.Column width={2}>
-                                <h3> IN STOCK </h3>
-                            </Grid.Column>
-                            <Grid.Column width={2}>
-                                <h3> INGREDIENTS </h3>
-                            </Grid.Column>
-                            <Grid.Column width={3}>
-                                <h3 style={{ textAlign: '' }}> CATEGORY </h3>
-                            </Grid.Column>
-                        </ProductRows>
+                        {/* <Grid container item xs={12} >
+                            <Grid item xs={2} className={classes.boldFont} >
+                                <Typography variant='h5'>  Image </Typography>
+                            </Grid>
+                            <Grid item xs={2} className={classes.boldFont} >
+                                <Typography variant='h5'>  Name </Typography>
+                            </Grid>
+                            <Grid item xs={1} className={classes.boldFont} >
+                                <Typography variant='h5'>  Price </Typography>
+                            </Grid>
+                            <Grid item xs={1} className={classes.boldFont} >
+                                <Typography variant='h5'>  Stock </Typography>
+                            </Grid>
+                            <Grid item xs={3} className={classes.boldFont} >
+                                <Typography variant='h5'>  Ingredients </Typography>
+                            </Grid>
+                            <Grid item xs={2} className={classes.boldFont} >
+                                <Typography variant='h5'>  Category </Typography>
+                            </Grid>
+                        </Grid> */}
                         {products?.map(product => {
-                            console.log(product, '=====')
                             return (
-                                <ProductRows>
-                                    <Grid.Column width={3}>
-                                        <ProductImages src={blueberries} />
-                                    </Grid.Column>
-
-                                    <ProductName center width={3} >
-                                        <h3> {product.name} </h3>
-                                    </ProductName>
-                                    <ItemsColumn width={2}>
-                                        <h3> Kshs. {product.price} </h3>
-                                    </ItemsColumn>
-                                    <ItemsColumn width={2}>
-                                        <h3> {product.metadata} </h3>
-                                    </ItemsColumn>
-                                    <ItemsColumn width={2}>
-                                        <h3> {product.description} </h3>
-                                    </ItemsColumn>
-                                    <ItemsColumn width={2}>
-                                        <OffersButton> {product.category.category} </OffersButton>
-                                    </ItemsColumn>
-                                    <ItemsColumn width={1}>
-                                        <div>
-                                            <IconButton
-                                                aria-label="more"
-                                                aria-controls="long-menu"
-                                                aria-haspopup="true"
-                                                style={{ padding: '0 auto !important' }}
-                                                onClick={e => handleHamburgerClick(e, product.id)}
-                                            >
-                                                <MoreVertIcon style={{ margin: '0 auto !important' }} />
-                                            </IconButton>
-                                            <Menu
-                                                // onClick={handleClick}
-                                                id="long-menu"
-                                                anchorEl={anchorEl}
-                                                keepMounted
-                                                open={open}
-                                                onClose={handleClose}
-                                                PaperProps={{
-                                                    style: {
-                                                        width: '70px',
-                                                    },
-                                                }}
-                                            >
-                                                <MenuItem onClick={e => handleEditProduct(e, currentId,product.name,product.price,product.metadata,product.description,product.category.category)}>
-                                                    Edit
-                                                </MenuItem>
-                                                <MenuItem onClick={e => handleDeleteProduct(e, currentId)}>
-                                                    Delete
-                                                </MenuItem>
-                                            </Menu>
-                                        </div>
-                                    </ItemsColumn>
-                                </ProductRows>
+                                <Grid container item xs={12} spacing={3} >
+                                    <Grid item xs={3} >
+                                        <img src={blueberries} />
+                                    </Grid>
+                                    <Grid item xs={1} />
+                                    <Grid item xs={7} >
+                                        <Grid container spacing={3} >
+                                            <Grid item xs={5} >
+                                                <Typography variant='h5'>   Name: &nbsp;&nbsp;{product.name} </Typography>
+                                                <Typography variant='h5'>   Stock: &nbsp;&nbsp;{product.metadata} </Typography>
+                                            </Grid>
+                                            <Grid item xs={5} >
+                                                <Typography variant='h5'>   Price: &nbsp;&nbsp;{product.price} </Typography>
+                                                <Typography variant='h5'>   Category: &nbsp;&nbsp;{product.category.category} </Typography>
+                                            </Grid>
+                                            <Grid item xs={1} />
+                                            <Grid item xs={1} >
+                                                <IconButton
+                                                    aria-label="more"
+                                                    aria-controls="long-menu"
+                                                    aria-haspopup="true"
+                                                    style={{ padding: '0 auto !important' }}
+                                                    onClick={e => handleHamburgerClick(e, product.id)}
+                                                >
+                                                    <MoreVertIcon style={{ margin: '0 auto !important' }} />
+                                                </IconButton>
+                                                <Menu
+                                                    // onClick={handleClick}
+                                                    id="long-menu"
+                                                    anchorEl={anchorEl}
+                                                    keepMounted
+                                                    open={open}
+                                                    onClose={handleClose}
+                                                    PaperProps={{
+                                                        style: {
+                                                            width: '70px',
+                                                        },
+                                                    }}
+                                                >
+                                                    <MenuItem onClick={e => handleEditProduct(e, currentId, product.name, product.price, product.metadata, product.description, product.category)}>
+                                                        Edit
+                                                    </MenuItem>
+                                                    <MenuItem onClick={e => handleDeleteProduct(e, currentId)}>
+                                                        Delete
+                                                    </MenuItem>
+                                                </Menu>
+                                            </Grid>
+                                            <Grid item xs={12} >
+                                                <Typography variant='h5'>   Ingredients:  </Typography>
+                                                <Typography variant='h5'>   {product.description} </Typography>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             )
                         })}
-                        <ProductRows>
-                            <ImageColumn width={16}>
-                                <Grid>
-                                    <Grid.Row>
-                                        <CenteredColumn width={4}>
-                                            <Buttonx type='submit' onClick={handleAddProduct} > Add new item </Buttonx>
-                                        </CenteredColumn>
-                                    </Grid.Row>
-                                </Grid>
-                            </ImageColumn>
-                        </ProductRows>
+                        <Grid container item xs={12} >
+                            <Grid item className={classes.centeredButtonColumns} >
+                                <Button onClick={handleAddProduct} className={classes.createItemButton} > Add Product </Button>
+                            </Grid>
+                        </Grid>
                     </>
                 )}
-            </MainGrid>
-        </MainDiv>
+            </div>
+        </div>
     )
 }
 export default withCookies(VendorProducts)
