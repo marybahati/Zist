@@ -13,7 +13,7 @@ import CreateList from './components/Vendor/CreateList';
 import InventoryAddCategory from './components/Vendor/InventoryAddCategory';
 import CreateProduct from './components/Vendor/InventoryAddProduct';
 import InventoryEditProduct from './components/Vendor/InventoryEditProduct';
-import OrderDetails from './components/Vendor/OrderDetails';
+import OrderDetails from './components/ShoppingPage/OrderDetails';
 import PaymentDetails from './components/Vendor/PaymentDetails';
 import { ServiceDesk } from './components/Vendor/ServiceDesk';
 import { Settings } from './components/Vendor/Settings';

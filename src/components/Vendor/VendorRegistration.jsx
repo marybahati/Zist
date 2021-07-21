@@ -34,13 +34,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const options = [
-    // { text: 'Independent store', value: 'Independent store' },
-    // { text: 'Under a mall', value: 'Under a mall' },
-    { text: 'Groceries', value: 'Groceries' },
-    { text: 'Cosmetics', value: 'Cosmetics' },
-    { text: 'Bakery', value: 'Bakery' },
-    { text: 'Meat', value: 'Meat' },
-    { text: 'Drinks', value: 'Drinks' },
+    { text: 'Independent store', value: 'Independent store' },
+    { text: 'Under a mall', value: 'Under a mall' },
+    // { text: 'Groceries', value: 'Groceries' },
+    // { text: 'Cosmetics', value: 'Cosmetics' },
+    // { text: 'Bakery', value: 'Bakery' },
+    // { text: 'Meat', value: 'Meat' },
+    // { text: 'Drinks', value: 'Drinks' },
 ]
 
 const VendorRegistration = (props) => {

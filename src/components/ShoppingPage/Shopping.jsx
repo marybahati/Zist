@@ -4,12 +4,7 @@ import { Grid, Button, Typography, TextField, Card, CardActionArea, CardContent,
   } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import styled from 'styled-components';
-import cartImage from "./../../Assets/cart.png";
 import store from './../../Assets/store.png';
-import card2 from './../../Assets/2.jpg';
-import card4 from './../../Assets/4.jpg';
-import cart from "./../../Assets/searchCart.png";
 import axios from 'axios';
 import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
 import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
@@ -100,11 +95,12 @@ const Shopping = (props) => {
   const CardDisplay = (props) => {
     return (
       <Card style={{ width: '100%',height:380}}>
-        <CardActionArea>
+        <CardActionArea key={business.id} onClick={props.handleClick} >
           <CardMedia
             className={classes.media}
             image={props.storeImage}
             title={props.title}
+            key={props.key}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
@@ -282,6 +278,8 @@ const Shopping = (props) => {
                       storeImage={store}
                       title={business.name}
                       description={business.business_type}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
                   </Grid>
                 </Grid>
@@ -314,6 +312,8 @@ const Shopping = (props) => {
                       storeImage={store}
                       title={business.name}
                       description={business.business_type}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
                   </Grid>
                 </Grid>
@@ -345,6 +345,8 @@ const Shopping = (props) => {
                       storeImage={store}
                       title={business.name}
                       description={business.business_type}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
                   </Grid>
                 </Grid>
@@ -377,6 +379,8 @@ const Shopping = (props) => {
                       storeImage={store}
                       title={business.name}
                       description={business.business_type}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
                   </Grid>
                 </Grid>
@@ -409,6 +413,8 @@ const Shopping = (props) => {
                       storeImage={store}
                       title={business.name}
                       description={business.business_type}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
                   </Grid>
                 </Grid>
@@ -441,6 +447,8 @@ const Shopping = (props) => {
                       storeImage={store}
                       title={business.name}
                       description={business.business_type}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
                   </Grid>
                 </Grid>
@@ -473,6 +481,8 @@ const Shopping = (props) => {
                       storeImage={store}
                       title={business.name}
                       description={business.business_type}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
                   </Grid>
                 </Grid>
