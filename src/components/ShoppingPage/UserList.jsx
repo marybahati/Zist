@@ -59,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
         color: '#050504 !important',
         margin: '50px 0 !important',
     },
+    drawerToggleQtyButtons: {
+        top: '-10px',
+        fontSize: 20,
+    },
 }))
 
 const UserList = (props) => {
@@ -76,7 +80,7 @@ const UserList = (props) => {
     const [cart, setCart] = useState([])
     const [showQty, setShowQty] = useState([])
     const [products, setProducts] = useState([])
-    const [categories,setCategories] = useState([])
+    const [categories, setCategories] = useState([])
     const [searchText, setSearchText] = useState('')
     const [countProducts, setCountProducts] = useState()
     const productsInBasket = []
@@ -107,30 +111,30 @@ const UserList = (props) => {
             {productsInBasket.length !== 0 ? (
                 productsInBasket?.map((product, index) => {
                     return (
-                        <Grid key={index} container spacing={1} style={{ width: 450, padding: 20, fontSize: 20 }}>
+                        <Grid key={index} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
                             <Grid container item xs={12} />
                             <Grid container item xs={2}>
                                 <Grid item xs={12} >
                                     <Avatar src={blueberries} variant="rounded" />
                                 </Grid>
                             </Grid>
-                            <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20 }}>
-                                <Typography gutterBottom variant="subtitle1">{product.productName} </Typography>
+                            <Grid item xs={3} >
+                                <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important'}}>{product.productName} </Typography>
                             </Grid >
-                            <Grid item xs={1} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
+                            <Grid item xs={2} style={{ textAlign: 'center', }} >
                                 <Button onClick={e => {
                                     if (product.quantity === 1) {
                                         changeQuantity(e, index, 0)
                                     } else {
                                         changeQuantity(e, index, -1)
                                     }
-                                }} > - </Button>
+                                }} className={classes.drawerToggleQtyButtons} > - </Button>
                             </Grid>
                             <Grid item xs={1} style={{ margin: 'auto 0 !important', textAlign: 'center', fontSize: 20 }}>
                                 <Typography gutterBottom variant="subtitle1"> {product.quantity} </Typography>
                             </Grid>
-                            <Grid item xs={1} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }}>
-                                <Button onClick={e => changeQuantity(e, index, 1)} > + </Button>
+                            <Grid item xs={2} style={{ margin: '0 auto !important', fontSize: 20, textAlign: 'center', }}>
+                                <Button onClick={e => changeQuantity(e, index, 1)} className={classes.drawerToggleQtyButtons}> + </Button>
                             </Grid>
                             <Grid item xs={2} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
                                 <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
@@ -143,6 +147,13 @@ const UserList = (props) => {
         </div>
     );
 
+
+    const handleAddProduct = (e, productName, productPrice, quantity, id,) => {
+        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
+        console.log(d)
+        setCart([...cart, d])
+        setShowQty([...showQty, id])
+    }
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
         // const curObj = productsInBasket[index]
@@ -281,13 +292,6 @@ const UserList = (props) => {
         )
     }
 
-
-    const handleAddProduct = (e, productName, productPrice, quantity, id,) => {
-        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
-        console.log(d)
-        setCart([...cart, d])
-        setShowQty([...showQty, id])
-    }
     useEffect(() => {
         // axios.get(HOST_API + 'zist/products/', {
         axios.get(HOST_API + `zist/business/${businessId}/product_list/`, {
@@ -318,7 +322,7 @@ const UserList = (props) => {
                 console.log(error)
             })
     }, [])
-console.log(categories)
+    console.log(categories)
     return (
         <div className={classes.mainDiv} >
             <div className={classes.mainGrid} >
@@ -353,13 +357,13 @@ console.log(categories)
                     </Grid>
                 </Grid>
                 <Grid container spacing={3} >
-                   {categories?.map( data => {
-                       return (
-                        <Grid item xs={2} key={data.id} >
-                        <Button key={data.id} className={classes.aisleButton} onClick={handleRedirect} > {data.category} </Button>
-                    </Grid>
-                       )
-                   })}
+                    {categories?.map(data => {
+                        return (
+                            <Grid item xs={2} key={data.id} >
+                                <Button key={data.id} className={classes.aisleButton} onClick={handleRedirect} > {data.category} </Button>
+                            </Grid>
+                        )
+                    })}
                 </Grid>
                 <Grid container  >
                     <Grid item xs={2} style={{ margin: '20px auto' }} >
