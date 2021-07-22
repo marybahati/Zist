@@ -104,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#050504 !important',
         margin: '50px 0 !important',
     },
+    
 }))
 
 const Aisles = (props) => {
@@ -112,7 +113,7 @@ const Aisles = (props) => {
     const [products, setProducts] = useState([])
     const storedItems = cookies.get('cart')
     const [showQty, setShowQty] = useState([])
-    const [productsInBasket, setProductsInBasket] = useState(storedItems)
+    const [productsInBasket, setProductsInBasket] = useState()
     const [countProducts, setCountProducts] = useState()
     const [categories, setCategories] = useState([])
     const userData = cookies.get('login-res')
@@ -121,6 +122,13 @@ const Aisles = (props) => {
     const businessId = clickedBusiness?.id
     const cookie = new Cookies()
 
+    useEffect(() => {
+        if (storedItems) {
+            setProductsInBasket(storedItems)
+        } else {
+            setProductsInBasket([])
+        }
+    }, [])
     useEffect(() => {
         axios.get(HOST_API + `zist/business/${businessId}/get_categories/`, {
             headers: { "Authorization": `Bearer ${token}` }

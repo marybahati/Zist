@@ -64,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
         top: '-10px',
         fontSize: 20,
     },
+    closeDrawer: {
+        flexBasis: '0%',
+    }
 }))
 
 const UserList = (props) => {
@@ -351,7 +354,7 @@ const UserList = (props) => {
                                 </Toolbar>
                             </AppBar>
                             <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{ width: '52% !important' }} >
-                            <Grid container item xs={12} spacing={3}>
+                            <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
                                 <Grid item xs={2} >
                                     <IconButton onClick={toggleDrawer(false)} >
                                         <CloseIcon fontSize="large" style={{ color: 'orange' }} />
