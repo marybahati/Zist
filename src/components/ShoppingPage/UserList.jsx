@@ -8,10 +8,10 @@ import history from '../../History'
 import { HOST_API } from '../../endpoints';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link } from "@material-ui/core";
+import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link, IconButton } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import PropTypes from 'prop-types';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -83,13 +83,13 @@ const UserList = (props) => {
     const [searchText, setSearchText] = useState('')
     const [countProducts, setCountProducts] = useState()
     const [productsInBasket, setProductsInBasket] = useState()
-    useEffect( () => {
-        if(storedItems){
+    useEffect(() => {
+        if (storedItems) {
             setProductsInBasket(storedItems)
-        }else {
+        } else {
             setProductsInBasket([])
         }
-    },[])
+    }, [])
     // console.log(typeof productsInBasket)
     const [open, setOpen] = React.useState(false);
 
@@ -102,7 +102,7 @@ const UserList = (props) => {
         setOpen(status);
     };
 
-    const list = () => (
+    const list = (handleClose) => (
         <div
             role="presentation"
             onClick={toggleDrawer(false)}
@@ -110,7 +110,9 @@ const UserList = (props) => {
             style={{ width: '50% !important', padding: '20px !important' }}
         >
             {productsInBasket?.length !== 0 ? (
-                productsInBasket?.map((product, index) => {
+                <>
+                <h3 style={{ padding: '10px 0 0 20px' }}> Products in your cart</h3>
+                { productsInBasket?.map((product, index) => {
                     return (
                         <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
                             <Grid container item xs={12} />
@@ -143,8 +145,9 @@ const UserList = (props) => {
                         </Grid>
                     )
 
-                })
-            ) : <h3 style={{ paddingTop: 50 }}> You have no items in your cart</h3>}
+                })}
+                </>
+            )   : <h3 style={{ paddingTop: 50 }}> You have no products in your cart</h3>}
         </div>
     );
 
@@ -347,70 +350,77 @@ const UserList = (props) => {
                                     </Button>
                                 </Toolbar>
                             </AppBar>
-                            <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{ width: '50% !important' }} >
-                                {list()}
+                            <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{ width: '52% !important' }} >
+                            <Grid container item xs={12} spacing={3}>
+                                <Grid item xs={2} >
+                                    <IconButton onClick={toggleDrawer(false)} >
+                                        <CloseIcon fontSize="large" style={{ color: 'orange' }} />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+                            {list()}
                             </Drawer>
                         </React.Fragment>
-                    </Grid>
                 </Grid>
-                <Grid container  >
-                    <Grid item xs={5} style={{ textAlign: 'center', margin: '0 auto' }} >
-                        <Typography variant='h4' > Shopping List</Typography>
-                        <img src={BusinessPic} style={{ padding: '15px 0' }} />
-                        <Typography variant='h5' > {clickedBusiness.name} </Typography>
-                    </Grid>
                 </Grid>
-                <Grid container style={{ padding: '20px 0' }} >
-                    <Grid item xs={12} >
-                        <Typography variant='h5' className={classes.boldFont} > Take a detour within the store by browsing through the aisles, just like you’d do in a physical store </Typography>
-                    </Grid>
+            <Grid container  >
+                <Grid item xs={5} style={{ textAlign: 'center', margin: '0 auto' }} >
+                    <Typography variant='h4' > Shopping List</Typography>
+                    <img src={BusinessPic} style={{ padding: '15px 0' }} />
+                    <Typography variant='h5' > {clickedBusiness.name} </Typography>
                 </Grid>
-                <Grid container spacing={3} >
-                    {categories?.map(data => {
-                        return (
-                            <Grid item xs={2} key={data.id} >
-                                <Button key={data.id} className={classes.aisleButton} onClick={handleRedirect} > {data.category} </Button>
-                            </Grid>
-                        )
-                    })}
+            </Grid>
+            <Grid container style={{ padding: '20px 0' }} >
+                <Grid item xs={12} >
+                    <Typography variant='h5' className={classes.boldFont} > Take a detour within the store by browsing through the aisles, just like you’d do in a physical store </Typography>
                 </Grid>
-                <Grid container  >
-                    <Grid item xs={2} style={{ margin: '20px auto' }} >
-                        <Button color="primary" onClick={handleRedirect} > Show more </Button>
-                    </Grid>
-                </Grid>
-                <Grid container style={{ padding: '20px 0' }} >
-                    <Grid item xs={12} >
-                        <Typography variant='h5' className={classes.boldFont} > Search for what you want and add it just like you’d do with a regular list </Typography>
-                    </Grid>
-                </Grid>
-                <Grid container style={{ padding: '20px 0' }} >
-                    <Grid item xs={12} >
-                        <TextField onChange={onSearch} type='search' fullWidth variant="outlined" placeholder='Search for what you want and add it just like you’d do with a regular list' />
-                    </Grid>
-                </Grid>
-                <Grid container style={{ padding: '20px 0' }} >
-                    <Grid item xs={12} >
-                        {countProducts === 0 ? (
-                            <Typography > This store has no products,please select <Link href="/shopping" variant="body1"> another store </Link></Typography>
-                        ) : null}
-                    </Grid>
-                </Grid>
-                <>
-                    {products.map(product => {
-                        return productSearch(product)
-                    })}
-                </>
-                {productsInBasket?.length !== 0 ? (
-                    <Grid container  >
-                        <Grid item xs={3} style={{ margin: '10px auto' }} >
-                            <Button className={classes.getStartedButton} onClick={handleOrderDetailsDisplay} > Order now </Button>
+            </Grid>
+            <Grid container spacing={3} >
+                {categories?.map(data => {
+                    return (
+                        <Grid item xs={2} key={data.id} >
+                            <Button key={data.id} className={classes.aisleButton} onClick={handleRedirect} > {data.category} </Button>
                         </Grid>
+                    )
+                })}
+            </Grid>
+            <Grid container  >
+                <Grid item xs={2} style={{ margin: '20px auto' }} >
+                    <Button color="primary" onClick={handleRedirect} > Show more </Button>
+                </Grid>
+            </Grid>
+            <Grid container style={{ padding: '20px 0' }} >
+                <Grid item xs={12} >
+                    <Typography variant='h5' className={classes.boldFont} > Search for what you want and add it just like you’d do with a regular list </Typography>
+                </Grid>
+            </Grid>
+            <Grid container style={{ padding: '20px 0' }} >
+                <Grid item xs={12} >
+                    <TextField onChange={onSearch} type='search' fullWidth variant="outlined" placeholder='Search for what you want and add it just like you’d do with a regular list' />
+                </Grid>
+            </Grid>
+            <Grid container style={{ padding: '20px 0' }} >
+                <Grid item xs={12} >
+                    {countProducts === 0 ? (
+                        <Typography > This store has no products,please select <Link href="/shopping" variant="body1"> another store </Link></Typography>
+                    ) : null}
+                </Grid>
+            </Grid>
+            <>
+                {products.map(product => {
+                    return productSearch(product)
+                })}
+            </>
+            {productsInBasket?.length !== 0 ? (
+                <Grid container  >
+                    <Grid item xs={3} style={{ margin: '10px auto' }} >
+                        <Button className={classes.getStartedButton} onClick={handleOrderDetailsDisplay} > Order now </Button>
                     </Grid>
-                ) : null}
+                </Grid>
+            ) : null}
 
-            </div>
         </div>
+        </div >
         // <MainDiv>
         //     <MainGrid>
         //         <Grid.Row >
