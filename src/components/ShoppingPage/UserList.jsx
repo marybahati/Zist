@@ -11,6 +11,7 @@ import Drawer from '@material-ui/core/Drawer';
 import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import PropTypes from 'prop-types';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,26 +75,26 @@ const UserList = (props) => {
     const cookie = new Cookies()
     const classes = useStyles()
     const clickedBusiness = (props.location && props.location.state) || '';
-    console.log(props.location && props.location.state, clickedBusiness)
     const businessId = clickedBusiness?.id
     const storedItems = cookies.get('cart')
-    const [cart, setCart] = useState([])
     const [showQty, setShowQty] = useState([])
     const [products, setProducts] = useState([])
     const [categories, setCategories] = useState([])
     const [searchText, setSearchText] = useState('')
     const [countProducts, setCountProducts] = useState()
-    const productsInBasket = []
-    if (storedItems) {
-        productsInBasket.push(...storedItems, ...cart)
-    } else {
-        productsInBasket.push(...cart)
-    }
-    console.log(productsInBasket)
+    const [productsInBasket, setProductsInBasket] = useState()
+    useEffect( () => {
+        if(storedItems){
+            setProductsInBasket(storedItems)
+        }else {
+            setProductsInBasket([])
+        }
+    },[])
+    // console.log(typeof productsInBasket)
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (status) => (event) => {
-        // event.preventDefault()
+        event.preventDefault()
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
@@ -108,10 +109,10 @@ const UserList = (props) => {
             onKeyDown={toggleDrawer(false)}
             style={{ width: '50% !important', padding: '20px !important' }}
         >
-            {productsInBasket.length !== 0 ? (
+            {productsInBasket?.length !== 0 ? (
                 productsInBasket?.map((product, index) => {
                     return (
-                        <Grid key={index} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
+                        <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
                             <Grid container item xs={12} />
                             <Grid container item xs={2}>
                                 <Grid item xs={12} >
@@ -119,22 +120,22 @@ const UserList = (props) => {
                                 </Grid>
                             </Grid>
                             <Grid item xs={3} >
-                                <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important'}}>{product.productName} </Typography>
+                                <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.productName} </Typography>
                             </Grid >
                             <Grid item xs={2} style={{ textAlign: 'center', }} >
                                 <Button onClick={e => {
-                                    if (product.quantity === 1) {
-                                        changeQuantity(e, index, 0)
+                                    if (getProductQty(product.id) === 1) {
+                                        changeQuantityToggle(e, product.id, 0)
                                     } else {
-                                        changeQuantity(e, index, -1)
+                                        changeQuantityToggle(e, product.id, -1)
                                     }
                                 }} className={classes.drawerToggleQtyButtons} > - </Button>
                             </Grid>
                             <Grid item xs={1} style={{ margin: 'auto 0 !important', textAlign: 'center', fontSize: 20 }}>
-                                <Typography gutterBottom variant="subtitle1"> {product.quantity} </Typography>
+                                <Typography gutterBottom variant="subtitle1"> {getProductQty(product.id)}  </Typography>
                             </Grid>
                             <Grid item xs={2} style={{ margin: '0 auto !important', fontSize: 20, textAlign: 'center', }}>
-                                <Button onClick={e => changeQuantity(e, index, 1)} className={classes.drawerToggleQtyButtons}> + </Button>
+                                <Button onClick={e => changeQuantityToggle(e, product.id, 1)} className={classes.drawerToggleQtyButtons}> + </Button>
                             </Grid>
                             <Grid item xs={2} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
                                 <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
@@ -149,10 +150,20 @@ const UserList = (props) => {
 
 
     const handleAddProduct = (e, productName, productPrice, quantity, id,) => {
-        const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
-        console.log(d)
-        setCart([...cart, d])
-        setShowQty([...showQty, id])
+        const checkIndex = productsInBasket?.findIndex(product => product.id === id);
+        if (checkIndex !== -1) {
+            productsInBasket[checkIndex].quantity++;
+            cookie.set('cart', productsInBasket, { path: '/' })
+            setShowQty([...showQty, id])
+            // console.log("Quantity updated:", productsInBasket);
+        } else {
+            const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
+            const aa = [...productsInBasket, d]
+            setProductsInBasket(aa)
+            setShowQty([...showQty, id])
+            cookie.set('cart', aa, { path: '/' })
+            // console.log('The product has been added to cart:', productsInBasket);
+        }
     }
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
@@ -163,36 +174,35 @@ const UserList = (props) => {
     }
     const deleteProduct = (e, index) => {
         e.preventDefault()
-        const obj = cart[index]
-        cart.splice(obj, 1)
-        setCart([...cart])
-        console.log(cart, obj)
+        const obj = productsInBasket[index]
+        productsInBasket.splice(obj, 1)
+        setProductsInBasket([...productsInBasket])
+        // console.log(productsInBasket, obj)
     }
     const changeQuantityToggle = (e, product_id, val) => {
         e.preventDefault()
-        const curIndx = cart.findIndex(product => product_id === product.id)
+        const curIndx = productsInBasket?.findIndex(product => product_id === product.id)
         if (curIndx === -1) return
 
-        const curObj = cart[curIndx]
+        const curObj = productsInBasket[curIndx]
         curObj['quantity'] += val
-        cart[curIndx] = curObj
-        setCart([...cart])
+        productsInBasket[curIndx] = curObj
+        setProductsInBasket([...productsInBasket])
+        cookie.set('cart', productsInBasket, { path: '/' })
     }
     const getProductQty = (product_id) => {
-        const product = cart.find(prd => prd.id === product_id)
-        console.log(product)
+        const product = productsInBasket?.find(prd => prd.id === product_id)
         return product?.quantity
     }
     const CalculateProductPrice = (product_id, product_price) => {
-        const product = cart.find(prd => prd.id === product_id)
+        const product = productsInBasket?.find(prd => prd.id === product_id)
         const price = product ? product.productPrice * product.quantity : product_price
         return price
-        console.log(price, product)
     }
     const handleOrderDetailsDisplay = () => {
         history.push({
             pathname: '/order-details',
-            state: { productsInBasket, clickedBusiness }
+            state: { clickedBusiness }
         })
     }
 
@@ -222,7 +232,6 @@ const UserList = (props) => {
 
     const onSearch = (e) => {
         setSearchText(e.target.value)
-        console.log(searchText)
     }
 
     const productSearch = (product) => {
@@ -322,7 +331,7 @@ const UserList = (props) => {
                 console.log(error)
             })
     }, [])
-    console.log(categories)
+    // console.log(categories)
     return (
         <div className={classes.mainDiv} >
             <div className={classes.mainGrid} >
@@ -334,7 +343,7 @@ const UserList = (props) => {
                                 <Toolbar>
                                     <Button color="inherit" onClick={toggleDrawer(true)} >
                                         <ShoppingCartIcon fontSize='large' />
-                                        <div className={classes.cartCount}> {productsInBasket.length} </div>
+                                        <div className={classes.cartCount}> {productsInBasket?.length} </div>
                                     </Button>
                                 </Toolbar>
                             </AppBar>
@@ -392,13 +401,13 @@ const UserList = (props) => {
                         return productSearch(product)
                     })}
                 </>
-                {productsInBasket.length !== 0 ? (
+                {productsInBasket?.length !== 0 ? (
                     <Grid container  >
                         <Grid item xs={3} style={{ margin: '10px auto' }} >
                             <Button className={classes.getStartedButton} onClick={handleOrderDetailsDisplay} > Order now </Button>
                         </Grid>
                     </Grid>
-                ) : null }
+                ) : null}
 
             </div>
         </div>
@@ -451,4 +460,5 @@ const UserList = (props) => {
         // </MainDiv>
     )
 }
+
 export default withCookies(UserList)

@@ -108,12 +108,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Aisles = (props) => {
     const classes = useStyles()
+    const { cookies } = props
     const [products, setProducts] = useState([])
-    const [cart, setCart] = useState([])
-    const [show, setShow] = useState([])
+    const storedItems = cookies.get('cart')
+    const [showQty, setShowQty] = useState([])
+    const [productsInBasket, setProductsInBasket] = useState(storedItems)
     const [countProducts, setCountProducts] = useState()
     const [categories, setCategories] = useState([])
-    const { cookies } = props
     const userData = cookies.get('login-res')
     const token = userData?.access
     const clickedBusiness = (props.location && props.location.state) || '';
@@ -136,44 +137,47 @@ const Aisles = (props) => {
     }, [])
     console.log(categories)
 
-    const handleAddItemsToCart = () => {
-        cookie.set('cart', cart, { path: '/' })
-        history.push({
-            pathname: '/user-list',
-            state: clickedBusiness
-        })
-    }
 
     const handleAddProduct = (name, price, quantity, id) => {
-        const d = { productName: name, productPrice: price, quantity: quantity, id: id }
-        setCart(prev => [...prev, d])
-        console.log(cart, d)
-        setShow([...show, id])
+        const checkIndex = productsInBasket.findIndex(product => product.id === id);
+        if (checkIndex !== -1) {
+            productsInBasket[checkIndex].quantity++;
+            cookie.set('cart', productsInBasket, { path: '/' })
+            setShowQty([...showQty, id])
+            console.log("Quantity updated:", productsInBasket);
+        } else {
+            const d = { productName: name, productPrice: price, quantity: quantity, id: id }
+            const aa = [...productsInBasket, d]
+            setProductsInBasket(aa)
+            setShowQty([...showQty, id])
+            cookie.set('cart', aa, { path: '/' })
+            console.log('The product has been added to cart:', productsInBasket);
+        }
     }
     const changeQuantity = (e, product_id, val) => {
         e.preventDefault()
-        const curIndx = cart.findIndex(product => product_id === product.id)
+        const curIndx = productsInBasket.findIndex(product => product_id === product.id)
         if (curIndx === -1) return
 
-        const curObj = cart[curIndx]
+        const curObj = productsInBasket[curIndx]
         curObj['quantity'] += val
-        cart[curIndx] = curObj
-        setCart([...cart])
+        productsInBasket[curIndx] = curObj
+        setProductsInBasket([...productsInBasket])
     }
-    console.log(cart)
+    console.log(productsInBasket)
     const getProductQty = (product_id) => {
-        const product = cart.find(prd => prd.id === product_id)
+        const product = productsInBasket.find(prd => prd.id === product_id)
         return product?.quantity
     }
     const CalculateProductPrice = (product_id, product_price) => {
-        const product = cart.find(prd => prd.id === product_id)
+        const product = productsInBasket.find(prd => prd.id === product_id)
         const price = product ? product.productPrice * product.quantity : product_price
         return price
     }
     const handleGoingBackToList = () => {
         history.push({
             pathname: '/user-list',
-            state: cart
+            state: clickedBusiness
         })
     }
 
@@ -201,7 +205,7 @@ const Aisles = (props) => {
                     <img src={blueberries} />
                 </Grid>
                 <Grid item xs={1} />
-                {!show.includes(product.id) ? (
+                {!showQty.includes(product.id) ? (
                     <Grid item xs={7} style={{ margin: 'auto 0' }} >
                         <Grid container spacing={3} >
                             <Grid item xs={5} >
@@ -273,10 +277,10 @@ const Aisles = (props) => {
                 </Grid>
 
                 {suggestedProducts}
-                {cart.length !== 0 ? (
+                {productsInBasket?.length !== 0 ? (
                     <Grid container  >
                         <Grid item xs={3} style={{ margin: '10px auto' }} >
-                            <Button className={classes.getStartedButton} onClick={handleAddItemsToCart} > Add to cart </Button>
+                            <Button className={classes.getStartedButton} onClick={handleGoingBackToList} > Go back </Button>
                         </Grid>
                     </Grid>
                 ) : null}

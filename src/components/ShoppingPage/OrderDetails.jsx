@@ -9,6 +9,7 @@ import { Checkbox } from 'semantic-ui-react'
 import store from './../../Assets/store.png';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link } from "@material-ui/core";
+import { withCookies } from 'react-cookie';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -127,9 +128,12 @@ const useStyles = makeStyles((theme) => ({
 
 const OrderDetails = (props) => {
     const classes = useStyles()
+    const { cookies } = props
+    const storedItems = cookies.get('cart')
     const info = (props.location && props.location.state) || '';
-    const [cart, setCart] = useState(info.productsInBasket)
+    const [cart, setCart] = useState(storedItems)
     const [n, setN] = useState([])
+    console.log(cart)
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
         const curObj = cart[index]
@@ -172,46 +176,47 @@ const OrderDetails = (props) => {
                         <Typography variant='h5' > {info.clickedBusiness.name} </Typography>
                     </Grid>
                 </Grid>
-                {info.productsInBasket?.map((product, index) => {
+                {cart?.map((product, index) => {
                     return (
-                        <Grid container item xs={12} spacing={3} style={{ paddingBottom: 15 }} >
-                        <Grid item xs={3} >
-                            <img src={strawberries} />
-                        </Grid>
-                        <Grid item xs={1} />
-                <Grid item xs={7} style={{ margin: 'auto 0' }}>
-                    <Grid container spacing={3} >
-                        <Grid item xs={5} >
-                            <Typography variant='h5'>   {product.productName} </Typography>
-                            <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
-                        </Grid>
-                        <Grid item xs={1} />
-                        <Grid container item xs={5} style={{ textAlign: 'center' }} >
+                        <Grid key={product.id} container item xs={12} spacing={3} style={{ paddingBottom: 15 }} >
                             <Grid item xs={3} >
-                                <Button
-                                    style={{ fontSize: '20px' }}
-                                    onClick={e => {
-                                        if (getProductQty(product.id) === 1) {
-                                            changeQuantity(e, index, 1)
-                                        } else {
-                                            changeQuantity(e, index, 1)
-                                        }
-                                    }}
-                                > - </Button>
+                                <img src={strawberries} />
                             </Grid>
-                            <Grid item xs={6} >
-                                <Typography variant='h6'>  {getProductQty(product.id)}  </Typography>
-                            </Grid>
-                            <Grid item xs={3} >
-                                <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, index, 1)} > + </Button>
-                            </Grid>
-                        </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={7} style={{ margin: 'auto 0' }}>
+                                <Grid container spacing={3} >
+                                    <Grid item xs={5} >
+                                        <Typography variant='h5'>   {product.productName} </Typography>
+                                        <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
+                                    </Grid>
+                                    <Grid item xs={1} />
+                                    <Grid container item xs={5} style={{ textAlign: 'center' }} >
+                                        <Grid item xs={3} >
+                                            <Button
+                                                style={{ fontSize: '20px' }}
+                                                onClick={e => {
+                                                    if (getProductQty(product.id) === 1) {
+                                                        changeQuantity(e, index, 1)
+                                                    } else {
+                                                        changeQuantity(e, index, 1)
+                                                    }
+                                                }}
+                                            > - </Button>
+                                        </Grid>
+                                        <Grid item xs={6} >
+                                            <Typography variant='h6'>  {getProductQty(product.id)}  </Typography>
+                                        </Grid>
+                                        <Grid item xs={3} >
+                                            <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, index, 1)} > + </Button>
+                                        </Grid>
+                                    </Grid>
 
-                    </Grid>
-                </Grid>
-                </Grid>
-                    )}
-                    )}
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    )
+                }
+                )}
             </div>
         </div>
         // <MainDiv>
@@ -324,4 +329,4 @@ const OrderDetails = (props) => {
         // </MainDiv>
     )
 }
-export default OrderDetails
+export default withCookies(OrderDetails)

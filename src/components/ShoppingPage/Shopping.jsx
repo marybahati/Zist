@@ -14,6 +14,7 @@ import { HOST_API } from '../../endpoints';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./multicarousel.css";
+import { RatedStars } from './Ratings';
 import Skeleton from '@material-ui/lab/Skeleton';
 import SearchComponent from './AutoComplete';
 import { makeStyles } from '@material-ui/core/styles';
@@ -104,12 +105,12 @@ const Shopping = (props) => {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.title}
+              {props.title}  <RatedStars rating={5} />
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               {props.description}
             </Typography>
-
+           
           </CardContent>
         </CardActionArea>
       </Card>
