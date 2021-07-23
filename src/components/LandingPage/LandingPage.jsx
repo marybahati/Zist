@@ -7,7 +7,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import coffeShop from "./../../Assets/coffeShop.png";
-import heroImg from "./../../Assets/L-P.jpeg"
+import heroImg from "./../../Assets/landingPG.png"
 import step1 from "./../../Assets/step1.png";
 import step2 from "./../../Assets/step2.png";
 import step3 from "./../../Assets/step3.png";
