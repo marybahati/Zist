@@ -21,7 +21,7 @@ import { SignupButtonSection } from "./SignupButtonSection";
 import { LoginButtonSection } from "./LoginButtonSection";
 import { withCookies, Cookies } from 'react-cookie';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Navbar from './../Navbar/Navbar'
 const useStyles = makeStyles((theme) => ({
   rootDiv: {
     position: 'absolute',
@@ -32,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
     background: '#F9F7F1',
   },
   mainGrid: {
-    padding: '10px 0 0 0 !important',
+    padding: '0 0 0 0 !important',
     width: '100% !important',
-    height: '600px',
-    background: `url(${heroImg})`,
+    height: '430px',
+    background: '#F9F7F1',
     backgroundSize: 'cover',
     backgroundRepeat: ' no-repeat',
     backgroundPosition: 'center',
@@ -139,7 +139,8 @@ const LandingPage = (props) => {
       <Grid className={classes.mainGrid} >
         {token === undefined || token === '' ? (
           <Grid container  >
-            <Grid item xs={9} />
+            <Navbar/>
+            {/* <Grid item xs={9} />
             <Grid item xs={1} style={{ textAlign: 'center' }}>
               <SignupButtonSection />
             </Grid>
@@ -148,7 +149,7 @@ const LandingPage = (props) => {
             </Grid>
             <Grid item xs={1} style={{ textAlign: 'center' }}>
               <ShoppingCartIcon fontSize='large' />
-            </Grid>
+            </Grid> */}
           </Grid>
 
         ) : (
