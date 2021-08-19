@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-// import { Grid, Image, Button, Icon, List, Form, TextArea } from "semantic-ui-react";
-import styled from 'styled-components';
 import bananas from './../../Assets/bananas.png';
 import strawberries from './../../Assets/strawberries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
 import Collapsible from 'react-collapsible';
-import { Checkbox } from 'semantic-ui-react'
 import store from './../../Assets/store.png';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link } from "@material-ui/core";
 import { withCookies } from 'react-cookie';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import LocationOn from '@material-ui/icons/LocationOn';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -40,91 +42,13 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '24px !important',
         opacity: 1,
         height: '70px !important',
-        width: '100%',
+        width: '200px',
         fontSize: '26px !important',
         color: '#050504 !important',
-        margin: '50px 0 !important',
+        margin: '50px auto !important',
+        textTransform: 'none',
     },
 }))
-
-// const MainDiv = styled.div`
-//     background: #F9F7F1 0% 0% no-repeat padding-box;
-//     opacity: 1;
-//     padding: 50px 0 !important;
-// `;
-// const MainGrid = styled(Grid)`
-//     width: 80%;
-//     margin: 0 auto 100px auto !important;
-// `;
-// const DropdownButtons = styled(Button)`
-//     background: #F9F7F1 !important;
-//     border: 0 ;
-//     box-shadow: 0px !important;
-//     font-size: 22px !important;
-//     padding: 0 !important;
-//     color: black !important;
-// `;
-// const Columns = styled(Grid.Column)`
-//      padding: ${props => props.spaced ? '30px 0 0 0 !important' : '10px 0 0 0 !important'};
-//      margin: auto 0 0 0 !important;
-// `;
-// const Rows = styled(Grid.Row)`
-//      padding:  0 !important;
-//      margin: 0 !important;
-// `;
-// const EditLink = styled(List.Item)`
-//      color: #FFBD59 !important;
-//      font-size: 23px !important;
-// `;
-// const ProductName = styled(Grid.Column)`
-//    margin: auto 0 auto 15px !important;
-//    text-align: ${props => props.center ? 'center !important' : 'left !important'};
-// `;
-// const ProductImages = styled(Image)`
-//    width: 80% !important;
-//    margin: 0 auto 0 0 !important;
-// `;
-// const ProductRows = styled(Grid.Row)`
-//    margin : ${props => props.spaced ? "0 0 20px 0 !important" : " 20px 0 40px 0 !important "};
-//    padding: 0 !important;
-// `;
-// const ItemsColumn = styled(Grid.Column)`
-//    margin: auto 0 !important;
-// `;
-// const OrderNowColumn = styled(Grid.Column)`
-//    width: 35% !important;
-//    margin: 0 auto !important;
-// `;
-// const OrderNowButton = styled(Button)`
-//    width: 100% !important;
-//    background: #FFBD59 0% 0% no-repeat padding-box !important;
-//    border: 2px solid #FEE2D4 !important;
-//    border-radius: 24px !important;
-//    opacity: 1;
-//    color: black !important;
-//    height: 70px !important;
-//    font-size: 22px !important;
-// `;
-// const IntroColumn = styled(Grid.Column)`
-//     width: 60% !important;
-//     margin: 0 auto !important;
-//     text-align: center  !important;
-// `;
-// const UserName = styled.h2`
-//     text-decoration: underline !important;
-//     padding: 0 0 15px 0 !important;
-// `;
-// const BusinessImage = styled(Image)`
-//     margin: 0 auto !important;
-// `;
-// const ButtonCounters = styled(Button)`
-//    background: inherit !important;
-//    font-size : ${props => props.linkbutton ? "20px !important" : " 40px !important "};
-//    padding : 0 !important;
-//    color :  ${props => props.orange ? "orange !important" : " black !important"};
-// //    margin: 0 8px !important;
-//    text-align: center !important;
-// `;
 
 const OrderDetails = (props) => {
     const classes = useStyles()
@@ -133,6 +57,7 @@ const OrderDetails = (props) => {
     const info = (props.location && props.location.state) || '';
     const [cart, setCart] = useState(storedItems)
     const [n, setN] = useState([])
+    const [proceed, setProceed] = useState(false)
     console.log(cart)
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
@@ -170,45 +95,48 @@ const OrderDetails = (props) => {
         <div>
             <div className={classes.mainGrid}>
                 <Grid container style={{ padding: '20px 0 0 0' }} >
-                    <Grid item xs={5} style={{ textAlign: 'center', margin: '0 auto' }} >
-                        <Typography variant='h4' > Order details </Typography>
-                        <img src={BusinessPic} style={{ padding: '15px 0' }} />
+                    <Grid item xs={12} style={{ textAlign: 'center', margin: '0 auto' }} >
+                        {/* <Typography variant='h4' > Order details </Typography> */}
+                        {/* <img src={BusinessPic} style={{ padding: '15px 0' }} /> */}
                         <Typography variant='h5' > {info.clickedBusiness.name} </Typography>
+                        <Typography variant='h5' > Your List </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container style={{ padding: '20px 0 20px 0' }} >
+                    <Grid item xs={5} >
+                        <Typography variant='h6' > Products </Typography>
                     </Grid>
                 </Grid>
                 {cart?.map((product, index) => {
                     return (
                         <Grid key={product.id} container item xs={12} spacing={3} style={{ paddingBottom: 15 }} >
+                            <Grid container item xs={1}>
+                                <Grid item xs={12} >
+                                    <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
+                                </Grid>
+                            </Grid>
                             <Grid item xs={3} >
                                 <img src={strawberries} />
                             </Grid>
-                            <Grid item xs={1} />
+                            {/* <Grid item xs={1} /> */}
                             <Grid item xs={7} style={{ margin: 'auto 0' }}>
                                 <Grid container spacing={3} >
-                                    <Grid item xs={5} >
+                                    <Grid item xs={6} >
                                         <Typography variant='h5'>   {product.productName} </Typography>
-                                        <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
+                                        <Typography variant='body1' style={{ paddingBottom: 10 }}> Item order instructions </Typography>
+                                        <TextField fullWidth placeholder="Specify every item to your liking" variant="outlined" />
                                     </Grid>
                                     <Grid item xs={1} />
-                                    <Grid container item xs={5} style={{ textAlign: 'center' }} >
-                                        <Grid item xs={3} >
-                                            <Button
-                                                style={{ fontSize: '20px' }}
-                                                onClick={e => {
-                                                    if (getProductQty(product.id) === 1) {
-                                                        changeQuantity(e, index, 1)
-                                                    } else {
-                                                        changeQuantity(e, index, 1)
-                                                    }
-                                                }}
-                                            > - </Button>
-                                        </Grid>
-                                        <Grid item xs={6} >
-                                            <Typography variant='h6'>  {getProductQty(product.id)}  </Typography>
-                                        </Grid>
-                                        <Grid item xs={3} >
-                                            <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, index, 1)} > + </Button>
-                                        </Grid>
+                                    <Grid item xs={3} >
+                                        <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
+                                    </Grid>
+                                    <Grid item xs={2} >
+                                        <Button
+                                            style={{ fontSize: '20px' }}
+                                        //  onClick={e => deleteProduct(e,product.id)}
+                                        >
+                                            <DeleteIcon />
+                                        </Button>
                                     </Grid>
 
                                 </Grid>
@@ -217,116 +145,113 @@ const OrderDetails = (props) => {
                     )
                 }
                 )}
+                { proceed ? (
+                    <>
+                        <Grid container >
+                            <Grid item xs={10} style={{ paddingBottom: 20 }} >
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Delivery Notes </Typography>
+                                <TextField
+                                    fullWidth
+                                    placeholder="Add an extra note for your Zister if any"
+                                    variant="outlined"
+                                />
+                            </Grid>
+                            <Grid item xs={10} style={{ paddingBottom: 20 }}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Location </Typography>
+                                <TextField
+                                    fullWidth
+                                    placeholder="Westlands, Chiromo Rd."
+                                    variant="outlined"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <LocationOn />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={10} style={{ paddingBottom: 20 }}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Add Promo code </Typography>
+                                <TextField
+                                    fullWidth
+                                    placeholder="Add promo code"
+                                    variant="outlined"
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <LocalOfferIcon />
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={3} />
+                            <Grid item xs={3}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Sub total </Typography>
+                            </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={3}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Ksh.720 </Typography>
+                            </Grid>
+                            <Grid item xs={2} />
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={3} />
+                            <Grid item xs={3}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Delivery fee </Typography>
+                            </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={3}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. 200 </Typography>
+                            </Grid>
+                            <Grid item xs={2} />
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={3} />
+                            <Grid item xs={3}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Total </Typography>
+                            </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={3}>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. 920 </Typography>
+                            </Grid>
+                            <Grid item xs={2} />
+                        </Grid>
+                        <Grid container >
+                            <Grid item xs={2} style={{ margin: '0 auto' }} >
+                                <Button
+                                    className={classes.getStartedButton}
+                                //  onClick={e => deleteProduct(e,product.id)}
+                                >
+                                    Complete
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </>
+                ) : (
+                    <>
+                        <Grid spacing={3} item xs={8} style={{ margin: '0 auto' }} >
+                            <Grid container >
+                                <Grid item xs={4} />
+                                <Grid item xs={2} >
+                                    <Typography variant='h6'>  Total </Typography>
+                                </Grid>
+                                <Grid item xs={3} />
+                                <Grid item xs={3} >
+                                    <Typography variant='h6'> Ksh.720 </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={2} style={{ margin: '0 auto' }} >
+                            <Button className={classes.getStartedButton} onClick={ e => setProceed(true)}> Proceed </Button>
+                        </Grid>
+                    </>
+                )}
             </div>
         </div>
-        // <MainDiv>
-        //     <MainGrid>
-
-        //         {info.productsInBasket?.map((res, index) => {
-        //             return (
-        //                 <ProductRows>
-        //                     <Grid.Column width={4}>
-        //                         <ProductImages src={strawberries} />
-        //                     </Grid.Column>
-        //                     <ProductName width={6} >
-        //                         <h3> {res.productName} </h3>
-        //                         <List link>
-        //                             <List.Item as='a' href='' style={{ fontSize: 20, color: 'black' }} >See product images</List.Item>
-        //                         </List>
-        //                         <h3> Item order instructions </h3>
-        //                         <Form.Input
-        //                             required
-        //                             placeholder='Add in the product instructions'
-        //                             name='name'
-        //                             style={{ width: '100%' }}
-        //                         // onChange={e => setCategory(e.target.value)}
-        //                         />
-        //                     </ProductName>
-        //                     <Grid.Column width={3}>
-        //                         <Grid>
-        //                             <Grid.Row>
-        //                                 <ItemsColumn width={5}>
-        //                                     <ButtonCounters onClick={e => {
-        //                                         if (res.quantity === 1) {
-        //                                             changeQuantity(e, index, 0)
-        //                                         } else {
-        //                                             changeQuantity(e, index, -1)
-        //                                         }
-        //                                     }} > - </ButtonCounters>
-        //                                 </ItemsColumn>
-        //                                 <ItemsColumn width={6}>
-        //                                     <h2> {res.quantity} </h2>
-        //                                 </ItemsColumn>
-        //                                 <ItemsColumn width={5}>
-        //                                     <ButtonCounters onClick={e => changeQuantity(e, index, 1)} > + </ButtonCounters>
-        //                                 </ItemsColumn>
-        //                             </Grid.Row>
-        //                         </Grid>
-        //                     </Grid.Column>
-        //                     <Grid.Column width={2}>
-        //                         <h3> Kshs.{res.productPrice} </h3>
-        //                         <ButtonCounters orange linkbutton onClick={deleteProduct}> Remove </ButtonCounters>
-        //                     </Grid.Column>
-        //                 </ProductRows>
-        //             )
-        //         })}
-
-        //         <ProductRows>
-        //             <Grid.Column width={8}>
-        //             </Grid.Column>
-        //             <ProductName center width={3} >
-        //                 <h2> Delivery fee </h2>
-        //                 <h2> Service Fee </h2>
-        //                 <h2> Total </h2>
-        //             </ProductName>
-        //             <ProductName center width={4}>
-        //                 <h2> Kshs. 200 </h2>
-        //                 <h2> Kshs. 100 </h2>
-        //                 <h2> Kshs. 2460 </h2>
-        //             </ProductName>
-        //         </ProductRows>
-        //         <ProductRows>
-        //             <Grid.Column>
-        //                 <h2> Delivery Notes </h2>
-        //                 <Form>
-        //                     <TextArea placeholder='Please include specifics if you have any' style={{ width: '80%' }} />
-        //                 </Form>
-        //             </Grid.Column>
-        //         </ProductRows>
-        //         <ProductRows>
-        //             <Grid.Column>
-        //                 <List as='a' href='' style={{ fontSize: 25, color: 'black' }} > Address & Contact Details </List>
-        //             </Grid.Column>
-        //         </ProductRows>
-        //         <ProductRows>
-        //             <Grid.Column>
-        //                 <List as='a' href='/payment-details' style={{ fontSize: 25, color: 'black' }} > Payment Details </List>
-        //             </Grid.Column>
-        //         </ProductRows>
-        //         <ProductRows>
-        //             <Grid.Column>
-        //                 <h2> Add Promo Code </h2>
-        //                 <Form size='massive'>
-        //                     <Form.Field
-        //                     style={{width:'50%'}}
-        //                         control='input'
-        //                     />
-        //                 </Form>
-        //             </Grid.Column>
-        //         </ProductRows>
-        //         <ProductRows>
-        //             <Grid.Column>
-        //                 <UserName> Delivery Announcement </UserName>
-        //                     <h2> Your items are picked & handled with the highest degree of hygiene. </h2>
-        //             </Grid.Column>
-        //         </ProductRows>
-        //         <Grid.Row>
-        //             <OrderNowColumn>
-        //                 <OrderNowButton > COMPLETE </OrderNowButton>
-        //             </OrderNowColumn>
-        //         </Grid.Row>
-        //     </MainGrid>
-        // </MainDiv>
-    )
+            )
 }
-export default withCookies(OrderDetails)
+            export default withCookies(OrderDetails)

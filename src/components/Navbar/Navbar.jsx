@@ -22,6 +22,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText'
 import CloseIcon from '@material-ui/icons/Close';
 import { Grid } from "@material-ui/core";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { withCookies } from 'react-cookie';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -82,13 +84,19 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function PrimarySearchAppBar() {
+function PrimaryAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState()
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const { cookies } = props
+    const userData = cookies.get('login-res')
+    const token = userData?.access
+    const names = cookies.get('name')
+    const splitName = names?.split(' ')
+    const name = splitName !== undefined ? splitName[0] : null
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -123,12 +131,12 @@ export default function PrimarySearchAppBar() {
         >
             <List>
                 <ListItem button key='check'>
-                    <ListItemText primary='try' />
+                    <ListItemText primary='Navigation' />
                 </ListItem>
             </List>
             <Divider />
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                {['Become a vendor', 'Articles', 'Logout'].map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -211,18 +219,26 @@ export default function PrimarySearchAppBar() {
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <SignupButtonSection />
-                        <LoginButtonSection />
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        {token === undefined || token === '' ? (
+                            <>
+                                <SignupButtonSection />
+                                <LoginButtonSection />
+                                <ShoppingCartIcon fontSize='large' />
+                            </>
+                        ) : (
+                            <>
+          
+                                <Typography variant='h6' style={{padding: '0 30px'}} > help </Typography>
+                                {name == undefined || name == '' ? (
+                                    <Typography variant='h6' style={{padding: '0 30px'}} >update profile </Typography>
+                                ) : (
+                                    <Typography variant='h6' style={{padding: '0 30px'}}> {name} </Typography>
+
+                                )}
+                                <ShoppingCartIcon fontSize='large' />
+                            </>
+                        )}
+
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -232,7 +248,7 @@ export default function PrimarySearchAppBar() {
                             onClick={handleMobileMenuOpen}
                             color="inherit"
                         >
-                            <MoreIcon />
+                            {/* <MoreIcon /> */}
                         </IconButton>
                     </div>
                 </Toolbar>
@@ -242,3 +258,4 @@ export default function PrimarySearchAppBar() {
         </div>
     );
 }
+export default withCookies(PrimaryAppBar)

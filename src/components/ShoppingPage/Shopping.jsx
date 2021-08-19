@@ -18,15 +18,17 @@ import { RatedStars } from './Ratings';
 import Skeleton from '@material-ui/lab/Skeleton';
 import SearchComponent from './AutoComplete';
 import { makeStyles } from '@material-ui/core/styles';
+import Navbar from './../Navbar/Navbar'
 
 const useStyles = makeStyles((theme) => ({
   navbarGrid: {
     textAlign: 'right',
-    backgroundImage: `url(${bgImage})`,
+    // backgroundImage: `url(${bgImage})`,
+    background: '#F9F7F1',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: 650,
+    height: 430,
     width: '100% !important'
   },
   textfields: {
@@ -193,9 +195,9 @@ const Shopping = (props) => {
   return (
     <div >
       <Grid className={classes.navbarGrid}>
-
-        {token === undefined || token === '' ? (
-          <Grid container style={{paddingTop:30}} >
+      <Navbar/>
+        {/* {token === undefined || token === '' ? (
+          <Grid container >
             <Grid item xs={9} />
             <Grid item xs={1} style={{ textAlign: 'center' }}>
               <SignupButtonSection />
@@ -226,7 +228,7 @@ const Shopping = (props) => {
               </Grid>
             </Grid>
           </Grid>
-        )}
+        )} */}
         <Grid container spacing={1} >
           <Grid item xs={6} style={{ width: '50%', margin: '250px auto' }} >
             <SearchComponent />
@@ -278,7 +280,7 @@ const Shopping = (props) => {
                     <CardDisplay
                       storeImage={store}
                       title={business.name}
-                      description={business.business_type}
+                      description={business.bio}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -312,7 +314,7 @@ const Shopping = (props) => {
                     <CardDisplay
                       storeImage={store}
                       title={business.name}
-                      description={business.business_type}
+                      description={business.bio}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -345,7 +347,7 @@ const Shopping = (props) => {
                     <CardDisplay
                       storeImage={store}
                       title={business.name}
-                      description={business.business_type}
+                      description={business.bio}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -379,7 +381,7 @@ const Shopping = (props) => {
                     <CardDisplay
                       storeImage={store}
                       title={business.name}
-                      description={business.business_type}
+                      description={business.bio}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -413,7 +415,7 @@ const Shopping = (props) => {
                     <CardDisplay
                       storeImage={store}
                       title={business.name}
-                      description={business.business_type}
+                      description={business.bio}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -447,7 +449,7 @@ const Shopping = (props) => {
                     <CardDisplay
                       storeImage={store}
                       title={business.name}
-                      description={business.business_type}
+                      description={business.bio}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -481,7 +483,7 @@ const Shopping = (props) => {
                     <CardDisplay
                       storeImage={store}
                       title={business.name}
-                      description={business.business_type}
+                      description={business.bio}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />

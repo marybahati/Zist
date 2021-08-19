@@ -1,74 +1,17 @@
 import React, { useState, useEffect } from 'react';
-// import { Grid, Image, Button, List, Icon, Popup } from "semantic-ui-react";
-// import styled from 'styled-components';
 import blueberries from './../../Assets/blue-berries.png';
 import axios from 'axios'
 import { Cookies, withCookies } from 'react-cookie';
 import history from '../../History'
 import { HOST_API } from '../../endpoints';
-import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link } from "@material-ui/core";
+import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link, Card, CardHeader, CardMedia, CardActions, CardContent, IconButton } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
-
-// const MainDiv = styled.div`
-//     background: #F9F7F1 0% 0% no-repeat padding-box;
-//     opacity: 1;
-//     padding: 50px 0 !important;
-// `;
-// const MainGrid = styled(Grid)`
-//     width: 80%;
-//     margin: 0 auto 100px auto !important;
-// `;
-// const AisleColumn = styled(Grid.Column)`
-//     margin: auto !important;
-// `;
-// const AisleButton = styled(Button)`
-//     width: 180px !important;
-//     background: #0A0806 0% 0% no-repeat padding-box !important;
-//     border: 1px solid #C19A6B !important;
-//     border-radius: 5px !important;
-//     height: 70px !important;
-//     color: white !important;
-//     font-size: 20px !important;
-//     opacity: 1;
-// `;
-// const UserName = styled.h2`
-//     text-decoration: underline !important;
-//     padding: 20px 0 15px 0 !important;
-// `;
-// const Columns = styled(Grid.Column)`
-//     margin: ${props => props.center ? " 0 auto !important" : " auto 0 !important"};
-//     padding: 0 !important;
-// `;
-// const OrderNowColumn = styled(Grid.Column)`
-//    width: 350px !important;
-//    margin: 50px auto 0 auto !important;
-// `;
-// const OrderNowButton = styled(Button)`
-//    width: 100% !important;
-//    background: #FFBD59 0% 0% no-repeat padding-box !important;
-//    border: 2px solid #FEE2D4 !important;
-//    border-radius: 24px !important;
-//    opacity: 1;
-//    color: black !important;
-//    height: 90px !important;
-//    font-size: 22px !important;
-// `;
-// const ButtonCounters = styled(Button)`
-//    background: inherit !important;
-//    font-size : 40px !important;
-//    padding : 0 !important;
-//    color : black !important;
-//    margin: 0 8px !important;
-//    text-align: center !important;
-// `;
-// const StockColumn = styled(Grid.Column)`
-//    margin: auto 0 !important;
-//    background: #FFF !important;
-//    padding: 18px 30px !important;
-//    text-align: center !important;
-// `;
+import AddIcon from '@material-ui/icons/Add';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import "./multicarousel.css";
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -85,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px 0',
     },
     aisleButton: {
-        width: '100% !important',
-        background: '#ECECEC !important',
-        height: '60px !important',
+        // width: '100% !important',
+        // background: '#ECECEC !important',
+        // height: '60px !important',
         // color: '#FFBD59 !important',
         fontSize: '17px !important',
-        borderRadius: '10px',
-        opacity: 1,
+        // borderRadius: '10px',
+        // opacity: 1,
     },
     getStartedButton: {
         background: '#FFBD59 0% 0% no-repeat padding-box !important',
@@ -104,9 +47,38 @@ const useStyles = makeStyles((theme) => ({
         color: '#050504 !important',
         margin: '50px 0 !important',
     },
-    
+    roundedGrid: {
+        borderRadius: '30px',
+        background: '#FFBD59',
+        width: '100px',
+        textTransform: 'none',
+        textAlign: 'center',
+    }
+
 }))
 
+const products = [
+    {
+        name: 'Mango',
+        price: '10'
+    },
+    {
+        name: 'Pineapple',
+        price: '15'
+    },
+    {
+        name: 'Kales',
+        price: '20'
+    },
+    {
+        name: 'Peaches',
+        price: '40'
+    },
+    {
+        name: 'Cabbage',
+        price: '60'
+    },
+]
 const Aisles = (props) => {
     const classes = useStyles()
     const { cookies } = props
@@ -144,7 +116,32 @@ const Aisles = (props) => {
             })
     }, [])
     console.log(categories)
-
+    const responsive = {
+        superLargeDesktop: {
+          breakpoint: { max: 4000, min: 3000 },
+          items: 6
+        },
+        mediumLargeDesktop: {
+          breakpoint: { max: 300, min: 1920 },
+          items: 5
+        },
+        desktop: {
+          breakpoint: { max: 1920, min: 1500 },
+          items: 4
+        },
+        mediumDesktop: {
+          breakpoint: { max: 1500, min: 1024 },
+          items: 3
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 768 },
+          items: 2
+        },
+        mobile: {
+          breakpoint: { max: 768, min: 0 },
+          items: 1
+        }
+      };
 
     const handleAddProduct = (name, price, quantity, id) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
@@ -189,23 +186,23 @@ const Aisles = (props) => {
         })
     }
 
-    const fetchedProductsByCategory = (e,categoryId) => {
+    const fetchedProductsByCategory = (e, categoryId) => {
         e.preventDefault()
         axios.get(HOST_API + `zist/categories/${categoryId}/products/`, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((response) => {
-                if (response.status ===  200) {
+                if (response.status === 200) {
                     setProducts(response.data.results)
                     setCountProducts(response.data.count)
                 }
-                
+
             })
             .catch(error => {
                 console.log(error)
             })
-        }
-        console.log(countProducts)
+    }
+    console.log(countProducts)
     const suggestedProducts = products.map((product, index) => {
         return (
             <Grid container item xs={12} spacing={3} style={{ padding: '35px 0' }} >
@@ -261,27 +258,88 @@ const Aisles = (props) => {
                         </Grid>
                     </Grid>
                 )}
-           
+
             </Grid>
         )
     })
-
+    const productDisplay = (name, price) => {
+        return (
+            <Card className={classes.root}>
+                {/* <CardMedia
+                    className={classes.media}
+                    image={blueberries}
+                    title={name}
+                /> */}
+                <CardHeader
+                    avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                            R
+                        </Avatar>
+                    }
+                    action={
+                        <IconButton aria-label="add">
+                            <AddIcon />
+                        </IconButton>
+                    }
+                    title={name}
+                    subheader="September 14, 2016"
+                />
+                <CardContent>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        This impressive paella is a perfect party dish and a fun meal to cook together with your
+                        guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                    </Typography>
+                </CardContent>
+            </Card>
+        )
+    }
     return (
         <div className={classes.mainDiv}  >
             <div className={classes.mainGrid} >
                 <Grid container style={{ padding: '20px 0' }} >
-                    <Grid item xs={12} >
-                        <Typography variant='h5' className={classes.boldFont} > Take a detour within the store by browsing through the aisles, just like you’d do in a physical store </Typography>
+                    <Grid item xs={12} style={{ textAlign: 'center' }} >
+                        <Typography variant='h5' className={classes.boldFont} > Aisles </Typography>
                     </Grid>
                 </Grid>
                 <Grid container spacing={3} >
-                    {categories?.map(data => {
-                        return (
-                            <Grid item xs={2}  key={data.id} >
-                                <Button key={data.id} className={classes.aisleButton} onClick={ e => fetchedProductsByCategory(e,data.id)} > {data.category} </Button>
-                            </Grid>
-                        )
-                    })}
+                    <Grid item xs={4}>
+                        {categories?.map(data => {
+                            return (
+                                <Grid item xs={2} key={data.id} >
+                                    <Typography
+                                        variant='h5'
+                                        key={data.id}
+                                        // className={classes.aisleButton} 
+                                        onClick={e => fetchedProductsByCategory(e, data.id)}
+                                    >
+                                        {data.category}
+                                    </Typography>
+                                    <Button className={classes.roundedGrid}> See all </Button>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                    <Grid item xs={8}>
+                        {/* <Carousel
+                            ssr
+                            partialVisbile
+                            itemClass="image-item"
+                            responsive={responsive}
+                        > */}
+                            {products?.map(product => {
+                                return (
+                                    <>
+                                    {/* // <Grid key={product.name} container style={{ marginBottom: 50 }} >
+                                    //     <Grid item xs={11} > */}
+                                            {productDisplay(product.name,product.price)}
+                                        {/* </Grid>
+                                    </Grid> */}
+</>
+                                )
+                            })}
+                        {/* </Carousel> */}
+                    </Grid>
+
                 </Grid>
 
                 {suggestedProducts}

@@ -8,17 +8,20 @@ import history from '../../History'
 import { HOST_API } from '../../endpoints';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link, IconButton } from "@material-ui/core";
+import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link, IconButton, InputAdornment, Divider } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CloseIcon from '@material-ui/icons/Close';
-
+import SearchIcon from '@material-ui/icons/Search';
+import DeleteIcon from '@material-ui/icons/Delete';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
         background: ' #fff 0% 0% no-repeat padding-box',
         opacity: 1,
         padding: '50px 0 !important',
+        textTransform: 'none',
     },
     mainGrid: {
         width: '90%',
@@ -66,6 +69,10 @@ const useStyles = makeStyles((theme) => ({
     },
     closeDrawer: {
         flexBasis: '0%',
+    },
+    roundedGrid: {
+        borderRadius: '30px',
+        background: '#FFBD59',
     }
 }))
 
@@ -82,7 +89,6 @@ const UserList = (props) => {
     const storedItems = cookies.get('cart')
     const [showQty, setShowQty] = useState([])
     const [products, setProducts] = useState([])
-    const [categories, setCategories] = useState([])
     const [searchText, setSearchText] = useState('')
     const [countProducts, setCountProducts] = useState()
     const [productsInBasket, setProductsInBasket] = useState()
@@ -114,43 +120,43 @@ const UserList = (props) => {
         >
             {productsInBasket?.length !== 0 ? (
                 <>
-                <h3 style={{ padding: '10px 0 0 20px' }}> Products in your cart</h3>
-                { productsInBasket?.map((product, index) => {
-                    return (
-                        <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
-                            <Grid container item xs={12} />
-                            <Grid container item xs={2}>
-                                <Grid item xs={12} >
-                                    <Avatar src={blueberries} variant="rounded" />
-                                </Grid>
+                    <h3 style={{ padding: '10px 0 0 20px' }}> Your cart </h3>
+                    <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {clickedBusiness.name} </Typography>
+                    <Grid container >
+                        <Grid container variant='button' item xs={6} style={{background: 'orange',margin: '10px 0 0 20px',padding: '15px', borderRadius: '30px' }}>
+                            <Grid item xs={7}>
+                            <Typography variant='h6' > Checkout </Typography>
                             </Grid>
-                            <Grid item xs={3} >
-                                <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.productName} </Typography>
-                            </Grid >
-                            <Grid item xs={2} style={{ textAlign: 'center', }} >
-                                <Button onClick={e => {
-                                    if (getProductQty(product.id) === 1) {
-                                        changeQuantityToggle(e, product.id, 0)
-                                    } else {
-                                        changeQuantityToggle(e, product.id, -1)
-                                    }
-                                }} className={classes.drawerToggleQtyButtons} > - </Button>
+                            <Grid item xs={5}>
+                            <Typography variant='h6' > Ksh. 720 </Typography>
                             </Grid>
-                            <Grid item xs={1} style={{ margin: 'auto 0 !important', textAlign: 'center', fontSize: 20 }}>
-                                <Typography gutterBottom variant="subtitle1"> {getProductQty(product.id)}  </Typography>
-                            </Grid>
-                            <Grid item xs={2} style={{ margin: '0 auto !important', fontSize: 20, textAlign: 'center', }}>
-                                <Button onClick={e => changeQuantityToggle(e, product.id, 1)} className={classes.drawerToggleQtyButtons}> + </Button>
-                            </Grid>
-                            <Grid item xs={2} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
-                                <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
-                            </Grid >
                         </Grid>
-                    )
+                    </Grid>
+                    {productsInBasket?.map((product, index) => {
+                        return (
+                            <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
+                                <Grid container item xs={12} />
+                                <Grid container item xs={2}>
+                                    <Grid item xs={12} >
+                                    <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={4} >
+                                    <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.productName} </Typography>
+                                </Grid >
+                                
+                                <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
+                                    <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
+                                </Grid >
+                                <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
+                                <Button color="primary" style={{textTransform:'none'}}>Remove</Button>
+                                </Grid >
+                            </Grid>
+                        )
 
-                })}
+                    })}
                 </>
-            )   : <h3 style={{ paddingTop: 50 }}> You have no products in your cart</h3>}
+            ) : <h3 style={{ paddingTop: 50 }}> You have no products in your cart</h3>}
         </div>
     );
 
@@ -246,53 +252,60 @@ const UserList = (props) => {
         return (
             <>
                 {show && (
-                    <Grid container key={product.id} item xs={12} spacing={3} style={{ padding: '30px 0' }} >
-                        <Grid item xs={3} >
+                    <Grid container key={product.id} item xs={11} spacing={3} style={{ padding: '30px 0', margin: '0 auto' }} >
+                        <Grid item xs={2} >
                             <img src={blueberries} />
                         </Grid>
                         <Grid item xs={1} />
                         {!showQty.includes(product.id) ? (
-                            <Grid item xs={7} style={{ margin: 'auto 0' }} >
+                            <Grid item xs={9} style={{ margin: 'auto 0' }} >
                                 <Grid container spacing={3} >
                                     <Grid item xs={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
+                                    </Grid>
+                                    <Grid item xs={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
-                                    <Grid item xs={3} />
-                                    <Grid item xs={3} >
+                                    <Grid item xs={1} />
+                                    <Grid item xs={2} className={classes.roundedGrid} >
                                         <Button onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
-                                            <AddCircleOutlineIcon fontSize='large' />
+                                            Add to cart
                                         </Button>
                                     </Grid>
 
                                 </Grid>
                             </Grid>
                         ) : (
-                            <Grid item xs={7} style={{ margin: 'auto 0' }}>
+                            <Grid item xs={9} style={{ margin: 'auto 0' }}>
                                 <Grid container spacing={3} >
                                     <Grid item xs={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
-                                        <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
+                                    </Grid>
+                                    <Grid item xs={2}  >
+                                        <Typography variant='h6' >   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
                                     <Grid item xs={1} />
-                                    <Grid container item xs={5} style={{ textAlign: 'center' }} >
-                                        <Grid item xs={3} >
-                                            <Button
-                                                style={{ fontSize: '20px' }}
-                                                onClick={e => {
-                                                    if (getProductQty(product.id) === 1) {
-                                                        changeQuantityToggle(e, product.id, 0)
-                                                    } else {
-                                                        changeQuantityToggle(e, product.id, -1)
-                                                    }
-                                                }}
-                                            > - </Button>
+                                    <Grid container item xs={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
+                                        <Grid item xs={4} >
+                                            {getProductQty(product.id) === 1 ? (
+                                                 <Button
+                                                 style={{ fontSize: '20px' }}
+                                                //  onClick={e => deleteProduct(e,product.id)}
+                                             >
+                                                 <DeleteIcon />
+                                             </Button>  
+                                            ) : (
+                                                <Button
+                                                    style={{ fontSize: '20px' }}
+                                                    onClick={e => changeQuantityToggle(e, product.id, -1)}
+                                                > <RemoveIcon/> </Button>
+                                            )}
                                         </Grid>
-                                        <Grid item xs={6} >
-                                            <Typography variant='h6'>  {getProductQty(product.id)}  </Typography>
+                                        <Grid item xs={4} style={{ textAlign: 'center' }} >
+                                            <Typography variant='h6' >  {getProductQty(product.id)}  </Typography>
                                         </Grid>
-                                        <Grid item xs={3} >
-                                            <Button style={{ fontSize: '20px' }} onClick={e => changeQuantityToggle(e, product.id, 1)} > + </Button>
+                                        <Grid item xs={4} >
+                                            <Button style={{ fontSize: '20px' }} onClick={e => changeQuantityToggle(e, product.id, 1)} > <AddIcon/> </Button>
                                         </Grid>
                                     </Grid>
 
@@ -323,21 +336,7 @@ const UserList = (props) => {
                 console.log(error)
             })
     }, [])
-    useEffect(() => {
-        axios.get(HOST_API + `zist/business/${businessId}/get_categories/`, {
-            headers: { "Authorization": `Bearer ${token}` }
-        })
-            .then((response) => {
-                if (response.status == 200) {
-                    setCategories(response.data);
-                }
 
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }, [])
-    // console.log(categories)
     return (
         <div className={classes.mainDiv} >
             <div className={classes.mainGrid} >
@@ -354,75 +353,81 @@ const UserList = (props) => {
                                 </Toolbar>
                             </AppBar>
                             <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{ width: '52% !important' }} >
-                            <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
-                                <Grid item xs={2} >
-                                    <IconButton onClick={toggleDrawer(false)} >
-                                        <CloseIcon fontSize="large" style={{ color: 'orange' }} />
-                                    </IconButton>
+                                <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
+                                    <Grid item xs={2} >
+                                        <IconButton onClick={toggleDrawer(false)} >
+                                            <CloseIcon fontSize="large" style={{ color: 'orange' }} />
+                                        </IconButton>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                            {list()}
+                                {list()}
                             </Drawer>
                         </React.Fragment>
-                </Grid>
-                </Grid>
-            <Grid container  >
-                <Grid item xs={5} style={{ textAlign: 'center', margin: '0 auto' }} >
-                    <Typography variant='h4' > Shopping List</Typography>
-                    <img src={BusinessPic} style={{ padding: '15px 0' }} />
-                    <Typography variant='h5' > {clickedBusiness.name} </Typography>
-                </Grid>
-            </Grid>
-            <Grid container style={{ padding: '20px 0' }} >
-                <Grid item xs={12} >
-                    <Typography variant='h5' className={classes.boldFont} > Take a detour within the store by browsing through the aisles, just like you’d do in a physical store </Typography>
-                </Grid>
-            </Grid>
-            <Grid container spacing={3} >
-                {categories?.map(data => {
-                    return (
-                        <Grid item xs={2} key={data.id} >
-                            <Button key={data.id} className={classes.aisleButton} onClick={handleRedirect} > {data.category} </Button>
-                        </Grid>
-                    )
-                })}
-            </Grid>
-            <Grid container  >
-                <Grid item xs={2} style={{ margin: '20px auto' }} >
-                    <Button color="primary" onClick={handleRedirect} > Show more </Button>
-                </Grid>
-            </Grid>
-            <Grid container style={{ padding: '20px 0' }} >
-                <Grid item xs={12} >
-                    <Typography variant='h5' className={classes.boldFont} > Search for what you want and add it just like you’d do with a regular list </Typography>
-                </Grid>
-            </Grid>
-            <Grid container style={{ padding: '20px 0' }} >
-                <Grid item xs={12} >
-                    <TextField onChange={onSearch} type='search' fullWidth variant="outlined" placeholder='Search for what you want and add it just like you’d do with a regular list' />
-                </Grid>
-            </Grid>
-            <Grid container style={{ padding: '20px 0' }} >
-                <Grid item xs={12} >
-                    {countProducts === 0 ? (
-                        <Typography > This store has no products,please select <Link href="/shopping" variant="body1"> another store </Link></Typography>
-                    ) : null}
-                </Grid>
-            </Grid>
-            <>
-                {products.map(product => {
-                    return productSearch(product)
-                })}
-            </>
-            {productsInBasket?.length !== 0 ? (
-                <Grid container  >
-                    <Grid item xs={3} style={{ margin: '10px auto' }} >
-                        <Button className={classes.getStartedButton} onClick={handleOrderDetailsDisplay} > Order now </Button>
                     </Grid>
                 </Grid>
-            ) : null}
+                <Grid container  >
+                    <Grid item xs={5} style={{ textAlign: 'center', margin: '0 auto' }} >
+                        <img src={BusinessPic} style={{ padding: '15px 0' }} />
+                        <Typography variant='h4' > {clickedBusiness.name} </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container style={{ padding: '20px 0', textAlign: 'center' }} >
+                    <Grid item xs={12} >
+                        <Typography variant='h5' > Your Shopping List</Typography>
+                        <Typography variant='h5' style={{ padding: '10px 0 0 0' }} > Search for items , add them and quickly check out. </Typography>
+                    </Grid>
+                </Grid>
 
-        </div>
+                <Grid container style={{ padding: '20px 0' }} >
+                    <Grid item xs={11} style={{ margin: '0 auto' }} >
+                        <TextField onChange={onSearch}
+                            type='search'
+                            fullWidth
+                            variant="outlined"
+                            placeholder='Search for items within this Store'
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <SearchIcon />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+                <>
+                    {products.map(product => {
+                        return productSearch(product)
+                    })}
+                </>
+                <Grid container style={{ padding: '20px 0', textAlign: 'center' }} >
+                    <Grid item xs={12} >
+                        <Typography variant='h5' className={classes.boldFont} > Or browse the store whilst selecting items </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container  >
+                    <Grid item xs={2} style={{ margin: '20px auto', background: '#FFBD59', padding: '10px 0', textAlign: 'center', borderRadius: '10px' }} >
+                        <Button color="contained" onClick={handleRedirect} > Show more </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid container style={{ padding: '20px 0' }} >
+                    <Grid item xs={12} >
+                        {countProducts === 0 ? (
+                            <Typography > This store has no products,please select <Link href="/shopping" variant="body1"> another store </Link></Typography>
+                        ) : null}
+                    </Grid>
+                </Grid>
+
+                {productsInBasket?.length !== 0 ? (
+                    <Grid container  >
+                        <Grid item xs={3} style={{ margin: '10px auto' }} >
+                            <Button className={classes.getStartedButton} onClick={handleOrderDetailsDisplay} > Order now </Button>
+                        </Grid>
+                    </Grid>
+                ) : null}
+
+            </div>
         </div >
         // <MainDiv>
         //     <MainGrid>

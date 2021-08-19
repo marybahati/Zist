@@ -137,10 +137,10 @@ const LandingPage = (props) => {
     <div className={classes.rootDiv} >
       {/* start of the navbar section */}
       <Grid className={classes.mainGrid} >
-        {token === undefined || token === '' ? (
+        <Navbar/>
+        {/* {token === undefined || token === '' ? (
           <Grid container  >
-            <Navbar/>
-            {/* <Grid item xs={9} />
+            <Grid item xs={9} />
             <Grid item xs={1} style={{ textAlign: 'center' }}>
               <SignupButtonSection />
             </Grid>
@@ -149,7 +149,7 @@ const LandingPage = (props) => {
             </Grid>
             <Grid item xs={1} style={{ textAlign: 'center' }}>
               <ShoppingCartIcon fontSize='large' />
-            </Grid> */}
+            </Grid>
           </Grid>
 
         ) : (
@@ -171,7 +171,7 @@ const LandingPage = (props) => {
               </Grid>
             </Grid>
           </Grid>
-        )}
+        )} */}
         <Grid container className={classes.centeredLocationColumn} >
           <Grid item >
             <Typography variant='h5' className={classes.boldFont} > SHOPPING REINVENTED. </Typography>
