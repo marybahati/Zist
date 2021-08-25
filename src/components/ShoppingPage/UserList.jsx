@@ -99,7 +99,7 @@ const UserList = (props) => {
             setProductsInBasket([])
         }
     }, [])
-    // console.log(typeof productsInBasket)
+
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (status) => (event) => {
@@ -184,12 +184,13 @@ const UserList = (props) => {
         // productsInBasket[index] = curObj
         // setProductsInBasket([...productsInBasket])
     }
-    const deleteProduct = (e, index) => {
+    const deleteProduct = (e,productId) => {
         e.preventDefault()
-        const obj = productsInBasket[index]
-        productsInBasket.splice(obj, 1)
+        const deleteObj = productsInBasket?.findIndex( obj => obj.id === productId )
+        productsInBasket.splice(deleteObj, 1)
         setProductsInBasket([...productsInBasket])
-        // console.log(productsInBasket, obj)
+        cookie.set('cart', productsInBasket, { path: '/' })
+        setShowQty('')
     }
     const changeQuantityToggle = (e, product_id, val) => {
         e.preventDefault()
@@ -290,7 +291,7 @@ const UserList = (props) => {
                                             {getProductQty(product.id) === 1 ? (
                                                  <Button
                                                  style={{ fontSize: '20px' }}
-                                                //  onClick={e => deleteProduct(e,product.id)}
+                                                 onClick={e => deleteProduct(e,product.id)}
                                              >
                                                  <DeleteIcon />
                                              </Button>  
