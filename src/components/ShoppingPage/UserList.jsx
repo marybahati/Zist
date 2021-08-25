@@ -282,7 +282,7 @@ const UserList = (props) => {
                                         <Typography variant='h5'>   {product.name} </Typography>
                                     </Grid>
                                     <Grid item xs={2}  >
-                                        <Typography variant='h6' >   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
+                                        <Typography variant='h6' >   Ksh.{product.price}  </Typography>
                                     </Grid>
                                     <Grid item xs={1} />
                                     <Grid container item xs={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
@@ -407,7 +407,7 @@ const UserList = (props) => {
                 </Grid>
                 <Grid container  >
                     <Grid item xs={2} style={{ margin: '20px auto', background: '#FFBD59', padding: '10px 0', textAlign: 'center', borderRadius: '10px' }} >
-                        <Button color="contained" onClick={handleRedirect} > Show more </Button>
+                        <Button color="contained" onClick={handleRedirect} style={{ textTransform: 'none'}}> Browse Aisles </Button>
                     </Grid>
                 </Grid>
 
@@ -419,13 +419,13 @@ const UserList = (props) => {
                     </Grid>
                 </Grid>
 
-                {productsInBasket?.length !== 0 ? (
+                {/* {productsInBasket?.length !== 0 ? (
                     <Grid container  >
                         <Grid item xs={3} style={{ margin: '10px auto' }} >
                             <Button className={classes.getStartedButton} onClick={handleOrderDetailsDisplay} > Order now </Button>
                         </Grid>
                     </Grid>
-                ) : null}
+                ) : null} */}
 
             </div>
         </div >
