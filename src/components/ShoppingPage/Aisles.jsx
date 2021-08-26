@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./multicarousel.css";
+import bananas from './../../Assets/bananas.png';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -50,35 +51,15 @@ const useStyles = makeStyles((theme) => ({
     roundedGrid: {
         borderRadius: '30px',
         background: '#FFBD59',
-        width: '100px',
+        width: '150px',
+        height: '50px',
         textTransform: 'none',
         textAlign: 'center',
+        margin: '20px 0'
     }
 
 }))
 
-const products = [
-    {
-        name: 'Mango',
-        price: '10'
-    },
-    {
-        name: 'Pineapple',
-        price: '15'
-    },
-    {
-        name: 'Kales',
-        price: '20'
-    },
-    {
-        name: 'Peaches',
-        price: '40'
-    },
-    {
-        name: 'Cabbage',
-        price: '60'
-    },
-]
 const Aisles = (props) => {
     const classes = useStyles()
     const { cookies } = props
@@ -94,6 +75,32 @@ const Aisles = (props) => {
     const businessId = clickedBusiness?.id
     const cookie = new Cookies()
 
+    const testproducts = [
+        {
+            name: 'Mango',
+            price: '10',
+            id: 1
+        },
+        {
+            name: 'Pineapple',
+            price: '15',
+            id: 2
+        },
+        {
+            name: 'Kales',
+            price: '20',
+            id: 3
+        },
+        // {
+        //     name: 'Peaches',
+        //     price: '40',
+        //     id: 4
+        // },
+        // {
+        //     name: 'Cabbage',
+        //     price: '60'
+        // },
+    ]
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
@@ -118,30 +125,30 @@ const Aisles = (props) => {
     console.log(categories)
     const responsive = {
         superLargeDesktop: {
-          breakpoint: { max: 4000, min: 3000 },
-          items: 6
+            breakpoint: { max: 4000, min: 3000 },
+            items: 6
         },
         mediumLargeDesktop: {
-          breakpoint: { max: 300, min: 1920 },
-          items: 5
+            breakpoint: { max: 300, min: 1920 },
+            items: 5
         },
         desktop: {
-          breakpoint: { max: 1920, min: 1500 },
-          items: 4
+            breakpoint: { max: 1920, min: 1500 },
+            items: 4
         },
         mediumDesktop: {
-          breakpoint: { max: 1500, min: 1024 },
-          items: 3
+            breakpoint: { max: 1500, min: 1024 },
+            items: 3
         },
         tablet: {
-          breakpoint: { max: 1024, min: 768 },
-          items: 2
+            breakpoint: { max: 1024, min: 768 },
+            items: 2
         },
         mobile: {
-          breakpoint: { max: 768, min: 0 },
-          items: 1
+            breakpoint: { max: 768, min: 0 },
+            items: 1
         }
-      };
+    };
 
     const handleAddProduct = (name, price, quantity, id) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
@@ -185,24 +192,13 @@ const Aisles = (props) => {
             state: clickedBusiness
         })
     }
-
-    const fetchedProductsByCategory = (e, categoryId) => {
-        e.preventDefault()
-        axios.get(HOST_API + `zist/categories/${categoryId}/products/`, {
-            headers: { "Authorization": `Bearer ${token}` }
+    const handleClickedAisle = (category) => {
+        const data = { id: category.id, name: category.category}
+        history.push({
+            pathname: '/shopping/single/category',
+            state: data
         })
-            .then((response) => {
-                if (response.status === 200) {
-                    setProducts(response.data.results)
-                    setCountProducts(response.data.count)
-                }
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
     }
-    console.log(countProducts)
     const suggestedProducts = products.map((product, index) => {
         return (
             <Grid container item xs={12} spacing={3} style={{ padding: '35px 0' }} >
@@ -262,37 +258,6 @@ const Aisles = (props) => {
             </Grid>
         )
     })
-    const productDisplay = (name, price) => {
-        return (
-            <Card className={classes.root}>
-                {/* <CardMedia
-                    className={classes.media}
-                    image={blueberries}
-                    title={name}
-                /> */}
-                <CardHeader
-                    avatar={
-                        <Avatar aria-label="recipe" className={classes.avatar}>
-                            R
-                        </Avatar>
-                    }
-                    action={
-                        <IconButton aria-label="add">
-                            <AddIcon />
-                        </IconButton>
-                    }
-                    title={name}
-                    subheader="September 14, 2016"
-                />
-                <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        This impressive paella is a perfect party dish and a fun meal to cook together with your
-                        guests. Add 1 cup of frozen peas along with the mussels, if you like.
-                    </Typography>
-                </CardContent>
-            </Card>
-        )
-    }
     return (
         <div className={classes.mainDiv}  >
             <div className={classes.mainGrid} >
@@ -301,55 +266,51 @@ const Aisles = (props) => {
                         <Typography variant='h5' className={classes.boldFont} > Aisles </Typography>
                     </Grid>
                 </Grid>
-                <Grid container spacing={3} >
-                    <Grid item xs={4}>
-                        {categories?.map(data => {
-                            return (
-                                <Grid item xs={2} key={data.id} >
+                {categories?.map(data =>  (
+                        <Grid container item xs={12} key={data.id} >
+                            <Grid item xs={4} >
+                                <Grid item xs={12} key={data.id} style={{ height: '250px', margin: 'auto 0' }} >
                                     <Typography
                                         variant='h5'
-                                        key={data.id}
-                                        // className={classes.aisleButton} 
-                                        onClick={e => fetchedProductsByCategory(e, data.id)}
+                                        key={data.id}                                        
                                     >
                                         {data.category}
                                     </Typography>
-                                    <Button className={classes.roundedGrid}> See all </Button>
+                                    <Button className={classes.roundedGrid} onClick={ () => handleClickedAisle(data)}> See all </Button>
                                 </Grid>
-                            )
-                        })}
-                    </Grid>
-                    <Grid item xs={8}>
-                        {/* <Carousel
-                            ssr
-                            partialVisbile
-                            itemClass="image-item"
-                            responsive={responsive}
-                        > */}
-                            {products?.map(product => {
-                                return (
-                                    <>
-                                    {/* // <Grid key={product.name} container style={{ marginBottom: 50 }} >
-                                    //     <Grid item xs={11} > */}
-                                            {productDisplay(product.name,product.price)}
-                                        {/* </Grid>
-                                    </Grid> */}
-</>
-                                )
-                            })}
-                        {/* </Carousel> */}
-                    </Grid>
 
-                </Grid>
-
-                {suggestedProducts}
-                {productsInBasket?.length !== 0 ? (
-                    <Grid container  >
-                        <Grid item xs={3} style={{ margin: '10px auto' }} >
-                            <Button className={classes.getStartedButton} onClick={handleGoingBackToList} > Go back </Button>
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Grid container spacing={3} >
+                                    {testproducts?.map(product => (
+                                            <Grid item xs={4} key={product.id}>
+                                                <Grid container >
+                                                    <Grid item xs={12}>
+                                                        <img src={bananas} alt='Product image' />
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Typography variant='h6'> {product.name} </Typography>
+                                                        <Typography variant='h6'> Ksh.{product.price} </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        )
+                                    )}
+                                </Grid>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                ) : null}
+                            )
+                        )}
+
+                    {/* {
+                        productsInBasket?.length !== 0 ? (
+                            <Grid container  >
+                                <Grid item xs={3} style={{ margin: '10px auto' }} >
+                                    <Button className={classes.getStartedButton} onClick={handleGoingBackToList} > Go back </Button>
+                                </Grid>
+                            </Grid>
+                        ) : null
+                    } */}
             </div>
         </div>
     )

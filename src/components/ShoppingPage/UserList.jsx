@@ -73,6 +73,10 @@ const useStyles = makeStyles((theme) => ({
     roundedGrid: {
         borderRadius: '30px',
         background: '#FFBD59',
+    },
+    divider: {
+        background: 'grey',
+        fontSize: '5px'
     }
 }))
 
@@ -111,10 +115,10 @@ const UserList = (props) => {
         setOpen(status);
     };
 
-    const list = (handleClose) => (
+    const list = ( handleClose) => (
         <div
             role="presentation"
-            onClick={toggleDrawer(false)}
+            // onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
             style={{ width: '50% !important', padding: '20px !important' }}
         >
@@ -122,16 +126,6 @@ const UserList = (props) => {
                 <>
                     <h3 style={{ padding: '10px 0 0 20px' }}> Your cart </h3>
                     <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {clickedBusiness.name} </Typography>
-                    <Grid container >
-                        <Grid container variant='button' item xs={6} style={{background: 'orange',margin: '10px 0 0 20px',padding: '15px', borderRadius: '30px' }}>
-                            <Grid item xs={7}>
-                            <Typography variant='h6' > Checkout </Typography>
-                            </Grid>
-                            <Grid item xs={5}>
-                            <Typography variant='h6' > Ksh. 720 </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
                     {productsInBasket?.map((product, index) => {
                         return (
                             <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
@@ -149,12 +143,22 @@ const UserList = (props) => {
                                     <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
                                 </Grid >
                                 <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
-                                <Button color="primary" style={{textTransform:'none'}}>Remove</Button>
+                                <Button color="primary" style={{textTransform:'none'}} onClick={ e => deleteProduct(e,product.id) }>Remove</Button>
                                 </Grid >
-                            </Grid>
+                            </Grid> 
                         )
-
                     })}
+                    <Divider className={classes.divider} />
+                    <Grid container >
+                        <Grid container item xs={6} style={{background: 'orange',margin: '10px 0 0 20px',padding: '15px', borderRadius: '30px' }}>
+                            <Grid item xs={7}>
+                            <Typography variant='h6' > Checkout </Typography>
+                            </Grid>
+                            <Grid item xs={5}>
+                            <Typography variant='h6' > Ksh. 720 </Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </>
             ) : <h3 style={{ paddingTop: 50 }}> You have no products in your cart</h3>}
         </div>
@@ -347,16 +351,16 @@ const UserList = (props) => {
                         <React.Fragment >
                             <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                 <Toolbar>
-                                    <Button color="inherit" onClick={toggleDrawer(true)} >
+                                    <Button color="inherit" onClick={ toggleDrawer(true)} >
                                         <ShoppingCartIcon fontSize='large' />
                                         <div className={classes.cartCount}> {productsInBasket?.length} </div>
                                     </Button>
                                 </Toolbar>
                             </AppBar>
-                            <Drawer anchor='right' open={open} onClose={toggleDrawer(false)} style={{ width: '52% !important' }} >
+                            <Drawer anchor='right' open={open}  style={{ width: '52% !important' }} >
                                 <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
                                     <Grid item xs={2} >
-                                        <IconButton onClick={toggleDrawer(false)} >
+                                        <IconButton onClick={ toggleDrawer(false)} >
                                             <CloseIcon fontSize="large" style={{ color: 'orange' }} />
                                         </IconButton>
                                     </Grid>
