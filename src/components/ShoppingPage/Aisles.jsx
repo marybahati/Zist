@@ -268,7 +268,7 @@ const Aisles = (props) => {
                 </Grid>
                 {categories?.map(data =>  (
                         <Grid container item xs={12} key={data.id} >
-                            <Grid item xs={4} >
+                            <Grid item xs={3} >
                                 <Grid item xs={12} key={data.id} style={{ height: '250px', margin: 'auto 0' }} >
                                     <Typography
                                         variant='h5'
@@ -280,7 +280,7 @@ const Aisles = (props) => {
                                 </Grid>
 
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={9}>
                                 <Grid container spacing={3} >
                                     {testproducts?.map(product => (
                                             <Grid item xs={4} key={product.id}>

@@ -89,7 +89,9 @@ const UserList = (props) => {
     const cookie = new Cookies()
     const classes = useStyles()
     const clickedBusiness = (props.location && props.location.state) || '';
+    console.log(clickedBusiness)
     const businessId = clickedBusiness?.id
+    const businessName = clickedBusiness?.name
     const storedItems = cookies.get('cart')
     const [showQty, setShowQty] = useState([])
     const [products, setProducts] = useState([])
@@ -111,11 +113,11 @@ const UserList = (props) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-
+        console.log(status)
         setOpen(status);
     };
 
-    const list = ( handleClose) => (
+    const List = ( handleClose) => (
         <div
             role="presentation"
             // onClick={toggleDrawer(false)}
@@ -125,8 +127,9 @@ const UserList = (props) => {
             {productsInBasket?.length !== 0 ? (
                 <>
                     <h3 style={{ padding: '10px 0 0 20px' }}> Your cart </h3>
-                    <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {clickedBusiness.name} </Typography>
+                    <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {businessName} </Typography>
                     {productsInBasket?.map((product, index) => {
+                        console.log(product, '=========23456', productsInBasket)
                         return (
                             <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
                                 <Grid container item xs={12} />
@@ -166,6 +169,7 @@ const UserList = (props) => {
 
 
     const handleAddProduct = (e, productName, productPrice, quantity, id,) => {
+        console.log(productName, productPrice, quantity, id, "34567890=======")
         const checkIndex = productsInBasket?.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
@@ -174,6 +178,7 @@ const UserList = (props) => {
             // console.log("Quantity updated:", productsInBasket);
         } else {
             const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
+            console.log(d, 'dddd===')
             const aa = [...productsInBasket, d]
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
@@ -365,7 +370,8 @@ const UserList = (props) => {
                                         </IconButton>
                                     </Grid>
                                 </Grid>
-                                {list()}
+                                <List/>
+                                
                             </Drawer>
                         </React.Fragment>
                     </Grid>
@@ -412,7 +418,7 @@ const UserList = (props) => {
                 </Grid>
                 <Grid container  >
                     <Grid item xs={2} style={{ margin: '20px auto', background: '#FFBD59', padding: '10px 0', textAlign: 'center', borderRadius: '10px' }} >
-                        <Button color="contained" onClick={handleRedirect} style={{ textTransform: 'none'}}> Browse Aisles </Button>
+                        <Button onClick={handleRedirect} style={{ textTransform: 'none'}}> Browse Aisles </Button>
                     </Grid>
                 </Grid>
 
