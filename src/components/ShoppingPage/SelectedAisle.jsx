@@ -14,6 +14,7 @@ import "./multicarousel.css";
 import bananas from './../../Assets/bananas.png';
 import DeleteIcon from '@material-ui/icons/Delete';
 import RemoveIcon from '@material-ui/icons/Remove';
+import Navbar from '../Navbar/Navbar';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -189,6 +190,7 @@ const SelectedAisles = (props) => {
     return (
         <div className={classes.mainDiv}  >
             <div className={classes.mainGrid} >
+                <Navbar/>
                 <Grid container style={{ padding: '20px 0' }} >
                     <Grid item xs={12} style={{ textAlign: 'center' }} >
                         <Typography variant='h5' className={classes.boldFont} > {clickedAisle?.name} </Typography>

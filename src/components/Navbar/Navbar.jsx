@@ -25,13 +25,14 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Grid } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Cookies, withCookies } from 'react-cookie';
-
+import history from './../../History'
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
     },
     header: {
-        background: '#F9F7F1',
+        // background: '#F9F7F1',
+        backgroundColor: 'inherit !important',
         boxShadow: 'none',
     },
     menuButton: {
@@ -132,6 +133,12 @@ function PrimaryAppBar(props) {
             setProductsInBasket([])
         }
     }, [])
+    const handleOrderDetailsDisplay = () => {
+        history.push({
+            pathname: '/order-details',
+            state: { clickedBusiness }
+        })
+    }
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -243,13 +250,10 @@ function PrimaryAppBar(props) {
                     })}
                     <Divider className={classes.divider} />
                     <Grid container >
-                        <Grid container item xs={6} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px' }}>
-                            <Grid item xs={7}>
-                                <Typography variant='h6' > Checkout </Typography>
-                            </Grid>
-                            <Grid item xs={5}>
-                                <Typography variant='h6' > Ksh. 720 </Typography>
-                            </Grid>
+                        <Grid container item xs={6} >
+                            <Button fullWidth onClick={handleOrderDetailsDisplay} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px', textTransform:'none' }} > 
+                            <Typography variant='h6' > Checkout &nbsp; Ksh. 720 </Typography>
+                            </Button> 
                         </Grid>
                     </Grid>
                 </>
@@ -379,7 +383,7 @@ function PrimaryAppBar(props) {
 
                                 )} */}
                                 <React.Fragment >
-                                    <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
+                                    <AppBar position="" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                         <Toolbar>
                                             <Button color="inherit" onClick={toggleProductsDrawer(true)} >
                                                 <ShoppingCartIcon fontSize='large' />

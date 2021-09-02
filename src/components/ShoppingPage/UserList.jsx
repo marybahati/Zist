@@ -15,6 +15,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import DeleteIcon from '@material-ui/icons/Delete';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
+import Navbar from './../Navbar/Navbar'
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -126,67 +127,6 @@ const UserList = (props) => {
         }
     }, [])
 
-    const [open, setOpen] = React.useState(false);
-
-    const toggleDrawer = (status) => (event) => {
-        event.preventDefault()
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
-        }
-        console.log(status)
-        setOpen(status);
-    };
-
-    const List = (handleClose) => (
-        <div
-            role="presentation"
-            // onClick={toggleDrawer(false)}
-            onKeyDown={toggleDrawer(false)}
-            style={{ width: '50% !important', padding: '20px !important' }}
-        >
-            {productsInBasket?.length !== 0 ? (
-                <>
-                    <h3 style={{ padding: '10px 0 0 20px' }}> Your cart </h3>
-                    <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {businessName} </Typography>
-                    {productsInBasket?.map((product, index) => {
-                        console.log(product, '=========23456', productsInBasket)
-                        return (
-                            <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
-                                <Grid container item xs={12} />
-                                <Grid container item xs={2}>
-                                    <Grid item xs={12} >
-                                        <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={4} >
-                                    <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.productName} </Typography>
-                                </Grid >
-
-                                <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
-                                    <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
-                                </Grid >
-                                <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
-                                    <Button color="primary" style={{ textTransform: 'none' }} onClick={e => deleteProduct(e, product.id)}>Remove</Button>
-                                </Grid >
-                            </Grid>
-                        )
-                    })}
-                    <Divider className={classes.divider} />
-                    <Grid container >
-                        <Grid container item xs={6} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px' }}>
-                            <Grid item xs={7}>
-                                <Typography variant='h6' > Checkout </Typography>
-                            </Grid>
-                            <Grid item xs={5}>
-                                <Typography variant='h6' > Ksh. 720 </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </>
-            ) : <h3 style={{ paddingTop: 50 }}> You have no products in your cart</h3>}
-        </div>
-    );
-
     const handleAddProduct = (e, name, price, quantity, id) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
@@ -234,17 +174,6 @@ const UserList = (props) => {
         cookie.set('cart', productsInBasket, { path: '/' })
         setShowQty('')
     }
-    // const changeQuantityToggle = (e, product_id, val) => {
-    //     e.preventDefault()
-    //     const curIndx = productsInBasket?.findIndex(product => product_id === product.id)
-    //     if (curIndx === -1) return
-
-    //     const curObj = productsInBasket[curIndx]
-    //     curObj['quantity'] += val
-    //     productsInBasket[curIndx] = curObj
-    //     setProductsInBasket([...productsInBasket])
-    //     cookie.set('cart', productsInBasket, { path: '/' })
-    // }
     const getProductQty = (product_id) => {
         const product = productsInBasket?.find(prd => prd.id === product_id)
         return product?.quantity
@@ -392,31 +321,7 @@ const UserList = (props) => {
     return (
         <div className={classes.mainDiv} >
             <div className={classes.mainGrid} >
-                <Grid item container xs={12} >
-                    <Grid item xs={11} />
-                    <Grid item xs={1} style={{ textAlign: 'center' }}>
-                        <React.Fragment >
-                            <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
-                                <Toolbar>
-                                    <Button color="inherit" onClick={toggleDrawer(true)} >
-                                        <ShoppingCartIcon fontSize='large' />
-                                        <div className={classes.cartCount}> {productsInBasket?.length} </div>
-                                    </Button>
-                                </Toolbar>
-                            </AppBar>
-                            <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
-                                <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
-                                    <Grid item xs={2} >
-                                        <IconButton onClick={toggleDrawer(false)} >
-                                            <CloseIcon fontSize="large" style={{ color: 'orange' }} />
-                                        </IconButton>
-                                    </Grid>
-                                </Grid>
-                                <List />
-                            </Drawer>
-                        </React.Fragment>
-                    </Grid>
-                </Grid>
+                <Navbar/> 
                 <Grid container  >
                     <Grid item xs={5} style={{ textAlign: 'center', margin: '0 auto' }} >
                         <img src={BusinessPic} style={{ padding: '15px 0' }} />
