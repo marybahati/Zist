@@ -109,7 +109,6 @@ const UserList = (props) => {
     const cookie = new Cookies()
     const classes = useStyles()
     const clickedBusiness = (props.location && props.location.state) || '';
-    console.log(clickedBusiness)
     const businessId = clickedBusiness?.id
     const businessName = clickedBusiness?.name
     const storedItems = cookies.get('cart')
@@ -187,7 +186,6 @@ const UserList = (props) => {
             ) : <h3 style={{ paddingTop: 50 }}> You have no products in your cart</h3>}
         </div>
     );
-
 
     const handleAddProduct = (e, name, price, quantity, id) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
@@ -415,7 +413,6 @@ const UserList = (props) => {
                                     </Grid>
                                 </Grid>
                                 <List />
-
                             </Drawer>
                         </React.Fragment>
                     </Grid>
