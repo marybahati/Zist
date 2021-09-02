@@ -251,9 +251,9 @@ function PrimaryAppBar(props) {
                     <Divider className={classes.divider} />
                     <Grid container >
                         <Grid container item xs={6} >
-                            <Button fullWidth onClick={handleOrderDetailsDisplay} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px', textTransform:'none' }} > 
-                            <Typography variant='h6' > Checkout &nbsp; Ksh. 720 </Typography>
-                            </Button> 
+                            <Button fullWidth onClick={handleOrderDetailsDisplay} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px', textTransform: 'none' }} >
+                                <Typography variant='h6' > Checkout &nbsp; Ksh. 720 </Typography>
+                            </Button>
                         </Grid>
                     </Grid>
                 </>
@@ -348,30 +348,38 @@ function PrimaryAppBar(props) {
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         {token === undefined || token === '' ? (
-                            <>
-                                <SignupButtonSection />
-                                <LoginButtonSection />
-                                <React.Fragment >
-                                    <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
-                                        <Toolbar>
-                                            <Button color="inherit" onClick={toggleProductsDrawer(true)} >
-                                                <ShoppingCartIcon fontSize='large' />
-                                                <div className={classes.cartCount}> {productsInBasket?.length} </div>
-                                            </Button>
-                                        </Toolbar>
-                                    </AppBar>
-                                    <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
-                                        <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
-                                            <Grid item xs={2} >
-                                                <IconButton onClick={toggleProductsDrawer(false)} >
-                                                    <CloseIcon fontSize="large" style={{ color: 'orange' }} />
-                                                </IconButton>
+                            <Grid container>
+                                <Grid item xs={3} />
+                                <Grid item xs={3} style={{marginTop:15}} >
+                                    <SignupButtonSection />
+                                </Grid>
+                                <Grid item xs={1} />
+                                <Grid item xs={3} style={{marginTop:15}} >
+                                    <LoginButtonSection />
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <React.Fragment >
+                                        <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
+                                            <Toolbar>
+                                                <Button color="inherit" onClick={toggleProductsDrawer(true)} >
+                                                    <ShoppingCartIcon fontSize='large' />
+                                                    <div className={classes.cartCount}> {productsInBasket?.length} </div>
+                                                </Button>
+                                            </Toolbar>
+                                        </AppBar>
+                                        <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
+                                            <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
+                                                <Grid item xs={2} >
+                                                    <IconButton onClick={toggleProductsDrawer(false)} >
+                                                        <CloseIcon fontSize="large" style={{ color: 'orange' }} />
+                                                    </IconButton>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                        {list()}
-                                    </Drawer>
-                                </React.Fragment>
-                            </>
+                                            {list()}
+                                        </Drawer>
+                                    </React.Fragment>
+                                </Grid>
+                            </Grid>
                         ) : (
                             <>
 
