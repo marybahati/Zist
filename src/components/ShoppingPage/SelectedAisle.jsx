@@ -4,7 +4,8 @@ import axios from 'axios'
 import { Cookies, withCookies } from 'react-cookie';
 import history from '../../History'
 import { HOST_API } from '../../endpoints';
-import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link, Card, CardHeader, CardMedia, CardActions, CardContent, IconButton } from "@material-ui/core";
+import Delay from 'react-delay'
+import { Grid, Button, Typography, IconButton } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -57,12 +58,27 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         margin: '20px 0'
     },
-    roundedGrid: {
+    roundedButton: {
         borderRadius: '50%',
         background: '#DCDCDC',
         alignItems: 'center',
         minWidth: 20,
-        // height: 40
+        top: -20
+    },
+    roundedBlackButton: {
+        borderRadius: '50%',
+        backgroundColor: 'black',
+        alignItems: 'center',
+        minWidth: 40,
+        color: '#fff',
+        height: 40,
+        top: -20
+    },
+    roundedGrid: {
+        borderRadius: '30px',
+        background: '#FFBD59',
+        // height: 40,
+        top: -80,
     },
 }))
 
@@ -75,12 +91,12 @@ const SelectedAisles = (props) => {
     const [showQty, setShowQty] = useState([])
     const [productsInBasket, setProductsInBasket] = useState()
     const [countProducts, setCountProducts] = useState()
+    const [showDelayedComponent, setShowDelayedComponent] = useState(false)
+    // const [delay, setDelay] = useState(false)
     const userData = cookies.get('login-res')
     const token = userData?.access
     const clickedAisle = (props.location && props.location.state) || '';
-    console.log(clickedAisle)
-    // const businessId = clickedBusiness?.id
-
+    console.log(showDelayedComponent)
 
     const fetchedProductsByCategory = () => {
         axios.get(HOST_API + `zist/categories/${clickedAisle?.id}/products/`, {
@@ -107,21 +123,30 @@ const SelectedAisles = (props) => {
     }, [])
 
 
-    const handleAddProduct = (e,name, price, quantity, id) => {
+    const handleAddProduct = (e, name, price, quantity, id) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
             cookie.set('cart', productsInBasket, { path: '/' })
             setShowQty([...showQty, id])
             console.log("Quantity updated:", productsInBasket);
+            const timer = setTimeout(() => {
+                setShowDelayedComponent(true)
+              }, 6000)
+            return () => clearTimeout(timer)    
         } else {
             const d = { productName: name, productPrice: price, quantity: quantity, id: id }
             const aa = [...productsInBasket, d]
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
             cookie.set('cart', aa, { path: '/' })
-            console.log('The product has been added to cart:', productsInBasket);
+            console.log('The product has been added to cart:', productsInBasket)
+            const timer = setTimeout(() => {
+                setShowDelayedComponent(true)
+              }, 6000)
+            return () => clearTimeout(timer)
         }
+        
     }
     const changeQuantity = (e, product_id, val) => {
         e.preventDefault()
@@ -132,6 +157,10 @@ const SelectedAisles = (props) => {
         curObj['quantity'] += val
         productsInBasket[curIndx] = curObj
         setProductsInBasket([...productsInBasket])
+        const timer = setTimeout(() => {
+            setShowDelayedComponent(true)
+          }, 6000)
+        return () => clearTimeout(timer)
     }
     console.log(productsInBasket)
     const getProductQty = (product_id) => {
@@ -173,49 +202,59 @@ const SelectedAisles = (props) => {
                                     <Grid item xs={4} key={product.id}>
                                         <Grid container >
                                             <Grid item xs={12}>
-                                                <img src={bananas} alt='Product image' />
+                                                <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC' alt='Product image' />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 {!showQty.includes(product.id) ? (
                                                     <Grid item xs={9} style={{ margin: 'auto 0' }} >
                                                         <Grid container spacing={3} >
-                                                        {/* <Grid item xs={9} />  */}
+                                                            <Grid item xs={9} /> 
                                                             <Grid item xs={1}  >
-                                                                <Button className={classes.roundedGrid} onClick={e => handleAddProduct(e, product.name, product.price, 1, product.id)} >
-                                                                   <AddIcon/>
+                                                                <Button className={classes.roundedButton} onClick={e => handleAddProduct(e, product.name, product.price, 1, product.id)} >
+                                                                    <AddIcon />
                                                                 </Button>
                                                             </Grid>
-                                                            {/* <Grid item xs={2}  /> */}
+                                                            <Grid item xs={2}  />
                                                         </Grid>
                                                     </Grid>
                                                 ) : (
                                                     <Grid item xs={9} style={{ margin: 'auto 0' }}>
                                                         <Grid container spacing={3} >
-                                                            <Grid item xs={8} />
-                                                            {/* <p>fhhhhhhf</p> */}
-                                                            <Grid container item xs={3} style={{ textAlign: 'center' }} >
-                                                                <Grid item xs={4} >
-                                                                    {getProductQty(product.id) === 1 ? (
-                                                                        <Button
-                                                                            style={{ fontSize: '20px' }}
-                                                                            onClick={e => deleteProduct(e, product.id)}
-                                                                        >
-                                                                            <DeleteIcon />
-                                                                        </Button>
-                                                                    ) : (
-                                                                        <Button
-                                                                            style={{ fontSize: '20px' }}
-                                                                            onClick={e => changeQuantity(e, product.id, -1)}
-                                                                        > <RemoveIcon /> </Button>
-                                                                    )}
+                                                            <Grid item xs={6} />
+                                                            {showDelayedComponent ? (
+                                                                <Grid container item xs={6}> 
+                                                                    <Grid item xs={8} />
+                                                                    <Grid item xs={1}>
+                                                                    <Button className={classes.roundedBlackButton} onClick={e => setShowQty([...showQty, product.id]) }> {getProductQty(product.id)} </Button>  
+                                                                    </Grid>
+                                                                    <Grid item xs={3} />
+                                                                 </Grid>
+                                                            ) : (
+                                                                <Grid container item xs={6} className={classes.roundedGrid} >
+                                                                    <Grid item xs={3} >
+                                                                        {getProductQty(product.id) === 1 ? (
+                                                                            <Button
+                                                                                style={{ fontSize: '20px' }}
+                                                                                onClick={e => deleteProduct(e, product.id)}
+                                                                            >
+                                                                                <DeleteIcon />
+                                                                            </Button>
+                                                                        ) : (
+                                                                            <Button
+                                                                                style={{ fontSize: '20px' }}
+                                                                                onClick={e => changeQuantity(e, product.id, -1)}
+                                                                            > <RemoveIcon /> </Button>
+                                                                        )}
+                                                                    </Grid>
+                                                                    <Grid item xs={2} />
+                                                                    <Grid item xs={3} style={{ textAlign: 'center' }} >
+                                                                        <Typography variant='h6' >  {getProductQty(product.id)}  </Typography>
+                                                                    </Grid>
+                                                                    <Grid item xs={4} >
+                                                                        <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
+                                                                    </Grid>
                                                                 </Grid>
-                                                                <Grid item xs={4} style={{ textAlign: 'center' }} >
-                                                                    <Typography variant='h6' >  {getProductQty(product.id)}  </Typography>
-                                                                </Grid>
-                                                                <Grid item xs={4} >
-                                                                    <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
-                                                                </Grid>
-                                                            </Grid>
+                                                            )}
                                                         </Grid>
                                                     </Grid>
                                                 )}
@@ -232,7 +271,7 @@ const SelectedAisles = (props) => {
                     </Grid>
                 </Grid>
 
-                {
+                {/* {
                     productsInBasket?.length !== 0 ? (
                         <Grid container  >
                             <Grid item xs={3} style={{ margin: '10px auto' }} >
@@ -240,7 +279,7 @@ const SelectedAisles = (props) => {
                             </Grid>
                         </Grid>
                     ) : null
-                }
+                } */}
             </div>
         </div>
     )

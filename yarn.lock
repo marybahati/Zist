@@ -4055,6 +4055,11 @@ del@^4.1.1:
     pify "^4.0.1"
     rimraf "^2.6.3"
 
+delay@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/delay/-/delay-5.0.0.tgz#137045ef1b96e5071060dd5be60bf9334436bd1d"
+  integrity sha512-ReEBKkIfe4ya47wlPYf/gu5ib6yUG0/Aez0JQZQz94kiWtRQvZIQbTiehsnwHvLSWJnQdhVeqYue7Id1dKr0qw==
+
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
@@ -9385,6 +9390,13 @@ react-date-picker@^8.0.3:
     react-calendar "^3.0.0"
     react-fit "^1.0.3"
     update-input-width "^1.1.1"
+
+react-delay@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-delay/-/react-delay-0.1.0.tgz#d421613190349a0ff7f73efa5a77502b581446bf"
+  integrity sha512-GGIyrQEsiYqTH8zUEWL2kEueSHcyHJJDeoXVC5y7R1lU1zs/BfiQsG2Lb2/yHjNASAjOBvqUCi/+JTmfLvnIcg==
+  dependencies:
+    prop-types "^15.6.0"
 
 react-dev-utils@^10.2.1:
   version "10.2.1"
