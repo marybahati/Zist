@@ -70,9 +70,29 @@ const useStyles = makeStyles((theme) => ({
     closeDrawer: {
         flexBasis: '0%',
     },
+    roundedButton: {
+        borderRadius: '50%',
+        background: '#DCDCDC',
+        alignItems: 'center',
+        minWidth: 20,
+        top: -20
+    },
+    roundedBlackButton: {
+        borderRadius: '50%',
+        backgroundColor: 'black',
+        alignItems: 'center',
+        minWidth: 40,
+        color: '#fff',
+        height: 40,
+        top: -20
+    },
     roundedGrid: {
         borderRadius: '30px',
         background: '#FFBD59',
+        // height: 40,
+        // top: -80,
+        textAlign: 'center',
+        textTransform: 'none'
     },
     divider: {
         background: 'grey',
@@ -98,6 +118,7 @@ const UserList = (props) => {
     const [searchText, setSearchText] = useState('')
     const [countProducts, setCountProducts] = useState()
     const [productsInBasket, setProductsInBasket] = useState()
+    const [showDelayedComponent, setShowDelayedComponent] = useState(false)
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
@@ -117,7 +138,7 @@ const UserList = (props) => {
         setOpen(status);
     };
 
-    const List = ( handleClose) => (
+    const List = (handleClose) => (
         <div
             role="presentation"
             // onClick={toggleDrawer(false)}
@@ -135,30 +156,30 @@ const UserList = (props) => {
                                 <Grid container item xs={12} />
                                 <Grid container item xs={2}>
                                     <Grid item xs={12} >
-                                    <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
+                                        <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={4} >
                                     <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.productName} </Typography>
                                 </Grid >
-                                
+
                                 <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
                                     <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
                                 </Grid >
                                 <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
-                                <Button color="primary" style={{textTransform:'none'}} onClick={ e => deleteProduct(e,product.id) }>Remove</Button>
+                                    <Button color="primary" style={{ textTransform: 'none' }} onClick={e => deleteProduct(e, product.id)}>Remove</Button>
                                 </Grid >
-                            </Grid> 
+                            </Grid>
                         )
                     })}
                     <Divider className={classes.divider} />
                     <Grid container >
-                        <Grid container item xs={6} style={{background: 'orange',margin: '10px 0 0 20px',padding: '15px', borderRadius: '30px' }}>
+                        <Grid container item xs={6} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px' }}>
                             <Grid item xs={7}>
-                            <Typography variant='h6' > Checkout </Typography>
+                                <Typography variant='h6' > Checkout </Typography>
                             </Grid>
                             <Grid item xs={5}>
-                            <Typography variant='h6' > Ksh. 720 </Typography>
+                                <Typography variant='h6' > Ksh. 720 </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -168,50 +189,64 @@ const UserList = (props) => {
     );
 
 
-    const handleAddProduct = (e, productName, productPrice, quantity, id,) => {
-        console.log(productName, productPrice, quantity, id, "34567890=======")
-        const checkIndex = productsInBasket?.findIndex(product => product.id === id);
+    const handleAddProduct = (e, name, price, quantity, id) => {
+        const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
             cookie.set('cart', productsInBasket, { path: '/' })
             setShowQty([...showQty, id])
-            // console.log("Quantity updated:", productsInBasket);
+            console.log("Quantity updated:", productsInBasket);
+            const timer = setTimeout(() => {
+                setShowDelayedComponent(true)
+            }, 6000)
+            return () => clearTimeout(timer)
         } else {
-            const d = { productName: productName, productPrice: productPrice, quantity: quantity, id: id }
-            console.log(d, 'dddd===')
+            const d = { productName: name, productPrice: price, quantity: quantity, id: id }
             const aa = [...productsInBasket, d]
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
             cookie.set('cart', aa, { path: '/' })
-            // console.log('The product has been added to cart:', productsInBasket);
+            console.log('The product has been added to cart:', productsInBasket)
+            const timer = setTimeout(() => {
+                setShowDelayedComponent(true)
+            }, 6000)
+            return () => clearTimeout(timer)
         }
+
     }
-    const changeQuantity = (e, index, val) => {
+    const changeQuantity = (e, product_id, val) => {
         e.preventDefault()
-        // const curObj = productsInBasket[index]
-        // curObj['quantity'] += val
-        // productsInBasket[index] = curObj
-        // setProductsInBasket([...productsInBasket])
-    }
-    const deleteProduct = (e,productId) => {
-        e.preventDefault()
-        const deleteObj = productsInBasket?.findIndex( obj => obj.id === productId )
-        productsInBasket.splice(deleteObj, 1)
-        setProductsInBasket([...productsInBasket])
-        cookie.set('cart', productsInBasket, { path: '/' })
-        setShowQty('')
-    }
-    const changeQuantityToggle = (e, product_id, val) => {
-        e.preventDefault()
-        const curIndx = productsInBasket?.findIndex(product => product_id === product.id)
+        const curIndx = productsInBasket.findIndex(product => product_id === product.id)
         if (curIndx === -1) return
 
         const curObj = productsInBasket[curIndx]
         curObj['quantity'] += val
         productsInBasket[curIndx] = curObj
         setProductsInBasket([...productsInBasket])
-        cookie.set('cart', productsInBasket, { path: '/' })
+        const timer = setTimeout(() => {
+            setShowDelayedComponent(true)
+        }, 6000)
+        return () => clearTimeout(timer)
     }
+    const deleteProduct = (e, productId) => {
+        e.preventDefault()
+        const deleteObj = productsInBasket?.findIndex(obj => obj.id === productId)
+        productsInBasket.splice(deleteObj, 1)
+        setProductsInBasket([...productsInBasket])
+        cookie.set('cart', productsInBasket, { path: '/' })
+        setShowQty('')
+    }
+    // const changeQuantityToggle = (e, product_id, val) => {
+    //     e.preventDefault()
+    //     const curIndx = productsInBasket?.findIndex(product => product_id === product.id)
+    //     if (curIndx === -1) return
+
+    //     const curObj = productsInBasket[curIndx]
+    //     curObj['quantity'] += val
+    //     productsInBasket[curIndx] = curObj
+    //     setProductsInBasket([...productsInBasket])
+    //     cookie.set('cart', productsInBasket, { path: '/' })
+    // }
     const getProductQty = (product_id) => {
         const product = productsInBasket?.find(prd => prd.id === product_id)
         return product?.quantity
@@ -264,11 +299,11 @@ const UserList = (props) => {
                 {show && (
                     <Grid container key={product.id} item xs={11} spacing={3} style={{ padding: '30px 0', margin: '0 auto' }} >
                         <Grid item xs={2} >
-                            <img src={blueberries} />
+                            <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC' alt='Product image' />
                         </Grid>
-                        <Grid item xs={1} />
+                        <Grid item xs={2} />
                         {!showQty.includes(product.id) ? (
-                            <Grid item xs={9} style={{ margin: 'auto 0' }} >
+                            <Grid item xs={8} style={{ margin: 'auto 0' }} >
                                 <Grid container spacing={3} >
                                     <Grid item xs={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
@@ -276,8 +311,8 @@ const UserList = (props) => {
                                     <Grid item xs={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
-                                    <Grid item xs={1} />
-                                    <Grid item xs={2} className={classes.roundedGrid} >
+                                    {/* <Grid item xs={1} /> */}
+                                    <Grid item xs={3} className={classes.roundedGrid} >
                                         <Button onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
                                             Add to cart
                                         </Button>
@@ -286,7 +321,7 @@ const UserList = (props) => {
                                 </Grid>
                             </Grid>
                         ) : (
-                            <Grid item xs={9} style={{ margin: 'auto 0' }}>
+                            <Grid item xs={8} style={{ margin: 'auto 0' }}>
                                 <Grid container spacing={3} >
                                     <Grid item xs={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
@@ -295,30 +330,39 @@ const UserList = (props) => {
                                         <Typography variant='h6' >   Ksh.{product.price}  </Typography>
                                     </Grid>
                                     <Grid item xs={1} />
-                                    <Grid container item xs={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
-                                        <Grid item xs={4} >
-                                            {getProductQty(product.id) === 1 ? (
-                                                 <Button
-                                                 style={{ fontSize: '20px' }}
-                                                 onClick={e => deleteProduct(e,product.id)}
-                                             >
-                                                 <DeleteIcon />
-                                             </Button>  
-                                            ) : (
-                                                <Button
-                                                    style={{ fontSize: '20px' }}
-                                                    onClick={e => changeQuantityToggle(e, product.id, -1)}
-                                                > <RemoveIcon/> </Button>
-                                            )}
+                                    {showDelayedComponent ? (
+                                        <Grid container item xs={3}>
+                                            <Grid item xs={8} />
+                                            <Grid item xs={1} style={{ margin: 'auto 0' }}>
+                                                <Button className={classes.roundedBlackButton} onClick={e => setShowQty([...showQty, product.id])}> {getProductQty(product.id)} </Button>
+                                            </Grid>
+                                            <Grid item xs={3} />
                                         </Grid>
-                                        <Grid item xs={4} style={{ textAlign: 'center' }} >
-                                            <Typography variant='h6' >  {getProductQty(product.id)}  </Typography>
+                                    ) : (
+                                        <Grid container item xs={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
+                                            <Grid item xs={4} >
+                                                {getProductQty(product.id) === 1 ? (
+                                                    <Button
+                                                        style={{ fontSize: '20px' }}
+                                                        onClick={e => deleteProduct(e, product.id)}
+                                                    >
+                                                        <DeleteIcon />
+                                                    </Button>
+                                                ) : (
+                                                    <Button
+                                                        style={{ fontSize: '20px' }}
+                                                        onClick={e => changeQuantity(e, product.id, -1)}
+                                                    > <RemoveIcon /> </Button>
+                                                )}
+                                            </Grid>
+                                            <Grid item xs={4} style={{ textAlign: 'center' }} >
+                                                <Typography variant='h6' >  {getProductQty(product.id)}  </Typography>
+                                            </Grid>
+                                            <Grid item xs={4} >
+                                                <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item xs={4} >
-                                            <Button style={{ fontSize: '20px' }} onClick={e => changeQuantityToggle(e, product.id, 1)} > <AddIcon/> </Button>
-                                        </Grid>
-                                    </Grid>
-
+                                    )}
                                 </Grid>
                             </Grid>
                         )}
@@ -356,22 +400,22 @@ const UserList = (props) => {
                         <React.Fragment >
                             <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                 <Toolbar>
-                                    <Button color="inherit" onClick={ toggleDrawer(true)} >
+                                    <Button color="inherit" onClick={toggleDrawer(true)} >
                                         <ShoppingCartIcon fontSize='large' />
                                         <div className={classes.cartCount}> {productsInBasket?.length} </div>
                                     </Button>
                                 </Toolbar>
                             </AppBar>
-                            <Drawer anchor='right' open={open}  style={{ width: '52% !important' }} >
+                            <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
                                 <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
                                     <Grid item xs={2} >
-                                        <IconButton onClick={ toggleDrawer(false)} >
+                                        <IconButton onClick={toggleDrawer(false)} >
                                             <CloseIcon fontSize="large" style={{ color: 'orange' }} />
                                         </IconButton>
                                     </Grid>
                                 </Grid>
-                                <List/>
-                                
+                                <List />
+
                             </Drawer>
                         </React.Fragment>
                     </Grid>
@@ -418,7 +462,7 @@ const UserList = (props) => {
                 </Grid>
                 <Grid container  >
                     <Grid item xs={2} style={{ margin: '20px auto', background: '#FFBD59', padding: '10px 0', textAlign: 'center', borderRadius: '10px' }} >
-                        <Button onClick={handleRedirect} style={{ textTransform: 'none'}}> Browse Aisles </Button>
+                        <Button onClick={handleRedirect} style={{ textTransform: 'none' }}> Browse Aisles </Button>
                     </Grid>
                 </Grid>
 
