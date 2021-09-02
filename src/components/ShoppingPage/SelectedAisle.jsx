@@ -107,7 +107,7 @@ const SelectedAisles = (props) => {
     }, [])
 
 
-    const handleAddProduct = (name, price, quantity, id) => {
+    const handleAddProduct = (e,name, price, quantity, id) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
@@ -192,6 +192,7 @@ const SelectedAisles = (props) => {
                                                     <Grid item xs={9} style={{ margin: 'auto 0' }}>
                                                         <Grid container spacing={3} >
                                                             <Grid item xs={8} />
+                                                            {/* <p>fhhhhhhf</p> */}
                                                             <Grid container item xs={3} style={{ textAlign: 'center' }} >
                                                                 <Grid item xs={4} >
                                                                     {getProductQty(product.id) === 1 ? (
@@ -215,7 +216,6 @@ const SelectedAisles = (props) => {
                                                                     <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
                                                                 </Grid>
                                                             </Grid>
-
                                                         </Grid>
                                                     </Grid>
                                                 )}
