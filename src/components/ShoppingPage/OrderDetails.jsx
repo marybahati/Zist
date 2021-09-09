@@ -6,7 +6,7 @@ import Collapsible from 'react-collapsible';
 import store from './../../Assets/store.png';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link } from "@material-ui/core";
-import { withCookies } from 'react-cookie';
+import { Cookies,withCookies } from 'react-cookie';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 const OrderDetails = (props) => {
     const classes = useStyles()
     const { cookies } = props
+    const cookie = new Cookies()
     const storedItems = cookies.get('cart')
     const info = (props.location && props.location.state) || '';
     const [cart, setCart] = useState(storedItems)
@@ -77,19 +78,13 @@ const OrderDetails = (props) => {
         return price
         console.log(price, product)
     }
-    const deleteProduct = (e, index) => {
+    const deleteProduct = (e, productId) => {
         e.preventDefault()
-        const obj = cart[index]
-        cart.splice(obj, 1)
+        const deleteObj = cart?.findIndex(obj => obj.id === productId)
+        cart.splice(deleteObj, 1)
         setCart([...cart])
-        console.log(cart, obj)
+        cookie.set('cart', cart, { path: '/' })
     }
-    // info.map( no => {
-    //     const numbers = no.productPrice 
-    //     // console.log(numbers)
-    //     setN([...n, numbers])
-    //     console.log(n, numbers)
-    // })
     console.log(info)
     return (
         <div>
@@ -133,7 +128,7 @@ const OrderDetails = (props) => {
                                     <Grid item xs={2} >
                                         <Button
                                             style={{ fontSize: '20px' }}
-                                        //  onClick={e => deleteProduct(e,product.id)}
+                                            onClick={e => deleteProduct(e, product.id)}
                                         >
                                             <DeleteIcon />
                                         </Button>
@@ -224,7 +219,6 @@ const OrderDetails = (props) => {
                             <Grid item xs={2} style={{ margin: '0 auto' }} >
                                 <Button
                                     className={classes.getStartedButton}
-                                //  onClick={e => deleteProduct(e,product.id)}
                                 >
                                     Complete
                                 </Button>
