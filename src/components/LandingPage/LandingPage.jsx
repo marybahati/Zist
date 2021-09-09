@@ -106,19 +106,21 @@ const useStyles = makeStyles((theme) => ({
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState('');
   const { cookies } = props
+  const cookie = new Cookies()
   const userData = cookies.get('login-res')
   const token = userData?.access
   const names = cookies.get('name')
   const splitName = names?.split(' ')
   const name = splitName !== undefined ? splitName[0] : null
-  console.log(names, name)
+  console.log(location)
 
   const handleRedirect = () => {
+    cookie.set('location', location ,{path: '/'})
       history.push({
         pathname: '/shopping',
-        state: location
+        // state: location
       })
   }
   const handleLogOut = () => {
@@ -131,8 +133,7 @@ const LandingPage = (props) => {
   const handleGetLocation = (locationValue) => {
     // axios.get(`https://api.locationiq.com/v1/autocomplete.php?key=${KEY_API}&q=${locationValue}`)
   }
-  console.log(token)
-  console.log(token !== undefined || token !== '')
+ 
   return (
     <div className={classes.rootDiv} >
       {/* start of the navbar section */}
@@ -179,7 +180,7 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
         <Grid container className={classes.locationColumn} >
-          <Grid container component='form' onSubmit={handleRedirect} autocomplete='off' item xs={12} >
+          <Grid container component='form' onSubmit={handleRedirect} autoComplete='off' item xs={12} >
             <Grid item xs={2} >
               <IconButton className={classes.iconButton} >
                 <LocationOnIcon fontSize='large' />
@@ -193,11 +194,11 @@ const LandingPage = (props) => {
                 className={classes.input}
                 placeholder='Enter your address …'
                 inputProps={{ 'aria-label': 'Enter your address' }}
-                onChange={ (e) => handleGetLocation(e.target.value)}
+                onChange={ (e) => setLocation(e.target.value)}
               />
             </Grid>
             <Grid item xs={2} style={{ textAlign: 'center', borderLeft: '1px solid #707070' }}>
-              <IconButton type='submit' item xs={2} className={classes.iconButton} aria-label="directions">
+              <IconButton type='submit' xs={2} className={classes.iconButton} aria-label="directions">
                 <NavigateNextIcon fontSize='large' />
               </IconButton>
             </Grid>
@@ -216,7 +217,7 @@ const LandingPage = (props) => {
       </Grid>
       {/* end of the navbar section */}
 
-      <Grid className={classes.descriptionGrid} container xs={12} spacing={1} >
+      <Grid className={classes.descriptionGrid} container item xs={12} spacing={1} >
         <Grid item xs={5} >
           <img src={coffeShop} style={{ width: '100%', padding: '20px 0 0 0' }} />
         </Grid>
@@ -231,13 +232,13 @@ const LandingPage = (props) => {
           </Typography>
         </Grid>
       </Grid>
-      <Grid className={classes.descriptionGrid} container xs={12} >
+      <Grid className={classes.descriptionGrid} container item xs={12} >
         <Grid item xs={12} style={{paddingLeft:15}} >
           <Typography variant='h3' className={classes.boldFont}>   Here’s how it works! </Typography>
         </Grid>
       </Grid>
 
-      <Grid className={classes.descriptionGrid} container xs={12} >
+      <Grid className={classes.descriptionGrid} container item xs={12} >
         <Grid item xs={5} >
           <img src={step1} style={{ width: '100%', padding: '20px 0 0 0' }} />
         </Grid>
@@ -250,7 +251,7 @@ const LandingPage = (props) => {
         </Grid>
       </Grid>
 
-      <Grid className={classes.descriptionGrid} container xs={12} >
+      <Grid className={classes.descriptionGrid} container item xs={12} >
         <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
           <Typography variant='h5'>
             2.  Get to browse through the different aisles just like you’d do <br />
@@ -263,7 +264,7 @@ const LandingPage = (props) => {
         </Grid>
       </Grid>
 
-      <Grid className={classes.descriptionGrid} container xs={12} >
+      <Grid className={classes.descriptionGrid} container item xs={12} >
         <Grid item xs={5} >
           <img src={step3} style={{ width: '100%', padding: '20px 0 0 0' }} />
         </Grid>
@@ -278,7 +279,7 @@ const LandingPage = (props) => {
       </Grid>
 
       <div style={{ background: '#F9F7F1', paddingBottom: 70 }}>
-        <Grid className={classes.descriptionGrid} container xs={12} >
+        <Grid className={classes.descriptionGrid} container item xs={12} >
           <Grid item xs={5} style={{ padding: '0 0 0 40px', margin: 'auto 0' }}>
             <Typography variant='h4' className={classes.fontBold}>
               Get whatever it is that you <br />
@@ -291,13 +292,13 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
 
-        <Grid className={classes.newsletterGrid} container xs={12} >
+        <Grid className={classes.newsletterGrid} container item xs={12} >
           <Grid item xs={12} >
             <img src={zist} style={{ width: '100%' }} />
           </Grid>
         </Grid>
 
-        <Grid className={classes.newsletterGrid} container xs={12} >
+        <Grid className={classes.newsletterGrid} container item xs={12} >
           <Grid item xs={12} style={{ textAlign: 'center' }}>
             <Typography variant='h5' className={classes.fontBold}>
               Zist Shopping <br />
@@ -343,7 +344,7 @@ const LandingPage = (props) => {
           </Grid>
           <Grid container item xs={12} style={{ fontSize: 25, padding: '40px 0 0 0' }}>
             <Grid item xs={6} >
-              <Typography variant='a' href='' > Terms & Policy </Typography>
+              <Typography  href='' > Terms & Policy </Typography>
             </Grid>
           </Grid>
           <Grid container item xs={12} style={{ padding: '40px 0 0 0' }}>

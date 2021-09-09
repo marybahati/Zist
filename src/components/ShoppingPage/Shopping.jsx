@@ -8,7 +8,7 @@ import store from './../../Assets/store.png';
 import axios from 'axios';
 import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
 import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
-import { withCookies } from 'react-cookie';
+import { Cookies, withCookies } from 'react-cookie';
 import History from '../../History';
 import { HOST_API } from '../../endpoints';
 import Carousel from "react-multi-carousel";
@@ -61,12 +61,13 @@ const Shopping = (props) => {
   const classes = useStyles();
   const { cookies } = props
   const userData = cookies.get('login-res')
+  const cookie = new Cookies()
   const token = userData?.access
   const names = cookies.get('name')
   const splitName = names?.split(' ')
   const name = splitName !== undefined ? splitName[0] : null
   console.log(names, name)
-  const location = (props.location && props.location.state) || '';
+  const location = cookies.get('location')
   const [address, setAddress] = useState(location);
   const [loggedIn, setLoggedIn] = useState(false);
   const [business, setBusiness] = useState('')
@@ -143,7 +144,9 @@ const Shopping = (props) => {
       fetchBusinesses()
     }
   }, [businesses])
-
+  useEffect(() => {
+    cookie.set('location', address, {path: '/'} )
+  }, [address])
   // const optionsResults = businesses?.map(x => ({ text: x.name, value: x.name, image: { src: store } }))
 
   const responsive = {
@@ -196,39 +199,6 @@ const Shopping = (props) => {
     <div >
       <Grid className={classes.navbarGrid}>
       <Navbar/>
-        {/* {token === undefined || token === '' ? (
-          <Grid container >
-            <Grid item xs={9} />
-            <Grid item xs={1} style={{ textAlign: 'center' }}>
-              <SignupButtonSection />
-            </Grid>
-            <Grid item xs={1} style={{ textAlign: 'center' }}>
-              <LoginButtonSection />
-            </Grid>
-            <Grid item xs={1} style={{ textAlign: 'center' }}>
-              <ShoppingCartIcon fontSize='large' />
-            </Grid>
-          </Grid>
-        ) : (
-          <Grid item container xs={12} >
-            <Grid container  >
-              <Grid item xs={8} />
-              <Grid item xs={1} style={{ textAlign: 'center' }}>
-                <Typography > help </Typography>
-              </Grid>
-              <Grid item xs={2} style={{ textAlign: 'center' }}>
-                {name == undefined || name == '' ? (
-                  <Typography variant='h6' >update profile </Typography>
-                ) : (
-                  <Typography variant='h6' > {name} </Typography>
-                )}
-              </Grid>
-              <Grid item xs={1} style={{ textAlign: 'center' }}>
-                <ShoppingCartIcon fontSize='large' />
-              </Grid>
-            </Grid>
-          </Grid>
-        )} */}
         <Grid container spacing={1} >
           <Grid item xs={6} style={{ width: '50%', margin: '250px auto' }} >
             <SearchComponent />

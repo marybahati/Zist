@@ -391,7 +391,7 @@ function PrimaryAppBar(props) {
 
                                 )} */}
                                 <React.Fragment >
-                                    <AppBar position="" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
+                                    <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                         <Toolbar>
                                             <Button color="inherit" onClick={toggleProductsDrawer(true)} >
                                                 <ShoppingCartIcon fontSize='large' />
