@@ -164,6 +164,16 @@ function PrimaryAppBar(props) {
         cookie.set('cart', productsInBasket, { path: '/' })
         setShowQty('')
     }
+    const handleLogOut = () => {
+        cookies.remove('login-res', { path: '/' })
+        window.location.reload(false);
+      }
+    const updateProfile = () => {
+        history.push('/update-profile')
+      }
+    const vendorRegistration = () => {
+        history.push('/vendor-intro')
+      }
     const toggleDrawer = (status) => (event) => {
         event.preventDefault()
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -179,18 +189,20 @@ function PrimaryAppBar(props) {
             onKeyDown={toggleDrawer(false)}
             className={classes.drawer}
         >
+           {name == undefined || name == '' ?  (
             <List>
                 <ListItem button key='check'>
-                    <ListItemText primary='Navigation' />
+                    <ListItemText primary='Update Profile' onClick={updateProfile} />
                 </ListItem>
             </List>
+           ) : <Typography variant='h6' style={{ padding: '0 20px' }} > Hi {name}!  </Typography> }
             <Divider />
             <List>
                 <ListItem button >
                     <ListItemText primary='About Us' />
                 </ListItem>
                 <ListItem button >
-                    <ListItemText primary='Sell on Zist Shopping' />
+                    <ListItemText primary='Sell on Zist Shopping' onClick={vendorRegistration} />
                 </ListItem>
                 <ListItem button >
                     <ListItemText primary='Become a Zister' />
@@ -201,9 +213,11 @@ function PrimaryAppBar(props) {
                 <ListItem button >
                     <ListItemText primary='Terms & Policy' />
                 </ListItem>
+                { token ? (
                 <ListItem button >
-                    <ListItemText primary='Log out' />
+                    <ListItemText primary='Log out' onClick={handleLogOut} />
                 </ListItem>
+                 ) : null }
             </List>
         </div>
     );
@@ -320,7 +334,7 @@ function PrimaryAppBar(props) {
 
     return (
         <div className={classes.grow}>
-            <AppBar color="inherit" className={classes.header}>
+            <AppBar color="inherit" className={classes.header} position='absolute' >
                 <Toolbar>
                     <IconButton
                         edge="start"

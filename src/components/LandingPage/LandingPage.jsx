@@ -139,40 +139,6 @@ const LandingPage = (props) => {
       {/* start of the navbar section */}
       <Grid className={classes.mainGrid} >
         <Navbar/>
-        {/* {token === undefined || token === '' ? (
-          <Grid container  >
-            <Grid item xs={9} />
-            <Grid item xs={1} style={{ textAlign: 'center' }}>
-              <SignupButtonSection />
-            </Grid>
-            <Grid item xs={1} style={{ textAlign: 'center' }}>
-              <LoginButtonSection />
-            </Grid>
-            <Grid item xs={1} style={{ textAlign: 'center' }}>
-              <ShoppingCartIcon fontSize='large' />
-            </Grid>
-          </Grid>
-
-        ) : (
-          <Grid item container xs={12} >
-            <Grid container  >
-              <Grid item xs={8} />
-              <Grid item xs={1} style={{ textAlign: 'center' }}>
-                <Typography > help </Typography>
-              </Grid>
-              <Grid item xs={2} style={{ textAlign: 'center' }}>
-                {name == undefined || name == '' ? (
-                  <Typography variant='h6' >update profile </Typography>
-                ) : (
-                  <Typography variant='h6' > {name} </Typography>
-                )}
-              </Grid>
-              <Grid item xs={1} style={{ textAlign: 'center' }}>
-                <ShoppingCartIcon fontSize='large' />
-              </Grid>
-            </Grid>
-          </Grid>
-        )} */}
         <Grid container className={classes.centeredLocationColumn} >
           <Grid item >
             <Typography variant='h5' className={classes.boldFont} > SHOPPING REINVENTED. </Typography>
