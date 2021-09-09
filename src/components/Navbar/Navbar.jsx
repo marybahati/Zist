@@ -116,6 +116,7 @@ function PrimaryAppBar(props) {
     const cookie = new Cookies()
     const userData = cookies.get('login-res')
     const token = userData?.access
+    const location = cookies.get('location')
     const names = cookies.get('name')
     const splitName = names?.split(' ')
     const name = splitName !== undefined ? splitName[0] : null
@@ -343,7 +344,7 @@ function PrimaryAppBar(props) {
                         </Drawer>
                     </React.Fragment>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Zist Shopping
+                    { location ? ` ASAP to ${location} ` : 'Zist Shopping' } 
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
