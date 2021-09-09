@@ -391,7 +391,8 @@ function PrimaryAppBar(props) {
                                     <Typography variant='h6' style={{ padding: '0 30px' }}> {name} </Typography>
 
                                 )} */}
-                                <React.Fragment >
+                                {props.hideCart ? null : (
+                                    <React.Fragment >
                                     <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                         <Toolbar>
                                             <Button color="inherit" onClick={toggleProductsDrawer(true)} >
@@ -411,6 +412,7 @@ function PrimaryAppBar(props) {
                                         {list()}
                                     </Drawer>
                                 </React.Fragment>
+                                )}
                             </>
                         )}
 

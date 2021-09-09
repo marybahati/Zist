@@ -12,6 +12,7 @@ import AddIcon from '@material-ui/icons/Add';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import Navbar from '../Navbar/Navbar';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -89,6 +90,7 @@ const OrderDetails = (props) => {
     return (
         <div>
             <div className={classes.mainGrid}>
+                <Navbar hideCart />
                 <Grid container style={{ padding: '20px 0 0 0' }} >
                     <Grid item xs={12} style={{ textAlign: 'center', margin: '0 auto' }} >
                         {/* <Typography variant='h4' > Order details </Typography> */}
