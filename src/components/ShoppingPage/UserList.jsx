@@ -315,6 +315,9 @@ const UserList = (props) => {
                 if (response.status == 200) {
                     setProducts(response.data.results);
                     setCountProducts(response.data.count)
+                    const data = response.data.results
+                    console.log(data)
+                    // cookie.set('products',data, { path: '/'} )
                 }
 
             })

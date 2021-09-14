@@ -179,7 +179,7 @@ function PrimaryAppBar(props) {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-        console.log(status)
+        // console.log(status)
         setDrawerOpen(status);
     };
     const navbar = () => (
@@ -227,7 +227,7 @@ function PrimaryAppBar(props) {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
-        console.log(status)
+        // console.log(status)
         setOpen(status);
     };
     const list = () => (
@@ -242,7 +242,7 @@ function PrimaryAppBar(props) {
                     <h3 style={{ padding: '10px 0 0 20px' }}> Your cart </h3>
                     <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {businessName} </Typography>
                     {productsInBasket?.map((product, index) => {
-                        console.log(product, '=========23456', productsInBasket)
+                        // console.log(product, '=========23456', productsInBasket)
                         return (
                             <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
                                 <Grid container item xs={12} />

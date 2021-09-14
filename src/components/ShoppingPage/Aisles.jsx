@@ -68,7 +68,7 @@ const Aisles = (props) => {
     const storedItems = cookies.get('cart')
     const [showQty, setShowQty] = useState([])
     const [productsInBasket, setProductsInBasket] = useState()
-    const [countProducts, setCountProducts] = useState()
+    const [fetchedProducts, setFetchedProducts] = useState([])
     const [categories, setCategories] = useState([])
     const userData = cookies.get('login-res')
     const token = userData?.access
@@ -76,32 +76,12 @@ const Aisles = (props) => {
     const businessId = clickedBusiness?.id
     const cookie = new Cookies()
 
-    const testproducts = [
-        {
-            name: 'Mango',
-            price: '10',
-            id: 1
-        },
-        {
-            name: 'Pineapple',
-            price: '15',
-            id: 2
-        },
-        {
-            name: 'Kales',
-            price: '20',
-            id: 3
-        },
-        // {
-        //     name: 'Peaches',
-        //     price: '40',
-        //     id: 4
-        // },
-        // {
-        //     name: 'Cabbage',
-        //     price: '60'
-        // },
-    ]
+    let groupedAisles = fetchedProducts?.reduce((r, a) => {
+        r[a.category.category] = [...r[a.category.category] || [], a];
+        return r;
+    }, {});
+    // console.log("grouped categories", groupedAisles);
+
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
@@ -123,7 +103,22 @@ const Aisles = (props) => {
                 console.log(error)
             })
     }, [])
-    console.log(categories)
+    useEffect(() => {
+        // axios.get(HOST_API + 'zist/products/', {
+        axios.get(HOST_API + `zist/business/${businessId}/product_list/`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+            .then((response) => {
+                if (response.status == 200) {
+                    setFetchedProducts(response.data.results);
+                }
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
+    console.log(fetchedProducts)
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 3000 },
@@ -157,14 +152,14 @@ const Aisles = (props) => {
             productsInBasket[checkIndex].quantity++;
             cookie.set('cart', productsInBasket, { path: '/' })
             setShowQty([...showQty, id])
-            console.log("Quantity updated:", productsInBasket);
+            // console.log("Quantity updated:", productsInBasket);
         } else {
             const d = { productName: name, productPrice: price, quantity: quantity, id: id }
             const aa = [...productsInBasket, d]
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
             cookie.set('cart', aa, { path: '/' })
-            console.log('The product has been added to cart:', productsInBasket);
+            // console.log('The product has been added to cart:', productsInBasket);
         }
     }
     const changeQuantity = (e, product_id, val) => {
@@ -177,7 +172,7 @@ const Aisles = (props) => {
         productsInBasket[curIndx] = curObj
         setProductsInBasket([...productsInBasket])
     }
-    console.log(productsInBasket)
+    // console.log(productsInBasket)
     const getProductQty = (product_id) => {
         const product = productsInBasket.find(prd => prd.id === product_id)
         return product?.quantity
@@ -194,7 +189,7 @@ const Aisles = (props) => {
         })
     }
     const handleClickedAisle = (category) => {
-        const data = { id: category.id, name: category.category}
+        const data = { id: category.id, name: category.category }
         history.push({
             pathname: '/shopping/single/category',
             state: data
@@ -259,60 +254,56 @@ const Aisles = (props) => {
             </Grid>
         )
     })
+    // console.log(arr) 
     return (
         <div className={classes.mainDiv}  >
             <div className={classes.mainGrid} >
-                <Navbar/>
+                <Navbar />
                 <Grid container style={{ padding: '20px 0' }} >
                     <Grid item xs={12} style={{ textAlign: 'center' }} >
                         <Typography variant='h5' className={classes.boldFont} > Aisles </Typography>
                     </Grid>
                 </Grid>
-                {categories?.map(data =>  (
-                        <Grid container item xs={12} key={data.id} >
-                            <Grid item xs={3} >
-                                <Grid item xs={12} key={data.id} style={{ height: '250px', margin: 'auto 0' }} >
-                                    <Typography
-                                        variant='h5'
-                                        key={data.id}                                        
-                                    >
-                                        {data.category}
-                                    </Typography>
-                                    <Button className={classes.roundedGrid} onClick={ () => handleClickedAisle(data)}> See all </Button>
-                                </Grid>
+                <>
+                    {Object.keys(groupedAisles).map((data, index) => (
+                        
+                            <Grid container item xs={12}key={index} >
+                                {console.log(data,'cat data test')}
+                                {groupedAisles[data].map((res) => (
+                                    <>
+                                        <Grid item xs={3}  key={index}>
+                                            <Grid item xs={12} style={{ height: '250px', margin: 'auto 0' }} >
+                                                <Typography
+                                                    variant='h5'
+                                                    key={index}
+                                                >
+                                                   {data}
+                                                </Typography>
+                                                <Button className={classes.roundedGrid} key={index} onClick={() => handleClickedAisle(res.category)}> See all </Button>
+                                            </Grid>
 
-                            </Grid>
-                            <Grid item xs={9}>
-                                <Grid container spacing={3} >
-                                    {testproducts?.map(product => (
-                                            <Grid item xs={4} key={product.id}>
-                                                <Grid container >
-                                                    <Grid item xs={12}>
-                                                        <img src={bananas} alt='Product image' />
-                                                    </Grid>
-                                                    <Grid item xs={12}>
-                                                        <Typography variant='h6'> {product.name} </Typography>
-                                                        <Typography variant='h6'> Ksh.{product.price} </Typography>
+                                        </Grid>
+                                        <Grid item xs={9}>
+                                            <Grid container spacing={3} >
+                                                <Grid item xs={4} >
+                                                    <Grid container >
+                                                        <Grid item xs={12}>
+                                                            <img src={bananas} alt='Product image' />
+                                                        </Grid>
+                                                        <Grid item xs={12}>
+                                                            <Typography variant='h6'> {res.name} </Typography>
+                                                            <Typography variant='h6'> Ksh.{res.price} </Typography>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        )
-                                    )}
-                                </Grid>
+                                        </Grid>
+                                    </>
+                                ))}
                             </Grid>
-                        </Grid>
-                            )
-                        )}
 
-                    {/* {
-                        productsInBasket?.length !== 0 ? (
-                            <Grid container  >
-                                <Grid item xs={3} style={{ margin: '10px auto' }} >
-                                    <Button className={classes.getStartedButton} onClick={handleGoingBackToList} > Go back </Button>
-                                </Grid>
-                            </Grid>
-                        ) : null
-                    } */}
+                    ))}
+                </>
             </div>
         </div>
     )
