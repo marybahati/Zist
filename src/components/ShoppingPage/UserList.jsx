@@ -238,7 +238,6 @@ const UserList = (props) => {
                                     <Grid item xs={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
-                                    {/* <Grid item xs={1} /> */}
                                     <Grid item xs={3} className={classes.roundedGrid} >
                                         <Button onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
                                             Add to cart
