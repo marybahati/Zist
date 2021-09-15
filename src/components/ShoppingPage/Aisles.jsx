@@ -80,7 +80,7 @@ const Aisles = (props) => {
         r[a.category.category] = [...r[a.category.category] || [], a];
         return r;
     }, {});
-    // console.log("grouped categories", groupedAisles);
+    console.log("grouped categories", groupedAisles);
 
     useEffect(() => {
         if (storedItems) {
@@ -118,34 +118,14 @@ const Aisles = (props) => {
                 console.log(error)
             })
     }, [])
-    console.log(fetchedProducts)
-    const responsive = {
-        superLargeDesktop: {
-            breakpoint: { max: 4000, min: 3000 },
-            items: 6
-        },
-        mediumLargeDesktop: {
-            breakpoint: { max: 300, min: 1920 },
-            items: 5
-        },
-        desktop: {
-            breakpoint: { max: 1920, min: 1500 },
-            items: 4
-        },
-        mediumDesktop: {
-            breakpoint: { max: 1500, min: 1024 },
-            items: 3
-        },
-        tablet: {
-            breakpoint: { max: 1024, min: 768 },
-            items: 2
-        },
-        mobile: {
-            breakpoint: { max: 768, min: 0 },
-            items: 1
-        }
-    };
-
+    const singleCategory = (e, cat) => {
+        e.preventDefault()
+        const matchedCategory = categories?.find(data => data.category === cat)
+        history.push({
+            pathname: '/shopping/single/category',
+            state: matchedCategory
+        })
+    }
     const handleAddProduct = (name, price, quantity, id) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
@@ -266,41 +246,36 @@ const Aisles = (props) => {
                 </Grid>
                 <>
                     {Object.keys(groupedAisles).map((data, index) => (
-                        
-                            <Grid container item xs={12}key={index} >
-                                {console.log(data,'cat data test')}
-                                {groupedAisles[data].map((res) => (
-                                    <>
-                                        <Grid item xs={3}  key={index}>
-                                            <Grid item xs={12} style={{ height: '250px', margin: 'auto 0' }} >
-                                                <Typography
-                                                    variant='h5'
-                                                    key={index}
-                                                >
-                                                   {data}
-                                                </Typography>
-                                                <Button className={classes.roundedGrid} key={index} onClick={() => handleClickedAisle(res.category)}> See all </Button>
-                                            </Grid>
+                        <Grid container item xs={12} key={index} >
+                            {console.log(data, 'cat data test')}
+                            <Grid item xs={3} key={index}>
+                                <Grid item xs={12} style={{ height: '250px', margin: 'auto 0' }} >
+                                    <Typography
+                                        variant='h5'
+                                        key={index}
+                                    >
+                                        {data}
+                                    </Typography>
+                                    <Button className={classes.roundedGrid} key={index} onClick={(e) => singleCategory(e, data)}> See all </Button>
+                                </Grid>
 
-                                        </Grid>
-                                        <Grid item xs={9}>
-                                            <Grid container spacing={3} >
-                                                <Grid item xs={4} >
-                                                    <Grid container >
-                                                        <Grid item xs={12}>
-                                                            <img src={bananas} alt='Product image' />
-                                                        </Grid>
-                                                        <Grid item xs={12}>
-                                                            <Typography variant='h6'> {res.name} </Typography>
-                                                            <Typography variant='h6'> Ksh.{res.price} </Typography>
-                                                        </Grid>
-                                                    </Grid>
+                            </Grid>
+                                <Grid container item xs={9} >
+                            {groupedAisles[data].slice(0,3).map((res) => (
+                                        <Grid item xs={4} style={{float: 'left', overflow: 'auto'}}>
+                                            <Grid container >
+                                                <Grid item xs={12}>
+                                                    <img src={bananas} alt='Product image' />
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    <Typography variant='h6'> {res.name} </Typography>
+                                                    <Typography variant='h6'> Ksh.{res.price} </Typography>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                    </>
-                                ))}
-                            </Grid>
+                                    ))}
+                                </Grid>
+                        </Grid>
 
                     ))}
                 </>

@@ -97,7 +97,7 @@ const SelectedAisles = (props) => {
     const userData = cookies.get('login-res')
     const token = userData?.access
     const clickedAisle = (props.location && props.location.state) || '';
-    console.log(showDelayedComponent)
+    // console.log(clickedAisle,'lale')
 
     const fetchedProductsByCategory = () => {
         axios.get(HOST_API + `zist/categories/${clickedAisle?.id}/products/`, {
@@ -193,7 +193,7 @@ const SelectedAisles = (props) => {
                 <Navbar/>
                 <Grid container style={{ padding: '20px 0' }} >
                     <Grid item xs={12} style={{ textAlign: 'center' }} >
-                        <Typography variant='h5' className={classes.boldFont} > {clickedAisle?.name} </Typography>
+                        <Typography variant='h5' className={classes.boldFont} > {clickedAisle?.category} </Typography>
                     </Grid>
                 </Grid>
                 <Grid container item xs={12} >
