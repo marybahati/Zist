@@ -246,35 +246,33 @@ const Aisles = (props) => {
                 </Grid>
                 <>
                     {Object.keys(groupedAisles).map((data, index) => (
-                        <Grid container item xs={12} key={index} >
-                            {console.log(data, 'cat data test')}
-                            <Grid item xs={3} key={index}>
-                                <Grid item xs={12} style={{ height: '250px', margin: 'auto 0' }} >
+                        <Grid container item xs={12} key={index} style={{marginBottom: '20px'}} >
+                            <Grid item xs={3} key={index} style={{ height: '250px', margin: 'auto 0' }} >
+                                <Grid item xs={12} >
                                     <Typography
                                         variant='h5'
-                                        key={index}
+                                        key={data}
                                     >
                                         {data}
                                     </Typography>
-                                    <Button className={classes.roundedGrid} key={index} onClick={(e) => singleCategory(e, data)}> See all </Button>
+                                    <Button className={classes.roundedGrid} key={data} onClick={(e) => singleCategory(e, data)}> See all </Button>
                                 </Grid>
-
                             </Grid>
-                                <Grid container item xs={9} >
-                            {groupedAisles[data].slice(0,3).map((res) => (
-                                        <Grid item xs={4} style={{float: 'left', overflow: 'auto'}}>
-                                            <Grid container >
-                                                <Grid item xs={12}>
-                                                    <img src={bananas} alt='Product image' />
-                                                </Grid>
-                                                <Grid item xs={12}>
-                                                    <Typography variant='h6'> {res.name} </Typography>
-                                                    <Typography variant='h6'> Ksh.{res.price} </Typography>
-                                                </Grid>
+                            <Grid container item xs={9} >
+                                {groupedAisles[data].slice(0, 3).map((res) => (
+                                    <Grid item xs={4} key={res.id} >
+                                        <Grid container >
+                                            <Grid item xs={12}>
+                                                <img src={bananas} alt='Product image' />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <Typography variant='h6'> {res.name} </Typography>
+                                                <Typography variant='h6'> Ksh.{res.price} </Typography>
                                             </Grid>
                                         </Grid>
-                                    ))}
-                                </Grid>
+                                    </Grid>
+                                ))}
+                            </Grid>
                         </Grid>
 
                     ))}
