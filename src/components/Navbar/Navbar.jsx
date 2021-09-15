@@ -29,6 +29,8 @@ import { Cookies, withCookies } from 'react-cookie';
 import history from './../../History'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HelpIcon from '@material-ui/icons/Help';
+import zist from "./../../Assets/zist.png";
+import AndroidIcon from '@material-ui/icons/Android';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -106,6 +108,13 @@ const useStyles = makeStyles((theme) => ({
     },
     closeDrawer: {
         flexBasis: '0%',
+    },
+    androidButton: {
+        background: '#70707026',
+        width: '140px',
+        height: '50px',
+        borderRadius: '30px',
+        margin: '30px 20px'
     },
 }));
 
@@ -239,6 +248,27 @@ function PrimaryAppBar(props) {
                     </ListItem>
                 ) : null}
             </List>
+            <Grid container item xs={12} >
+                <Grid item xs={6}> 
+                <img src={zist} width='100%' height='100%' alt='zist android' />
+                </Grid>
+                <Grid item xs={6} style={{margin: 'auto 0'}} >
+                    <Typography variant='body1' >
+                        There’s more to <br/>see in the app.
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Grid container item xs={12} >
+                <Grid item xs={12}> 
+                <Button
+        variant="contained"
+        className={classes.androidButton}
+        startIcon={<AndroidIcon />}
+      >
+        Android
+      </Button>
+                </Grid>
+            </Grid>
         </div>
     );
 
@@ -377,8 +407,13 @@ function PrimaryAppBar(props) {
                         </Drawer>
                     </React.Fragment>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        {location ? ` ASAP to ${location} ` : 'Zist Shopping'}
+                       Zist Shopping
                     </Typography>
+                    {location ? (
+                    <Typography className={classes.title} variant="h6" noWrap style={{textAlign: 'center'}}>
+                          ASAP to {location} 
+                    </Typography>
+                    ) : null }
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         {token === undefined || token === '' ? (
