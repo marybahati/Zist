@@ -20,12 +20,16 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
 import Button from '@material-ui/core/Button'
 import CloseIcon from '@material-ui/icons/Close';
 import { Grid } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Cookies, withCookies } from 'react-cookie';
 import history from './../../History'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import HelpIcon from '@material-ui/icons/Help';
+
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
@@ -167,13 +171,13 @@ function PrimaryAppBar(props) {
     const handleLogOut = () => {
         cookies.remove('login-res', { path: '/' })
         window.location.reload(false);
-      }
+    }
     const updateProfile = () => {
         history.push('/update-profile')
-      }
+    }
     const vendorRegistration = () => {
         history.push('/vendor-intro')
-      }
+    }
     const toggleDrawer = (status) => (event) => {
         event.preventDefault()
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -182,6 +186,7 @@ function PrimaryAppBar(props) {
         // console.log(status)
         setDrawerOpen(status);
     };
+    console.log(userData)
     const navbar = () => (
         <div
             role="presentation"
@@ -189,13 +194,21 @@ function PrimaryAppBar(props) {
             onKeyDown={toggleDrawer(false)}
             className={classes.drawer}
         >
-           {name == undefined || name == '' ?  (
+            {name == undefined || name == '' ? (
+                <List>
+                    <ListItem button key='check'>
+                        <ListItemIcon> <AccountCircleIcon color='black' /> </ListItemIcon>
+                        <ListItemText primary='Update Profile' onClick={updateProfile} />
+                    </ListItem>
+                </List>
+            ) : <Typography variant='h6' style={{ padding: '0 20px' }} > Hi {name}!  </Typography>}
+            <Divider />
             <List>
                 <ListItem button key='check'>
-                    <ListItemText primary='Update Profile' onClick={updateProfile} />
+                    <ListItemIcon> <HelpIcon /> </ListItemIcon>
+                    <ListItemText primary='Help' onClick={updateProfile} />
                 </ListItem>
             </List>
-           ) : <Typography variant='h6' style={{ padding: '0 20px' }} > Hi {name}!  </Typography> }
             <Divider />
             <List>
                 <ListItem button >
@@ -204,20 +217,27 @@ function PrimaryAppBar(props) {
                 <ListItem button >
                     <ListItemText primary='Sell on Zist Shopping' onClick={vendorRegistration} />
                 </ListItem>
-                <ListItem button >
+                {userData.vendor !== null ? (
+                    <ListItem button >
+                    <ListItemText primary='Proceed to vendor Dashboard' />
+                </ListItem>
+                ) : (
+                    <ListItem button >
                     <ListItemText primary='Become a Zister' />
                 </ListItem>
+                )}
+                
                 <ListItem button >
                     <ListItemText primary='Contact Us' />
                 </ListItem>
                 <ListItem button >
                     <ListItemText primary='Terms & Policy' />
                 </ListItem>
-                { token ? (
-                <ListItem button >
-                    <ListItemText primary='Log out' onClick={handleLogOut} />
-                </ListItem>
-                 ) : null }
+                {token ? (
+                    <ListItem button >
+                        <ListItemText primary='Log out' onClick={handleLogOut} />
+                    </ListItem>
+                ) : null}
             </List>
         </div>
     );
@@ -242,7 +262,6 @@ function PrimaryAppBar(props) {
                     <h3 style={{ padding: '10px 0 0 20px' }}> Your cart </h3>
                     <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {businessName} </Typography>
                     {productsInBasket?.map((product, index) => {
-                        // console.log(product, '=========23456', productsInBasket)
                         return (
                             <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
                                 <Grid container item xs={12} />
@@ -358,18 +377,18 @@ function PrimaryAppBar(props) {
                         </Drawer>
                     </React.Fragment>
                     <Typography className={classes.title} variant="h6" noWrap>
-                    { location ? ` ASAP to ${location} ` : 'Zist Shopping' } 
+                        {location ? ` ASAP to ${location} ` : 'Zist Shopping'}
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         {token === undefined || token === '' ? (
                             <Grid container>
                                 <Grid item xs={3} />
-                                <Grid item xs={3} style={{marginTop:15}} >
+                                <Grid item xs={3} style={{ marginTop: 15 }} >
                                     <SignupButtonSection />
                                 </Grid>
                                 <Grid item xs={1} />
-                                <Grid item xs={3} style={{marginTop:15}} >
+                                <Grid item xs={3} style={{ marginTop: 15 }} >
                                     <LoginButtonSection />
                                 </Grid>
                                 <Grid item xs={2}>
@@ -407,25 +426,25 @@ function PrimaryAppBar(props) {
                                 )} */}
                                 {props.hideCart ? null : (
                                     <React.Fragment >
-                                    <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
-                                        <Toolbar>
-                                            <Button color="inherit" onClick={toggleProductsDrawer(true)} >
-                                                <ShoppingCartIcon fontSize='large' />
-                                                <div className={classes.cartCount}> {productsInBasket?.length} </div>
-                                            </Button>
-                                        </Toolbar>
-                                    </AppBar>
-                                    <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
-                                        <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
-                                            <Grid item xs={2} >
-                                                <IconButton onClick={toggleProductsDrawer(false)} >
-                                                    <CloseIcon fontSize="large" style={{ color: 'orange' }} />
-                                                </IconButton>
+                                        <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
+                                            <Toolbar>
+                                                <Button color="inherit" onClick={toggleProductsDrawer(true)} >
+                                                    <ShoppingCartIcon fontSize='large' />
+                                                    <div className={classes.cartCount}> {productsInBasket?.length} </div>
+                                                </Button>
+                                            </Toolbar>
+                                        </AppBar>
+                                        <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
+                                            <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
+                                                <Grid item xs={2} >
+                                                    <IconButton onClick={toggleProductsDrawer(false)} >
+                                                        <CloseIcon fontSize="large" style={{ color: 'orange' }} />
+                                                    </IconButton>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                        {list()}
-                                    </Drawer>
-                                </React.Fragment>
+                                            {list()}
+                                        </Drawer>
+                                    </React.Fragment>
                                 )}
                             </>
                         )}
