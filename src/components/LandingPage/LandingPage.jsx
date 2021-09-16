@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     bottom: 0,
     left: 0,
-    background: '#F9F7F1',
+    background: '#F9F7F1 ',
   },
   mainGrid: {
     padding: '0 0 0 0 !important',

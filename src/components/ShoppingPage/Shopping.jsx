@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import bgImage from './../../Assets/shopping1.png'
-import { Grid, Button, Typography, TextField, Card, CardActionArea, CardContent, CardMedia
-  } from "@material-ui/core";
+import {
+  Grid, Button, Typography, TextField, Card, CardActionArea, CardContent, CardMedia
+} from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import store from './../../Assets/store.png';
@@ -28,8 +29,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    height: 430,
+    height: 200,
     width: '100% !important'
+  },
+  mainDiv: {
+    position: 'relative',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    background: '#F9F7F1 ',
   },
   textfields: {
     width: '100%',
@@ -98,7 +107,7 @@ const Shopping = (props) => {
   }
   const CardDisplay = (props) => {
     return (
-      <Card style={{ width: '100%',height:380}}>
+      <Card style={{ width: '100%', height: 380 }}>
         <CardActionArea key={business.id} onClick={props.handleClick} >
           <CardMedia
             className={classes.media}
@@ -113,7 +122,7 @@ const Shopping = (props) => {
             <Typography variant="body2" color="textSecondary" component="p">
               {props.description}
             </Typography>
-           
+
           </CardContent>
         </CardActionArea>
       </Card>
@@ -145,7 +154,7 @@ const Shopping = (props) => {
     }
   }, [businesses])
   useEffect(() => {
-    cookie.set('location', address, {path: '/'} )
+    cookie.set('location', address, { path: '/' })
   }, [address])
   // const optionsResults = businesses?.map(x => ({ text: x.name, value: x.name, image: { src: store } }))
 
@@ -196,19 +205,19 @@ const Shopping = (props) => {
   }
   console.log(business)
   return (
-    <div >
+    <div className={classes.mainDiv} >
       <Grid className={classes.navbarGrid}>
-      <Navbar/>
+        <Navbar />
         <Grid container spacing={1} >
-          <Grid item xs={6} style={{ width: '50%', margin: '250px auto' }} >
+          <Grid item xs={6} style={{ width: '50%', margin: '100px auto' }} >
             <SearchComponent />
           </Grid>
         </Grid>
       </Grid>
       {/* end of the nav section */}
-      <div style={{margin: '20px 55px'}}>
-      <Grid container spacing={1} >
-        <Grid item xs={1}  >
+      <div style={{ margin: '20px 55px' }}>
+        <Grid container spacing={1} >
+        {/* <Grid item xs={1}  >
           <LocationOnIcon fontSize='large' style={{paddingTop:15}} />
         </Grid>
         <Grid item xs={6}  >
@@ -221,20 +230,20 @@ const Shopping = (props) => {
                   className={classes.textfields}
                   onChange={event => setAddress(event.target.value)}
                 />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}  >
           <Typography variant='subtitle1' className={classes.subtitleText} > Want a look around ? Here are some suggestions to get you started. </Typography>
         </Grid>
       </Grid>
 
-      <Grid container spacing={1} >
-        <Grid item xs={12}  >
-          <Typography variant='h6' className={classes.boldFont} > All under one roof </Typography>
-          <Typography variant='subtitle1' className={classes.subtitleText} > Shop from your fave outlets within these malls.You need it, they got it! </Typography>
+        <Grid container spacing={1} >
+          <Grid item xs={12}  >
+            <Typography variant='h6' className={classes.boldFont} > All under one roof </Typography>
+            <Typography variant='subtitle1' className={classes.subtitleText} > Shop from your fave outlets within these malls.You need it, they got it! </Typography>
+          </Grid>
         </Grid>
-      </Grid>
         {businesses?.length === 0 ? (
-            <SkeletonDisplay />
+          <SkeletonDisplay />
         ) : (
           <Carousel
             ssr
@@ -245,41 +254,7 @@ const Shopping = (props) => {
           >
             {businesses?.map(business => {
               return (
-                <Grid key={business.id} container style={{marginBottom: 50}} >
-                  <Grid item xs={11} >
-                    <CardDisplay
-                      storeImage={store}
-                      title={business.name}
-                      description={business.bio}
-                      key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
-                    />
-                  </Grid>
-                </Grid>
-
-              )
-            })}
-          </Carousel>
-        )}
-  
-  <Grid container spacing={1} >
-        <Grid item xs={12}  >
-          <Typography variant='h6' className={classes.boldFont} > Zist karibu </Typography>
-          <Typography variant='subtitle1' className={classes.subtitleText} > Get fast from these outlets near you </Typography>
-        </Grid>
-      </Grid>
-        {businesses?.length === 0 ? (
-            <SkeletonDisplay />
-        ) : (
-          <Carousel
-            ssr
-            partialVisbile
-            itemClass="image-item"
-            responsive={responsive}
-          >
-            {businesses?.map(business => {
-              return (
-                <Grid key={business.id} container style={{marginBottom: 50}} >
+                <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
                       storeImage={store}
@@ -296,81 +271,14 @@ const Shopping = (props) => {
           </Carousel>
         )}
 
-<Grid container spacing={1} >
-        <Grid item xs={12}  >
-          <Typography variant='h6' className={classes.boldFont} > Convenience Store </Typography>
-        </Grid>
-      </Grid>
-        {businesses?.length === 0 ? (
-            <SkeletonDisplay />
-        ) : (
-          <Carousel
-            ssr
-            partialVisbile
-            itemClass="image-item"
-            responsive={responsive}
-          >
-            {businesses?.map(business => {
-              return (
-                <Grid key={business.id} container style={{marginBottom: 50}} >
-                  <Grid item xs={11} >
-                    <CardDisplay
-                      storeImage={store}
-                      title={business.name}
-                      description={business.bio}
-                      key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
-                    />
-                  </Grid>
-                </Grid>
-
-              )
-            })}
-          </Carousel>
-        )}
-
-<Grid container spacing={1} >
-        <Grid item xs={12}  >
-          <Typography variant='h6' className={classes.boldFont} > Go green with these green grocers </Typography>
-          <Typography variant='subtitle1' className={classes.subtitleText} > Fresh quality produce delivered to you </Typography>
-        </Grid>
-      </Grid>
-        {businesses?.length === 0 ? (
-            <SkeletonDisplay />
-        ) : (
-          <Carousel
-            ssr
-            partialVisbile
-            itemClass="image-item"
-            responsive={responsive}
-          >
-            {businesses?.map(business => {
-              return (
-                <Grid key={business.id} container style={{marginBottom: 50}} >
-                  <Grid item xs={11} >
-                    <CardDisplay
-                      storeImage={store}
-                      title={business.name}
-                      description={business.bio}
-                      key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
-                    />
-                  </Grid>
-                </Grid>
-
-              )
-            })}
-          </Carousel>
-        )}
-        
         <Grid container spacing={1} >
-        <Grid item xs={12}  >
-          <Typography variant='h6' className={classes.boldFont} > Health starts with you </Typography>
-          <Typography variant='subtitle1' className={classes.subtitleText} > Shops to get you living the right way </Typography>
+          <Grid item xs={12}  >
+            <Typography variant='h6' className={classes.boldFont} > Zist karibu </Typography>
+            <Typography variant='subtitle1' className={classes.subtitleText} > Get fast from these outlets near you </Typography>
+          </Grid>
         </Grid>
-      </Grid>
         {businesses?.length === 0 ? (
-            <SkeletonDisplay />
+          <SkeletonDisplay />
         ) : (
           <Carousel
             ssr
@@ -380,7 +288,7 @@ const Shopping = (props) => {
           >
             {businesses?.map(business => {
               return (
-                <Grid key={business.id} container style={{marginBottom: 50}} >
+                <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
                       storeImage={store}
@@ -397,48 +305,13 @@ const Shopping = (props) => {
           </Carousel>
         )}
 
-<Grid container spacing={1} >
-        <Grid item xs={12}  >
-          <Typography variant='h6' className={classes.boldFont} > Go green with these green grocers </Typography>
-          <Typography variant='subtitle1' className={classes.subtitleText} > Fresh quality produce delivered to you </Typography>
-        </Grid>
-      </Grid>
-        {businesses?.length === 0 ? (
-            <SkeletonDisplay />
-        ) : (
-          <Carousel
-            ssr
-            partialVisbile
-            itemClass="image-item"
-            responsive={responsive}
-          >
-            {businesses?.map(business => {
-              return (
-                <Grid key={business.id} container style={{marginBottom: 50}} >
-                  <Grid item xs={11} >
-                    <CardDisplay
-                      storeImage={store}
-                      title={business.name}
-                      description={business.bio}
-                      key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
-                    />
-                  </Grid>
-                </Grid>
-
-              )
-            })}
-          </Carousel>
-        )}
-        
         <Grid container spacing={1} >
-        <Grid item xs={12}  >
-          <Typography variant='h6' className={classes.boldFont} > Local shujaas </Typography>
-          <Typography variant='subtitle1' className={classes.subtitleText} > Be a local hero by supporting our local shujaas </Typography>
+          <Grid item xs={12}  >
+            <Typography variant='h6' className={classes.boldFont} > Convenience Store </Typography>
+          </Grid>
         </Grid>
-      </Grid>
         {businesses?.length === 0 ? (
-            <SkeletonDisplay />
+          <SkeletonDisplay />
         ) : (
           <Carousel
             ssr
@@ -448,7 +321,143 @@ const Shopping = (props) => {
           >
             {businesses?.map(business => {
               return (
-                <Grid key={business.id} container style={{marginBottom: 50}} >
+                <Grid key={business.id} container style={{ marginBottom: 50 }} >
+                  <Grid item xs={11} >
+                    <CardDisplay
+                      storeImage={store}
+                      title={business.name}
+                      description={business.bio}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                    />
+                  </Grid>
+                </Grid>
+
+              )
+            })}
+          </Carousel>
+        )}
+
+        <Grid container spacing={1} >
+          <Grid item xs={12}  >
+            <Typography variant='h6' className={classes.boldFont} > Go green with these green grocers </Typography>
+            <Typography variant='subtitle1' className={classes.subtitleText} > Fresh quality produce delivered to you </Typography>
+          </Grid>
+        </Grid>
+        {businesses?.length === 0 ? (
+          <SkeletonDisplay />
+        ) : (
+          <Carousel
+            ssr
+            partialVisbile
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <Grid key={business.id} container style={{ marginBottom: 50 }} >
+                  <Grid item xs={11} >
+                    <CardDisplay
+                      storeImage={store}
+                      title={business.name}
+                      description={business.bio}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                    />
+                  </Grid>
+                </Grid>
+
+              )
+            })}
+          </Carousel>
+        )}
+
+        <Grid container spacing={1} >
+          <Grid item xs={12}  >
+            <Typography variant='h6' className={classes.boldFont} > Health starts with you </Typography>
+            <Typography variant='subtitle1' className={classes.subtitleText} > Shops to get you living the right way </Typography>
+          </Grid>
+        </Grid>
+        {businesses?.length === 0 ? (
+          <SkeletonDisplay />
+        ) : (
+          <Carousel
+            ssr
+            partialVisbile
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <Grid key={business.id} container style={{ marginBottom: 50 }} >
+                  <Grid item xs={11} >
+                    <CardDisplay
+                      storeImage={store}
+                      title={business.name}
+                      description={business.bio}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                    />
+                  </Grid>
+                </Grid>
+
+              )
+            })}
+          </Carousel>
+        )}
+
+        <Grid container spacing={1} >
+          <Grid item xs={12}  >
+            <Typography variant='h6' className={classes.boldFont} > Go green with these green grocers </Typography>
+            <Typography variant='subtitle1' className={classes.subtitleText} > Fresh quality produce delivered to you </Typography>
+          </Grid>
+        </Grid>
+        {businesses?.length === 0 ? (
+          <SkeletonDisplay />
+        ) : (
+          <Carousel
+            ssr
+            partialVisbile
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <Grid key={business.id} container style={{ marginBottom: 50 }} >
+                  <Grid item xs={11} >
+                    <CardDisplay
+                      storeImage={store}
+                      title={business.name}
+                      description={business.bio}
+                      key={business.id}
+                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                    />
+                  </Grid>
+                </Grid>
+
+              )
+            })}
+          </Carousel>
+        )}
+
+        <Grid container spacing={1} >
+          <Grid item xs={12}  >
+            <Typography variant='h6' className={classes.boldFont} > Local shujaas </Typography>
+            <Typography variant='subtitle1' className={classes.subtitleText} > Be a local hero by supporting our local shujaas </Typography>
+          </Grid>
+        </Grid>
+        {businesses?.length === 0 ? (
+          <SkeletonDisplay />
+        ) : (
+          <Carousel
+            ssr
+            partialVisbile
+            itemClass="image-item"
+            responsive={responsive}
+          >
+            {businesses?.map(business => {
+              return (
+                <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
                       storeImage={store}
@@ -466,7 +475,7 @@ const Shopping = (props) => {
         )}
 
       </div>
-      
+
     </div >
   )
 }

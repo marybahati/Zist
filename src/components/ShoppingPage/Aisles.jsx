@@ -19,7 +19,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
-        background: ' #fff 0% 0% no-repeat padding-box',
+        background: ' #F9F7F1 0% 0% no-repeat padding-box',
         opacity: 1,
         padding: '50px 0 !important',
     },
