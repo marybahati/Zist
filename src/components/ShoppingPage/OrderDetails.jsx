@@ -88,7 +88,7 @@ const OrderDetails = (props) => {
     }
     console.log(info)
     return (
-        <div>
+        <div className={classes.mainDiv}>
             <div className={classes.mainGrid}>
                 <Navbar hideCart />
                 <Grid container style={{ padding: '20px 0 0 0' }} >

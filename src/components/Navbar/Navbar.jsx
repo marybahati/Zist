@@ -260,7 +260,7 @@ function PrimaryAppBar(props) {
                 <ListItem button >
                     <ListItemText primary='Sell on Zist Shopping' onClick={vendorRegistration} />
                 </ListItem>
-                {userData?.vendor !== null ? (
+                {userData?.vendor !== null ||'' ? (
                     <ListItem button >
                         <ListItemText primary='Proceed to vendor Dashboard' />
                     </ListItem>
