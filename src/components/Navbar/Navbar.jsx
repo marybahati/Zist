@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
+        textAlign: 'left'
     },
     searchIcon: {
         padding: theme.spacing(0, 2),
@@ -102,6 +103,18 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         padding: '0 6px 0 6px !important',
     },
+    cartCount2: {
+        height: '25px',
+        width: '20px !important',
+        background: '#bbb',
+        borderRadius: '50%',
+        display: 'inline-block',
+        // top: '-15px',
+        // left: '-12px',
+        textAlign: 'center',
+        position: 'relative',
+        padding: '0 6px 0 6px !important',
+    },
     drawerToggleQtyButtons: {
         top: '-10px',
         fontSize: 20,
@@ -114,7 +127,23 @@ const useStyles = makeStyles((theme) => ({
         width: '140px',
         height: '50px',
         borderRadius: '30px',
-        margin: '30px 20px'
+        margin: '30px 20px',   
+    },
+    cartButton: {
+        background: '#FFBD59',
+        width: '140px',
+        height: '50px',
+        borderRadius: '30px',
+        margin: '30px 20px',
+        fontSize: '20px'
+    },
+    cartButton2: {
+        background: '#FFBD59',
+        width: '90px',
+        height: '50px',
+        borderRadius: '30px',
+        margin: '10px 0px',
+        fontSize: '20px'
     },
 }));
 
@@ -140,6 +169,11 @@ function PrimaryAppBar(props) {
     const businessId = clickedBusiness?.id
     const businessName = clickedBusiness?.name
     const storedItems = cookies.get('cart')
+    let prdCount = 0
+    const countPrd = productsInBasket?.map( prd => {
+        return prdCount += prd.quantity 
+    } )
+    console.log(prdCount,countPrd,'count')
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
@@ -226,16 +260,16 @@ function PrimaryAppBar(props) {
                 <ListItem button >
                     <ListItemText primary='Sell on Zist Shopping' onClick={vendorRegistration} />
                 </ListItem>
-                {userData.vendor !== null ? (
+                {userData?.vendor !== null ? (
                     <ListItem button >
-                    <ListItemText primary='Proceed to vendor Dashboard' />
-                </ListItem>
+                        <ListItemText primary='Proceed to vendor Dashboard' />
+                    </ListItem>
                 ) : (
                     <ListItem button >
-                    <ListItemText primary='Become a Zister' />
-                </ListItem>
+                        <ListItemText primary='Become a Zister' />
+                    </ListItem>
                 )}
-                
+
                 <ListItem button >
                     <ListItemText primary='Contact Us' />
                 </ListItem>
@@ -249,24 +283,24 @@ function PrimaryAppBar(props) {
                 ) : null}
             </List>
             <Grid container item xs={12} >
-                <Grid item xs={6}> 
-                <img src={zist} width='100%' height='100%' alt='zist android' />
+                <Grid item xs={6}>
+                    <img src={zist} width='100%' height='100%' alt='zist android' />
                 </Grid>
-                <Grid item xs={6} style={{margin: 'auto 0'}} >
+                <Grid item xs={6} style={{ margin: 'auto 0' }} >
                     <Typography variant='body1' >
-                        There’s more to <br/>see in the app.
+                        There’s more to <br />see in the app.
                     </Typography>
                 </Grid>
             </Grid>
             <Grid container item xs={12} >
-                <Grid item xs={12}> 
-                <Button
-        variant="contained"
-        className={classes.androidButton}
-        startIcon={<AndroidIcon />}
-      >
-        Android
-      </Button>
+                <Grid item xs={12}>
+                    <Button
+                        variant="contained"
+                        className={classes.androidButton}
+                        startIcon={<AndroidIcon />}
+                    >
+                        Android
+                    </Button>
                 </Grid>
             </Grid>
         </div>
@@ -406,19 +440,38 @@ function PrimaryAppBar(props) {
                             {navbar()}
                         </Drawer>
                     </React.Fragment>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                       Zist Shopping
-                    </Typography>
-                    {location ? (
-                    <Typography className={classes.title} variant="h6" noWrap style={{textAlign: 'center'}}>
-                          ASAP to {location} 
-                    </Typography>
-                    ) : null }
+                    {/* <Grid container >
+                        <Grid item xs={3}> */}
+                            <Typography className={classes.title} variant="h6" noWrap>
+                            {location ? ( 
+                                <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
+                                    ASAP to {location}
+                                </Typography>
+                            ) : (
+                                <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
+                                    Zist Shopping
+                                </Typography>
+                                    ) } 
+                            </Typography>
+                            
+                            {/* <br/> */}
+                        {/* </Grid> */}
+                        {/* <Grid item xs={9} style={{ textAlign: 'center' }}> */} 
+{/*                             
+                       </Grid>
+                    </Grid> */}
+                    <Grid item xs={6} style={{textAlign: 'center'}}>
+                    {/* {location ? ( 
+                                <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
+                                    ASAP to {location}
+                                </Typography>
+                            ) : null}  */}
+                    </Grid>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         {token === undefined || token === '' ? (
                             <Grid container>
-                                <Grid item xs={3} />
+                                {/* <Grid item xs={1} /> */}
                                 <Grid item xs={3} style={{ marginTop: 15 }} >
                                     <SignupButtonSection />
                                 </Grid>
@@ -426,13 +479,17 @@ function PrimaryAppBar(props) {
                                 <Grid item xs={3} style={{ marginTop: 15 }} >
                                     <LoginButtonSection />
                                 </Grid>
-                                <Grid item xs={2}>
+                                <Grid item xs={5}>
                                     <React.Fragment >
                                         <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                             <Toolbar>
-                                                <Button color="inherit" onClick={toggleProductsDrawer(true)} >
-                                                    <ShoppingCartIcon fontSize='large' />
-                                                    <div className={classes.cartCount}> {productsInBasket?.length} </div>
+                                            <Button
+                                                    variant="contained"
+                                                    className={classes.cartButton2}
+                                                    startIcon={<ShoppingCartIcon fontSize='large'  />}
+                                                    onClick={toggleProductsDrawer(true)}
+                                                >
+                                                    {prdCount}
                                                 </Button>
                                             </Toolbar>
                                         </AppBar>
@@ -451,21 +508,17 @@ function PrimaryAppBar(props) {
                             </Grid>
                         ) : (
                             <>
-
-                                {/* <Typography variant='h6' style={{ padding: '0 30px' }} > help </Typography>
-                                {name == undefined || name == '' ? (
-                                    <Typography variant='h6' style={{ padding: '0 30px' }} >update profile </Typography>
-                                ) : (
-                                    <Typography variant='h6' style={{ padding: '0 30px' }}> {name} </Typography>
-
-                                )} */}
                                 {props.hideCart ? null : (
                                     <React.Fragment >
                                         <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                             <Toolbar>
-                                                <Button color="inherit" onClick={toggleProductsDrawer(true)} >
-                                                    <ShoppingCartIcon fontSize='large' />
-                                                    <div className={classes.cartCount}> {productsInBasket?.length} </div>
+                                                <Button
+                                                    variant="contained"
+                                                    className={classes.cartButton}
+                                                    startIcon={<ShoppingCartIcon fontSize='large'  />}
+                                                    onClick={toggleProductsDrawer(true)}
+                                                >
+                                                    {prdCount}
                                                 </Button>
                                             </Toolbar>
                                         </AppBar>

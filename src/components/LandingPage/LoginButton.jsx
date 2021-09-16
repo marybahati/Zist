@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
     border: '3px solid #080808',
     opacity: 1,  
     borderRadius: '20px !important',
-    marginRight: '20px',
+    marginRight: '10px',
     color: '#030303',
     width: '100px',
     height: '38px',

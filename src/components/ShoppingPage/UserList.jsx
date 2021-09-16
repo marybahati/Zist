@@ -370,7 +370,7 @@ const UserList = (props) => {
                     </Grid>
                 </Grid>
                 <Grid container  >
-                    <Grid item xs={2} style={{ margin: '20px auto', background: '#FFBD59', padding: '10px 0', textAlign: 'center', borderRadius: '10px' }} >
+                    <Grid item xs={2} style={{ margin: '0px auto 20px auto', background: '#FFBD59', padding: '10px 0', textAlign: 'center', borderRadius: '10px' }} >
                         <Button onClick={handleRedirect} style={{ textTransform: 'none' }}> Browse Aisles </Button>
                     </Grid>
                 </Grid>
