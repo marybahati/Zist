@@ -18,19 +18,6 @@ const useStyles = makeStyles((theme) => ({
         width: '90%',
         margin: '0 auto 100px auto !important',
     },
-    boldFont: {
-        fontWeight: 'bold !important',
-        padding: '10px 0',
-    },
-    aisleButton: {
-        width: '100% !important',
-        background: '#ECECEC !important',
-        height: '60px !important',
-        // color: '#FFBD59 !important',
-        fontSize: '17px !important',
-        borderRadius: '10px',
-        opacity: 1,
-    },
     submit: {
         background: '#FFBD59 0% 0% no-repeat padding-box !important',
         border: '2px solid #FEE2D4 !important',
@@ -45,53 +32,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-// const MainDiv = styled.div`
-//    background: #FFECD2D3 0% 0% no-repeat padding-box;
-//    opacity: 1;
-//    padding : 0 0 100px 0 !important;
-// `;
-// const MainGrid = styled(Grid)`
-//    width : 70%;
-//    margin: 0 auto !important;
-// `;
-// const FormTitle = styled.h1`
-//     padding: 0;
-// `;
-// const Icons = styled(Grid.Column)`
-//   padding: 0 ;
-//   text-align: center;
-// `;
-// const FormInput = styled.input`
-//     padding: 20px !important;
-//     font-size: 18px !important;
-//     width: 100%;
-//     margin: 20px 0 !important;
-//     @media only screen and (min-width: 1400px) {  
-//         padding: 20px 20px !important;
-//         font-size: 20px !important;
-//     }
-// `;
-// const FormLabels = styled.label`
-//     font-size: 25px !important;
-// `;
-// const ButtonGrid = styled(Grid)`
-//     width: 50%;
-//     margin: 0 auto !important;
-// `;
-// const VendorForm = styled(Form)`
-//     width: 100% !important;
-// `;
-// const SaveButton = styled(Button)`
-//     background: #F9F7F1 0% 0% no-repeat padding-box !important;
-//     border: 2px solid #FEE2D4 !important;
-//     border-radius: 24px !important;
-//     opacity: 1;
-//     height: 66px !important;
-//     width: 100%;
-//     font-size: 26px !important;
-//     color: #050504 !important;
-//     margin: 50px 0 !important;
-// `;
 const UpdateUserProfile = (props) => {
     const cookies = new Cookies()
     const classes = useStyles()
@@ -100,7 +40,7 @@ const UpdateUserProfile = (props) => {
     const [tel,setTel] = useState()
     const handleUpdateProfile = () => {
         cookies.set('name',name,{path: '/'})
-        History.goBack()
+        History.push('/')
     }
     return (
         <div className={classes.mainDiv}>
