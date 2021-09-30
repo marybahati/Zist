@@ -51,6 +51,15 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: 'none',
     },
   },
+  removeShadow: {
+    boxShadow: 'none',
+    '& .MuiPaper-elevation1': {
+      boxShadow: 'none'
+    },
+    '& .MuiCardActionArea-focusHighlight': {
+      background: 'white'
+    }
+  },
   media: {
     height: 290,
   },
@@ -118,15 +127,15 @@ const Shopping = (props) => {
   };
   const CardDisplay = (props) => {
     return (
-      <Card style={{ width: '100%', height: 380 }}>
-        <CardActionArea key={business.id} onClick={props.handleClick} >
+      <Card style={{ width: '100%', height: 380 }} className={classes.removeShadow}>
+        <CardActionArea key={business.id} onClick={props.handleClick} className={classes.removeShadow}>
           <CardMedia
             className={classes.media}
             image={props.storeImage}
             title={props.title}
             key={props.key}
           />
-          <CardContent>
+          <CardContent className={classes.removeShadow} >
             <Typography gutterBottom variant="h5" component="h2">
               {props.title}  <RatedStars rating={5} />
             </Typography>
