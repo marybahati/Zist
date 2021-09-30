@@ -18,7 +18,7 @@ import Navbar from '../Navbar/Navbar';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
-        background: ' #F9F7F1 0% 0% no-repeat padding-box',
+        background: ' #FFF 0% 0% no-repeat padding-box',
         opacity: 1,
         padding: '50px 0 !important',
     },

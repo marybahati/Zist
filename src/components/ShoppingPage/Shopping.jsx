@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   navbarGrid: {
     textAlign: 'right',
     // backgroundImage: `url(${bgImage})`,
-    background: '#F9F7F1',
+    background: '#FFF',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     bottom: 0,
     left: 0,
-    background: '#F9F7F1 ',
+    background: '#FFF',
   },
   textfields: {
     width: '100%',
@@ -105,6 +105,17 @@ const Shopping = (props) => {
       </Grid>
     )
   }
+  const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
+    const { carouselState: { currentSlide } } = rest;
+    // return (
+    //   <div className="carousel-button-group" style={{position:'absolute !important'}}> 
+    //   // remember to give it position:absolute
+    //     <Button className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} >  </Button>
+    //     <Button onClick={() => next()} >  </Button>
+    //     <Button onClick={() => goToSlide(currentSlide + 1)}> Go to any slide </Button>
+    //   </div>
+    // );
+  };
   const CardDisplay = (props) => {
     return (
       <Card style={{ width: '100%', height: 380 }}>
@@ -251,6 +262,7 @@ const Shopping = (props) => {
             // deviceType={props.deviceType}
             itemClass="image-item"
             responsive={responsive}
+            // arrows={false} customButtonGroup={<ButtonGroup />}
           >
             {businesses?.map(business => {
               return (

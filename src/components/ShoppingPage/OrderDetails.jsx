@@ -16,7 +16,7 @@ import Navbar from '../Navbar/Navbar';
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
-        background: ' #F9F7F1 0% 0% no-repeat padding-box',
+        background: ' #FFF 0% 0% no-repeat padding-box',
         opacity: 1,
         padding: '50px 0 !important',
     },
@@ -85,6 +85,13 @@ const OrderDetails = (props) => {
         cart.splice(deleteObj, 1)
         setCart([...cart])
         cookie.set('cart', cart, { path: '/' })
+    }
+    const formartProductName = (productName) => {
+        const str = productName.split(" ");
+        str.map( (name) => {
+            return  name.charAt(0).toUpperCase() + str.slice(1);
+             str.join(" ");
+        })
     }
     console.log(info)
     return (
