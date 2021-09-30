@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import zist from "./../../Assets/zist.png";
 import shop from "./../../Assets/shop.png";
-import { Grid, Button, Menu, InputBase, Link, Typography, IconButton, TextField } from "@material-ui/core";
+import { Grid, Button, InputAdornment, InputBase, Link, Typography, IconButton, TextField } from "@material-ui/core";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
@@ -17,8 +17,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import "./styles.css";
 import axios from 'axios'
 import history from '../../History';
-import { SignupButtonSection } from "./SignupButtonSection";
-import { LoginButtonSection } from "./LoginButtonSection";
+import AndroidIcon from '@material-ui/icons/Android';
 import { withCookies, Cookies } from 'react-cookie';
 import { makeStyles } from '@material-ui/core/styles';
 import Navbar from './../Navbar/Navbar'
@@ -34,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
   mainGrid: {
     padding: '0 0 0 0 !important',
     width: '100% !important',
-    height: '430px',
-    background: '#F9F7F1',
+    height: '330px',
+    background: `${shop}`,
     backgroundSize: 'cover',
     backgroundRepeat: ' no-repeat',
     backgroundPosition: 'center',
@@ -44,19 +43,21 @@ const useStyles = makeStyles((theme) => ({
   },
   centeredLocationColumn: {
     width: '490px',
-    margin: '140px 0 0 100px  !important',
-    textAlign: 'left !important',
+    margin: '200px auto auto auto  !important',
+    textAlign: 'center !important',
+    paddingBottom: 20,
   },
   boldFont: {
     fontWeight: 'bold !important',
   },
   locationColumn: {
     width: '490px',
-    margin: '40px auto 0 100px  !important',
+    margin: 'auto  !important',
     textAlign: 'left !important',
     background: 'white !important',
     padding: 0,
     border: '1px solid #707070 !important',
+    borderRadius: '30px'
   },
   currentLocationGrid: {
     borderTop: '1px solid #707070 ',
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
   },
   descriptionGrid: {
-    background: '#F9F7F1',
+    background: '#FFF',
     textAlign: 'left',
   },
   appLinkButton: {
@@ -85,11 +86,13 @@ const useStyles = makeStyles((theme) => ({
     border: 'none !important',
     fontWeight: 'bold !important',
     margin: '35px 0 0 0',
+    textTransform: 'none'
   },
   newsletterGrid: {
-    background: '#F9F7F1',
+    background: '#FFF',
     width: '550px',
-    margin: '0 auto'
+    margin: '0 auto',
+    padding: '30px 0 50px 0'
   },
   subcribeButton: {
     color: '#050504',
@@ -98,9 +101,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '24px',
     width: '90%',
     marginTop: '5px',
+    textTransform: 'none'
   },
   footerLinks: {
     fontSize: 20,
+    color: 'white',
+  },
+  headings:{
+    color:'white'
   }
 }))
 
@@ -117,11 +125,11 @@ const LandingPage = (props) => {
   console.log(location)
 
   const handleRedirect = () => {
-    cookie.set('location', location ,{path: '/'})
-      history.push({
-        pathname: '/shopping',
-        // state: location
-      })
+    cookie.set('location', location, { path: '/' })
+    history.push({
+      pathname: '/shopping',
+      // state: location
+    })
   }
   const handleLogOut = () => {
     cookies.remove('login-res', { path: '/' })
@@ -133,16 +141,16 @@ const LandingPage = (props) => {
   const handleGetLocation = (locationValue) => {
     // axios.get(`https://api.locationiq.com/v1/autocomplete.php?key=${KEY_API}&q=${locationValue}`)
   }
- 
+
   return (
     <div className={classes.rootDiv} >
       {/* start of the navbar section */}
       <Grid className={classes.mainGrid} >
-        <Navbar/>
+        <Navbar />
         <Grid container className={classes.centeredLocationColumn} >
           <Grid item >
-            <Typography variant='h5' className={classes.boldFont} > SHOPPING REINVENTED. </Typography>
-            <Typography variant='h5' className={classes.boldFont} > YOUR SHOPPING? WE'RE BUILT FOR THAT. </Typography>
+            {/* <Typography variant='h5' className={classes.boldFont} > SHOPPING REINVENTED. </Typography> */}
+            <Typography variant='h4' className={classes.boldFont} > Anything, anywhere , anytime. </Typography>
           </Grid>
         </Grid>
         <Grid container className={classes.locationColumn} >
@@ -160,16 +168,17 @@ const LandingPage = (props) => {
                 className={classes.input}
                 placeholder='Enter your address …'
                 inputProps={{ 'aria-label': 'Enter your address' }}
-                onChange={ (e) => setLocation(e.target.value)}
+                onChange={(e) => setLocation(e.target.value)}
               />
+             
             </Grid>
-            <Grid item xs={2} style={{ textAlign: 'center', borderLeft: '1px solid #707070' }}>
+            <Grid item xs={2} style={{ textAlign: 'center' }}>
               <IconButton type='submit' xs={2} className={classes.iconButton} aria-label="directions">
                 <NavigateNextIcon fontSize='large' />
               </IconButton>
             </Grid>
           </Grid>
-          <Grid container item xs={12} className={classes.currentLocationGrid} >
+          {/* <Grid container item xs={12} className={classes.currentLocationGrid} >
             <Grid item xs={2} >
               <IconButton fontSize='large' className={classes.iconButton} aria-label="directions">
                 <MyLocationIcon />
@@ -178,51 +187,19 @@ const LandingPage = (props) => {
             <Grid item xs={10} style={{ margin: ' auto 0', padding: '3px 0' }}>
               <Typography variant='subtitle1'> Use my current location </Typography>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
       {/* end of the navbar section */}
 
       <Grid className={classes.descriptionGrid} container item xs={12} spacing={1} >
-        <Grid item xs={5} >
-          <img src={coffeShop} style={{ width: '100%', padding: '20px 0 0 0' }} />
-        </Grid>
         <Grid item xs={1} />
-        <Grid item xs={5} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
-          <Typography variant='h3' >  Tailored to you. </Typography>
+        <Grid item xs={5} className={classes.boldFont} style={{ margin: 'auto 20px' }} >
+          <Typography variant='h4' >  Browse any store at the tap of a button. </Typography>
           <Typography variant='h5'>
-            Taking charge of your priorities <br />
-            And choosing whom or what <br />
-            matters most starts with you , <br />
-            we’re here to help!
-          </Typography>
-        </Grid>
-      </Grid>
-      <Grid className={classes.descriptionGrid} container item xs={12} >
-        <Grid item xs={12} style={{paddingLeft:15}} >
-          <Typography variant='h3' className={classes.boldFont}>   Here’s how it works! </Typography>
-        </Grid>
-      </Grid>
-
-      <Grid className={classes.descriptionGrid} container item xs={12} >
-        <Grid item xs={5} >
-          <img src={step1} style={{ width: '100%', padding: '20px 0 0 0' }} />
-        </Grid>
-        <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
-          <Typography variant='h5'>
-            1.  With a myriad of options , select / search for the store <br />
-            or item you’d like to purchase and get to have whatever it is <br />
-            That you’d like from wherever you’d like.
-          </Typography>
-        </Grid>
-      </Grid>
-
-      <Grid className={classes.descriptionGrid} container item xs={12} >
-        <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
-          <Typography variant='h5'>
-            2.  Get to browse through the different aisles just like you’d do <br />
-            in a regular store , also quickly search and add items to <br />
-            your list just like you’d do with a regular list.
+          Discover stores and get to see all they have to offer. 
+          Just tap on any store and get to go on an adventure through the 
+          aisles from the comfort of your couch.
           </Typography>
         </Grid>
         <Grid item xs={5} >
@@ -232,44 +209,38 @@ const LandingPage = (props) => {
 
       <Grid className={classes.descriptionGrid} container item xs={12} >
         <Grid item xs={5} >
-          <img src={step3} style={{ width: '100%', padding: '20px 0 0 0' }} />
+          <img src={step2} style={{ width: '100%', padding: '20px 0 0 0' }} />
         </Grid>
         <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
+          <Typography variant='h4'> Focus on what matters. </Typography>
           <Typography variant='h5'>
-            3.  With the fastest selection to checkout process you’ll <br />
-            find anywhere , get to focus on yourself and things that <br />
-            matter whilst our dedicated team of Zisters gets your items <br />
-            quickly & efficiently!
+          Get to focus on those who matter most and your high priority goals
+          whilst we do your shopping for you. Less time spent in queues = more 
+          ME time for you. 
+          Order now & let the products come to you instead.
           </Typography>
         </Grid>
       </Grid>
 
-      <div style={{ background: '#F9F7F1', paddingBottom: 70 }}>
+      <div >
         <Grid className={classes.descriptionGrid} container item xs={12} >
           <Grid item xs={5} style={{ padding: '0 0 0 40px', margin: 'auto 0' }}>
             <Typography variant='h4' className={classes.fontBold}>
-              Get whatever it is that you <br />
-              want at the tap of a button.
+            There’s more to see in the app.
             </Typography>
-            <Button className={classes.appLinkButton}> Get the App </Button>
+            <Button className={classes.appLinkButton} startIcon={<AndroidIcon />} > Android </Button>
           </Grid>
           <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
-            <img src={shop} style={{ width: '100%' }} />
-          </Grid>
-        </Grid>
-
-        <Grid className={classes.newsletterGrid} container item xs={12} >
-          <Grid item xs={12} >
             <img src={zist} style={{ width: '100%' }} />
           </Grid>
         </Grid>
 
-        <Grid className={classes.newsletterGrid} container item xs={12} >
+        <Grid  container item xs={12} >
           <Grid item xs={12} style={{ textAlign: 'center' }}>
             <Typography variant='h5' className={classes.fontBold}>
-              Zist Shopping <br />
-              Offers , discounts and updates. <br />
-              Subscribe to our updates.
+            Subscribe to our mailing list to stay 
+            on top of the latest News, 
+            offers & all things Zist.
             </Typography>
           </Grid>
         </Grid>
@@ -287,46 +258,46 @@ const LandingPage = (props) => {
               />
             </Grid>
             <Grid item xs={4} >
-              <Button type='submit' className={classes.subcribeButton}> I'm in! </Button>
+              <Button type='submit' className={classes.subcribeButton}> Subscribe </Button>
             </Grid>
           </Grid>
         </Grid>
       </div>
-      <div style={{ background: '#FEE2D4', padding: '70px 0' }}>
+      <div style={{ background: '#00010C', padding: '70px 0' }}>
         <Grid container style={{ width: '80%', margin: '0 auto' }} >
           <Grid container item xs={12} spacing={3}>
             <Grid item xs={4} >
-              <Typography variant='h5'> Zist shopping </Typography>
+              <Typography variant='h5' className={classes.headings} > Zist shopping </Typography>
               <Link className={classes.footerLinks} href="#" > Zist Articles </Link> <br />
               <Link className={classes.footerLinks} href="#" > Zist Recipes </Link> <br />
               <Link className={classes.footerLinks} href="#" > Zist Careers </Link> <br />
               <Link className={classes.footerLinks} href="#" > Contact </Link>
             </Grid>
             <Grid item xs={4} >
-              <Typography variant='h5'> Vendor </Typography>
+              <Typography variant='h5' className={classes.headings}> Vendor </Typography>
               <Link className={classes.footerLinks} href="/vendor-intro" > Sell on Zist Shoppping </Link> <br />
               <Link className={classes.footerLinks} href="#" > Vendor Help </Link>
             </Grid>
           </Grid>
-          <Grid container item xs={12} style={{ fontSize: 25, padding: '40px 0 0 0' }}>
+          <Grid container item xs={12} style={{ fontSize: 25, padding: '40px 0 0 0'}}>
             <Grid item xs={6} >
-              <Typography  href='' > Terms & Policy </Typography>
+              <Typography href='' className={classes.headings} > Terms & Policy </Typography>
             </Grid>
           </Grid>
           <Grid container item xs={12} style={{ padding: '40px 0 0 0' }}>
             <Grid item xs={1} >
-            <a href='https://instagram.com/zistshopping?igshid=gnx5fg8h7zeo'> <InstagramIcon fontSize='large' color='primary' /> </a>
+              <a href='https://instagram.com/zistshopping?igshid=gnx5fg8h7zeo'> <InstagramIcon fontSize='large' className={classes.headings} /> </a>
             </Grid>
             <Grid item xs={1} >
-            <a href='https://twitter.com/zistshopping'> <TwitterIcon fontSize='large' color='primary' /> </a>
+              <a href='https://twitter.com/zistshopping'> <TwitterIcon fontSize='large' className={classes.headings} /> </a>
             </Grid>
             <Grid item xs={1} >
-              <a href='' > <FacebookIcon fontSize='large' color='primary' /> </a>
+              <a href='' > <FacebookIcon fontSize='large' className={classes.headings} /> </a>
             </Grid>
           </Grid>
           <Grid container item xs={12} style={{ textAlign: 'center', padding: '20px 0' }}>
             <Grid item xs={12} >
-              <Typography variant='h6' href=''>  @2021 Zist Shopping Inc.</Typography>
+              <Typography variant='h6' href='' className={classes.headings}>  @2021 Zist Shopping Inc.</Typography>
             </Grid>
           </Grid>
         </Grid>
