@@ -20,6 +20,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import SearchComponent from './AutoComplete';
 import { makeStyles } from '@material-ui/core/styles';
 import Navbar from './../Navbar/Navbar'
+import { FooterComponent } from '../LandingPage/Footer';
 
 const useStyles = makeStyles((theme) => ({
   navbarGrid: {
@@ -496,7 +497,7 @@ const Shopping = (props) => {
         )}
 
       </div>
-
+      <FooterComponent/>
     </div >
   )
 }
