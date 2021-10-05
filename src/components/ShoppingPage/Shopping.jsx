@@ -182,27 +182,33 @@ const Shopping = (props) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 6
+      items: 6,
+      slidesToSlide: 6,
     },
     mediumLargeDesktop: {
       breakpoint: { max: 300, min: 1920 },
-      items: 5
+      items: 5,
+      slidesToSlide: 5
     },
     desktop: {
       breakpoint: { max: 1920, min: 1500 },
-      items: 4
+      items: 4,
+      slidesToSlide: 4
     },
     mediumDesktop: {
       breakpoint: { max: 1500, min: 1024 },
-      items: 3
+      items: 3,
+      slidesToSlide: 3
     },
     tablet: {
       breakpoint: { max: 1024, min: 768 },
-      items: 2
+      items: 2,
+      slidesToSlide: 2
     },
     mobile: {
       breakpoint: { max: 768, min: 0 },
-      items: 1
+      items: 1,
+      slidesToSlide: 1
     }
   };
 

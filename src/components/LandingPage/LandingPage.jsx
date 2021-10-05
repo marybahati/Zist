@@ -4,16 +4,13 @@ import shop from "./../../Assets/shop.png";
 import { Grid, Button, InputAdornment, InputBase, Link, Typography, IconButton, TextField } from "@material-ui/core";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import MyLocationIcon from '@material-ui/icons/MyLocation';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import coffeShop from "./../../Assets/coffeShop.png";
-import heroImg from "./../../Assets/landingPG.png"
-import step1 from "./../../Assets/step1.png";
+import heroImg from "./../../Assets/L.P.png"
+import trial1 from "./../../Assets/step1.png";
 import step2 from "./../../Assets/step2.png";
-import step3 from "./../../Assets/step3.png";
-import InstagramIcon from '@material-ui/icons/Instagram';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
+import step1 from "./../../Assets/nathalia.jpeg";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import "./styles.css";
 import axios from 'axios'
 import history from '../../History';
@@ -29,18 +26,18 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     bottom: 0,
     left: 0,
-    background: '#F9F7F1 ',
+    // background: '#F9F7F1 ',
   },
   mainGrid: {
     padding: '0 0 0 0 !important',
     width: '100% !important',
-    height: '330px',
-    background: `${shop}`,
+    height: '650px',
+    backgroundImage: `url(${heroImg})`,
     backgroundSize: 'cover',
     backgroundRepeat: ' no-repeat',
     backgroundPosition: 'center',
     textAlign: 'right !important',
-    margin: '0 !important',
+    margin: '0 0 40px 0!important',
   },
   centeredLocationColumn: {
     width: '490px',
@@ -108,11 +105,43 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 20,
     color: 'white',
   },
-  headings:{
-    color:'white'
+  headings: {
+    color: 'white'
   }
 }))
 
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 1,
+    slidesToSlide: 1
+  },
+  mediumLargeDesktop: {
+    breakpoint: { max: 300, min: 1920 },
+    items: 1,
+    slidesToSlide: 1
+  },
+  desktop: {
+    breakpoint: { max: 1920, min: 1500 },
+    items: 1,
+    slidesToSlide: 1
+  },
+  mediumDesktop: {
+    breakpoint: { max: 1500, min: 1024 },
+    items: 1,
+    slidesToSlide: 1
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 1,
+    slidesToSlide: 1
+  },
+  mobile: {
+    breakpoint: { max: 768, min: 0 },
+    items: 1,
+    slidesToSlide: 1
+  }
+};
 const LandingPage = (props) => {
   const classes = useStyles();
   const [location, setLocation] = useState('');
@@ -171,7 +200,7 @@ const LandingPage = (props) => {
                 inputProps={{ 'aria-label': 'Enter your address' }}
                 onChange={(e) => setLocation(e.target.value)}
               />
-             
+
             </Grid>
             <Grid item xs={2} style={{ textAlign: 'center' }}>
               <IconButton type='submit' xs={2} className={classes.iconButton} aria-label="directions">
@@ -198,27 +227,45 @@ const LandingPage = (props) => {
         <Grid item xs={5} className={classes.boldFont} style={{ margin: 'auto 20px' }} >
           <Typography variant='h4' >  Browse any store at the tap of a button. </Typography>
           <Typography variant='h5'>
-          Discover stores and get to see all they have to offer. 
-          Just tap on any store and get to go on an adventure through the 
-          aisles from the comfort of your couch.
+            Discover stores and get to see all they have to offer.
+            Just tap on any store and get to go on an adventure through the
+            aisles from the comfort of your couch.
           </Typography>
         </Grid>
         <Grid item xs={5} >
-          <img src={step2} style={{ width: '100%', padding: '20px 0 0 0' }} />
+
+          <img src={step1} style={{ width: '100%', padding: '20px 0 0 0', borderRadius: '30px' }} />
         </Grid>
       </Grid>
 
       <Grid className={classes.descriptionGrid} container item xs={12} >
         <Grid item xs={5} >
-          <img src={step2} style={{ width: '100%', padding: '20px 0 0 0' }} />
+          <Carousel
+            showDots={true}
+            arrows={false}
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={2000}
+          >
+            <div>
+              <img src={step2} style={{ width: '100%', padding: '20px 0 0 0' }} />
+            </div>
+            <div>
+              <img src={trial1} style={{ width: '100%', padding: '20px 0 0 0' }} />
+            </div>
+            <div>
+              <img src={step2} style={{ width: '100%', padding: '20px 0 0 0' }} />
+            </div>
+          </Carousel>;
         </Grid>
         <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
           <Typography variant='h4'> Focus on what matters. </Typography>
           <Typography variant='h5'>
-          Get to focus on those who matter most and your high priority goals
-          whilst we do your shopping for you. Less time spent in queues = more 
-          ME time for you. 
-          Order now & let the products come to you instead.
+            Get to focus on those who matter most and your high priority goals
+            whilst we do your shopping for you. Less time spent in queues = more
+            ME time for you.
+            Order now & let the products come to you instead.
           </Typography>
         </Grid>
       </Grid>
@@ -227,7 +274,7 @@ const LandingPage = (props) => {
         <Grid className={classes.descriptionGrid} container item xs={12} >
           <Grid item xs={5} style={{ padding: '0 0 0 40px', margin: 'auto 0' }}>
             <Typography variant='h4' className={classes.fontBold}>
-            There’s more to see in the app.
+              There’s more to see in the app.
             </Typography>
             <Button className={classes.appLinkButton} startIcon={<AndroidIcon />} > Android </Button>
           </Grid>
@@ -236,12 +283,12 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
 
-        <Grid  container item xs={12} >
+        <Grid container item xs={12} >
           <Grid item xs={12} style={{ textAlign: 'center' }}>
             <Typography variant='h5' className={classes.fontBold}>
-            Subscribe to our mailing list to stay 
-            on top of the latest News, 
-            offers & all things Zist.
+              Subscribe to our mailing list to stay
+              on top of the latest News,
+              offers & all things Zist.
             </Typography>
           </Grid>
         </Grid>
@@ -264,7 +311,7 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
       </div>
-      <FooterComponent/>
+      <FooterComponent />
     </div>
   )
 }
