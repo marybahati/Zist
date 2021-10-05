@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Paper from '@material-ui/core/Paper';
-import { Button, MenuItem, Grid, Avatar, Typography, List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
+import { Button, MenuItem, Grid, Avatar, Typography, List, ListItem, ListItemAvatar, ListItemText, InputAdornment } from '@material-ui/core';
 import store from './../../Assets/store.png';
 import axios from 'axios';
 import History from '../../History';
 import { HOST_API } from '../../endpoints';
 import { withStyles } from '@material-ui/core/styles'
 import { Icon } from "semantic-ui-react";
+import SearchIcon from '@material-ui/icons/Search';
 import { withCookies } from 'react-cookie';
 
 const AutoComplete = withStyles({
@@ -17,6 +18,9 @@ const AutoComplete = withStyles({
     background: 'white !important',
     padding: '3px 0 0 0 !important',
     margin: '0 !important',
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '30px',
+    }
   },
   input: {
     fontSize: '18px',
@@ -185,7 +189,14 @@ function SearchComponent(props) {
             {...params}
             placeholder="Search for a shop or an item"
             variant="outlined"
-            InputProps={{ ...params.InputProps, type: 'search' }}
+            InputProps={{ ...params.InputProps}}
+          //   InputProps={{
+          //     startAdornment: (
+          //         <InputAdornment position="start">
+          //             <SearchIcon />
+          //         </InputAdornment>
+          //     ),
+          // }}
           />
         )}
         PaperComponent={PaperC}

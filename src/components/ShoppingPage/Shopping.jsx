@@ -128,8 +128,8 @@ const Shopping = (props) => {
   };
   const CardDisplay = (props) => {
     return (
-      <Card style={{ width: '100%', height: 380 }} className={classes.removeShadow}>
-        <CardActionArea key={business.id} onClick={props.handleClick} className={classes.removeShadow}>
+      <Card key={business.id} style={{ width: '100%', height: 380 }} className={classes.removeShadow}>
+        <CardActionArea  onClick={props.handleClick} className={classes.removeShadow}>
           <CardMedia
             className={classes.media}
             image={props.storeImage}
