@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold !important',
         padding: '10px 0',
     },
+    rootSearchField: {
+        '& .MuiOutlinedInput-root': {
+            borderRadius: '30px',
+        }
+    },
     aisleButton: {
         width: '100% !important',
         background: '#ECECEC !important',
@@ -355,6 +360,7 @@ const UserList = (props) => {
                             type='search'
                             fullWidth
                             variant="outlined"
+                            className={classes.rootSearchField}
                             placeholder={`Search for items within ${businessName} Store`}
                             InputProps={{
                                 startAdornment: (
