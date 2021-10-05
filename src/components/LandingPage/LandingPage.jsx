@@ -4,10 +4,10 @@ import shop from "./../../Assets/shop.png";
 import { Grid, Button, InputAdornment, InputBase, Link, Typography, IconButton, TextField } from "@material-ui/core";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import coffeShop from "./../../Assets/coffeShop.png";
+import slider1 from "./../../Assets/slider1.svg";
 import heroImg from "./../../Assets/L.P.png"
-import trial1 from "./../../Assets/step1.png";
-import step2 from "./../../Assets/step2.png";
+import slider2 from "./../../Assets/slider2.svg";
+import slider3 from "./../../Assets/slider3.svg";
 import step1 from "./../../Assets/nathalia.jpeg";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -249,13 +249,13 @@ const LandingPage = (props) => {
             autoPlaySpeed={2000}
           >
             <div>
-              <img src={step2} style={{ width: '100%', padding: '20px 0 0 0' }} />
+              <img src={slider1} style={{ width: '100%', padding: '20px 0 0 0' }} />
             </div>
             <div>
-              <img src={trial1} style={{ width: '100%', padding: '20px 0 0 0' }} />
+              <img src={slider2} style={{ width: '100%', padding: '20px 0 0 0' }} />
             </div>
             <div>
-              <img src={step2} style={{ width: '100%', padding: '20px 0 0 0' }} />
+              <img src={slider3} style={{ width: '100%', padding: '20px 0 0 0' }} />
             </div>
           </Carousel>;
         </Grid>
