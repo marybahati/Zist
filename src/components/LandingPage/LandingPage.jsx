@@ -224,7 +224,7 @@ const LandingPage = (props) => {
 
       <Grid className={classes.descriptionGrid} container item xs={12} spacing={1} >
         <Grid item xs={1} />
-        <Grid item xs={5} className={classes.boldFont} style={{ margin: 'auto 20px' }} >
+        <Grid item xs={5} md={5} lg={5} className={classes.boldFont} style={{ margin: 'auto 20px' }} >
           <Typography variant='h4' >  Browse any store at the tap of a button. </Typography>
           <Typography variant='h5'>
             Discover stores and get to see all they have to offer.
@@ -232,8 +232,7 @@ const LandingPage = (props) => {
             aisles from the comfort of your couch.
           </Typography>
         </Grid>
-        <Grid item xs={5} >
-
+        <Grid item xs={5} md={5} lg={5} >
           <img src={step1} style={{ width: '100%', padding: '20px 0 0 0', borderRadius: '30px' }} />
         </Grid>
       </Grid>

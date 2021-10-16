@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import bgImage from './../../Assets/shopping1.png'
 import {
   Grid, Button, Typography, TextField, Card, CardActionArea, CardContent, CardMedia
 } from "@material-ui/core";
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import store from './../../Assets/store.png';
 import axios from 'axios';
-import { SignupButtonSection } from '../LandingPage/SignupButtonSection';
-import { LoginButtonSection } from '../LandingPage/LoginButtonSection';
 import { Cookies, withCookies } from 'react-cookie';
 import History from '../../History';
 import { HOST_API } from '../../endpoints';
@@ -21,7 +16,8 @@ import SearchComponent from './AutoComplete';
 import { makeStyles } from '@material-ui/core/styles';
 import Navbar from './../Navbar/Navbar'
 import { FooterComponent } from '../LandingPage/Footer';
-
+// import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 const useStyles = makeStyles((theme) => ({
   navbarGrid: {
     textAlign: 'right',
@@ -117,14 +113,12 @@ const Shopping = (props) => {
   }
   const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
     const { carouselState: { currentSlide } } = rest;
-    // return (
-    //   <div className="carousel-button-group" style={{position:'absolute !important'}}> 
-    //   // remember to give it position:absolute
-    //     <Button className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} >  </Button>
-    //     <Button onClick={() => next()} >  </Button>
-    //     <Button onClick={() => goToSlide(currentSlide + 1)}> Go to any slide </Button>
-    //   </div>
-    // );
+    return (
+      <div className="carousel-button-group"> 
+        <Button  className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} > Prev </Button>
+        <Button onClick={() => next()} > Next </Button>
+      </div>
+    );
   };
   const CardDisplay = (props) => {
     return (
@@ -278,7 +272,7 @@ const Shopping = (props) => {
             // deviceType={props.deviceType}
             itemClass="image-item"
             responsive={responsive}
-            // arrows={false} customButtonGroup={<ButtonGroup />}
+            // arrows={false} renderButtonGroupOutside={true} customButtonGroup={<ButtonGroup />}
           >
             {businesses?.map(business => {
               return (

@@ -12,6 +12,9 @@
     cursor: pointer;
     
 }
+.carousel-button-group {
+/* position: absolute; */
+}
 @media only screen and (max-width: 3000px) and (min-width: 1024px) {
     .react-multiple-carousel__arrow {
         margin: 0 0 35px 0 !important;
