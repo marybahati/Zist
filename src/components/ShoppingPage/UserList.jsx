@@ -342,7 +342,7 @@ const UserList = (props) => {
             <div className={classes.mainGrid} >
                 <Navbar />
                 <Grid container  >
-                    <Grid item xs={5} style={{ textAlign: 'center', margin: '0 auto' }} >
+                    <Grid item xs={5} sm={5} md={5} lg={5} style={{ textAlign: 'center', margin: '0 auto' }} >
                         <img src={BusinessPic} style={{ padding: '15px 0' }} />
                         <Typography variant='h4' > {clickedBusiness.name} </Typography>
                     </Grid>

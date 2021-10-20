@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
   descriptionGrid: {
     background: '#FFF',
     textAlign: 'left',
+    margin: '0 auto !important'
   },
   appLinkButton: {
     background: ' #FFBD59 0% 0% no-repeat padding-box !important',
@@ -184,7 +185,7 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
         <Grid container className={classes.locationColumn} >
-          <Grid container component='form' onSubmit={handleRedirect} autoComplete='off' item xs={12} >
+          <Grid container xs={9} sm={10} component='form' onSubmit={handleRedirect} autoComplete='off' item xs={12} >
             <Grid item xs={2} >
               <IconButton className={classes.iconButton} >
                 <LocationOnIcon fontSize='large' />
@@ -222,9 +223,9 @@ const LandingPage = (props) => {
       </Grid>
       {/* end of the navbar section */}
 
-      <Grid className={classes.descriptionGrid} container item xs={12} spacing={1} >
-        <Grid item xs={1} />
-        <Grid item xs={5} md={5} lg={5} className={classes.boldFont} style={{ margin: 'auto 20px' }} >
+      <Grid className={classes.descriptionGrid} container item xs={10} sm={10} md={12} lg={12} spacing={3} >
+        <Grid item md={1} lg={1} />
+        <Grid item xs={12} sm={12} md={5} lg={5} className={classes.boldFont} style={{ margin: 'auto 0' }} >
           <Typography variant='h4' >  Browse any store at the tap of a button. </Typography>
           <Typography variant='h5'>
             Discover stores and get to see all they have to offer.
@@ -232,13 +233,13 @@ const LandingPage = (props) => {
             aisles from the comfort of your couch.
           </Typography>
         </Grid>
-        <Grid item xs={5} md={5} lg={5} >
+        <Grid item xs={12} sm={12} md={5} lg={5} >
           <img src={step1} style={{ width: '100%', padding: '20px 0 0 0', borderRadius: '30px' }} />
         </Grid>
       </Grid>
 
-      <Grid className={classes.descriptionGrid} container item xs={12} >
-        <Grid item xs={5} >
+      <Grid className={classes.descriptionGrid} container item xs={10} sm={10} md={12} lg={12} spacing={3} >
+        <Grid item xs={12} sm={12} md={5} lg={5} >
           <Carousel
             showDots={true}
             arrows={false}
@@ -258,7 +259,7 @@ const LandingPage = (props) => {
             </div>
           </Carousel>;
         </Grid>
-        <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
+        <Grid item xs={12} sm={12} md={6} lg={6} className={classes.boldFont} style={{ margin: 'auto 0' }}>
           <Typography variant='h4'> Focus on what matters. </Typography>
           <Typography variant='h5'>
             Get to focus on those who matter most and your high priority goals
@@ -270,20 +271,20 @@ const LandingPage = (props) => {
       </Grid>
 
       <div >
-        <Grid className={classes.descriptionGrid} container item xs={12} >
-          <Grid item xs={5} style={{ padding: '0 0 0 40px', margin: 'auto 0' }}>
+        <Grid className={classes.descriptionGrid} container  item xs={10} sm={10} md={12} lg={12} spacing={3}>
+          <Grid item xs={10} sm={10} md={5} lg={5} style={{ padding: '0 ', margin: 'auto 0' }}>
             <Typography variant='h4' className={classes.fontBold}>
               There’s more to see in the app.
             </Typography>
             <Button className={classes.appLinkButton} startIcon={<AndroidIcon />} > Android </Button>
           </Grid>
-          <Grid item xs={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
+          <Grid item xs={10} sm={10} md={6} lg={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
             <img src={zist} style={{ width: '100%' }} />
           </Grid>
         </Grid>
 
-        <Grid container item xs={12} >
-          <Grid item xs={12} style={{ textAlign: 'center' }}>
+        <Grid container item xs={10} sm={10} md={12} lg={12} >
+          <Grid item xs={12} sm={12} md={12} lg={12} style={{ textAlign: 'center' }}>
             <Typography variant='h5' className={classes.fontBold}>
               Subscribe to our mailing list to stay
               on top of the latest News,
@@ -292,9 +293,9 @@ const LandingPage = (props) => {
           </Grid>
         </Grid>
 
-        <Grid className={classes.newsletterGrid} container  >
-          <Grid container component='form' item xs={12} spacing={3}>
-            <Grid item xs={8} >
+        <Grid className={classes.newsletterGrid} container item xs={10} sm={10} md={12} lg={12} >
+          <Grid container component='form' item xs={12} sm={12} md={12} lg={12} spacing={3}>
+            <Grid item xs={8} sm={8} md={8} lg={8} >
               <TextField
                 style={{ background: 'white', padding: '5px 0 0 0', width: '100%' }}
                 required
@@ -304,7 +305,7 @@ const LandingPage = (props) => {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={4} >
+            <Grid item xs={4} sm={4} md={4} lg={4} >
               <Button type='submit' className={classes.subcribeButton}> Subscribe </Button>
             </Grid>
           </Grid>
