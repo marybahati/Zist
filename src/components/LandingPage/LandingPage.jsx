@@ -234,7 +234,7 @@ const LandingPage = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={5} lg={5} >
-          <img src={step1} style={{ width: '100%', padding: '20px 0 0 0', borderRadius: '30px' }} />
+          <img src={step1} style={{ width: '95%', padding: '20px 0 0 0', borderRadius: '30px' }} />
         </Grid>
       </Grid>
 
@@ -257,7 +257,7 @@ const LandingPage = (props) => {
             <div>
               <img src={slider3} style={{ width: '100%', padding: '20px 0 0 0' }} />
             </div>
-          </Carousel>;
+          </Carousel>
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} className={classes.boldFont} style={{ margin: 'auto 0' }}>
           <Typography variant='h4'> Focus on what matters. </Typography>
