@@ -243,7 +243,7 @@ const Shopping = (props) => {
         </Grid>
       </Grid>
       {/* end of the nav section */}
-      <div style={{ margin: '20px 55px' }}>
+      <div style={{ margin: '20px 40px' }}>
         <Grid container spacing={1} >
         {/* <Grid item xs={1}  >
           <LocationOnIcon fontSize='large' style={{paddingTop:15}} />
