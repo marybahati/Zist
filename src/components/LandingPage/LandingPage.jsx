@@ -295,7 +295,7 @@ const LandingPage = (props) => {
 
         <Grid className={classes.newsletterGrid} container item xs={10} sm={10} md={12} lg={12} >
           <Grid container component='form' item xs={12} sm={12} md={12} lg={12} spacing={3}>
-            <Grid item xs={8} sm={8} md={8} lg={8} >
+            <Grid item xs={12} sm={8} md={8} lg={8} >
               <TextField
                 style={{ background: 'white', padding: '5px 0 0 0', width: '100%' }}
                 required
@@ -305,7 +305,7 @@ const LandingPage = (props) => {
                 variant="outlined"
               />
             </Grid>
-            <Grid item xs={4} sm={4} md={4} lg={4} >
+            <Grid item xs={12} sm={4} md={4} lg={4} >
               <Button type='submit' className={classes.subcribeButton}> Subscribe </Button>
             </Grid>
           </Grid>
