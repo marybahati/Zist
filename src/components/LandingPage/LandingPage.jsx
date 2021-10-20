@@ -178,14 +178,13 @@ const LandingPage = (props) => {
       {/* start of the navbar section */}
       <Grid className={classes.mainGrid} >
         <Navbar />
-        <Grid container className={classes.centeredLocationColumn} >
-          <Grid item >
-            {/* <Typography variant='h5' className={classes.boldFont} > SHOPPING REINVENTED. </Typography> */}
+        <Grid container className={classes.centeredLocationColumn} item xs={12} sm={12} md={12} lg={12} >
+          <Grid item xs={11} sm={11} md={12} lg={12} >
             <Typography variant='h4' className={classes.boldFont} > Anything, anywhere , anytime. </Typography>
           </Grid>
         </Grid>
-        <Grid container className={classes.locationColumn} >
-          <Grid container xs={9} sm={10} component='form' onSubmit={handleRedirect} autoComplete='off' item xs={12} >
+        <Grid container className={classes.locationColumn} item xs={12} sm={12} md={12} lg={12} >
+          <Grid container item xs={11} sm={11} md={12} lg={12}component='form' onSubmit={handleRedirect} autoComplete='off' item xs={12} >
             <Grid item xs={2} >
               <IconButton className={classes.iconButton} >
                 <LocationOnIcon fontSize='large' />
