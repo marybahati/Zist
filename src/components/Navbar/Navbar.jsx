@@ -554,7 +554,7 @@ function PrimaryAppBar(props) {
                                 <Grid item sm={3} xs={3} style={{ marginTop: 15 }} >
                                     <LoginButtonSection />
                                 </Grid>
-                                <Grid item sm={5} xs={5}>
+                                <Grid item sm={3} xs={3}>
                                     <React.Fragment >
                                         <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                             <Toolbar item sm={5} xs={5}>
@@ -584,6 +584,9 @@ function PrimaryAppBar(props) {
                         ) : (
                             <>
                                 {props.hideCart ? null : (
+                                    <>
+                                    <Grid item sm={3} xs={3}/>
+                                     <Grid item sm={9} xs={9}>
                                     <React.Fragment >
                                         <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                             <Toolbar>
@@ -608,6 +611,9 @@ function PrimaryAppBar(props) {
                                             {list()}
                                         </Drawer>
                                     </React.Fragment>
+                                    </Grid>
+                                    {/* <Grid item sm={1} xs={1}/> */}
+                                    </>
                                 )}
                             </>
                         )}
