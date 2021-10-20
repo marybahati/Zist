@@ -98,7 +98,9 @@ const useStyles = makeStyles((theme) => ({
         // height: 40,
         // top: -80,
         textAlign: 'center',
-        textTransform: 'none'
+        textTransform: 'none',
+        width: '120px',
+        height: '50px',
     },
     divider: {
         background: 'grey',
@@ -254,21 +256,21 @@ const UserList = (props) => {
             <>
                 {show && (
                     <Grid container key={product.id} item xs={11} spacing={3} style={{ padding: '30px 0', margin: '0 auto' }} >
-                        <Grid item xs={2} >
+                        <Grid item xs={12} sm={12} md={2} lg={2}>
                             <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC' alt='Product image' />
                         </Grid>
-                        <Grid item xs={2} />
+                        <Grid item md={2} lg={2} />
                         {!showQty.includes(product.id) ? (
-                            <Grid item xs={8} style={{ margin: 'auto 0' }} >
+                            <Grid item xs={12} sm={12} md={8} lg={8} style={{ margin: 'auto 0' }} >
                                 <Grid container spacing={3} >
-                                    <Grid item xs={5} >
+                                    <Grid item xs={12} sm={7} md={5} lg={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
                                     </Grid>
-                                    <Grid item xs={3} >
+                                    <Grid item xs={12} sm={5} md={3} lg={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
-                                    <Grid item xs={3} className={classes.roundedGrid} >
-                                        <Button onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
+                                    <Grid item xs={12} sm={12} md={3} lg={3}  >
+                                        <Button className={classes.roundedGrid} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
                                             Add to cart
                                         </Button>
                                     </Grid>
@@ -276,27 +278,27 @@ const UserList = (props) => {
                                 </Grid>
                             </Grid>
                         ) : (
-                            <Grid item xs={8} style={{ margin: 'auto 0' }}>
+                            <Grid item xs={12} sm={12} md={8} lg={8} style={{ margin: 'auto 0' }}>
                                 <Grid container spacing={3} >
-                                    <Grid item xs={5} >
+                                    <Grid item xs={12} sm={6} md={5} lg={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
                                     </Grid>
-                                    <Grid item xs={2}  >
+                                    <Grid item xs={12} sm={6} md={2} lg={2} >
                                         <Typography variant='h6' >   Ksh.{product.price}  </Typography>
                                     </Grid>
-                                    <Grid item xs={1} />
+                                    <Grid item md={1} lg={1} />
                                     {showQty.includes(product.id) ? (
                                         <>
                                             {showDelayedComponent === product.id ? (
-                                                <Grid container item xs={3}>
-                                                    <Grid item xs={8} />
-                                                    <Grid item xs={1} style={{ margin: 'auto 0' }}>
+                                                <Grid container item xs={12} sm={6} md={3} lg={3}>
+                                                    <Grid item md={8} lg={8} />
+                                                    <Grid item xs={1} sm={1} md={1} lg={1} style={{ margin: 'auto 0' }}>
                                                         <Button className={classes.roundedBlackButton} onClick={e => setShowQty([...showQty, product.id])}> {getProductQty(product.id)} </Button>
                                                     </Grid>
                                                     <Grid item xs={3} />
                                                 </Grid>
                                             ) : (
-                                                <Grid container item xs={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
+                                                <Grid container item xs={12} sm={4} md={3} lg={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
                                                     <Grid item xs={4} >
                                                         {getProductQty(product.id) === 1 ? (
                                                             <Button
