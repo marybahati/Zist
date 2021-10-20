@@ -37,6 +37,13 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     background: '#FFF',
   },
+  searchbarGrid: {
+    width: '50%', 
+    margin: '100px auto',
+    [theme.breakpoints.between('sm', 'md')]: {
+      width: '96%',
+    },
+  },
   textfields: {
     width: '100%',
     // marginBottom: 30,
@@ -230,7 +237,7 @@ const Shopping = (props) => {
       <Grid className={classes.navbarGrid}>
         <Navbar />
         <Grid container spacing={1} >
-          <Grid item xs={6} style={{ width: '50%', margin: '100px auto' }} >
+          <Grid item xs={11} sm={11} md={12} lg={12} className={classes.searchbarGrid} >
             <SearchComponent />
           </Grid>
         </Grid>
