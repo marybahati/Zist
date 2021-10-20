@@ -237,7 +237,7 @@ const Shopping = (props) => {
       <Grid className={classes.navbarGrid}>
         <Navbar />
         <Grid container spacing={1} >
-          <Grid item xs={11} sm={11} md={12} lg={12} className={classes.searchbarGrid} >
+          <Grid item xs={11} sm={11} md={6} lg={6} className={classes.searchbarGrid} >
             <SearchComponent />
           </Grid>
         </Grid>
