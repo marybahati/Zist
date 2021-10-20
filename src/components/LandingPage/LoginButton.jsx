@@ -3,7 +3,7 @@ import  Button  from '@material-ui/core/Button';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     background:  '0% 0% no-repeat padding-box !important',
     border: '3px solid #080808',
@@ -13,6 +13,11 @@ const useStyles = makeStyles(() => ({
     color: '#030303',
     width: '100px',
     height: '38px',
+    // [theme.breakpoints.between('xs','sm')]: {
+    //   width: '75px',
+    //   height: '28px',
+    //   fontSize: '11px',
+    // },
   }
 }))
 const LoginButtonX = styled(Button)`

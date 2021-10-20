@@ -13,6 +13,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    width: '45%', 
+    margin: '20px auto 10px auto',
+     [theme.breakpoints.between('xs','sm')]: {
+      width: '90%',
+    },
   },
   textfields: {
     width: '100%',
@@ -63,9 +68,9 @@ export const SignupModal = (props) => {
         onClose={props.handleClose}
         disableBackdropClick={true}
       >
-        <Grid className={classes.paper}   container style={{ width: '45%', margin: '40px auto 0 auto' }} >
+        <Grid container className={classes.paper} item xs={12} sm={12} md={12} lg={12} >
           <form onSubmit={handleSignup} >
-          <Grid container item xs={12} spacing={3}>
+          <Grid container item xs={12} sm={12} md={12} lg={12} spacing={3}>
             <Grid item xs={2} >
               <IconButton onClick={props.handleClose} >
                 <CloseIcon fontSize="large" style={{ color: 'orange' }} />

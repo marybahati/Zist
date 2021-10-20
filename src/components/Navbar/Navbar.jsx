@@ -478,14 +478,14 @@ function PrimaryAppBar(props) {
                         {token === undefined || token === '' ? (
                             <Grid container>
                                 {/* <Grid item xs={1} /> */}
-                                <Grid item lg={5} md={5} sm={5} xs={3} style={{ marginTop: 15 }} >
+                                <Grid item lg={4} md={4} sm={5} xs={3} style={{ marginTop: 15 }} >
                                     <SignupButtonSection />
                                 </Grid>
                                 <Grid item lg={1} md={1} sm={1} xs={1} />
-                                <Grid item lg={3} md={3} sm={3} xs={3} style={{ marginTop: 15 }} >
+                                <Grid item lg={3} md={4} sm={3} xs={3} style={{ marginTop: 15 }} >
                                     <LoginButtonSection />
                                 </Grid>
-                                <Grid item lg={5} md={5} sm={5} xs={5} >
+                                <Grid item lg={4} md={3} sm={5} xs={5} >
                                     <React.Fragment >
                                         <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                             <Toolbar>

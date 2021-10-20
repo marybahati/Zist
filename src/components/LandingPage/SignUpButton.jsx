@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     background: '#0B0B0B 0% 0% no-repeat padding-box !important',
     color: 'rgba(255,255,255,.9) !important',
@@ -14,6 +14,11 @@ const useStyles = makeStyles(() => ({
     boxShadow: '0',
     width: '100px',
     height: '38px',
+    // [theme.breakpoints.between('xs','sm')]: {
+    //   width: '75px',
+    //   height: '28px',
+    //   fontSize: '11px',
+    // },
   },
 }))
 const SignButtonX = styled(Button)`

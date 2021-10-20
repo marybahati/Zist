@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    width: '45%',
+    margin: '20px auto auto auto ',
+    [theme.breakpoints.between('xs','sm')]: {
+      width: '90%',
+    },
   },
   textfields: {
     width: '100%',
@@ -69,7 +74,7 @@ const LoginModal = (props) => {
         onClose={props.handleClose}
         disableBackdropClick={true}
       >
-        <Grid className={classes.paper}   container style={{ width: '45%', margin: '40px auto 0 auto' }} >
+        <Grid className={classes.paper}   container  >
           <form onSubmit={handleLogin} >
           <Grid container item xs={12} spacing={3}>
             <Grid item xs={2} >
@@ -116,56 +121,6 @@ const LoginModal = (props) => {
           </form>
         </Grid>
       </Modal>
-     {/* <Modal
-      >
-        <Header style={{ border: '0' }}>
-          <Grid>
-            <Grid.Row style={{ padding: '0'}}>
-             
-              <Grid.Column width={14} style={{ background: '', textAlign: 'center', fontSize: '20px'}} >
-                <h2> LOGIN </h2>
-
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Header>
-
-
-        <Modal.Content>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column width={16} style={{ background: '', textAlign: 'center', fontSize: '18px' }} >
-
-              <Form onSubmit={handleLogin} style={{width: '70%',margin: '0 auto'}}>
-                <Form.Input   transparent
-                onChange={ e => setLoginEmail(e.target.value) }
-                required={true}
-                type='email'
-                textAlign='center'
-                size='tiny'
-                placeholder='Email' style={{borderBottom:'2px solid #FFE5B4',margin:'30px 0'}} />
-
-                <Form.Input   transparent
-                onChange={ e => setLoginPassword(e.target.value) }
-                required={true}
-                type='password'
-                textAlign='center'
-                size='tiny'
-                placeholder='Password' style={{borderBottom:'2px solid #FFE5B4'}} />
-
-                 <ModalLoginButton />
-                </Form>
-                <a href='' style={{color:'black',textDecoration: 'underline',fontSize:'14px'}}>Can't Sign in?</a> <br/>
-                <div>
-                <p style={{color:'black',fontSize:'14px',margin:'20px 0 0 0'}}>New to Zist Shopping ?</p> <br/>
-                <LinkingSignupButton/>
-                </div>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Modal.Content>
-
-      </Modal> */}
     </div>
   )
 }
