@@ -466,13 +466,13 @@ function PrimaryAppBar(props) {
 {/*                             
                        </Grid>
                     </Grid> */}
-                    <Grid item xs={6} style={{textAlign: 'center'}}>
+                    {/* <Grid item xs={6} style={{textAlign: 'center'}}> */}
                     {/* {location ? ( 
                                 <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
                                     ASAP to {location}
                                 </Typography>
                             ) : null}  */}
-                    </Grid>
+                    {/* </Grid> */}
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         {token === undefined || token === '' ? (
@@ -546,12 +546,12 @@ function PrimaryAppBar(props) {
                     </div>
                     <div className={classes.sectionMobile}>
                         {token === undefined || token === '' ? (
-                            <Grid container>
-                                <Grid item sm={3} xs={3} style={{ marginTop: 15 }} >
+                            <Grid container sm={12} xs={12}>
+                                <Grid item sm={4} xs={4} style={{ marginTop: 15 }} >
                                     <SignupButtonSection />
                                 </Grid>
                                 <Grid item sm={1} xs={1} />
-                                <Grid item sm={3} xs={3} style={{ marginTop: 15 }} >
+                                <Grid item sm={4} xs={4} style={{ marginTop: 15 }} >
                                     <LoginButtonSection />
                                 </Grid>
                                 <Grid item sm={3} xs={3}>
