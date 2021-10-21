@@ -95,7 +95,7 @@ const Shopping = (props) => {
   const [business, setBusiness] = useState('')
   const [clickedBusiness, setClickedBusiness] = useState([])
   const [businesses, setBusinesses] = useState([])
-  console.log(location)
+  console.log(businesses,location)
 
   const SkeletonDisplay = () => {
     return (
@@ -129,7 +129,7 @@ const Shopping = (props) => {
   };
   const CardDisplay = (props) => {
     return (
-      <Card key={business.id} style={{ width: '100%', height: 380 }} className={classes.removeShadow}>
+      <Card key={business.id} style={{ width: '100%', height: 450 }} className={classes.removeShadow}>
         <CardActionArea  onClick={props.handleClick} className={classes.removeShadow}>
           <CardMedia
             className={classes.media}
@@ -144,7 +144,13 @@ const Shopping = (props) => {
             <Typography variant="body2" color="textSecondary" component="p">
               {props.description}
             </Typography>
-
+            <Typography color="textSecondary" >
+              <ul> 
+                <li> 
+                {props.niche} 
+                </li>
+              </ul> 
+            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
@@ -286,9 +292,10 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={store}
+                      storeImage={business.photo ? business.photo : store}
                       title={business.name}
                       description={business.bio}
+                      niche={business.metadata.niche}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -320,9 +327,10 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={store}
+                      storeImage={business.photo ? business.photo : store}
                       title={business.name}
                       description={business.bio}
+                      niche={business.metadata.niche}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -353,9 +361,10 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={store}
+                      storeImage={business.photo ? business.photo : store}
                       title={business.name}
                       description={business.bio}
+                      niche={business.metadata.niche}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -387,9 +396,10 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={store}
+                      storeImage={business.photo ? business.photo : store}
                       title={business.name}
                       description={business.bio}
+                      niche={business.metadata.niche}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -421,9 +431,10 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={store}
+                      storeImage={business.photo ? business.photo : store}
                       title={business.name}
                       description={business.bio}
+                      niche={business.metadata.niche}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -455,9 +466,10 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={store}
+                      storeImage={business.photo ? business.photo : store}
                       title={business.name}
                       description={business.bio}
+                      niche={business.metadata.niche}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
@@ -489,9 +501,10 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={store}
+                      storeImage={business.photo ? business.photo : store}
                       title={business.name}
                       description={business.bio}
+                      niche={business.metadata.niche}
                       key={business.id}
                       handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
                     />
