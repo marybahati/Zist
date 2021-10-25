@@ -1,0 +1,68 @@
+{
+  "name": "zist-fe",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/styles": "^4.11.3",
+    "@mui/lab": "^5.0.0-alpha.49",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
+    "delay": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "http-proxy-middleware": "^1.0.6",
+    "lodash": "^4.17.21",
+    "material-ui-image": "^3.3.2",
+    "material-ui-phone-number": "^3.0.0",
+    "notistack": "^1.0.5",
+    "react": "^16.13.1",
+    "react-collapsible": "^2.8.0",
+    "react-cookie": "^4.0.3",
+    "react-date-picker": "^8.0.3",
+    "react-delay": "^0.1.0",
+    "react-dom": "^16.13.1",
+    "react-donut-chart": "^1.1.8",
+    "react-dropzone": "^11.3.1",
+    "react-google-charts": "^3.0.15",
+    "react-google-location": "^1.2.2",
+    "react-images-upload": "^1.2.8",
+    "react-multi-carousel": "^2.6.2",
+    "react-rating-stars-component": "^1.1.0",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1",
+    "react-star-ratings": "^2.3.0",
+    "react-stepper-enhanced": "^1.0.0",
+    "react-toastify": "^6.0.5",
+    "redux": "^4.1.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": " react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "run-p server start"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
