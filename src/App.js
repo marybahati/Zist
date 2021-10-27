@@ -26,6 +26,7 @@ import VendorProducts from './components/Vendor/VendorProducts';
 import VendorRegistration from './components/Vendor/VendorRegistration';
 import history from './History';
 import SelectedAisle from './components/ShoppingPage/SelectedAisle';
+import OrdersDashboard from './components/ShoppingOrders/OrdersDashboard';
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
       <Route exact path='/vendor-product/edit' component={InventoryEditProduct}/>
       <Route exact path='/shopping/categories' component={Aisles}/>
       <Route exact path='/shopping/single/category' component={SelectedAisle} />
+      <Route exact path='/shopping/orders' component={OrdersDashboard} />
     </Router>
     </SnackbarProvider>
   );
