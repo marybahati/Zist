@@ -13,6 +13,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import Navbar from '../Navbar/Navbar';
+import { HOST_API } from '../../endpoints';
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -56,11 +58,50 @@ const OrderDetails = (props) => {
     const { cookies } = props
     const cookie = new Cookies()
     const storedItems = cookies.get('cart')
+    const userData = cookies.get('login-res')
+    const token = userData?.access
     const info = (props.location && props.location.state) || '';
     const [cart, setCart] = useState(storedItems)
     const [n, setN] = useState([])
     const [proceed, setProceed] = useState(false)
+    const [listID, setListID] = useState()
     console.log(cart)
+//     id: 5
+// productName: "Smirnoff Ice Guarana 330ml"
+// productPrice: 175
+// quantity: 3
+const singleProduct = cart?.map( prd => prd )
+console.log(singleProduct)
+    const saveList = () => {
+        axios.post(HOST_API + `zist/list/add_multiple_items/`, 
+        cart?.map( prd => {
+            return {
+                listItems: {
+                    product: prd.productName,
+                    quantity: prd.quantity,
+                    metadata: {
+                        id: prd.id,
+                        price: prd.productPrice,
+                    },
+            }
+        } }),
+            
+        {
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+            .then((res) => {
+                if (res.status == 200) {
+                    console.log(res)
+                    setProceed(true);
+                    setListID()
+                }
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
         const curObj = cart[index]
@@ -114,27 +155,27 @@ const OrderDetails = (props) => {
                 {cart?.map((product, index) => {
                     return (
                         <Grid key={product.id} container item xs={12} spacing={3} style={{ paddingBottom: 15 }} >
-                            <Grid container item xs={1}>
+                            <Grid container item xs={12} sm={12} md={1} lg={1}>
                                 <Grid item xs={12} >
                                     <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={3} >
+                            <Grid item xs={12} sm={12} md={3} lg={3} >
                                 <img src={strawberries} />
                             </Grid>
-                            {/* <Grid item xs={1} /> */}
-                            <Grid item xs={7} style={{ margin: 'auto 0' }}>
+                            <Grid item md={1} lg={1} />
+                            <Grid item xs={7} style={{ margin: 'auto 0' }} xs={12} sm={12} md={7} lg={7}>
                                 <Grid container spacing={3} >
-                                    <Grid item xs={6} >
+                                    <Grid item  xs={12} sm={12} md={6} lg={6} >
                                         <Typography variant='h5'>   {product.productName} </Typography>
                                         <Typography variant='body1' style={{ paddingBottom: 10 }}> Item order instructions </Typography>
                                         <TextField fullWidth placeholder="Specify every item to your liking" variant="outlined" />
                                     </Grid>
-                                    <Grid item xs={1} />
-                                    <Grid item xs={3} >
+                                    <Grid item  md={1} lg={1} />
+                                    <Grid item  xs={6} sm={6} md={3} lg={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
-                                    <Grid item xs={2} >
+                                    <Grid item xs={6} sm={6} md={2} lg={2} >
                                         <Button
                                             style={{ fontSize: '20px' }}
                                             onClick={e => deleteProduct(e, product.id)}
@@ -152,7 +193,7 @@ const OrderDetails = (props) => {
                 { proceed ? (
                     <>
                         <Grid container >
-                            <Grid item xs={10} style={{ paddingBottom: 20 }} >
+                            <Grid item xs={11} sm={11} md={10} lg={10} style={{ paddingBottom: 20 }} >
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Delivery Notes </Typography>
                                 <TextField
                                     fullWidth
@@ -160,7 +201,7 @@ const OrderDetails = (props) => {
                                     variant="outlined"
                                 />
                             </Grid>
-                            <Grid item xs={10} style={{ paddingBottom: 20 }}>
+                            <Grid item xs={11} sm={11} md={10} lg={10} style={{ paddingBottom: 20 }}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Location </Typography>
                                 <TextField
                                     fullWidth
@@ -175,7 +216,7 @@ const OrderDetails = (props) => {
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={10} style={{ paddingBottom: 20 }}>
+                            <Grid item xs={11} sm={11} md={10} lg={10} style={{ paddingBottom: 20 }}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Add Promo code </Typography>
                                 <TextField
                                     fullWidth
@@ -192,40 +233,40 @@ const OrderDetails = (props) => {
                             </Grid>
                         </Grid>
                         <Grid container >
-                            <Grid item xs={3} />
-                            <Grid item xs={3}>
+                            <Grid item xs={1} sm={1} md={3} lg={3} />
+                            <Grid item  xs={5} sm={5} md={3} lg={3}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Sub total </Typography>
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={3}>
+                            <Grid item xs={1} sm={1} md={1} lg={1} />
+                            <Grid item xs={4} >
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Ksh.720 </Typography>
                             </Grid>
-                            <Grid item xs={2} />
+                            <Grid item xs={1} sm={1} md={2} lg={2} />
                         </Grid>
                         <Grid container >
-                            <Grid item xs={3} />
-                            <Grid item xs={3}>
+                            <Grid item xs={1} sm={1} md={3} lg={3} />
+                            <Grid item  xs={5} sm={5} md={3} lg={3}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Delivery fee </Typography>
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={3}>
+                            <Grid item xs={1} sm={1} md={1} lg={1} />
+                            <Grid item xs={4}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. 200 </Typography>
                             </Grid>
-                            <Grid item xs={2} />
+                            <Grid item  xs={1} sm={1} md={2} lg={2} />
                         </Grid>
                         <Grid container >
-                            <Grid item xs={3} />
-                            <Grid item xs={3}>
+                            <Grid item xs={1} sm={1} md={3} lg={3} />
+                            <Grid item xs={5} sm={5} md={3} lg={3}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Total </Typography>
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={3}>
+                            <Grid item xs={1} sm={1} md={1} lg={1} />
+                            <Grid item xs={4}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. 920 </Typography>
                             </Grid>
-                            <Grid item xs={2} />
+                            <Grid item xs={2} xs={1} sm={1} md={2} lg={2} />
                         </Grid>
                         <Grid container >
-                            <Grid item xs={2} style={{ margin: '0 auto' }} >
+                            <Grid item xs={8} sm={6} md={2} lg={2} style={{ margin: '0 auto' }} >
                                 <Button
                                     className={classes.getStartedButton}
                                 >
@@ -236,9 +277,9 @@ const OrderDetails = (props) => {
                     </>
                 ) : (
                     <>
-                        <Grid spacing={3} item xs={8} style={{ margin: '0 auto' }} >
+                        <Grid spacing={3} item xs={8} sm={8} md={8} lg={8} style={{ margin: '0 auto' }} >
                             <Grid container >
-                                <Grid item xs={4} />
+                                <Grid item md={2} lg={4} />
                                 <Grid item xs={2} >
                                     <Typography variant='h6'>  Total </Typography>
                                 </Grid>
@@ -248,8 +289,8 @@ const OrderDetails = (props) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={2} style={{ margin: '0 auto' }} >
-                            <Button className={classes.getStartedButton} onClick={ e => setProceed(true)}> Proceed </Button>
+                        <Grid item xs={8} sm={6} md={2} lg={2} style={{ margin: '0 auto' }} >
+                            <Button className={classes.getStartedButton} onClick={ e => saveList()}> Proceed </Button>
                         </Grid>
                     </>
                 )}

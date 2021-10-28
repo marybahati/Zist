@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Cookies, withCookies } from 'react-cookie';
 import history from '../../History'
 import { HOST_API } from '../../endpoints';
-import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link, Card, CardHeader, CardMedia, CardActions, CardContent, IconButton } from "@material-ui/core";
+import { Grid, Button, Typography, Card, CardHeader, CardMedia, CardActions, CardContent, IconButton } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -78,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
         background: '#DCDCDC',
         alignItems: 'center',
         minWidth: 20,
-        top: -20
+        top: -20,
+        right: '-8px'
     },
     roundedBlackButton: {
         borderRadius: '50%',
@@ -108,6 +109,7 @@ const Aisles = (props) => {
     const businessId = clickedBusiness?.id
     const cookie = new Cookies()
 
+    const placeholderImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC'
     let groupedAisles = fetchedProducts?.reduce((r, a) => {
         r[a.category.category] = [...r[a.category.category] || [], a];
         return r;
@@ -310,77 +312,94 @@ const Aisles = (props) => {
                                     <Button className={classes.seeAllGrid} key={data} onClick={(e) => singleCategory(e, data)}> See all </Button>
                                 </Grid>
                             </Grid>
+
                             <Grid container item xs={9} spacing={3} >
                                 {groupedAisles[data].slice(0, 3).map((product) => (
-                                    <Grid item xs={4} key={product.id} >
-                                        <Grid container >
-                                            <Grid item xs={12}>
-                                                <img src={bananas} alt='Product image' />
-                                            </Grid>
-                                            <Grid container item xs={12}>
-                                                {!showQty.includes(product.id) ? (
-                                                    <Grid item xs={12} style={{ margin: 'auto 0' }} >
-                                                        <Grid container >
-                                                        <Grid item xs={11} />
-                                                            <Grid item xs={1} >
-                                                                <Button className={classes.roundedButton} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
-                                                                    <AddIcon />
-                                                                </Button>
+                                    <Grid item xs={12} sm={4} md={4} lg={4}  key={product.id} >
+                                        <Card>
+                                            <Grid container >
+                                                <CardMedia>
+                                                    <Grid item xs={12}>
+                                                        <img src={ product.image ? product.image : placeholderImage } alt='Product image' style={{ width: '100%',height: 'auto',maxHeight: '300px'}} />
+                                                    </Grid>
+                                                </CardMedia>
+                                                <Grid container item xs={12}>
+                                                    {!showQty.includes(product.id) ? (
+                                                        <Grid item xs={12} style={{ margin: 'auto 0' }} >
+                                                            <Grid container style={{padding: '0px', top: '-20px', }} >
+                                                                <Grid item xs={10} />
+                                                                <Grid item xs={2} >
+                                                                    <CardActions>
+                                                                        <Button className={classes.roundedButton} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
+                                                                            <AddIcon />
+                                                                        </Button>
+                                                                    </CardActions>
+                                                                </Grid>
+
                                                             </Grid>
-
                                                         </Grid>
-                                                    </Grid>
-                                                ) : (
-                                                    <Grid item xs={12} style={{ margin: 'auto 0' }}>
-                                                        <Grid container spacing={3} >
-                                                            <Grid item xs={6} />
-                                                            {showQty.includes(product.id) ? (
-                                                                <>
-                                                                    {showDelayedComponent === product.id ? (
-                                                                        <Grid container item xs={6}>
-                                                                            <Grid item xs={9} />
-                                                                            <Grid item xs={3} style={{ margin: 'auto 0' }}>
-                                                                                <Button className={classes.roundedBlackButton} onClick={e => setShowQty([...showQty, product.id])}> {getProductQty(product.id)} </Button>
+                                                    ) : (
+                                                        <Grid item xs={12} style={{ margin: 'auto 0' }}>
+                                                            <Grid container spacing={3} >
+                                                                <Grid item xs={6} />
+                                                                {showQty.includes(product.id) ? (
+                                                                    <>
+                                                                        {showDelayedComponent === product.id ? (
+                                                                            <Grid container item  xs={12} sm={4} md={4} lg={6} >
+                                                                                <Grid item xs={8} />
+                                                                                <Grid item xs={4} style={{ margin: 'auto 0', }}>
+                                                                                    <CardActions>
+                                                                                        <Button className={classes.roundedBlackButton} onClick={e => setShowQty([...showQty, product.id])}> {getProductQty(product.id)} </Button>
+                                                                                    </CardActions>
+                                                                                </Grid>
+                                                                                {/* <Grid item xs={3} /> */}
                                                                             </Grid>
-                                                                            {/* <Grid item xs={3} /> */}
-                                                                        </Grid>
-                                                                    ) : (
-                                                                        <Grid container item xs={6} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
-                                                                            <Grid item xs={4} >
-                                                                                {getProductQty(product.id) === 1 ? (
-                                                                                    <Button
-                                                                                        style={{ fontSize: '20px' }}
-                                                                                        onClick={e => deleteProduct(e, product.id)}
-                                                                                    >
-                                                                                        <DeleteIcon />
-                                                                                    </Button>
-                                                                                ) : (
-                                                                                    <Button
-                                                                                        style={{ fontSize: '20px' }}
-                                                                                        onClick={e => changeQuantity(e, product.id, -1)}
-                                                                                    > <RemoveIcon /> </Button>
-                                                                                )}
+                                                                        ) : (
+                                                                            <Grid container item  xs={12} sm={8} md={8} lg={6} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
+                                                                                <CardActions>
+                                                                                <Grid item xs={6} >
+                                                                                    {getProductQty(product.id) === 1 ? (
+                                                                                        <Button
+                                                                                            style={{ fontSize: '20px' }}
+                                                                                            onClick={e => deleteProduct(e, product.id)}
+                                                                                        >
+                                                                                            <DeleteIcon />
+                                                                                        </Button>
+                                                                                    ) : (
+                                                                                        <Button
+                                                                                            style={{ fontSize: '20px' }}
+                                                                                            onClick={e => changeQuantity(e, product.id, -1)}
+                                                                                        > <RemoveIcon /> </Button>
+                                                                                    )}
+                                                                                </Grid>
+                                                                                </CardActions>
+                                                                                <CardContent>
+                                                                                <Grid item xs={4} style={{ textAlign: 'center' }} >
+                                                                                    <Typography variant='h6' >  {getProductQty(product.id)} </Typography>
+                                                                                </Grid>
+                                                                                </CardContent>
+                                                                                <Grid item xs={4} >
+                                                                                <CardActions>
+                                                                                    <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> checkbtnnnn </Button>
+                                                                                </CardActions>
+                                                                                </Grid>
                                                                             </Grid>
-                                                                            <Grid item xs={4} style={{ textAlign: 'center' }} >
-                                                                                <Typography variant='h6' >  {getProductQty(product.id)}  </Typography>
-                                                                            </Grid>
-                                                                            <Grid item xs={4} >
-                                                                                <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    )}
-                                                                </>
-                                                            ) : null}
+                                                                        )}
+                                                                    </>
+                                                                ) : null}
 
+                                                            </Grid>
                                                         </Grid>
-                                                    </Grid>
-                                                )}
+                                                    )}
+                                                </Grid>
+                                                <CardContent>
+                                                <Grid item xs={12}>
+                                                    <Typography variant='h6'> {product.name} </Typography>
+                                                    <Typography variant='h6'> Ksh.{product.price} </Typography>
+                                                </Grid>
+                                                </CardContent>
                                             </Grid>
-                                            <Grid item xs={12}>
-                                                <Typography variant='h6'> {product.name} </Typography>
-                                                <Typography variant='h6'> Ksh.{product.price} </Typography>
-                                            </Grid>
-                                        </Grid>
+                                        </Card>
                                     </Grid>
                                 ))}
                             </Grid>

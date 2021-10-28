@@ -170,12 +170,12 @@ function PrimaryAppBar(props) {
     const businessId = clickedBusiness?.id
     const businessName = clickedBusiness?.name
     const storedItems = cookies.get('cart')
-    console.log(typeof(productsInBasket))
+    // console.log(typeof(productsInBasket))
     let prdCount = 0
     const countPrd = productsInBasket?.map( prd => {
         return prdCount += prd.quantity 
     } )
-    console.log(prdCount,countPrd,'count')
+    // console.log(prdCount,countPrd,'count')
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
@@ -234,7 +234,7 @@ function PrimaryAppBar(props) {
         // console.log(status)
         setDrawerOpen(status);
     };
-    console.log(userData)
+    // console.log(userData)
     const navbar = () => (
         <div
             role="presentation"
@@ -333,7 +333,7 @@ function PrimaryAppBar(props) {
                     <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {businessName} </Typography>
                     {productsInBasket?.map((product, index) => {
                         return (
-                            <Grid key={product.id} container spacing={1} style={{ width: 530, padding: 20, fontSize: 20 }}>
+                            <Grid key={product.id} container spacing={1} item xs={11} sm={11} md={11} lg={12} style={{ padding: 20, fontSize: 20 }}>
                                 <Grid container item xs={12} />
                                 <Grid container item xs={2}>
                                     <Grid item xs={12} >
@@ -354,7 +354,7 @@ function PrimaryAppBar(props) {
                     })}
                     <Divider className={classes.divider} />
                     <Grid container >
-                        <Grid container item xs={6} >
+                        <Grid container item xs={10} sm={7} md={6} lg={6} >
                             <Button fullWidth onClick={handleOrderDetailsDisplay} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px', textTransform: 'none' }} >
                                 <Typography variant='h6' > Checkout &nbsp; Ksh. 720 </Typography>
                             </Button>
