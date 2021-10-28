@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Cookies, withCookies } from 'react-cookie';
 import history from '../../History'
 import { HOST_API } from '../../endpoints';
-import { Grid, Button, Typography, Card, CardHeader, CardMedia, CardActions, CardContent, IconButton } from "@material-ui/core";
+import { Grid, Button, Typography, Card, CardMedia, CardActions, CardContent } from "@material-ui/core";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
@@ -380,7 +380,7 @@ const Aisles = (props) => {
                                                                                 </CardContent>
                                                                                 <Grid item xs={4} >
                                                                                 <CardActions>
-                                                                                    <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> checkbtnnnn </Button>
+                                                                                    <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
                                                                                 </CardActions>
                                                                                 </Grid>
                                                                             </Grid>
