@@ -320,7 +320,7 @@ const Aisles = (props) => {
                                             <Grid container >
                                                 <CardMedia>
                                                     <Grid item xs={12}>
-                                                        <img src={ product.image ? product.image : placeholderImage } alt='Product image' />
+                                                        <img src={ product.image ? product.image : placeholderImage } alt='Product image' style={{ width: '100%',height: 'auto',maxHeight: '300px'}} />
                                                     </Grid>
                                                 </CardMedia>
                                                 <Grid container item xs={12}>

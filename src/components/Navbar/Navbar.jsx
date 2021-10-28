@@ -333,7 +333,7 @@ function PrimaryAppBar(props) {
                     <Typography variant='h6' style={{ padding: '10px 0 0 20px' }}> {businessName} </Typography>
                     {productsInBasket?.map((product, index) => {
                         return (
-                            <Grid key={product.id} container spacing={1} item xs={11} sm={11} md={11} lg={6} style={{ padding: 20, fontSize: 20 }}>
+                            <Grid key={product.id} container spacing={1} item xs={11} sm={11} md={11} lg={12} style={{ padding: 20, fontSize: 20 }}>
                                 <Grid container item xs={12} />
                                 <Grid container item xs={2}>
                                     <Grid item xs={12} >
