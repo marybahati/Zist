@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import bananas from './../../Assets/bananas.png';
 import strawberries from './../../Assets/strawberries.png';
-import BusinessPic from './../../Assets/user-list-business.png'
-import Collapsible from 'react-collapsible';
-import store from './../../Assets/store.png';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, Typography, TextField, Avatar, AppBar, Toolbar, Link } from "@material-ui/core";
-import { Cookies,withCookies } from 'react-cookie';
+import { Grid, Button, Typography, TextField, } from "@material-ui/core";
+import { Cookies, withCookies } from 'react-cookie';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
@@ -59,41 +54,76 @@ const OrderDetails = (props) => {
     const cookie = new Cookies()
     const storedItems = cookies.get('cart')
     const userData = cookies.get('login-res')
+    const location = cookies.get('location')
     const token = userData?.access
     const info = (props.location && props.location.state) || '';
     const [cart, setCart] = useState(storedItems)
     const [n, setN] = useState([])
     const [proceed, setProceed] = useState(false)
     const [listID, setListID] = useState()
+    const [deliveryNotes, setDeliveryNotes] = useState('')
+    const [tel, setTel] = useState('')
     console.log(cart)
-//     id: 5
-// productName: "Smirnoff Ice Guarana 330ml"
-// productPrice: 175
-// quantity: 3
-const singleProduct = cart?.map( prd => prd )
-console.log(singleProduct)
+
     const saveList = () => {
-        axios.post(HOST_API + `zist/list/add_multiple_items/`, 
-        cart?.map( prd => {
-            return {
-                listItems: {
-                    product: prd.productName,
-                    quantity: prd.quantity,
-                    metadata: {
-                        id: prd.id,
-                        price: prd.productPrice,
-                    },
+        axios.post(HOST_API + `zist/list/add_multiple_items/`,
+            {
+                listItems: cart?.map(prd => {
+                    return {
+                        product: prd.id,
+                        quantity: prd.quantity,
+                        metadata: {
+                            name: prd.productName,
+                            price: prd.productPrice,
+                        }
+                    }
+                })
             }
-        } }),
-            
-        {
-            headers: { "Authorization": `Bearer ${token}` }
-        })
+            ,
+
+            {
+                headers: { "Authorization": `Bearer ${token}` }
+            })
             .then((res) => {
                 if (res.status == 200) {
                     console.log(res)
                     setProceed(true);
-                    setListID()
+                    setListID(res.data.id)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    const checkout = (event) => {
+        event.preventDefault();
+        axios.post(HOST_API + `courier/request/`,
+            {
+                //   list: listID,
+                shopping_source: 'test store',
+                delivery_location: location,
+                instructions: deliveryNotes,
+                order: listID,
+            },
+            {
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+            .then((res) => {
+                if (res.status == 201) {
+                    const formattedTel = tel?.slice(1)
+                    console.log(res, formattedTel)
+                    axios.post(HOST_API + `payment/mpesa/`, {
+                        amount: 1,
+                        phone_number: `254${formattedTel}`,
+                        order: listID
+                    },
+                        { headers: { "Authorization": `Bearer ${token}` } }
+                    )
+                        .then(res => {
+                            console.log('payment successful ', res)
+                        }).catch(error => {
+                            console.log('error', error)
+                        })
                 }
 
             })
@@ -101,7 +131,7 @@ console.log(singleProduct)
                 console.log(error)
             })
     }
-    
+
     const changeQuantity = (e, index, val) => {
         e.preventDefault()
         const curObj = cart[index]
@@ -129,9 +159,9 @@ console.log(singleProduct)
     }
     const formartProductName = (productName) => {
         const str = productName.split(" ");
-        str.map( (name) => {
-            return  name.charAt(0).toUpperCase() + str.slice(1);
-             str.join(" ");
+        str.map((name) => {
+            return name.charAt(0).toUpperCase() + str.slice(1);
+            str.join(" ");
         })
     }
     console.log(info)
@@ -143,7 +173,7 @@ console.log(singleProduct)
                     <Grid item xs={12} style={{ textAlign: 'center', margin: '0 auto' }} >
                         {/* <Typography variant='h4' > Order details </Typography> */}
                         {/* <img src={BusinessPic} style={{ padding: '15px 0' }} /> */}
-                        <Typography variant='h5' > {info.clickedBusiness.name} </Typography>
+                        {/* <Typography variant='h5' > {info?.clickedBusiness.name} </Typography> */}
                         <Typography variant='h5' > Your List </Typography>
                     </Grid>
                 </Grid>
@@ -166,13 +196,13 @@ console.log(singleProduct)
                             <Grid item md={1} lg={1} />
                             <Grid item xs={7} style={{ margin: 'auto 0' }} xs={12} sm={12} md={7} lg={7}>
                                 <Grid container spacing={3} >
-                                    <Grid item  xs={12} sm={12} md={6} lg={6} >
+                                    <Grid item xs={12} sm={12} md={6} lg={6} >
                                         <Typography variant='h5'>   {product.productName} </Typography>
                                         <Typography variant='body1' style={{ paddingBottom: 10 }}> Item order instructions </Typography>
                                         <TextField fullWidth placeholder="Specify every item to your liking" variant="outlined" />
                                     </Grid>
-                                    <Grid item  md={1} lg={1} />
-                                    <Grid item  xs={6} sm={6} md={3} lg={3} >
+                                    <Grid item md={1} lg={1} />
+                                    <Grid item xs={6} sm={6} md={3} lg={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
                                     <Grid item xs={6} sm={6} md={2} lg={2} >
@@ -190,8 +220,8 @@ console.log(singleProduct)
                     )
                 }
                 )}
-                { proceed ? (
-                    <>
+                {proceed ? (
+                    <form onSubmit={checkout} >
                         <Grid container >
                             <Grid item xs={11} sm={11} md={10} lg={10} style={{ paddingBottom: 20 }} >
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Delivery Notes </Typography>
@@ -199,8 +229,22 @@ console.log(singleProduct)
                                     fullWidth
                                     placeholder="Add an extra note for your Zister if any"
                                     variant="outlined"
+                                    required
+                                    onChange={e => setDeliveryNotes(e.target.value)}
                                 />
                             </Grid>
+                            <Grid item xs={11} sm={11} md={10} lg={10} style={{ paddingBottom: 20 }} >
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Phone Number </Typography>
+                                <TextField
+                                    fullWidth
+                                    placeholder="0728289410"
+                                    variant="outlined"
+                                    required
+                                    onChange={e => setTel(e.target.value)}
+                                    value={tel}
+                                />
+                            </Grid>
+
                             <Grid item xs={11} sm={11} md={10} lg={10} style={{ paddingBottom: 20 }}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Location </Typography>
                                 <TextField
@@ -234,7 +278,7 @@ console.log(singleProduct)
                         </Grid>
                         <Grid container >
                             <Grid item xs={1} sm={1} md={3} lg={3} />
-                            <Grid item  xs={5} sm={5} md={3} lg={3}>
+                            <Grid item xs={5} sm={5} md={3} lg={3}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Sub total </Typography>
                             </Grid>
                             <Grid item xs={1} sm={1} md={1} lg={1} />
@@ -245,14 +289,14 @@ console.log(singleProduct)
                         </Grid>
                         <Grid container >
                             <Grid item xs={1} sm={1} md={3} lg={3} />
-                            <Grid item  xs={5} sm={5} md={3} lg={3}>
+                            <Grid item xs={5} sm={5} md={3} lg={3}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Delivery fee </Typography>
                             </Grid>
                             <Grid item xs={1} sm={1} md={1} lg={1} />
                             <Grid item xs={4}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. 200 </Typography>
                             </Grid>
-                            <Grid item  xs={1} sm={1} md={2} lg={2} />
+                            <Grid item xs={1} sm={1} md={2} lg={2} />
                         </Grid>
                         <Grid container >
                             <Grid item xs={1} sm={1} md={3} lg={3} />
@@ -269,15 +313,16 @@ console.log(singleProduct)
                             <Grid item xs={8} sm={6} md={2} lg={2} style={{ margin: '0 auto' }} >
                                 <Button
                                     className={classes.getStartedButton}
+                                    type='submit'
                                 >
                                     Complete
                                 </Button>
                             </Grid>
                         </Grid>
-                    </>
+                    </form>
                 ) : (
                     <>
-                        <Grid spacing={3} item xs={8} sm={8} md={8} lg={8} style={{ margin: '0 auto' }} >
+                        <Grid item xs={8} sm={8} md={8} lg={8} style={{ margin: '0 auto' }} >
                             <Grid container >
                                 <Grid item md={2} lg={4} />
                                 <Grid item xs={2} >
@@ -290,12 +335,12 @@ console.log(singleProduct)
                             </Grid>
                         </Grid>
                         <Grid item xs={8} sm={6} md={2} lg={2} style={{ margin: '0 auto' }} >
-                            <Button className={classes.getStartedButton} onClick={ e => saveList()}> Proceed </Button>
+                            <Button className={classes.getStartedButton} onClick={e => saveList()}> Proceed </Button>
                         </Grid>
                     </>
                 )}
             </div>
         </div>
-            )
+    )
 }
-            export default withCookies(OrderDetails)
+export default withCookies(OrderDetails)
