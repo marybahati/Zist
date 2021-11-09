@@ -108,13 +108,13 @@ const useStyles = makeStyles((theme) => ({
     },
     browseButtoon: {
         textTransform: 'none',
-        width: '120px',
-        height: '50px',
+        width: '170px',
+        height: '60px',
         // margin: '0px auto 20px auto !important', 
         background: '#FFBD59', 
         padding: '10px 0', 
         textAlign: 'center', 
-        borderRadius: '10px' ,
+        borderRadius: '30px' ,
         [theme.breakpoints.between('xs', 'sm')]: {
             width: '120px',
             height: '50px',
@@ -134,8 +134,9 @@ const UserList = (props) => {
     const cookie = new Cookies()
     const classes = useStyles()
     const clickedBusiness = (props.location && props.location.state) || '';
-    const businessId = clickedBusiness?.id
-    const businessName = clickedBusiness?.name
+    console.log(clickedBusiness)
+    const businessId = clickedBusiness?.props.id
+    const businessName = clickedBusiness?.props.name
     const storedItems = cookies.get('cart')
     const [showQty, setShowQty] = useState([])
     const [products, setProducts] = useState([])
@@ -143,6 +144,7 @@ const UserList = (props) => {
     const [countProducts, setCountProducts] = useState()
     const [productsInBasket, setProductsInBasket] = useState()
     const [showDelayedComponent, setShowDelayedComponent] = useState(false)
+    const placeholderImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC'
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
@@ -198,8 +200,8 @@ const UserList = (props) => {
         cookie.set('cart', productsInBasket, { path: '/' })
         setShowQty('')
     }
-    const getProductQty = (product_id) => {
-        const product = productsInBasket?.find(prd => prd.id === product_id)
+    const getProductQty = (productId) => {
+        const product = productsInBasket?.find(prd => prd.id === productId)
         return product?.quantity
     }
     const CalculateProductPrice = (product_id, product_price) => {
@@ -221,21 +223,6 @@ const UserList = (props) => {
             str.join(" ");
         })
     }
-    // useEffect(() => {
-    //     axios.post(HOST_API + 'zist/list/',
-    //         { name: 'list' },
-    //         { headers: { "Authorization": `Bearer ${token}` } })
-    //         .then((response) => {
-    //             console.log(response)
-    //             if (response.status == 201) {
-    //                 const id = response.data.id
-    //                 cookie.set('list-id', id, { path: '/' })
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
-    // }, [])
 
     const handleRedirect = () => {
         history.push({
@@ -256,10 +243,10 @@ const UserList = (props) => {
             <>
                 {show && (
                     <Grid container key={product.id} item xs={11} spacing={3} style={{ padding: '30px 0', margin: '0 auto' }} >
-                        <Grid item xs={12} sm={12} md={2} lg={2}>
-                            <img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC' alt='Product image' />
+                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                            <img src={product?.image ? product.image : placeholderImg} alt='Product image' style={{height: '250px', width: '100%'}} />
                         </Grid>
-                        <Grid item md={2} lg={2} />
+                        <Grid item md={2} lg={1} />
                         {!showQty.includes(product.id) ? (
                             <Grid item xs={12} sm={12} md={8} lg={8} style={{ margin: 'auto 0' }} >
                                 <Grid container spacing={3} >
@@ -362,8 +349,8 @@ const UserList = (props) => {
                 <Navbar />
                 <Grid container style={{ marginTop: '15px' }} >
                     <Grid item xs={12} sm={12} md={5} lg={5} style={{ textAlign: 'center', margin: '0 auto' }} >
-                        <img src={BusinessPic} style={{ padding: '15px 0' }} />
-                        <Typography variant='h4' > {clickedBusiness.name} </Typography>
+                        <img src={clickedBusiness?.props.photo ? clickedBusiness?.props.photo : placeholderImg} style={{ padding: '15px 0',height: 250, borderRadius: '70%', width: '50%'}} />
+                        <Typography variant='h4' > {businessName} </Typography>
                     </Grid>
                 </Grid>
                 <Grid container style={{ padding: '20px 0', textAlign: 'center' }} >

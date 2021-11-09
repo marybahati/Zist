@@ -32,7 +32,7 @@ export const FooterComponent = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={12} md={4} lg={4} >
                             <Typography variant='h5' className={classes.headings}> Vendor </Typography>
-                            <Link className={classes.footerLinks} href="/vendor-intro" > Sell on Zist Shoppping </Link> <br />
+                            {/* <Link className={classes.footerLinks} href="/vendor-intro" > Sell on Zist Shoppping </Link> <br /> */}
                             <Link className={classes.footerLinks} href="#" > Vendor Help </Link>
                         </Grid>
                     </Grid>
@@ -49,7 +49,7 @@ export const FooterComponent = (props) => {
                             <a href='https://twitter.com/zistshopping'> <TwitterIcon fontSize='large' className={classes.headings} /> </a>
                         </Grid>
                         <Grid item xs={4} sm={2} md={1} lg={1} >
-                            <a href='' > <FacebookIcon fontSize='large' className={classes.headings} /> </a>
+                            <a href='https://www.facebook.com/zistshopping' > <FacebookIcon fontSize='large' className={classes.headings} /> </a>
                         </Grid>
                     </Grid>
                     <Grid container item xs={12} sm={12} md={12} lg={12} style={{ textAlign: 'center', padding: '20px 0' }}>

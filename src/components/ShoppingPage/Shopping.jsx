@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     background: '#FFF',
   },
   searchbarGrid: {
-    width: '50%', 
+    width: '50%',
     margin: '100px auto',
     [theme.breakpoints.between('sm', 'md')]: {
       width: '96%',
@@ -65,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   media: {
-    height: 290,
+    height: '300px',
+    // width: '100%'
   },
 
   boldFont: {
@@ -76,6 +77,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '18px',
     paddingBottom: 15,
   },
+  ellipsis: {
+    maxWidth: '98%',
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  }
 }))
 
 
@@ -95,8 +102,8 @@ const Shopping = (props) => {
   const [business, setBusiness] = useState('')
   const [clickedBusiness, setClickedBusiness] = useState([])
   const [businesses, setBusinesses] = useState([])
-  console.log(businesses,location)
-
+  console.log(businesses, location)
+  const placeholderImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC'
   const SkeletonDisplay = () => {
     return (
       <Grid container spacing={3}>
@@ -121,8 +128,8 @@ const Shopping = (props) => {
   const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
     const { carouselState: { currentSlide } } = rest;
     return (
-      <div className="carousel-button-group"> 
-        <Button  className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} > Prev </Button>
+      <div className="carousel-button-group">
+        <Button className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} > Prev </Button>
         <Button onClick={() => next()} > Next </Button>
       </div>
     );
@@ -130,7 +137,7 @@ const Shopping = (props) => {
   const CardDisplay = (props) => {
     return (
       <Card key={business.id} style={{ width: '100%', height: 450 }} className={classes.removeShadow}>
-        <CardActionArea  onClick={props.handleClick} className={classes.removeShadow}>
+        <CardActionArea onClick={props.handleClick} className={classes.removeShadow}>
           <CardMedia
             className={classes.media}
             image={props.storeImage}
@@ -138,19 +145,26 @@ const Shopping = (props) => {
             key={props.key}
           />
           <CardContent className={classes.removeShadow} >
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.title}  <RatedStars rating={5} />
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {props.description}
-            </Typography>
-            <Typography color="textSecondary" >
-              <ul> 
-                <li> 
-                {props.niche} 
-                </li>
-              </ul> 
-            </Typography>
+            <Grid container >
+              <Grid item xs={8}>
+                <Typography gutterBottom variant="h5" component="h2" className={classes.ellipsis}>
+                  {props.title}
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <RatedStars rating={5} />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="body1" component="span" >
+                  {props.description}
+                </Typography>
+                <ul>
+                  <li>
+                    {props.niche}
+                  </li>
+                </ul>
+              </Grid>
+            </Grid>
           </CardContent>
         </CardActionArea>
       </Card>
@@ -223,8 +237,8 @@ const Shopping = (props) => {
     cookies.remove('login-res', { path: '/' })
     window.location.reload(false);
   }
-  const handleCardClicked = (e, name, type, id) => {
-    const d = { name: name, type: type, id: id }
+  const handleCardClicked = (e,props) => {
+    const d = { props }
     History.push({
       pathname: '/user-list',
       state: d
@@ -251,7 +265,7 @@ const Shopping = (props) => {
       {/* end of the nav section */}
       <div style={{ margin: '20px 40px' }}>
         <Grid container spacing={1} >
-        {/* <Grid item xs={1}  >
+          {/* <Grid item xs={1}  >
           <LocationOnIcon fontSize='large' style={{paddingTop:15}} />
         </Grid>
         <Grid item xs={6}  >
@@ -265,10 +279,10 @@ const Shopping = (props) => {
                   onChange={event => setAddress(event.target.value)}
                 />
         </Grid> */}
-        <Grid item xs={12}  >
-          <Typography variant='subtitle1' className={classes.subtitleText} > Want a look around ? Here are some suggestions to get you started. </Typography>
+          <Grid item xs={12}  >
+            <Typography variant='subtitle1' className={classes.subtitleText} > Want a look around ? Here are some suggestions to get you started. </Typography>
+          </Grid>
         </Grid>
-      </Grid>
 
         <Grid container spacing={1} >
           <Grid item xs={12}  >
@@ -285,19 +299,19 @@ const Shopping = (props) => {
             // deviceType={props.deviceType}
             itemClass="image-item"
             responsive={responsive}
-            // arrows={false} renderButtonGroupOutside={true} customButtonGroup={<ButtonGroup />}
+          // arrows={false} renderButtonGroupOutside={true} customButtonGroup={<ButtonGroup />}
           >
             {businesses?.map(business => {
               return (
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={business.photo ? business.photo : store}
+                      storeImage={business.photo ? business.photo : placeholderImg}
                       title={business.name}
                       description={business.bio}
                       niche={business.metadata.niche}
                       key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                      handleClick={(e) => handleCardClicked(e, business)}
                     />
                   </Grid>
                 </Grid>
@@ -327,12 +341,12 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={business.photo ? business.photo : store}
+                      storeImage={business.photo ? business.photo : placeholderImg}
                       title={business.name}
                       description={business.bio}
                       niche={business.metadata.niche}
                       key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                      handleClick={(e) => handleCardClicked(e, business)}
                     />
                   </Grid>
                 </Grid>
@@ -361,12 +375,12 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={business.photo ? business.photo : store}
+                      storeImage={business.photo ? business.photo : placeholderImg}
                       title={business.name}
                       description={business.bio}
                       niche={business.metadata.niche}
                       key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                      handleClick={(e) => handleCardClicked(e, business)}
                     />
                   </Grid>
                 </Grid>
@@ -396,12 +410,12 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={business.photo ? business.photo : store}
+                      storeImage={business.photo ? business.photo : placeholderImg}
                       title={business.name}
                       description={business.bio}
                       niche={business.metadata.niche}
                       key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                      handleClick={(e) => handleCardClicked(e, business)}
                     />
                   </Grid>
                 </Grid>
@@ -431,12 +445,12 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={business.photo ? business.photo : store}
+                      storeImage={business.photo ? business.photo : placeholderImg}
                       title={business.name}
                       description={business.bio}
                       niche={business.metadata.niche}
                       key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                      handleClick={(e) => handleCardClicked(e, business)}
                     />
                   </Grid>
                 </Grid>
@@ -466,12 +480,12 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={business.photo ? business.photo : store}
+                      storeImage={business.photo ? business.photo : placeholderImg}
                       title={business.name}
                       description={business.bio}
                       niche={business.metadata.niche}
                       key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                      handleClick={(e) => handleCardClicked(e, business)}
                     />
                   </Grid>
                 </Grid>
@@ -501,12 +515,12 @@ const Shopping = (props) => {
                 <Grid key={business.id} container style={{ marginBottom: 50 }} >
                   <Grid item xs={11} >
                     <CardDisplay
-                      storeImage={business.photo ? business.photo : store}
+                      storeImage={business.photo ? business.photo : placeholderImg}
                       title={business.name}
                       description={business.bio}
                       niche={business.metadata.niche}
                       key={business.id}
-                      handleClick={(e) => handleCardClicked(e, business.name, business.business_type, business.id)}
+                      handleClick={(e) => handleCardClicked(e, business)}
                     />
                   </Grid>
                 </Grid>
@@ -517,7 +531,7 @@ const Shopping = (props) => {
         )}
 
       </div>
-      <FooterComponent/>
+      <FooterComponent />
     </div >
   )
 }

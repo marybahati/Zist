@@ -128,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
         width: '140px',
         height: '50px',
         borderRadius: '30px',
-        margin: '30px 20px',   
+        margin: '30px 20px',
     },
     cartButton: {
         background: '#FFBD59',
@@ -172,9 +172,9 @@ function PrimaryAppBar(props) {
     const storedItems = cookies.get('cart')
     // console.log(typeof(productsInBasket))
     let prdCount = 0
-    const countPrd = productsInBasket?.map( prd => {
-        return prdCount += prd.quantity 
-    } )
+    const countPrd = productsInBasket?.map(prd => {
+        return prdCount += prd.quantity
+    })
     // console.log(prdCount,countPrd,'count')
     useEffect(() => {
         if (storedItems) {
@@ -183,7 +183,7 @@ function PrimaryAppBar(props) {
             setProductsInBasket([])
         }
     }, [])
-    useEffect ( () => {
+    useEffect(() => {
         cookie.set('cart', productsInBasket, { path: '/' })
     }, [productsInBasket])
     const handleOrderDetailsDisplay = () => {
@@ -223,8 +223,8 @@ function PrimaryAppBar(props) {
     const updateProfile = () => {
         history.push('/update-profile')
     }
-    const vendorRegistration = () => {
-        history.push('/vendor-intro')
+    const redirectToHome = () => {
+        history.push('/shopping')
     }
     const toggleDrawer = (status) => (event) => {
         event.preventDefault()
@@ -260,21 +260,11 @@ function PrimaryAppBar(props) {
             <Divider />
             <List>
                 <ListItem button >
-                    <ListItemText primary='About Us' />
+                    <ListItemText primary='Home' onClick={redirectToHome} />
                 </ListItem>
                 <ListItem button >
-                    <ListItemText primary='Sell on Zist Shopping' onClick={vendorRegistration} />
+                    <ListItemText primary='About Us' />
                 </ListItem>
-                {userData?.vendor !== null ||'' ? (
-                    <ListItem button >
-                        <ListItemText primary='Proceed to vendor Dashboard' />
-                    </ListItem>
-                ) : (
-                    <ListItem button >
-                        <ListItemText primary='Become a Zister' />
-                    </ListItem>
-                )}
-
                 <ListItem button >
                     <ListItemText primary='Contact Us' />
                 </ListItem>
@@ -319,11 +309,10 @@ function PrimaryAppBar(props) {
         // console.log(status)
         setOpen(status);
     };
-    
+
     const list = () => (
         <div
             role="presentation"
-            onClick={toggleProductsDrawer(false)}
             onKeyDown={toggleProductsDrawer(false)}
             style={{ width: '50% !important', padding: '20px !important' }}
         >
@@ -353,13 +342,13 @@ function PrimaryAppBar(props) {
                         )
                     })}
                     <Divider className={classes.divider} />
-                    <Grid container >
-                        <Grid container item xs={10} sm={7} md={6} lg={6} >
-                            <Button fullWidth onClick={handleOrderDetailsDisplay} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px', textTransform: 'none' }} >
-                                <Typography variant='h6' > Checkout &nbsp; Ksh. 720 </Typography>
-                            </Button>
-                        </Grid>
-                    </Grid>
+                                <Grid container >
+                                    <Grid container item xs={10} sm={10} md={10} lg={10} >
+                                        <Button fullWidth onClick={handleOrderDetailsDisplay} style={{ background: 'orange', margin: '10px 0 0 20px', padding: '15px', borderRadius: '30px', textTransform: 'none' }} >
+                                                    <Typography variant='h6' > Checkout &nbsp; Ksh. 720 </Typography>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                 </>
             ) : <h3 style={{ paddingTop: 50 }}> You have no products in your cart</h3>}
         </div>
@@ -448,36 +437,21 @@ function PrimaryAppBar(props) {
                     </React.Fragment>
                     {/* <Grid container >
                         <Grid item xs={3}> */}
-                            <>
-                            {location ? ( 
-                                <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
-                                    ASAP to {location}
-                                </Typography>
-                            ) : (
-                                <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
-                                    Zist Shopping
-                                </Typography>
-                                    ) } 
-                            </>
-                            
-                            {/* <br/> */}
-                        {/* </Grid> */}
-                        {/* <Grid item xs={9} style={{ textAlign: 'center' }}> */} 
-{/*                             
-                       </Grid>
-                    </Grid> */}
-                    {/* <Grid item xs={6} style={{textAlign: 'center'}}> */}
-                    {/* {location ? ( 
-                                <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
-                                    ASAP to {location}
-                                </Typography>
-                            ) : null}  */}
-                    {/* </Grid> */}
+                    <>
+                        {location ? (
+                            <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
+                                ASAP to {location}
+                            </Typography>
+                        ) : (
+                            <Typography className={classes.title} variant="h6" noWrap style={{ textAlign: 'center' }}>
+                                Zist Shopping
+                            </Typography>
+                        )}
+                    </>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         {token === undefined || token === '' ? (
                             <Grid container>
-                                {/* <Grid item xs={1} /> */}
                                 <Grid item lg={4} md={4} sm={5} xs={3} style={{ marginTop: 15 }} >
                                     <SignupButtonSection />
                                 </Grid>
@@ -489,10 +463,10 @@ function PrimaryAppBar(props) {
                                     <React.Fragment >
                                         <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                             <Toolbar>
-                                            <Button
+                                                <Button
                                                     variant="contained"
                                                     className={classes.cartButton2}
-                                                    startIcon={<ShoppingCartIcon fontSize='large'  />}
+                                                    startIcon={<ShoppingCartIcon fontSize='large' />}
                                                     onClick={toggleProductsDrawer(true)}
                                                 >
                                                     {prdCount}
@@ -521,7 +495,7 @@ function PrimaryAppBar(props) {
                                                 <Button
                                                     variant="contained"
                                                     className={classes.cartButton}
-                                                    startIcon={<ShoppingCartIcon fontSize='large'  />}
+                                                    startIcon={<ShoppingCartIcon fontSize='large' />}
                                                     onClick={toggleProductsDrawer(true)}
                                                 >
                                                     {prdCount}
@@ -558,10 +532,10 @@ function PrimaryAppBar(props) {
                                     <React.Fragment >
                                         <AppBar position="sticky" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
                                             <Toolbar item sm={5} xs={5}>
-                                            <Button
+                                                <Button
                                                     variant="contained"
                                                     className={classes.cartButton2}
-                                                    startIcon={<ShoppingCartIcon fontSize='large'  />}
+                                                    startIcon={<ShoppingCartIcon fontSize='large' />}
                                                     onClick={toggleProductsDrawer(true)}
                                                 >
                                                     {prdCount}
@@ -585,34 +559,34 @@ function PrimaryAppBar(props) {
                             <>
                                 {props.hideCart ? null : (
                                     <>
-                                    <Grid item sm={3} xs={3}/>
-                                     <Grid item sm={9} xs={9}>
-                                    <React.Fragment >
-                                        <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
-                                            <Toolbar>
-                                                <Button
-                                                    variant="contained"
-                                                    className={classes.cartButton}
-                                                    startIcon={<ShoppingCartIcon fontSize='large'  />}
-                                                    onClick={toggleProductsDrawer(true)}
-                                                >
-                                                    {prdCount}
-                                                </Button>
-                                            </Toolbar>
-                                        </AppBar>
-                                        <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
-                                            <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
-                                                <Grid item xs={2} >
-                                                    <IconButton onClick={toggleProductsDrawer(false)} >
-                                                        <CloseIcon fontSize="large" style={{ color: 'orange' }} />
-                                                    </IconButton>
-                                                </Grid>
-                                            </Grid>
-                                            {list()}
-                                        </Drawer>
-                                    </React.Fragment>
-                                    </Grid>
-                                    {/* <Grid item sm={1} xs={1}/> */}
+                                        <Grid item sm={3} xs={3} />
+                                        <Grid item sm={9} xs={9}>
+                                            <React.Fragment >
+                                                <AppBar position="static" style={{ background: 'inherit', color: 'black', boxShadow: 'none' }}>
+                                                    <Toolbar>
+                                                        <Button
+                                                            variant="contained"
+                                                            className={classes.cartButton}
+                                                            startIcon={<ShoppingCartIcon fontSize='large' />}
+                                                            onClick={toggleProductsDrawer(true)}
+                                                        >
+                                                            {prdCount}
+                                                        </Button>
+                                                    </Toolbar>
+                                                </AppBar>
+                                                <Drawer anchor='right' open={open} style={{ width: '52% !important' }} >
+                                                    <Grid container item xs={12} spacing={3} className={classes.closeDrawer}>
+                                                        <Grid item xs={2} >
+                                                            <IconButton onClick={toggleProductsDrawer(false)} >
+                                                                <CloseIcon fontSize="large" style={{ color: 'orange' }} />
+                                                            </IconButton>
+                                                        </Grid>
+                                                    </Grid>
+                                                    {list()}
+                                                </Drawer>
+                                            </React.Fragment>
+                                        </Grid>
+                                        {/* <Grid item sm={1} xs={1}/> */}
                                     </>
                                 )}
                             </>
@@ -628,4 +602,4 @@ function PrimaryAppBar(props) {
 export default withCookies(PrimaryAppBar)
 PrimaryAppBar.propTypes = {
     productsInBasket: PropTypes.array
-  }
+}

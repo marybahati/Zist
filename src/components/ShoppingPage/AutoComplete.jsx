@@ -148,7 +148,7 @@ function SearchComponent(props) {
           if (showItems) {
             setSelectedOption(newValue)
           } else {
-            const d = { name: newValue?.name, type: newValue?.business_type, id: newValue?.id }
+            const d = { newValue }
             History.push({
               pathname: '/user-list',
               state: d
@@ -160,26 +160,39 @@ function SearchComponent(props) {
         renderOption={(option) => (
           !showItems ? (
             <div>
-              {/* <MenuItem disableGutters dense style={{padding:'0 !important',margin:'0 !important'}} > */}
               <List key={option.id}>
                 <ListItem >
                   <ListItemAvatar>
                     <Avatar variant="rounded" src={store} />
                   </ListItemAvatar>
-                  <ListItemText primary={option?.name} secondary={option?.business_type} /> <Icon name='check circle outline' size='large' color='yellow' style={{ paddingBottom: 50 }} />
-                  {/* <ListItemText secondary={option?.business_type} /> */}
+                  <ListItemText primary={option?.name} secondary={option?.metadata.niche} /> <Icon name='check circle outline' size='large' color='yellow' style={{ paddingBottom: 50 }} />
                 </ListItem>
               </List>
-              {/* </MenuItem> */}
             </div>
           ) : (
             <List key={option.id}>
               <ListItem >
-                <ListItemAvatar>
-                  <Avatar variant="rounded" src={store} />
-                </ListItemAvatar>
-                <ListItemText primary={option?.name} secondary={`Ksh. ${option?.price}`} />
-                {/* <ListItemText secondary={option?.business_type} /> */}
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar variant="rounded" src={store} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={option?.name}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {`Ksh.${option?.price}`} <br />
+                          {option?.business.name}
+                        </Typography>
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
               </ListItem>
             </List>
           )
@@ -189,14 +202,7 @@ function SearchComponent(props) {
             {...params}
             placeholder="Search for a shop or an item"
             variant="outlined"
-            InputProps={{ ...params.InputProps}}
-          //   InputProps={{
-          //     startAdornment: (
-          //         <InputAdornment position="start">
-          //             <SearchIcon />
-          //         </InputAdornment>
-          //     ),
-          // }}
+            InputProps={{ ...params.InputProps }}
           />
         )}
         PaperComponent={PaperC}
