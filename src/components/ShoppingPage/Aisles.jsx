@@ -61,8 +61,8 @@ const useStyles = makeStyles((theme) => ({
         // margin: '20px 0'
         borderRadius: '30px',
         background: '#FFBD59',
-        // height: 40,
-        top: -150,
+        height: '70px',
+        marginLeft: 20,
     },
     seeAllGrid: {
         borderRadius: '30px',
@@ -89,6 +89,9 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
         height: 40,
         top: -20
+    },
+    card: {
+        height: 490,
     },
 
 }))
@@ -160,26 +163,26 @@ const Aisles = (props) => {
             state: matchedCategory
         })
     }
-    const handleAddProduct = (e, name, price, quantity, id) => {
-        const checkIndex = productsInBasket.findIndex(product => product.id === id);
+    const handleAddProduct = (e, product) => {
+        const checkIndex = productsInBasket.findIndex(prd => prd.id === product.id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
             cookie.set('cart', productsInBasket, { path: '/' })
-            setShowQty([...showQty, id])
+            setShowQty([...showQty, product.id])
             console.log("Quantity updated:", productsInBasket);
             const timer = setTimeout(() => {
-                setShowDelayedComponent(id)
+                setShowDelayedComponent(product.id)
             }, 6000)
             // return () => clearTimeout(timer)
         } else {
-            const d = { productName: name, productPrice: price, quantity: quantity, id: id }
+            const d = { productName: product.name, productPrice: product.price, quantity: 1, id: product.id, image: product.image }
             const aa = [...productsInBasket, d]
             setProductsInBasket(aa)
-            setShowQty([...showQty, id])
+            setShowQty([...showQty, product.id])
             cookie.set('cart', aa, { path: '/' })
             console.log('The product has been added to cart:', productsInBasket)
             const timer = setTimeout(() => {
-                setShowDelayedComponent(id)
+                setShowDelayedComponent(product.id)
             }, 6000)
             // return () => clearTimeout(timer)
         }
@@ -245,7 +248,7 @@ const Aisles = (props) => {
                             </Grid>
                             <Grid item xs={3} />
                             <Grid item xs={3} >
-                                <Button onClick={() => handleAddProduct(product.name, product.price, 1, product.id)} >
+                                <Button onClick={(e) => handleAddProduct(e, product)} >
                                     <AddCircleOutlineIcon fontSize='large' />
                                 </Button>
                             </Grid>
@@ -316,11 +319,11 @@ const Aisles = (props) => {
                             <Grid container item xs={12} sm={12} md={9} lg={9} spacing={3} >
                                 {groupedAisles[data].slice(0, 3).map((product) => (
                                     <Grid item xs={12} sm={4} md={4} lg={4}  key={product.id} >
-                                        <Card>
+                                        <Card className={classes.card}>
                                             <Grid container >
                                                 <CardMedia>
                                                     <Grid item xs={12}>
-                                                        <img src={ product.image ? product.image : placeholderImage } alt='Product image' style={{width: '100%', maxHeight: '300px'}} />
+                                                        <img src={ product.image ? product.image : placeholderImage } alt='Product image' style={{width: '100%', height: '300px'}} />
                                                     </Grid>
                                                 </CardMedia>
                                                 <Grid container item xs={12}>
@@ -330,7 +333,7 @@ const Aisles = (props) => {
                                                                 <Grid item xs={10} />
                                                                 <Grid item xs={2} >
                                                                     <CardActions>
-                                                                        <Button className={classes.roundedButton} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
+                                                                        <Button className={classes.roundedButton} onClick={(e) => handleAddProduct(e, product)} >
                                                                             <AddIcon />
                                                                         </Button>
                                                                     </CardActions>
@@ -355,19 +358,19 @@ const Aisles = (props) => {
                                                                                 {/* <Grid item xs={3} /> */}
                                                                             </Grid>
                                                                         ) : (
-                                                                            <Grid container item  xs={12} sm={8} md={8} lg={6} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
+                                                                            <Grid container item  xs={10} sm={12} md={10} lg={10} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
                                                                                 <CardActions>
-                                                                                <Grid item xs={6} >
+                                                                                <Grid item xs={4} >
                                                                                     {getProductQty(product.id) === 1 ? (
                                                                                         <Button
-                                                                                            style={{ fontSize: '20px' }}
+                                                                                            // style={{ fontSize: '20px' }}
                                                                                             onClick={e => deleteProduct(e, product.id)}
                                                                                         >
                                                                                             <DeleteIcon />
                                                                                         </Button>
                                                                                     ) : (
                                                                                         <Button
-                                                                                            style={{ fontSize: '20px' }}
+                                                                                            // style={{ fontSize: '20px' }}
                                                                                             onClick={e => changeQuantity(e, product.id, -1)}
                                                                                         > <RemoveIcon /> </Button>
                                                                                     )}
@@ -378,7 +381,7 @@ const Aisles = (props) => {
                                                                                     <Typography variant='h6' >  {getProductQty(product.id)} </Typography>
                                                                                 </Grid>
                                                                                 </CardContent>
-                                                                                <Grid item xs={4} >
+                                                                                <Grid item xs={3} >
                                                                                 <CardActions>
                                                                                     <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
                                                                                 </CardActions>

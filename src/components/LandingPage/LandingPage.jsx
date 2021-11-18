@@ -180,6 +180,7 @@ const LandingPage = (props) => {
         <Navbar />
         <Grid container className={classes.centeredLocationColumn} item xs={12} sm={12} md={12} lg={12} >
           <Grid item xs={11} sm={11} md={12} lg={12} >
+          <Typography variant='h4' className={classes.boldFont} > Zist Shopping </Typography>
             <Typography variant='h4' className={classes.boldFont} > Anything, anywhere , anytime. </Typography>
           </Grid>
         </Grid>
@@ -271,14 +272,14 @@ const LandingPage = (props) => {
 
       <div >
         <Grid className={classes.descriptionGrid} container  item xs={10} sm={10} md={12} lg={12} spacing={3}>
+          <Grid item xs={10} sm={10} md={6} lg={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
+            <img src={zist} style={{ width: '100%' }} />
+          </Grid>
           <Grid item xs={10} sm={10} md={5} lg={5} style={{ padding: '0 ', margin: 'auto 0' }}>
             <Typography variant='h4' className={classes.fontBold}>
               There’s more to see in the app.
             </Typography>
             <Button className={classes.appLinkButton} startIcon={<AndroidIcon />} > Android </Button>
-          </Grid>
-          <Grid item xs={10} sm={10} md={6} lg={6} className={classes.boldFont} style={{ margin: 'auto 20px' }}>
-            <img src={zist} style={{ width: '100%' }} />
           </Grid>
         </Grid>
 

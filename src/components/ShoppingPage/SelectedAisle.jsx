@@ -75,8 +75,11 @@ const useStyles = makeStyles((theme) => ({
     roundedGrid: {
         borderRadius: '30px',
         background: '#FFBD59',
-        // height: 40,
-        top: -80,
+        height: '70px',
+        marginLeft: 20,
+    },
+    card: {
+        height: 490,
     },
 }))
 
@@ -121,7 +124,7 @@ const SelectedAisles = (props) => {
     }, [])
 
 
-    const handleAddProduct = (e, name, price, quantity, id) => {
+    const handleAddProduct = (e, name, price, quantity, id, img ) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
@@ -133,7 +136,7 @@ const SelectedAisles = (props) => {
             }, 6000)
             // return () => clearTimeout(timer)
         } else {
-            const d = { productName: name, productPrice: price, quantity: quantity, id: id }
+            const d = { productName: name, productPrice: price, quantity: quantity, id: id,image: img}
             const aa = [...productsInBasket, d]
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
@@ -161,7 +164,7 @@ const SelectedAisles = (props) => {
         // return () => clearTimeout(timer)
     }
     const getProductQty = (product_id) => {
-        const product = productsInBasket.find(prd => prd.id === product_id)
+        const product = productsInBasket?.find(prd => prd.id === product_id)
         return product?.quantity
     }
     const CalculateProductPrice = (product_id, product_price) => {
@@ -198,7 +201,7 @@ const SelectedAisles = (props) => {
                             {products?.map(product => {
                                 return (
                                     <Grid item xs={12} sm={4} md={3} lg={3} key={product.id} >
-                                        <Card>
+                                        <Card className={classes.card}>
                                             <Grid container >
                                                 <CardMedia>
                                                     <Grid item xs={12}>
@@ -212,7 +215,7 @@ const SelectedAisles = (props) => {
                                                                 <Grid item xs={10} />
                                                                 <Grid item xs={2} >
                                                                     <CardActions>
-                                                                        <Button className={classes.roundedButton} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
+                                                                        <Button className={classes.roundedButton} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id,product.image)} >
                                                                             <AddIcon />
                                                                         </Button>
                                                                     </CardActions>
@@ -237,7 +240,7 @@ const SelectedAisles = (props) => {
                                                                                 {/* <Grid item xs={3} /> */}
                                                                             </Grid>
                                                                         ) : (
-                                                                            <Grid container item xs={12} sm={8} md={8} lg={6} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
+                                                                            <Grid container item  xs={10} sm={12} md={10} lg={10} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
                                                                                 <CardActions>
                                                                                     <Grid item xs={3} >
                                                                                         {getProductQty(product.id) === 1 ? (

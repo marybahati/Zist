@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
   removeShadow: {
     boxShadow: 'none',
+    padding: '16px 5px 10px 0px',
     '& .MuiPaper-elevation1': {
       boxShadow: 'none'
     },
@@ -81,7 +82,11 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '98%',
     whiteSpace: "nowrap",
     overflow: "hidden",
-    textOverflow: "ellipsis"
+    textOverflow: "ellipsis",
+    marginBottom: 0,
+  },
+  bold: {
+    fontWeight: 600,
   }
 }))
 
@@ -146,23 +151,21 @@ const Shopping = (props) => {
           />
           <CardContent className={classes.removeShadow} >
             <Grid container >
-              <Grid item xs={8}>
+              <Grid item xs={12}>
                 <Typography gutterBottom variant="h5" component="h2" className={classes.ellipsis}>
                   {props.title}
                 </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <RatedStars rating={5} />
-              </Grid>
-              <Grid item xs={12}>
                 <Typography variant="body1" component="span" >
                   {props.description}
                 </Typography>
-                <ul>
-                  <li>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="p" className={classes.bold}>
                     {props.niche}
-                  </li>
-                </ul>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <RatedStars rating={5} />
               </Grid>
             </Grid>
           </CardContent>

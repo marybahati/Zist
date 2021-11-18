@@ -153,7 +153,7 @@ const UserList = (props) => {
         }
     }, [])
 
-    const handleAddProduct = (e, name, price, quantity, id) => {
+    const handleAddProduct = (e, name, price, quantity, id, img) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
@@ -165,7 +165,7 @@ const UserList = (props) => {
             }, 6000)
             // return () => clearTimeout(timer)
         } else {
-            const d = { productName: name, productPrice: price, quantity: quantity, id: id }
+            const d = { productName: name, productPrice: price, quantity: quantity, id: id, image: img }
             const aa = [...productsInBasket, d]
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
@@ -257,7 +257,7 @@ const UserList = (props) => {
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={3} lg={3}  >
-                                        <Button className={classes.roundedGrid} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id)} >
+                                        <Button className={classes.roundedGrid} onClick={(e) => handleAddProduct(e, product.name, product.price, 1, product.id, product.image)} >
                                             Add to cart
                                         </Button>
                                     </Grid>
