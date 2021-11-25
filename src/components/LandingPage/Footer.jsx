@@ -28,8 +28,8 @@ export const FooterComponent = (props) => {
                             {/* <Link className={classes.footerLinks} href="#" > Zist Articles </Link> <br />
                             <Link className={classes.footerLinks} href="#" > Zist Recipes </Link> <br />
                             <Link className={classes.footerLinks} href="#" > Zist Careers </Link> <br /> */}
-                            <Link className={classes.footerLinks} href="#" > About us </Link> <br />
-                            <Link className={classes.footerLinks} href="#" > Contact us </Link> <br />
+                            <Link className={classes.footerLinks} href="/about" > About us </Link> <br />
+                            <Link className={classes.footerLinks} href="/contact" > Contact us </Link> <br />
                             <Link className={classes.footerLinks} href="#" > Terms & Policy </Link> 
                         </Grid>
                         <Grid item xs={12} sm={12} md={4} lg={4} >

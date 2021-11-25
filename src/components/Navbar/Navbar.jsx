@@ -165,7 +165,7 @@ function PrimaryAppBar(props) {
     const name = splitName !== undefined ? splitName[0] : null
     const [productsInBasket, setProductsInBasket] = useState([])
     const [showQty, setShowQty] = useState([])
-    const [subtotal, setSubtotal] = useState()
+    const [subtotal, setSubtotal] = useState(0)
     const [open, setOpen] = React.useState(false);
     const clickedBusiness = (props.location && props.location.state) || '';
     const businessId = clickedBusiness?.id
@@ -190,7 +190,7 @@ function PrimaryAppBar(props) {
     const handleOrderDetailsDisplay = () => {
         history.push({
             pathname: '/order-details',
-            state: { clickedBusiness }
+            state:  { clickedBusiness }
         })
     }
     const handleProfileMenuOpen = (event) => {
@@ -209,27 +209,28 @@ function PrimaryAppBar(props) {
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
-    const calculateCostOfProducts = (product_id) => {
-        // const curIndx = productsInBasket?.findIndex(product => product_id === product.id)
-        // if (curIndx === -1) return
-        // const curObj = productsInBasket[curIndx]
-        // const prc = curObj?.productPrice * curObj?.quantity
-        // console.log(curObj, prc)
-        var val = 0
+    const calculatepriceOfProducts = () => {
         var costs = []
-        var total
-        const check = productsInBasket?.map(prd => {
-            prd.cost = prd.productPrice * prd?.quantity
-            costs.push(prd?.productPrice)
+        var total 
+        var val = 0
+        const check = productsInBasket?.map( prd => {
+            var cost = prd.productPrice * prd?.quantity
+            console.log(cost)
+            costs.push(cost)
         })
+        console.log(costs)
         const calculate = costs?.map(price => {
             total = val += price
         })
-        // curObj['cost'] = prc
-        // val += curObj['cost']
         console.log('total', costs, total)
         setSubtotal(total)
+        console.log(subtotal)
     }
+    useEffect( () => {
+        calculatepriceOfProducts()
+    }, [productsInBasket] )
+    console.log(subtotal)
+
     const deleteProduct = (e, productId) => {
         e.preventDefault()
         const deleteObj = productsInBasket?.findIndex(obj => obj.id === productId)
@@ -247,6 +248,12 @@ function PrimaryAppBar(props) {
     }
     const redirectToHome = () => {
         history.push('/shopping')
+    }
+    const aboutUsRedirect = () => {
+        history.push('/about')
+    }
+    const contactUsRedirect = () => {
+        history.push('/contact')
     }
     const toggleDrawer = (status) => (event) => {
         event.preventDefault()
@@ -285,10 +292,10 @@ function PrimaryAppBar(props) {
                     <ListItemText primary='Home' onClick={redirectToHome} />
                 </ListItem>
                 <ListItem button >
-                    <ListItemText primary='About Us' />
+                    <ListItemText primary='About Us' onClick={aboutUsRedirect} />
                 </ListItem>
                 <ListItem button >
-                    <ListItemText primary='Contact Us' />
+                    <ListItemText primary='Contact Us' onClick={contactUsRedirect} />
                 </ListItem>
                 <ListItem button >
                     <ListItemText primary='Terms & Policy' />
@@ -345,7 +352,7 @@ function PrimaryAppBar(props) {
                     {productsInBasket?.map((product, index) => {
                         return (
                             <Grid key={product.id} container spacing={1} item xs={11} sm={11} md={11} lg={12} style={{ padding: 20, fontSize: 20 }}>
-                                <Grid container item xs={12} />
+                                <Grid container item xs={12}/>
                                 <Grid container item xs={2}>
                                     <Grid item xs={12} >
                                         <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
@@ -477,7 +484,7 @@ function PrimaryAppBar(props) {
                                 <Grid item lg={4} md={4} sm={5} xs={3} style={{ marginTop: 15 }} >
                                     <SignupButtonSection />
                                 </Grid>
-                                <Grid item lg={1} md={1} sm={1} xs={1} />
+                                {/* <Grid item xs={1}  /> */}
                                 <Grid item lg={3} md={4} sm={3} xs={3} style={{ marginTop: 15 }} >
                                     <LoginButtonSection />
                                 </Grid>
@@ -546,7 +553,7 @@ function PrimaryAppBar(props) {
                                 <Grid item sm={4} xs={4} style={{ marginTop: 15 }} >
                                     <SignupButtonSection />
                                 </Grid>
-                                <Grid item sm={1} xs={1} />
+                                <Grid item xs={1} />
                                 <Grid item sm={4} xs={4} style={{ marginTop: 15 }} >
                                     <LoginButtonSection />
                                 </Grid>

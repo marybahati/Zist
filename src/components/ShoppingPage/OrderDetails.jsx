@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import strawberries from './../../Assets/strawberries.png';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography, TextField, } from "@material-ui/core";
@@ -57,14 +57,42 @@ const OrderDetails = (props) => {
     const location = cookies.get('location')
     const token = userData?.access
     const info = (props.location && props.location.state) || '';
-    const [cart, setCart] = useState(storedItems)
-    const [n, setN] = useState([])
+    const [cart, setCart] = useState()
     const [proceed, setProceed] = useState(false)
     const [listID, setListID] = useState()
     const [deliveryNotes, setDeliveryNotes] = useState('')
     const [tel, setTel] = useState('')
+    const [subtotal, setSubtotal] = useState(0)
     const placeholderImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC'
     console.log(cart)
+    useEffect(() => {
+        if (storedItems) {
+            setCart(storedItems)
+        } else {
+            setCart([])
+        }
+    }, [])
+    const calculatepriceOfProducts = () => {
+        var costs = []
+        var total 
+        var val = 0
+        const check = cart?.map( prd => {
+            var cost = prd.productPrice * prd?.quantity
+            console.log(cost)
+            costs.push(cost)
+        })
+        console.log(costs)
+        const calculate = costs?.map(price => {
+            total = val += price
+        })
+        console.log('total', costs, total)
+        setSubtotal(total)
+        console.log(subtotal)
+    }
+    useEffect( () => {
+        calculatepriceOfProducts()
+    }, [cart] )
+
     const saveList = () => {
         axios.post(HOST_API + `zist/list/add_multiple_items/`,
             {
@@ -132,18 +160,6 @@ const OrderDetails = (props) => {
             })
     }
 
-    const changeQuantity = (e, index, val) => {
-        e.preventDefault()
-        const curObj = cart[index]
-        curObj['quantity'] += val
-        cart[index] = curObj
-        setCart([...cart])
-    }
-    const getProductQty = (product_id) => {
-        const product = cart.find(prd => prd.id === product_id)
-        console.log(product)
-        return product?.quantity
-    }
     const CalculateProductPrice = (product_id, product_price) => {
         const product = cart.find(prd => prd.id === product_id)
         const price = product ? product.productPrice * product.quantity : product_price
@@ -157,14 +173,6 @@ const OrderDetails = (props) => {
         setCart([...cart])
         cookie.set('cart', cart, { path: '/' })
     }
-    const formartProductName = (productName) => {
-        const str = productName.split(" ");
-        str.map((name) => {
-            return name.charAt(0).toUpperCase() + str.slice(1);
-            str.join(" ");
-        })
-    }
-    console.log(info)
     return (
         <div className={classes.mainDiv}>
             <div className={classes.mainGrid}>
@@ -187,7 +195,7 @@ const OrderDetails = (props) => {
                         <Grid key={product.id} container item xs={12} spacing={3} style={{ paddingBottom: 15 }} >
                             <Grid container item xs={12} sm={12} md={1} lg={1}>
                                 <Grid item xs={12} >
-                                    <Typography gutterBottom variant="subtitle1" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
+                                    <Typography gutterBottom variant="h6" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sm={12} md={3} lg={3} >
@@ -322,21 +330,32 @@ const OrderDetails = (props) => {
                     </form>
                 ) : (
                     <>
+                    {cart?.length === 0 ? (
+                        <>
+                        <Grid item xs={12} sm={12} md={12} lg={12} style={{ margin: '0 auto', textAlign: 'center' }} >
+                        <Typography variant='h6' style={{ paddingBottom: 10 }}> You have no products in your cart </Typography>
+                            <Button className={classes.getStartedButton} > Add products </Button>
+                        </Grid>
+                        </>
+                    ) : (
+                        <>
                         <Grid item xs={8} sm={8} md={8} lg={8} style={{ margin: '0 auto' }} >
                             <Grid container >
                                 <Grid item md={2} lg={4} />
                                 <Grid item xs={2} >
-                                    <Typography variant='h6'>  Total </Typography>
+                                    <Typography variant='h6'>  Sub total </Typography>
                                 </Grid>
                                 <Grid item xs={3} />
                                 <Grid item xs={3} >
-                                    <Typography variant='h6'> Ksh.720 </Typography>
+                                    <Typography variant='h6'> Ksh.{subtotal} </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item xs={8} sm={6} md={2} lg={2} style={{ margin: '0 auto' }} >
                             <Button className={classes.getStartedButton} onClick={e => saveList()}> Proceed </Button>
                         </Grid>
+                        </>
+                    )}     
                     </>
                 )}
             </div>
