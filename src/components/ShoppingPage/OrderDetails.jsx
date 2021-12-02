@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         opacity: 1,
         height: '70px !important',
         width: '200px',
-        fontSize: '26px !important',
+        fontSize: '22px !important',
         color: '#050504 !important',
         margin: '50px auto !important',
         textTransform: 'none',
@@ -291,7 +291,7 @@ const OrderDetails = (props) => {
                             </Grid>
                             <Grid item xs={1} sm={1} md={1} lg={1} />
                             <Grid item xs={4} >
-                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Ksh.720 </Typography>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Ksh.{subtotal} </Typography>
                             </Grid>
                             <Grid item xs={1} sm={1} md={2} lg={2} />
                         </Grid>

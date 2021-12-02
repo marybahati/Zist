@@ -93,7 +93,18 @@ const useStyles = makeStyles((theme) => ({
     card: {
         height: 490,
     },
-
+    showMore: {
+        background: '#FFBD59 0% 0% no-repeat padding-box !important',
+        border: '2px solid #FEE2D4 !important',
+        borderRadius: '24px !important',
+        opacity: 1,
+        height: '70px !important',
+        width: '200px',
+        fontSize: '22px !important',
+        color: '#050504 !important',
+        margin: '50px auto !important',
+        textTransform: 'none',
+    },
 }))
 
 const Aisles = (props) => {
@@ -105,11 +116,13 @@ const Aisles = (props) => {
     const [productsInBasket, setProductsInBasket] = useState()
     const [fetchedProducts, setFetchedProducts] = useState([])
     const [categories, setCategories] = useState([])
+    const [catProducts, setCatProducts] = useState([])
     const [showDelayedComponent, setShowDelayedComponent] = useState(false)
     const userData = cookies.get('login-res')
     const token = userData?.access
     const clickedBusiness = (props.location && props.location.state) || '';
     const businessId = clickedBusiness?.props.id
+    const [currentURL, setCurrentURL] = useState(`${HOST_API}zist/business/${businessId}/product_list/`)
     const cookie = new Cookies()
 
     const placeholderImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC'
@@ -125,6 +138,8 @@ const Aisles = (props) => {
         } else {
             setProductsInBasket([])
         }
+        fetchBusinessProducts()
+        fetchedProductsByCategory()
     }, [])
     useEffect(() => {
         axios.get(HOST_API + `zist/business/${businessId}/get_categories/`, {
@@ -140,21 +155,42 @@ const Aisles = (props) => {
                 console.log(error)
             })
     }, [])
-    useEffect(() => {
-        // axios.get(HOST_API + 'zist/products/', {
-        axios.get(HOST_API + `zist/business/${businessId}/product_list/`, {
+    const fetchBusinessProducts = () => {
+        axios.get(currentURL, {
             headers: { "Authorization": `Bearer ${token}` }
         })
             .then((response) => {
                 if (response.status == 200) {
-                    setFetchedProducts(response.data.results);
+                    const prds = [...fetchedProducts, ...response.data.results]
+                    setCurrentURL(response.data.next)
+                    setFetchedProducts(prds);
                 }
 
             })
             .catch(error => {
                 console.log(error)
             })
-    }, [])
+    }
+
+    const fetchedProductsByCategory = () => {
+        // map-y all category and get 3 products from a category poducts
+        const fetchprds = categories?.map( category => {
+            axios.get(`${HOST_API}zist/categories/${category.id}/products/`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            })
+                .then((response) => {
+                    if (response.status === 200) {
+                        setCatProducts(response.data.results)
+                        console.log(response.data.results)
+                    }
+    
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        })
+        return fetchprds    
+    }
     const singleCategory = (e, cat) => {
         e.preventDefault()
         const matchedCategory = categories?.find(data => data.category === cat)
@@ -407,8 +443,12 @@ const Aisles = (props) => {
                                 ))}
                             </Grid>
                         </Grid>
-
                     ))}
+                    <Grid item xs={3} sm={3} md={3} lg={3} style={{margin: '0 auto'}}  >
+                            <Button className={classes.showMore} onClick={(e) => fetchBusinessProducts()} >
+                                Load more
+                            </Button>
+                        </Grid>
                 </>
             </div>
         </div>

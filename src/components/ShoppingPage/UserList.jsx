@@ -152,6 +152,9 @@ const UserList = (props) => {
             setProductsInBasket([])
         }
     }, [])
+    useEffect(() => {
+    
+    }, [])
 
     const handleAddProduct = (e, name, price, quantity, id, img) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
@@ -160,20 +163,20 @@ const UserList = (props) => {
             cookie.set('cart', productsInBasket, { path: '/' })
             setShowQty([...showQty, id])
             console.log("Quantity updated:", productsInBasket);
-            const timer = setTimeout(() => {
-                setShowDelayedComponent(id)
-            }, 6000)
+            // const timer = setTimeout(() => {
+            //     setShowDelayedComponent(id)
+            // }, 6000)
             // return () => clearTimeout(timer)
         } else {
             const d = { productName: name, productPrice: price, quantity: quantity, id: id, image: img }
             const aa = [...productsInBasket, d]
+            cookie.set('cart', aa, { path: '/' })
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
-            cookie.set('cart', aa, { path: '/' })
             console.log('The product has been added to cart:', productsInBasket)
-            const timer = setTimeout(() => {
-                setShowDelayedComponent(id)
-            }, 6000)
+            // const timer = setTimeout(() => {
+            //     setShowDelayedComponent(id)
+            // }, 6000)
             // return () => clearTimeout(timer)
         }
 
@@ -238,7 +241,7 @@ const UserList = (props) => {
 
     const productSearch = (product) => {
 
-        const show = searchText !== '' && product.name.toLowerCase().includes(searchText)
+        const show = searchText !== '' && product.name.toLowerCase().includes(searchText.toLowerCase())
         return (
             <>
                 {show && (
@@ -276,7 +279,7 @@ const UserList = (props) => {
                                     <Grid item md={1} lg={1} />
                                     {showQty.includes(product.id) ? (
                                         <>
-                                            {showDelayedComponent === product.id ? (
+                                            {/* {showDelayedComponent === product.id ? (
                                                 <Grid container item xs={12} sm={6} md={3} lg={3}>
                                                     <Grid item md={8} lg={8} />
                                                     <Grid item xs={1} sm={1} md={1} lg={1} style={{ margin: 'auto 0' }}>
@@ -284,7 +287,7 @@ const UserList = (props) => {
                                                     </Grid>
                                                     <Grid item xs={3} />
                                                 </Grid>
-                                            ) : (
+                                            ) : ( */}
                                                 <Grid container item xs={12} sm={4} md={3} lg={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
                                                     <Grid item xs={4} >
                                                         {getProductQty(product.id) === 1 ? (
@@ -308,7 +311,7 @@ const UserList = (props) => {
                                                         <Button style={{ fontSize: '20px' }} onClick={e => changeQuantity(e, product.id, 1)} > <AddIcon /> </Button>
                                                     </Grid>
                                                 </Grid>
-                                            )}
+                                            {/* // )} */}
                                         </>
                                     ) : null}
 
@@ -325,8 +328,10 @@ const UserList = (props) => {
 
     useEffect(() => {
         // axios.get(HOST_API + 'zist/products/', {
-        axios.get(HOST_API + `zist/business/${businessId}/product_list/`, {
-            headers: { "Authorization": `Bearer ${token}` }
+        axios.get( HOST_API + `zist/business/${businessId}/product_list/`,
+         {
+            headers: { "Authorization": `Bearer ${token}` },
+            params: { search : searchText }
         })
             .then((response) => {
                 if (response.status == 200) {
@@ -341,7 +346,7 @@ const UserList = (props) => {
             .catch(error => {
                 console.log(error)
             })
-    }, [])
+    }, [searchText])
 
     return (
         <div className={classes.mainDiv} >

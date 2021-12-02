@@ -32,7 +32,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import zist from "./../../Assets/zist.png";
 import AndroidIcon from '@material-ui/icons/Android';
 import PropTypes from 'prop-types'
-
+import DeleteIcon from '@material-ui/icons/Delete';
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
@@ -158,6 +158,7 @@ function PrimaryAppBar(props) {
     const { cookies } = props
     const cookie = new Cookies()
     const userData = cookies.get('login-res')
+    // console.log(userData)
     const token = userData?.access
     const location = cookies.get('location')
     const names = cookies.get('name')
@@ -365,7 +366,9 @@ function PrimaryAppBar(props) {
                                     <Typography gutterBottom variant="subtitle1">Ksh.{product.productPrice * product.quantity} </Typography>
                                 </Grid >
                                 <Grid item xs={3} style={{ margin: 'auto 0 !important', fontSize: 20, textAlign: 'center', }} >
-                                    <Button color="primary" style={{ textTransform: 'none' }} onClick={e => deleteProduct(e, product.id)}>Remove</Button>
+                                    <Button onClick={e => deleteProduct(e, product.id)}>
+                                        <DeleteIcon/>
+                                    </Button>
                                 </Grid >
                             </Grid>
                         )
