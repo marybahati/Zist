@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import {
   Grid, Button, Typography, TextField, Card, CardActionArea, CardContent, CardMedia
 } from "@material-ui/core";
-import store from './../../Assets/store.png';
 import axios from 'axios';
 import { Cookies, withCookies } from 'react-cookie';
 import History from '../../History';
@@ -14,7 +13,8 @@ import { RatedStars } from './Ratings';
 import Skeleton from '@material-ui/lab/Skeleton';
 import SearchComponent from './AutoComplete';
 import { makeStyles } from '@material-ui/core/styles';
-import Navbar from './../Navbar/Navbar'
+import Navbar from './../Navbar/Navbar';
+import { useSnackbar } from 'notistack';
 import { FooterComponent } from '../LandingPage/Footer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -92,7 +92,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Shopping = (props) => {
-  const classes = useStyles();
+  const classes = useStyles()
+  const { enqueueSnackbar } = useSnackbar()
   const { cookies } = props
   const userData = cookies.get('login-res')
   const cookie = new Cookies()
@@ -241,11 +242,15 @@ const Shopping = (props) => {
     window.location.reload(false);
   }
   const handleCardClicked = (e,props) => {
-    const d = { props }
-    History.push({
-      pathname: '/user-list',
-      state: d
-    });
+    if(token){
+      const d = { props }
+      History.push({
+        pathname: '/user-list',
+        state: d
+      })
+    } else {
+      enqueueSnackbar('Please login to proceed', { variant: 'warning' })
+    }
   }
   const handleSelectedBusiness = (e, { value }) => {
     setBusiness({ business: value })

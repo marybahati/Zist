@@ -40,7 +40,7 @@ const LoginModal = (props) => {
     const [loginPassword, setLoginPassword] = useState('');
     const [token, setToken] = useState('')
     const [userData, setUserData] = useState()
-    cookies.set('access-token',token,{path: '/'})
+    // cookies.set('access-token',token,{path: '/'})
 
     const { enqueueSnackbar } = useSnackbar();
 
@@ -55,7 +55,7 @@ const LoginModal = (props) => {
             if(res.status === 200 ){
               console.log(res.data)
               cookies.set('login-res', res.data,{ path: '/' })
-              window.location.reload(false);
+              window.location.reload(false)
               enqueueSnackbar('You have successfully logged in', { variant: 'success' })            
               props.handleClose() 
             } 

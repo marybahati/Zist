@@ -7,7 +7,7 @@ import { ModalSignUpButton } from './ModalSignUpButton';
 import { LinkingLoginButton } from './LinkingLoginButton';
 import { HOST_API } from '../../endpoints';
 import { useSnackbar } from 'notistack';
-
+import { withCookies,Cookies } from 'react-cookie';
 const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const SignupModal = (props) => {
   const classes = useStyles();
+  const cookies = new Cookies()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -47,12 +48,17 @@ export const SignupModal = (props) => {
     } else {
       axios.post(HOST_API + 'register/', {
         email: email,
-        password: password
+        password: password,
+        profile: {
+
+        }
       })
         .then(res => {
           if (res.status === 201) {
             enqueueSnackbar('You have successfully signed up', { variant: 'success' })
             props.handleClose()
+            cookies.set('login-res', res.data,{ path: '/' })
+            window.location.reload(false)
           }
         }).catch(error => {
           enqueueSnackbar(`${error}`, { variant: 'error' })

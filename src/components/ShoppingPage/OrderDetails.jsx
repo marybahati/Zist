@@ -302,7 +302,7 @@ const OrderDetails = (props) => {
                             </Grid>
                             <Grid item xs={1} sm={1} md={1} lg={1} />
                             <Grid item xs={4}>
-                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. 200 </Typography>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> depends with location </Typography>
                             </Grid>
                             <Grid item xs={1} sm={1} md={2} lg={2} />
                         </Grid>
@@ -313,7 +313,7 @@ const OrderDetails = (props) => {
                             </Grid>
                             <Grid item xs={1} sm={1} md={1} lg={1} />
                             <Grid item xs={4}>
-                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. 920 </Typography>
+                                <Typography variant='h6' style={{ paddingBottom: 10 }}> Kshs. {subtotal} </Typography>
                             </Grid>
                             <Grid item xs={2} xs={1} sm={1} md={2} lg={2} />
                         </Grid>
