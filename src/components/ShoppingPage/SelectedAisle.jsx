@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios'
 import { Cookies, withCookies } from 'react-cookie';
 import history from '../../History'
@@ -12,6 +12,7 @@ import "./multicarousel.css";
 import DeleteIcon from '@material-ui/icons/Delete';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Navbar from '../Navbar/Navbar';
+import { MyContext } from './MyContext'
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -96,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SelectedAisles = (props) => {
+    const storedCart = useContext(MyContext)
     const classes = useStyles()
     const { cookies } = props
     const cookie = new Cookies()
@@ -134,6 +136,7 @@ const SelectedAisles = (props) => {
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
+            storedCart.setCart(storedItems)
         } else {
             setProductsInBasket([])
         }
@@ -147,11 +150,12 @@ const SelectedAisles = (props) => {
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
             cookie.set('cart', productsInBasket, { path: '/' })
+            storedCart.setCart(productsInBasket)
             setShowQty([...showQty, id])
             console.log("Quantity updated:", productsInBasket);
-            const timer = setTimeout(() => {
-                setShowDelayedComponent(id)
-            }, 6000)
+            // const timer = setTimeout(() => {
+            //     setShowDelayedComponent(id)
+            // }, 6000)
             // return () => clearTimeout(timer)
         } else {
             const d = { productName: name, productPrice: price, quantity: quantity, id: id, image: img }
@@ -159,10 +163,11 @@ const SelectedAisles = (props) => {
             setProductsInBasket(aa)
             setShowQty([...showQty, id])
             cookie.set('cart', aa, { path: '/' })
+            storedCart.setCart(aa)
             console.log('The product has been added to cart:', productsInBasket)
-            const timer = setTimeout(() => {
-                setShowDelayedComponent(id)
-            }, 6000)
+            // const timer = setTimeout(() => {
+            //     setShowDelayedComponent(id)
+            // }, 6000)
             // return () => clearTimeout(timer)
         }
 
@@ -176,9 +181,10 @@ const SelectedAisles = (props) => {
         curObj['quantity'] += val
         productsInBasket[curIndx] = curObj
         setProductsInBasket([...productsInBasket])
-        const timer = setTimeout(() => {
-            setShowDelayedComponent(product_id)
-        }, 6000)
+        storedCart.setCart([...productsInBasket])
+        // const timer = setTimeout(() => {
+        //     setShowDelayedComponent(product_id)
+        // }, 6000)
         // return () => clearTimeout(timer)
     }
     const getProductQty = (product_id) => {
@@ -195,6 +201,7 @@ const SelectedAisles = (props) => {
         const deleteObj = productsInBasket?.findIndex(obj => obj.id === productId)
         productsInBasket.splice(deleteObj, 1)
         setProductsInBasket([...productsInBasket])
+        storedCart.setCart([...productsInBasket])
         cookie.set('cart', productsInBasket, { path: '/' })
         setShowQty('')
     }

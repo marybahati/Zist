@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import blueberries from './../../Assets/blue-berries.png';
 import BusinessPic from './../../Assets/user-list-business.png'
 import axios from 'axios'
@@ -16,7 +16,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import Navbar from './../Navbar/Navbar'
-
+import { MyContext } from './MyContext'
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
         background: ' #FFF 0% 0% no-repeat padding-box',
@@ -110,22 +110,43 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'none',
         width: '170px',
         height: '60px',
-        // margin: '0px auto 20px auto !important', 
+        margin: '0px auto 20px auto !important', 
         background: '#FFBD59', 
         padding: '10px 0', 
         textAlign: 'center', 
         borderRadius: '30px' ,
-        [theme.breakpoints.between('xs', 'sm')]: {
-            width: '120px',
-            height: '50px',
-            fontSize: '11px',
-            margin: '0px auto 20px auto', 
+        // [theme.breakpoints.between('xs', 'sm')]: {
+        //     width: '120px',
+        //     height: '50px',
+        //     fontSize: '11px',
+        //     margin: '0px auto 20px auto', 
+        // },
+    },
+    responsiveImg: {
+        height: '250px !important', 
+        padding: '15px 0',
+        borderRadius: '70%', 
+        width: '50%',
+        [theme.breakpoints.only('xs')]: {
+            borderRadius: '50%', 
+            width: '70%',
+            height: '200px !important', 
         },
+        [theme.breakpoints.only('sm')]: {
+            borderRadius: '50%', 
+            width: '50%',
+        },
+        [theme.breakpoints.only('md')]: {
+            borderRadius: '50%', 
+            width: '50%',
+        },
+
     },
 
 }))
 
 const UserList = (props) => {
+    const storedCart = useContext(MyContext)
     const [listId, setListId] = useState()
     const { cookies } = props
     const userData = cookies.get('login-res')
@@ -142,25 +163,30 @@ const UserList = (props) => {
     const [products, setProducts] = useState([])
     const [searchText, setSearchText] = useState('')
     const [countProducts, setCountProducts] = useState()
-    const [productsInBasket, setProductsInBasket] = useState()
+    const [productsInBasket, setProductsInBasket] = useState() || []
     const [showDelayedComponent, setShowDelayedComponent] = useState(false)
     const placeholderImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC'
+    // console.log(storedCart)
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
+            storedCart.setCart(storedItems)
         } else {
             setProductsInBasket([])
         }
     }, [])
-    useEffect(() => {
-    
-    }, [])
 
+    useEffect(() => {
+        // storedCart.setCart(productsInBasket)
+        cookie.set('cart', productsInBasket, { path: '/' })
+    }, [productsInBasket])
+    console.log("prds:", productsInBasket, 'cokkie prd', storedItems)
     const handleAddProduct = (e, name, price, quantity, id, img) => {
         const checkIndex = productsInBasket.findIndex(product => product.id === id);
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
             cookie.set('cart', productsInBasket, { path: '/' })
+            storedCart.setCart(productsInBasket)
             setShowQty([...showQty, id])
             console.log("Quantity updated:", productsInBasket);
             // const timer = setTimeout(() => {
@@ -172,6 +198,7 @@ const UserList = (props) => {
             const aa = [...productsInBasket, d]
             cookie.set('cart', aa, { path: '/' })
             setProductsInBasket(aa)
+            storedCart.setCart(aa)
             setShowQty([...showQty, id])
             console.log('The product has been added to cart:', productsInBasket)
             // const timer = setTimeout(() => {
@@ -190,9 +217,11 @@ const UserList = (props) => {
         curObj['quantity'] += val
         productsInBasket[curIndx] = curObj
         setProductsInBasket([...productsInBasket])
-        const timer = setTimeout(() => {
-            setShowDelayedComponent(product_id)
-        }, 6000)
+        storedCart.setCart([...productsInBasket])
+        cookie.set('cart', [...productsInBasket], { path: '/' })
+        // const timer = setTimeout(() => {
+        //     setShowDelayedComponent(product_id)
+        // }, 6000)
         // return () => clearTimeout(timer)
     }
     const deleteProduct = (e, productId) => {
@@ -200,8 +229,10 @@ const UserList = (props) => {
         const deleteObj = productsInBasket?.findIndex(obj => obj.id === productId)
         productsInBasket.splice(deleteObj, 1)
         setProductsInBasket([...productsInBasket])
+        storedCart.setCart([...productsInBasket])
         cookie.set('cart', productsInBasket, { path: '/' })
         setShowQty('')
+        // console.log(deleteObj, productsInBasket )
     }
     const getProductQty = (productId) => {
         const product = productsInBasket?.find(prd => prd.id === productId)
@@ -246,17 +277,17 @@ const UserList = (props) => {
             <>
                 {show && (
                     <Grid container key={product.id} item xs={11} spacing={3} style={{ padding: '30px 0', margin: '0 auto' }} >
-                        <Grid item xs={12} sm={12} md={3} lg={3}>
+                        <Grid item xs={12} sm={4} md={3} lg={3}>
                             <img src={product?.image ? product.image : placeholderImg} alt='Product image' style={{height: '250px', width: '100%'}} />
                         </Grid>
                         <Grid item md={2} lg={1} />
                         {!showQty.includes(product.id) ? (
-                            <Grid item xs={12} sm={12} md={8} lg={8} style={{ margin: 'auto 0' }} >
+                            <Grid item xs={12} sm={7} md={8} lg={8} style={{ margin: 'auto 0' }} >
                                 <Grid container spacing={3} >
-                                    <Grid item xs={12} sm={7} md={5} lg={5} >
+                                    <Grid item xs={12} sm={12} md={5} lg={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
                                     </Grid>
-                                    <Grid item xs={12} sm={5} md={3} lg={3} >
+                                    <Grid item xs={12} sm={12} md={3} lg={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={12} md={3} lg={3}  >
@@ -268,12 +299,12 @@ const UserList = (props) => {
                                 </Grid>
                             </Grid>
                         ) : (
-                            <Grid item xs={12} sm={12} md={8} lg={8} style={{ margin: 'auto 0' }}>
+                            <Grid item xs={12} sm={7} md={8} lg={8} style={{ margin: 'auto 0' }}>
                                 <Grid container spacing={3} >
-                                    <Grid item xs={12} sm={6} md={5} lg={5} >
+                                    <Grid item xs={12} sm={12} md={5} lg={5} >
                                         <Typography variant='h5'>   {product.name} </Typography>
                                     </Grid>
-                                    <Grid item xs={12} sm={6} md={2} lg={2} >
+                                    <Grid item xs={12} sm={12} md={2} lg={2} >
                                         <Typography variant='h6' >   Ksh.{product.price}  </Typography>
                                     </Grid>
                                     <Grid item md={1} lg={1} />
@@ -288,7 +319,7 @@ const UserList = (props) => {
                                                     <Grid item xs={3} />
                                                 </Grid>
                                             ) : ( */}
-                                                <Grid container item xs={12} sm={4} md={3} lg={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
+                                                <Grid container item xs={12} sm={7} md={3} lg={3} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
                                                     <Grid item xs={4} >
                                                         {getProductQty(product.id) === 1 ? (
                                                             <Button
@@ -354,7 +385,7 @@ const UserList = (props) => {
                 <Navbar />
                 <Grid container style={{ marginTop: '15px' }} >
                     <Grid item xs={12} sm={12} md={5} lg={5} style={{ textAlign: 'center', margin: '0 auto' }} >
-                        <img src={clickedBusiness?.props.photo ? clickedBusiness?.props.photo : placeholderImg} style={{ padding: '15px 0',height: 250, borderRadius: '70%', width: '50%'}} />
+                        <img src={clickedBusiness?.props.photo ? clickedBusiness?.props.photo : placeholderImg} className={classes.responsiveImg} />
                         <Typography variant='h4' > {businessName} </Typography>
                     </Grid>
                 </Grid>
@@ -394,7 +425,7 @@ const UserList = (props) => {
                     </Grid>
                 </Grid>
                 <Grid container  >
-                    <Grid item xs={4} sm={3} md={2} lg={2} style={{margin:'20px auto'}}>
+                    <Grid item xs={6} sm={5} md={2} lg={2} style={{margin:'20px auto'}}>
                         <Button onClick={handleRedirect} className={classes.browseButtoon}> Browse Aisles </Button>
                     </Grid>
                 </Grid>

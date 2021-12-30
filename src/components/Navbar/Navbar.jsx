@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -33,6 +33,7 @@ import zist from "./../../Assets/zist.png";
 import AndroidIcon from '@material-ui/icons/Android';
 import PropTypes from 'prop-types'
 import DeleteIcon from '@material-ui/icons/Delete';
+import { MyContext } from './../ShoppingPage/MyContext'
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
@@ -150,6 +151,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PrimaryAppBar(props) {
     const classes = useStyles();
+    const storedCart = useContext(MyContext)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState()
@@ -172,19 +174,23 @@ function PrimaryAppBar(props) {
     const businessId = clickedBusiness?.id
     const businessName = clickedBusiness?.name
     const storedItems = cookies.get('cart')
-    // console.log(typeof(productsInBasket))
     let prdCount = 0
     const countPrd = productsInBasket?.map(prd => {
         return prdCount += prd.quantity
     })
     // console.log(prdCount,countPrd,'count')
     useEffect(() => {
-        if (storedItems) {
-            setProductsInBasket(storedItems)
+        if (storedCart?.cart) {
+            setProductsInBasket(storedCart?.cart)
+            
         } else {
             setProductsInBasket([])
         }
-    }, [])
+    }, [storedCart?.cart])
+    
+    // useEffect( () => {
+    //     allPrds
+    // }, [allPrds])
     useEffect(() => {
         cookie.set('cart', productsInBasket, { path: '/' })
     }, [productsInBasket])

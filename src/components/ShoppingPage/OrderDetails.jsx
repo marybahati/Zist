@@ -57,14 +57,16 @@ const OrderDetails = (props) => {
     const location = cookies.get('location')
     const token = userData?.access
     const info = (props.location && props.location.state) || '';
+    console.log(info)
     const [cart, setCart] = useState()
     const [proceed, setProceed] = useState(false)
     const [listID, setListID] = useState()
     const [deliveryNotes, setDeliveryNotes] = useState('')
     const [tel, setTel] = useState('')
+    const [buyerLocation, setBuyerLocation] = useState(location)
     const [subtotal, setSubtotal] = useState(0)
     const placeholderImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASkAAACpCAMAAABAgDvcAAAAWlBMVEXh5urDzdba3+LFz9nf5+rEz9HBy8/S3d/CytHJztHBzNLL19ji6e3R193g5enCzNbGys7O1t7Z4OPa4ejS2t/J0tXV3eXU2dze5u3N0tXa5O69yNHZ4+XF0dKFwnRbAAAC4klEQVR4nO3c63KqMBRAYYLIQY3BCy1yaN//NQ83EQjqHi/TM93r+9GZxtYZ1wRMwDYIAAAAAAAAAAAAAAAAAAAAAAAAADzKRe/ifvqlvVi4fJfwp1/ai4XmXShFKUrdRikpSklRSopSUpSSopTUoFSaPC/VUSp8no5Sixc83YJSQpSSopQUpWa5wAZRVH25oNSVXy52cbwrwksrSs3al93ywvRXgik1w636dWayO3SDlPJZM1hlmqQbpZTHZokZltq2w4pLuWD+FZ8WwylVza9TM6y51CE+zo6no1LGtD+luJRdrhdz9ziP5TiUyZphxaWytTEfkT9+8Eo1iyrFperzdrzxx4/lJJXqOVXtVvbNI0lup49Fy/W4VHuIKi3VH2PpzjtV2c2oVLpQ/t636t/gpqmcG6+nui5aS+WXGitvVmXlYJ3QLTy1lnKDFOU+mJyrbH4+8tKkOA8qLVUMVpdpkgfjaeWCo0nqSZeaz35QZ6mveLxh+fTeAIMwL4p8mERnqY/JOsD42xrv5KWyVG48p7tPp6+UC06JFyrd+8ffhL5Sl0u/Q+vNzA5wRGGpMPVDVamyO0+nsNRqLtRlLe5x7QPqStlsdkrVZq/rBce0XaWrKxUmV0v525pKkZQ6S0Wba52qbc102eXs32pY6Zw6LK+XMmUxXiu4bTP/dJa60alONdrWhKZdTqgslfmLzqHUHPpUUXY+o2ksdbx6Nj9bdgtQ+/XdjyksZYu7peLmbo2z2TLWXCq8few1mm2N2w+TKiwlCFVvayYfTFBYKpveRr+S6jseD+grtZV0qlNNvqeUFKUo1aGUFKWkKCVFKSlKSfmlRAtPj74reXa7fsxW3acXD5vHtH/loKiUs49q7kQoKvUkSklRSopSUipKpeXqeYNPyf7eUq9GKUpR6jZKSVFKilJSlJKilBSlpML4XX5bKffnXX7bf/0GAAAAAAAAAAAAAAAAAAAAAAAA8D/6B0YsNs6SxFarAAAAAElFTkSuQmCC'
-    console.log(cart)
+    console.log(cart,'buyer l', buyerLocation)
     useEffect(() => {
         if (storedItems) {
             setCart(storedItems)
@@ -127,9 +129,8 @@ const OrderDetails = (props) => {
         event.preventDefault();
         axios.post(HOST_API + `courier/request/`,
             {
-                //   list: listID,
                 shopping_source: 'test store',
-                delivery_location: location,
+                delivery_location: buyerLocation,
                 instructions: deliveryNotes,
                 order: listID,
             },
@@ -198,11 +199,11 @@ const OrderDetails = (props) => {
                                     <Typography gutterBottom variant="h6" style={{ margin: 'auto 0 !important' }}>{product.quantity} x </Typography>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} sm={12} md={3} lg={3} >
+                            <Grid item xs={12} sm={4} md={3} lg={3} >
                                 <img src={product?.image ? product?.image : placeholderImg} style={{height: '250px', width: '100%'}}/>
                             </Grid>
                             <Grid item md={1} lg={1} />
-                            <Grid item xs={7} style={{ margin: 'auto 0' }} xs={12} sm={12} md={7} lg={7}>
+                            <Grid item xs={12} sm={7} md={7} lg={7} style={{ margin: 'auto 0' }} xs={12} sm={12} md={7} lg={7}>
                                 <Grid container spacing={3} >
                                     <Grid item xs={12} sm={12} md={6} lg={6} >
                                         <Typography variant='h5'>   {product.productName} </Typography>
@@ -210,10 +211,10 @@ const OrderDetails = (props) => {
                                         <TextField fullWidth placeholder="Specify every item to your liking" variant="outlined" />
                                     </Grid>
                                     <Grid item md={1} lg={1} />
-                                    <Grid item xs={6} sm={6} md={3} lg={3} >
+                                    <Grid item xs={4} sm={4} md={3} lg={3} >
                                         <Typography variant='h6'>   Ksh.{CalculateProductPrice(product.id, product.price)}  </Typography>
                                     </Grid>
-                                    <Grid item xs={6} sm={6} md={2} lg={2} >
+                                    <Grid item xs={5} sm={5} md={2} lg={2} >
                                         <Button
                                             style={{ fontSize: '20px' }}
                                             onClick={e => deleteProduct(e, product.id)}
@@ -259,6 +260,8 @@ const OrderDetails = (props) => {
                                     fullWidth
                                     placeholder="Westlands, Chiromo Rd."
                                     variant="outlined"
+                                    onChange = {e => setBuyerLocation(e.target.value)}
+                                    value={buyerLocation}
                                     InputProps={{
                                         startAdornment: (
                                             <InputAdornment position="start">
@@ -284,7 +287,7 @@ const OrderDetails = (props) => {
                                 />
                             </Grid>
                         </Grid>
-                        <Grid container >
+                        <Grid container item xs={12} >
                             <Grid item xs={1} sm={1} md={3} lg={3} />
                             <Grid item xs={5} sm={5} md={3} lg={3}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Sub total </Typography>
@@ -342,7 +345,7 @@ const OrderDetails = (props) => {
                         <Grid item xs={8} sm={8} md={8} lg={8} style={{ margin: '0 auto' }} >
                             <Grid container >
                                 <Grid item md={2} lg={4} />
-                                <Grid item xs={2} >
+                                <Grid item xs={6} sm={4} md={2} lg={4}>
                                     <Typography variant='h6'>  Sub total </Typography>
                                 </Grid>
                                 <Grid item xs={3} />

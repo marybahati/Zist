@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import blueberries from './../../Assets/blue-berries.png';
 import axios from 'axios'
 import { Cookies, withCookies } from 'react-cookie';
@@ -16,6 +16,7 @@ import bananas from './../../Assets/bananas.png';
 import Navbar from '../Navbar/Navbar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { MyContext } from './MyContext'
 
 const useStyles = makeStyles((theme) => ({
     mainDiv: {
@@ -108,12 +109,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Aisles = (props) => {
+    const storedCart = useContext(MyContext)
     const classes = useStyles()
     const { cookies } = props
     const [products, setProducts] = useState([])
     const storedItems = cookies.get('cart')
     const [showQty, setShowQty] = useState([])
-    const [productsInBasket, setProductsInBasket] = useState()
+    const [productsInBasket, setProductsInBasket] = useState() || []
     const [fetchedProducts, setFetchedProducts] = useState([])
     const [categories, setCategories] = useState([])
     const [catProducts, setCatProducts] = useState([])
@@ -135,6 +137,7 @@ const Aisles = (props) => {
     useEffect(() => {
         if (storedItems) {
             setProductsInBasket(storedItems)
+            storedCart.setCart(storedItems)
         } else {
             setProductsInBasket([])
         }
@@ -204,6 +207,7 @@ const Aisles = (props) => {
         if (checkIndex !== -1) {
             productsInBasket[checkIndex].quantity++;
             cookie.set('cart', productsInBasket, { path: '/' })
+            storedCart.setCart(productsInBasket)
             setShowQty([...showQty, product.id])
             console.log("Quantity updated:", productsInBasket);
             const timer = setTimeout(() => {
@@ -216,6 +220,7 @@ const Aisles = (props) => {
             setProductsInBasket(aa)
             setShowQty([...showQty, product.id])
             cookie.set('cart', aa, { path: '/' })
+            storedCart.setCart(aa)
             console.log('The product has been added to cart:', productsInBasket)
             const timer = setTimeout(() => {
                 setShowDelayedComponent(product.id)
@@ -233,9 +238,10 @@ const Aisles = (props) => {
         curObj['quantity'] += val
         productsInBasket[curIndx] = curObj
         setProductsInBasket([...productsInBasket])
-        const timer = setTimeout(() => {
-            setShowDelayedComponent(product_id)
-        }, 6000)
+        storedCart.setCart([...productsInBasket])
+        // const timer = setTimeout(() => {
+        //     setShowDelayedComponent(product_id)
+        // }, 6000)
         // return () => clearTimeout(timer)
     }
     const getProductQty = (product_id) => {
@@ -252,6 +258,7 @@ const Aisles = (props) => {
         const deleteObj = productsInBasket?.findIndex(obj => obj.id === productId)
         productsInBasket.splice(deleteObj, 1)
         setProductsInBasket([...productsInBasket])
+        storedCart.setCart([...productsInBasket])
         cookie.set('cart', productsInBasket, { path: '/' })
         setShowQty('')
     }
@@ -383,7 +390,7 @@ const Aisles = (props) => {
                                                                 <Grid item xs={6} />
                                                                 {showQty.includes(product.id) ? (
                                                                     <>
-                                                                        {showDelayedComponent === product.id ? (
+                                                                        {/* {showDelayedComponent === product.id ? (
                                                                             <Grid container item  xs={12} sm={4} md={4} lg={6} >
                                                                                 <Grid item xs={8} />
                                                                                 <Grid item xs={4} style={{ margin: 'auto 0', }}>
@@ -391,9 +398,9 @@ const Aisles = (props) => {
                                                                                         <Button className={classes.roundedBlackButton} onClick={e => setShowQty([...showQty, product.id])}> {getProductQty(product.id)} </Button>
                                                                                     </CardActions>
                                                                                 </Grid>
-                                                                                {/* <Grid item xs={3} /> */}
+                                                                                <Grid item xs={3} />
                                                                             </Grid>
-                                                                        ) : (
+                                                                        ) : ( */}
                                                                             <Grid container item  xs={10} sm={12} md={10} lg={10} style={{ textAlign: 'center' }} className={classes.roundedGrid} >
                                                                                 <CardActions>
                                                                                 <Grid item xs={4} >
@@ -423,7 +430,7 @@ const Aisles = (props) => {
                                                                                 </CardActions>
                                                                                 </Grid>
                                                                             </Grid>
-                                                                        )}
+                                                                        {/* )} */}
                                                                     </>
                                                                 ) : null}
 

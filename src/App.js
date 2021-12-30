@@ -1,5 +1,5 @@
-import { SnackbarProvider } from 'notistack';
-import React from 'react';
+import { SnackbarProvider,  } from 'notistack';
+import React, { useState } from 'react';
 import { Route, Router } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandingPage';
 import UpdateUserProfile from './components/LandingPage/UpdateUserProfile';
@@ -29,9 +29,12 @@ import SelectedAisle from './components/ShoppingPage/SelectedAisle';
 import OrdersDashboard from './components/ShoppingOrders/OrdersDashboard';
 import AboutUs from './components/LandingPage/AboutUs';
 import ContactUs from './components/LandingPage/ContactUs';
+import { MyContext } from './components/ShoppingPage/MyContext';
 
 
 function App() {
+  const [cart, setCart] = useState([])
+  const value = {cart, setCart}
   const notistackRef = React.createRef()
   const onClickDismiss = (key) => () => {
     notistackRef.current.closeSnackbar(key)
@@ -52,6 +55,7 @@ function App() {
             //   </IconButton>
             // )}
     >
+    <MyContext.Provider value={value}> 
     <Router history={history} >
       <Route exact path='/vendor-intro' component={VendorIntro}/>
       <Route exact path='/' component={LandingPage} />
@@ -81,6 +85,7 @@ function App() {
       <Route exact path='/about' component={AboutUs} />
       <Route exact path='/contact' component={ContactUs} />
     </Router>
+    </MyContext.Provider>
     </SnackbarProvider>
   );
 }
