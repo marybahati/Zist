@@ -132,27 +132,28 @@ const OrderDetails = (props) => {
                 shopping_source: 'test store',
                 delivery_location: buyerLocation,
                 instructions: deliveryNotes,
-                order: listID,
+                order: { name: listID } ,
             },
             {
                 headers: { "Authorization": `Bearer ${token}` }
             })
             .then((res) => {
                 if (res.status == 201) {
-                    const formattedTel = tel?.slice(1)
-                    console.log(res, formattedTel)
-                    axios.post(HOST_API + `payment/mpesa/`, {
-                        amount: 1,
-                        phone_number: `254${formattedTel}`,
-                        order: listID
-                    },
-                        { headers: { "Authorization": `Bearer ${token}` } }
-                    )
-                        .then(res => {
-                            console.log('payment successful ', res)
-                        }).catch(error => {
-                            console.log('error', error)
-                        })
+                    console.log(res)
+                    // const formattedTel = tel?.slice(1)
+                    // console.log(res, formattedTel)
+                    // axios.post(HOST_API + `payment/mpesa/`, {
+                    //     amount: 1,
+                    //     phone_number: `254${formattedTel}`,
+                    //     order: listID
+                    // },
+                    //     { headers: { "Authorization": `Bearer ${token}` } }
+                    // )
+                    //     .then(res => {
+                    //         console.log('payment successful ', res)
+                    //     }).catch(error => {
+                    //         console.log('error', error)
+                    //     })
                 }
 
             })
@@ -289,7 +290,7 @@ const OrderDetails = (props) => {
                         </Grid>
                         <Grid container item xs={12} >
                             <Grid item xs={1} sm={1} md={3} lg={3} />
-                            <Grid item xs={5} sm={5} md={3} lg={3}>
+                            <Grid item xs={5} sm={5} md={3} lg={2}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Sub total </Typography>
                             </Grid>
                             <Grid item xs={1} sm={1} md={1} lg={1} />
@@ -345,7 +346,7 @@ const OrderDetails = (props) => {
                         <Grid item xs={8} sm={8} md={8} lg={8} style={{ margin: '0 auto' }} >
                             <Grid container >
                                 <Grid item md={2} lg={4} />
-                                <Grid item xs={6} sm={4} md={2} lg={4}>
+                                <Grid item xs={6} sm={4} md={2} lg={2}>
                                     <Typography variant='h6'>  Sub total </Typography>
                                 </Grid>
                                 <Grid item xs={3} />

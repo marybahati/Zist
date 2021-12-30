@@ -115,26 +115,12 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px 0', 
         textAlign: 'center', 
         borderRadius: '30px' ,
-        // [theme.breakpoints.between('xs', 'sm')]: {
-        //     width: '120px',
-        //     height: '50px',
-        //     fontSize: '11px',
-        //     margin: '0px auto 20px auto', 
-        // },
-    },
-    responsiveImg: {
-        height: '250px !important', 
-        padding: '15px 0',
-        borderRadius: '70%', 
-        width: '50%',
-        [theme.breakpoints.only('xs')]: {
-            borderRadius: '50%', 
-            width: '70%',
-            height: '200px !important', 
-        },
-        [theme.breakpoints.only('sm')]: {
-            borderRadius: '50%', 
-            width: '50%',
+        fontSize: '19px',
+        [theme.breakpoints.between('xs', 'sm')]: {
+            width: '120px',
+            height: '50px',
+            fontSize: '11px',
+            margin: '0px auto 20px auto', 
         },
         [theme.breakpoints.only('md')]: {
             borderRadius: '50%', 
@@ -156,8 +142,8 @@ const UserList = (props) => {
     const classes = useStyles()
     const clickedBusiness = (props.location && props.location.state) || '';
     console.log(clickedBusiness)
-    const businessId = clickedBusiness?.props.id
-    const businessName = clickedBusiness?.props.name
+    const businessId = clickedBusiness?.props?.id
+    const businessName = clickedBusiness?.props?.name
     const storedItems = cookies.get('cart')
     const [showQty, setShowQty] = useState([])
     const [products, setProducts] = useState([])
@@ -381,16 +367,21 @@ const UserList = (props) => {
 
     return (
         <div className={classes.mainDiv} >
-            <div className={classes.mainGrid} >
                 <Navbar />
-                <Grid container style={{ marginTop: '15px' }} >
-                    <Grid item xs={12} sm={12} md={5} lg={5} style={{ textAlign: 'center', margin: '0 auto' }} >
-                        <img src={clickedBusiness?.props.photo ? clickedBusiness?.props.photo : placeholderImg} className={classes.responsiveImg} />
-                        <Typography variant='h4' > {businessName} </Typography>
+                <Grid container style={{ 
+                    marginTop: '35px',backgroundSize: 'cover', 
+                    width: '100%', backgroundRepeat: ' no-repeat', 
+                    backgroundPosition: 'center', 
+                    color: 'black', zIndex: 3,
+                    backgroundImage:`url(${clickedBusiness?.props?.photo ? clickedBusiness?.props?.photo : placeholderImg})`, height: 200  }} >
+                    <Grid item xs={12} sm={12} md={5} lg={5} style={{ textAlign: 'center', margin: 'auto auto 0 auto'}} >
+                        {/* <img src={clickedBusiness?.props.photo ? clickedBusiness?.props.photo : placeholderImg} style={{ padding: '15px 0',height: 250, borderRadius: '70%', width: '50%'}} /> */}
                     </Grid>
                 </Grid>
+            <div className={classes.mainGrid} >
                 <Grid container style={{ padding: '20px 0', textAlign: 'center' }} >
                     <Grid item xs={12} >
+                        <Typography variant='h4' > {businessName} </Typography>
                         <Typography variant='h5' > Your Shopping List</Typography>
                         <Typography variant='h5' style={{ padding: '10px 0 0 0' }} > Search for items , add them and quickly check out. </Typography>
                     </Grid>
@@ -419,7 +410,7 @@ const UserList = (props) => {
                         return productSearch(product)
                     })}
                 </>
-                <Grid container style={{ padding: '20px 0', textAlign: 'center' }} >
+                <Grid container style={{ padding: '20px 0 0 0', textAlign: 'center' }} >
                     <Grid item xs={12} >
                         <Typography variant='h5' className={classes.boldFont} > Or browse the store whilst selecting items </Typography>
                     </Grid>

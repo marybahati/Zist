@@ -294,8 +294,8 @@ const Shopping = (props) => {
 
         <Grid container spacing={1} >
           <Grid item xs={12}  >
-            <Typography variant='h6' className={classes.boldFont} > All under one roof </Typography>
-            <Typography variant='subtitle1' className={classes.subtitleText} > Shop from your fave outlets within these malls.You need it, they got it! </Typography>
+            <Typography variant='h6' className={classes.boldFont} > The very first stores on Zist! </Typography>
+            <Typography variant='subtitle1' className={classes.subtitleText} > Our highly esteemed vendors whom we are partnering with for the pilot phase </Typography>
           </Grid>
         </Grid>
         {businesses?.length === 0 ? (
@@ -329,7 +329,7 @@ const Shopping = (props) => {
           </Carousel>
         )}
 
-        <Grid container spacing={1} >
+        {/* <Grid container spacing={1} >
           <Grid item xs={12}  >
             <Typography variant='h6' className={classes.boldFont} > Zist karibu </Typography>
             <Typography variant='subtitle1' className={classes.subtitleText} > Get fast from these outlets near you </Typography>
@@ -362,9 +362,9 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
-        )}
+        )} */}
 
-        <Grid container spacing={1} >
+        {/* <Grid container spacing={1} >
           <Grid item xs={12}  >
             <Typography variant='h6' className={classes.boldFont} > Convenience Store </Typography>
           </Grid>
@@ -396,9 +396,9 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
-        )}
+        )} */}
 
-        <Grid container spacing={1} >
+        {/* <Grid container spacing={1} >
           <Grid item xs={12}  >
             <Typography variant='h6' className={classes.boldFont} > Go green with these green grocers </Typography>
             <Typography variant='subtitle1' className={classes.subtitleText} > Fresh quality produce delivered to you </Typography>
@@ -431,9 +431,9 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
-        )}
+        )} */}
 
-        <Grid container spacing={1} >
+        {/* <Grid container spacing={1} >
           <Grid item xs={12}  >
             <Typography variant='h6' className={classes.boldFont} > Health starts with you </Typography>
             <Typography variant='subtitle1' className={classes.subtitleText} > Shops to get you living the right way </Typography>
@@ -466,9 +466,9 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
-        )}
+        )} */}
 
-        <Grid container spacing={1} >
+        {/* <Grid container spacing={1} >
           <Grid item xs={12}  >
             <Typography variant='h6' className={classes.boldFont} > Go green with these green grocers </Typography>
             <Typography variant='subtitle1' className={classes.subtitleText} > Fresh quality produce delivered to you </Typography>
@@ -501,9 +501,9 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
-        )}
+        )} */}
 
-        <Grid container spacing={1} >
+        {/* <Grid container spacing={1} >
           <Grid item xs={12}  >
             <Typography variant='h6' className={classes.boldFont} > Local shujaas </Typography>
             <Typography variant='subtitle1' className={classes.subtitleText} > Be a local hero by supporting our local shujaas </Typography>
@@ -536,7 +536,7 @@ const Shopping = (props) => {
               )
             })}
           </Carousel>
-        )}
+        )} */}
 
       </div>
       <FooterComponent />
