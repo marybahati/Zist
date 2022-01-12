@@ -50,7 +50,7 @@ const OrdersDashboard = (props) => {
         if (response.status == 200) {
           const appendedOrders = [...orders, ...response.data.results]
           setCurrentURL(response.data.next)
-          setOrders(appendedOrders);
+          setOrders(appendedOrders);       
         }
 
       })
@@ -130,7 +130,10 @@ const OrdersDashboard = (props) => {
                 )
               })} 
               </td>
-              <td>{order?.buyer.email}</td>
+              <td>
+                {order?.buyer.email} <br/>
+                {order?.metadata.phone_number}
+              </td>
               <td>{order.shopping_source}</td>
               <td>{order?.delivery_location}</td>
               <td>{order?.instructions}</td>

@@ -244,6 +244,7 @@ const Shopping = (props) => {
   const handleCardClicked = (e,props) => {
     if(token){
       const d = { props }
+      cookie.set('store',d?.props.name, { path: '/' })
       History.push({
         pathname: '/user-list',
         state: d
