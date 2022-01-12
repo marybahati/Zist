@@ -57,7 +57,7 @@ const OrderDetails = (props) => {
     const location = cookies.get('location')
     const token = userData?.access
     const info = (props.location && props.location.state) || '';
-    console.log(userData,info)
+    console.log(info)
     const [cart, setCart] = useState()
     const [proceed, setProceed] = useState(false)
     const [listID, setListID] = useState()
@@ -128,19 +128,12 @@ const OrderDetails = (props) => {
     const checkout = (event) => {
         event.preventDefault();
         axios.post(HOST_API + `courier/request/`,
-            // {
-            //     shopping_source: 'test store',
-            //     delivery_location: buyerLocation,
-            //     instructions: deliveryNotes,
-            //     order: { name: listID } ,
-            // },
             {
-                buyer: userData?.id, 
-                order: listID,
-                shopping_source: "test store",
+                shopping_source: 'test store',
                 delivery_location: buyerLocation,
-                instructions: deliveryNotes
-              },
+                instructions: deliveryNotes,
+                order: { name: listID } ,
+            },
             {
                 headers: { "Authorization": `Bearer ${token}` }
             })
