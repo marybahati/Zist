@@ -142,9 +142,9 @@ const OrderDetails = (props) => {
                 shopping_source: store,
                 delivery_location: buyerLocation,
                 instructions: deliveryNotes,
-                metadata: {
-                    phone_number: tel
-                }, 
+                // metadata: {
+                //     phone_number: tel
+                // }, 
             },
             {
                 headers: { "Authorization": `Bearer ${token}` }
@@ -310,7 +310,7 @@ const OrderDetails = (props) => {
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Sub total </Typography>
                             </Grid>
                             <Grid item xs={1} sm={1} md={1} lg={1} />
-                            <Grid item xs={4} >
+                            <Grid item xs={4} sm={4} md={4} lg={4}>
                                 <Typography variant='h6' style={{ paddingBottom: 10 }}> Ksh.{subtotal} </Typography>
                             </Grid>
                             <Grid item xs={1} sm={1} md={2} lg={2} />
@@ -354,7 +354,7 @@ const OrderDetails = (props) => {
                             <>
                                 <Grid item xs={12} sm={12} md={12} lg={12} style={{ margin: '0 auto', textAlign: 'center' }} >
                                     <Typography variant='h6' style={{ paddingBottom: 10 }}> You have no products in your cart </Typography>
-                                    <Button className={classes.getStartedButton} > Add products </Button>
+                                    <Button href='/shopping' className={classes.getStartedButton} > Add products </Button>
                                 </Grid>
                             </>
                         ) : (
