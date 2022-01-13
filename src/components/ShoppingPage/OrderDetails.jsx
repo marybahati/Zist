@@ -142,9 +142,9 @@ const OrderDetails = (props) => {
                 shopping_source: store,
                 delivery_location: buyerLocation,
                 instructions: deliveryNotes,
-                // metadata: {
-                //     phone_number: tel
-                // }, 
+                metadata: {
+                    phone_number: tel
+                }, 
             },
             {
                 headers: { "Authorization": `Bearer ${token}` }
