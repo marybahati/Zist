@@ -44,7 +44,7 @@ const OrdersDashboard = (props) => {
   const fetchOrders = () => {
     axios.get(currentURL, {
       headers: { "Authorization": `Bearer ${token}` },
-      params: { limit: 25 }
+      params: { limit: 500 }
     })
       .then((response) => {
         if (response.status == 200) {
